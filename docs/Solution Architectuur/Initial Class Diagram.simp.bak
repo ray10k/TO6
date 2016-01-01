@@ -6,7 +6,7 @@
     <description>Initiele klassen diagram, strikt volgens de instructies.
 </description>
   </meta>
-  <counters models="1">
+  <counters models="2">
     <entity-names>
       <counter>
         <item-type stereotype="" type="UmlObject" />
@@ -14,25 +14,21 @@
       </counter>
       <counter>
         <item-type stereotype="" type="UmlClass" />
-        <value>15</value>
+        <value>19</value>
       </counter>
     </entity-names>
     <entity-ids>
-      <counter>
-        <item-type stereotype="" type="AbstractElementGroup" />
-        <value>240</value>
-      </counter>
       <counter>
         <item-type stereotype="" type="UmlObject" />
         <value>2</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlClass" />
-        <value>16</value>
+        <value>20</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlAssociation" />
-        <value>31</value>
+        <value>40</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlComment" />
@@ -40,7 +36,11 @@
       </counter>
       <counter>
         <item-type stereotype="" type="UmlRealization" />
-        <value>2</value>
+        <value>4</value>
+      </counter>
+      <counter>
+        <item-type stereotype="" type="AbstractElementGroup" />
+        <value>138</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -50,7 +50,7 @@
       </counter>
       <counter>
         <type>SoftwareIdeasModeler.Core.Diagrams.UmlDiagrams.UmlClassDiagram</type>
-        <value>1</value>
+        <value>2</value>
       </counter>
     </diagrams>
     <fields />
@@ -82,7 +82,637 @@
   </types>
   <filters />
   <items />
-  <models />
+  <models>
+    <model id="p273844388458346841" name="Model 2" type="model" namespace="" order-index="1">
+      <meta>
+        <authors>
+          <author> </author>
+        </authors>
+        <description />
+        <creation-date>12/17/2015 17:35:30</creation-date>
+        <change-date>01/01/0001 00:00:00</change-date>
+        <revision-count>0</revision-count>
+        <version />
+      </meta>
+      <abstract-items />
+      <sub-models />
+      <diagram type="uml-class" id="p522830039529587039" name="Initial Class Diagram" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author> </author>
+          </authors>
+          <description />
+          <creation-date>12/17/2015 17:35:30</creation-date>
+          <change-date>01/01/2016 20:02:15</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items>
+          <item id="di567948861165984132" cid="C001" type="class" name="DisplayController" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="12/17/2015 17:05:05">
+            <stereotypes>
+              <stereotype name="control" />
+            </stereotypes>
+            <documentation>
+              <text>
+                <styles>
+                  <style name="S1" font-name="Verdana" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
+                    <text>
+                      <solid-brush color="#FF000000" />
+                    </text>
+                  </style>
+                </styles>
+                <content>
+                  <paragraph>
+                    <p s="S1">
+                      <t />
+                    </p>
+                  </paragraph>
+                </content>
+              </text>
+            </documentation>
+            <cooperation>
+              <participants />
+              <comments />
+            </cooperation>
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes />
+            <operations />
+            <template-parameters>
+              <source-codes />
+            </template-parameters>
+          </item>
+          <item id="di401883067418404307" cid="C002" type="class" name="MachineReadController" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="12/17/2015 17:06:39">
+            <stereotypes>
+              <stereotype name="control" />
+            </stereotypes>
+            <documentation>
+              <text>
+                <styles>
+                  <style name="S1" font-name="Verdana" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
+                    <text>
+                      <solid-brush color="#FF000000" />
+                    </text>
+                  </style>
+                </styles>
+                <content>
+                  <paragraph>
+                    <p s="S1">
+                      <t />
+                    </p>
+                  </paragraph>
+                </content>
+              </text>
+            </documentation>
+            <cooperation>
+              <participants />
+              <comments />
+            </cooperation>
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes />
+            <operations />
+            <template-parameters>
+              <source-codes />
+            </template-parameters>
+          </item>
+          <item id="di320589738880423423" cid="C003" type="class" name="WashingCycleController" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="12/17/2015 17:07:12">
+            <stereotypes>
+              <stereotype name="control" />
+            </stereotypes>
+            <documentation>
+              <text>
+                <styles>
+                  <style name="S1" font-name="Verdana" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
+                    <text>
+                      <solid-brush color="#FF000000" />
+                    </text>
+                  </style>
+                </styles>
+                <content>
+                  <paragraph>
+                    <p s="S1">
+                      <t>Instructs the washing machine to complete the steps for the ongoing washing program. Also responds to the state of the machine by adjusting the operating parameters to stay within tolerances.</t>
+                    </p>
+                  </paragraph>
+                </content>
+              </text>
+            </documentation>
+            <cooperation>
+              <participants />
+              <comments />
+            </cooperation>
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes />
+            <operations />
+            <template-parameters>
+              <source-codes />
+            </template-parameters>
+          </item>
+          <item id="di428933219330138974" cid="C004" type="class" name="UserProfileController" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="12/17/2015 17:08:23">
+            <stereotypes>
+              <stereotype name="control" />
+            </stereotypes>
+            <documentation>
+              <text>
+                <styles>
+                  <style name="S1" font-name="Verdana" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
+                    <text>
+                      <solid-brush color="#FF000000" />
+                    </text>
+                  </style>
+                </styles>
+                <content>
+                  <paragraph>
+                    <p s="S1">
+                      <t />
+                    </p>
+                  </paragraph>
+                </content>
+              </text>
+            </documentation>
+            <cooperation>
+              <participants />
+              <comments />
+            </cooperation>
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes />
+            <operations />
+            <template-parameters>
+              <source-codes />
+            </template-parameters>
+          </item>
+          <item id="di279825973845758654" cid="C005" type="class" name="LoadCycleController" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="12/17/2015 17:09:05">
+            <stereotypes>
+              <stereotype name="control" />
+            </stereotypes>
+            <documentation>
+              <text>
+                <styles>
+                  <style name="S1" font-name="Verdana" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
+                    <text>
+                      <solid-brush color="#FF000000" />
+                    </text>
+                  </style>
+                </styles>
+                <content>
+                  <paragraph>
+                    <p s="S1">
+                      <t>Storage interface; allows deserialization of washing cycles in long-term storage </t>
+                    </p>
+                  </paragraph>
+                </content>
+              </text>
+            </documentation>
+            <cooperation>
+              <participants />
+              <comments />
+            </cooperation>
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes />
+            <operations />
+            <template-parameters>
+              <source-codes />
+            </template-parameters>
+          </item>
+          <item id="di885621400441736310" cid="C014" type="class" name="UART" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="12/17/2015 17:15:33">
+            <stereotypes>
+              <stereotype name="boundary" />
+            </stereotypes>
+            <documentation>
+              <text>
+                <styles>
+                  <style name="S1" font-name="Verdana" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
+                    <text>
+                      <solid-brush color="#FF000000" />
+                    </text>
+                  </style>
+                </styles>
+                <content>
+                  <paragraph>
+                    <p s="S1">
+                      <t>Communication device between the device and the physical washing machine.</t>
+                    </p>
+                  </paragraph>
+                </content>
+              </text>
+            </documentation>
+            <cooperation>
+              <participants />
+              <comments />
+            </cooperation>
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes />
+            <operations />
+            <template-parameters>
+              <source-codes />
+            </template-parameters>
+          </item>
+          <item id="di560460873967861456" cid="C016" type="class" name="WashingMachine" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/01/2016 19:46:18">
+            <stereotypes>
+              <stereotype name="utility" />
+            </stereotypes>
+            <documentation>
+              <text>
+                <styles>
+                  <style name="S1" font-name="Verdana" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
+                    <text>
+                      <solid-brush color="#FF000000" />
+                    </text>
+                  </style>
+                </styles>
+                <content>
+                  <paragraph>
+                    <p s="S1">
+                      <t>Utility to pre-translate messages to be sent through the UART to the physical machine. Also provides events for listeners (both regarding machine state, and current washing cycle progress)</t>
+                    </p>
+                  </paragraph>
+                </content>
+              </text>
+            </documentation>
+            <cooperation>
+              <participants />
+              <comments />
+            </cooperation>
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes />
+            <operations />
+            <template-parameters>
+              <source-codes>
+                <source-code language="ActionScript" />
+              </source-codes>
+            </template-parameters>
+          </item>
+          <item id="di372683487429367925" cid="REL033" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/01/2016 19:47:07">
+            <stereotypes />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <relation from="di560460873967861456" to="di885621400441736310">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di764082585543403602" cid="C017" type="class" name="WebSocket" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/01/2016 19:49:22">
+            <stereotypes>
+              <stereotype name="boundary" />
+            </stereotypes>
+            <documentation>
+              <text>
+                <styles>
+                  <style name="S1" font-name="Verdana" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
+                    <text>
+                      <solid-brush color="#FF000000" />
+                    </text>
+                  </style>
+                </styles>
+                <content>
+                  <paragraph>
+                    <p s="S1">
+                      <t />
+                    </p>
+                  </paragraph>
+                </content>
+              </text>
+            </documentation>
+            <cooperation>
+              <participants />
+              <comments />
+            </cooperation>
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes />
+            <operations />
+            <template-parameters>
+              <source-codes>
+                <source-code language="ActionScript" />
+              </source-codes>
+            </template-parameters>
+          </item>
+          <item id="di654528840405187706" cid="REL036" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/01/2016 19:49:54">
+            <stereotypes />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <relation from="di567948861165984132" to="di764082585543403602">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di377266684813827984" cid="C018" type="class" name="MachineStateListener" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/01/2016 19:50:33">
+            <stereotypes>
+              <stereotype name="interface" />
+            </stereotypes>
+            <documentation>
+              <text>
+                <styles>
+                  <style name="S1" font-name="Verdana" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
+                    <text>
+                      <solid-brush color="#FF000000" />
+                    </text>
+                  </style>
+                </styles>
+                <content>
+                  <paragraph>
+                    <p s="S1">
+                      <t>Provides an interface for receiving updates on washing machine sensor readouts. (water level, temperature, door lock etc.)</t>
+                    </p>
+                  </paragraph>
+                </content>
+              </text>
+            </documentation>
+            <cooperation>
+              <participants />
+              <comments />
+            </cooperation>
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes />
+            <operations />
+            <template-parameters>
+              <source-codes>
+                <source-code language="ActionScript" />
+              </source-codes>
+            </template-parameters>
+          </item>
+          <item id="di997315498189080742" cid="REL034" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/01/2016 19:47:40">
+            <stereotypes />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <relation from="di401883067418404307" to="di560460873967861456">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di398419684950877149" cid="REL019" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="P976c566745004eb5a8b14fc03ad07974" creation-date="12/17/2015 17:27:59">
+            <stereotypes />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <relation from="di567948861165984132" to="di401883067418404307">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di863931491988228259" cid="REA003" type="realization" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/01/2016 19:56:44">
+            <stereotypes />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+          </item>
+          <item id="di240997607865549378" cid="REL039" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/01/2016 20:00:55">
+            <stereotypes />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <relation from="di260026928517909390" to="di560460873967861456">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di415003699938884822" cid="REL038" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/01/2016 19:53:38">
+            <stereotypes />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <relation from="di560460873967861456" to="di377266684813827984">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di260026928517909390" cid="C019" type="class" name="WashingCycleListener" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/01/2016 19:57:37">
+            <stereotypes>
+              <stereotype name="interface" />
+            </stereotypes>
+            <documentation>
+              <text>
+                <styles>
+                  <style name="S1" font-name="Verdana" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
+                    <text>
+                      <solid-brush color="#FF000000" />
+                    </text>
+                  </style>
+                </styles>
+                <content>
+                  <paragraph>
+                    <p s="S1">
+                      <t>Provides an interface for receiving updates on the progress of the current washing cycle (current step, progress through step if needed, cycle finished)
+</t>
+                    </p>
+                  </paragraph>
+                </content>
+              </text>
+            </documentation>
+            <cooperation>
+              <participants />
+              <comments />
+            </cooperation>
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes />
+            <operations />
+            <template-parameters>
+              <source-codes>
+                <source-code language="ActionScript" />
+              </source-codes>
+            </template-parameters>
+          </item>
+          <item id="di638468931924468017" cid="REL030" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="P976c566745004eb5a8b14fc03ad07974" creation-date="12/17/2015 17:32:05">
+            <stereotypes />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <relation from="di279825973845758654" to="di320589738880423423">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di578630976375638077" cid="REL031" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="P976c566745004eb5a8b14fc03ad07974" creation-date="12/17/2015 17:33:24">
+            <stereotypes />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <relation from="di567948861165984132" to="di428933219330138974">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di729250921871717362" cid="REL032" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="P976c566745004eb5a8b14fc03ad07974" creation-date="12/17/2015 17:33:30">
+            <stereotypes />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <relation from="di567948861165984132" to="di279825973845758654">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+        </abstract-items>
+        <layer name="Default" visible="true" enabled="true" locked="false">
+          <item id="di863931491988228259" iid="851834bf495d49c2bec63ead34f6cadf" creation-date="01/01/2016 19:56:44" order-index="57" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="984" y1="450" x2="835" y2="270" start-border-pos="0.091942138671875" end-border-pos="0.594008255004883">
+              <points>
+                <point x="984" y="450" />
+                <point x="835" y="270" />
+              </points>
+            </layout>
+            <relation from="di320589738880423423" from-iid="00f01db4ff9648e6b7a22221b8190544" to="di377266684813827984" to-iid="c5e0835de02b4877aa4048a1ea8c3b84" />
+          </item>
+          <item id="di260026928517909390" iid="c3234fec8d2443b5b5fc5f3faa7fb064" creation-date="01/01/2016 19:57:37" order-index="58" type="entity">
+            <layout ax="220" ay="210" awidth="200" aheight="60" x="220" y="210" width="200" height="60" angle="0" />
+            <class />
+          </item>
+          <item id="di415003699938884822" iid="1d244ea2cca848b5af0e4c29288cb5a2" creation-date="01/01/2016 19:53:38" order-index="56" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="643" y1="165" x2="743" y2="210" start-border-pos="0.533333358764648" end-border-pos="0.0416666412353516">
+              <points>
+                <point x="643" y="165" />
+                <point x="743" y="210" />
+              </points>
+            </layout>
+            <relation from="di560460873967861456" from-iid="40f3c0f0a32948a1876f9e116c00aed4" to="di377266684813827984" to-iid="c5e0835de02b4877aa4048a1ea8c3b84" />
+            <role-positions start-role="25,15" end-role="25,-15" start-multiplicity="25,-15" end-multiplicity="25,15" />
+          </item>
+          <item id="di240997607865549378" iid="5955f9c9ca2749fe99d38dd502a151f4" creation-date="01/01/2016 20:00:55" order-index="59" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="389" y1="210" x2="494" y2="165" start-border-pos="0.211805572509766" end-border-pos="0.720486106872559">
+              <points>
+                <point x="389" y="210" />
+                <point x="494" y="165" />
+              </points>
+            </layout>
+            <relation from="di260026928517909390" from-iid="c3234fec8d2443b5b5fc5f3faa7fb064" to="di560460873967861456" to-iid="40f3c0f0a32948a1876f9e116c00aed4" />
+            <role-positions start-role="25,15" end-role="25,-15" start-multiplicity="25,-15" end-multiplicity="25,15" />
+          </item>
+          <item id="di567948861165984132" iid="71e8768e4a6146078ab474f68eef74d3" creation-date="12/17/2015 17:05:05" order-index="0" presentation-style="stereotype" type="entity">
+            <layout ax="80" ay="260" awidth="200" aheight="60" x="80" y="260" width="200" height="60" angle="0" />
+            <class />
+          </item>
+          <item id="di401883067418404307" iid="09483f05d0534945b54e964579592b55" creation-date="12/17/2015 17:06:39" order-index="1" type="entity">
+            <layout ax="240" ay="440" awidth="200" aheight="60" x="240" y="440" width="200" height="60" angle="0" />
+            <class />
+          </item>
+          <item id="di320589738880423423" iid="00f01db4ff9648e6b7a22221b8190544" creation-date="12/17/2015 17:07:12" order-index="2" type="entity">
+            <layout ax="910" ay="450" awidth="200" aheight="65" x="910" y="450" width="200" height="65" angle="0" />
+            <class />
+          </item>
+          <item id="di428933219330138974" iid="6a36c2c493ca40c3947b0c680060eac7" creation-date="12/17/2015 17:08:23" order-index="3" type="entity">
+            <layout ax="380" ay="550" awidth="200" aheight="60" x="380" y="550" width="200" height="60" angle="0" />
+            <class />
+          </item>
+          <item id="di279825973845758654" iid="b53bf50136f246b88b9252064bb9837c" creation-date="12/17/2015 17:09:05" order-index="4" type="entity">
+            <layout ax="500" ay="440" awidth="200" aheight="60" x="500" y="440" width="200" height="60" angle="0" />
+            <class />
+          </item>
+          <item id="di764082585543403602" iid="3ee02dce31564c2eb201c74a87bebaf3" creation-date="01/01/2016 19:49:22" order-index="51" type="entity">
+            <layout ax="80" ay="360" awidth="200" aheight="60" x="80" y="360" width="200" height="60" angle="0" />
+            <class />
+          </item>
+          <item id="di398419684950877149" iid="736c2495ca8142e4a1a322c085d0ca3d" creation-date="12/17/2015 17:27:59" order-index="31" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="207" y1="320" x2="313" y2="440" start-border-pos="0.591666660308838" end-border-pos="0.0916666793823242">
+              <points>
+                <point x="207" y="320" />
+                <point x="313" y="440" />
+              </points>
+            </layout>
+            <relation from="di567948861165984132" from-iid="71e8768e4a6146078ab474f68eef74d3" to="di401883067418404307" to-iid="09483f05d0534945b54e964579592b55" />
+            <role-positions start-role="25,15" end-role="25,-15" start-multiplicity="25,-15" end-multiplicity="25,15" />
+          </item>
+          <item id="di654528840405187706" iid="be111b27476246d1b5513168ff6f9f66" creation-date="01/01/2016 19:49:54" order-index="52" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="180" y1="320" x2="180" y2="360" start-border-pos="0.625" end-border-pos="0.125">
+              <points>
+                <point x="180" y="320" />
+                <point x="180" y="360" />
+              </points>
+            </layout>
+            <relation from="di567948861165984132" from-iid="71e8768e4a6146078ab474f68eef74d3" to="di764082585543403602" to-iid="3ee02dce31564c2eb201c74a87bebaf3" />
+            <role-positions start-role="25,15" end-role="25,-15" start-multiplicity="25,-15" end-multiplicity="25,15" />
+          </item>
+          <item id="di638468931924468017" iid="f160b1f43df2469eb7e8e9cbf5fc1009" creation-date="12/17/2015 17:32:05" order-index="44" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="700" y1="473" x2="910" y2="479" start-border-pos="0.387195078531901" end-border-pos="0.888180072490986">
+              <points>
+                <point x="700" y="473" />
+                <point x="910" y="479" />
+              </points>
+            </layout>
+            <relation from="di279825973845758654" from-iid="b53bf50136f246b88b9252064bb9837c" to="di320589738880423423" to-iid="00f01db4ff9648e6b7a22221b8190544" />
+            <role-positions start-role="25,15" end-role="25,-15" start-multiplicity="25,-15" end-multiplicity="25,15" />
+          </item>
+          <item id="di377266684813827984" iid="c5e0835de02b4877aa4048a1ea8c3b84" creation-date="01/01/2016 19:50:33" order-index="55" type="entity">
+            <layout ax="710" ay="210" awidth="200" aheight="60" x="710" y="210" width="200" height="60" angle="0" />
+            <class />
+          </item>
+          <item id="di578630976375638077" iid="06ba40507ae54b78b7ad707999c8e67e" creation-date="12/17/2015 17:33:24" order-index="45" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="244" y1="320" x2="480" y2="550" start-border-pos="0.544642848968506" end-border-pos="0.125">
+              <points>
+                <point x="244" y="320" />
+                <point x="480" y="550" />
+              </points>
+            </layout>
+            <relation from="di567948861165984132" from-iid="71e8768e4a6146078ab474f68eef74d3" to="di428933219330138974" to-iid="6a36c2c493ca40c3947b0c680060eac7" />
+            <role-positions start-role="25,15" end-role="10,-120" start-multiplicity="63.79054,77.65801" end-multiplicity="20,60" />
+          </item>
+          <item id="di729250921871717362" iid="4d0e41886f39418b8b2f3ca3e4341ac6" creation-date="12/17/2015 17:33:30" order-index="46" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="250" y1="320" x2="530" y2="440" start-border-pos="0.5375" end-border-pos="0.0375">
+              <points>
+                <point x="250" y="320" />
+                <point x="530" y="440" />
+              </points>
+            </layout>
+            <relation from="di567948861165984132" from-iid="71e8768e4a6146078ab474f68eef74d3" to="di279825973845758654" to-iid="b53bf50136f246b88b9252064bb9837c" />
+            <role-positions start-role="25,15" end-role="25,-15" start-multiplicity="25,-15" end-multiplicity="25,15" />
+          </item>
+          <item id="di997315498189080742" iid="ba495ca9d1924752b343d4571d875471" creation-date="01/01/2016 19:47:40" order-index="49" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="-120,-180" auto-path="" x1="360" y1="440" x2="548" y2="165" start-border-pos="0.150517768859863" end-border-pos="0.653069534301758">
+              <points>
+                <point x="360" y="440" />
+                <point x="548" y="165" />
+              </points>
+            </layout>
+            <relation from="di401883067418404307" from-iid="09483f05d0534945b54e964579592b55" to="di560460873967861456" to-iid="40f3c0f0a32948a1876f9e116c00aed4" />
+            <role-positions start-role="25,15" end-role="25,-15" start-multiplicity="25,-15" end-multiplicity="25,15" />
+          </item>
+          <item id="di885621400441736310" iid="4779303cffff480fbaa55a3a6763b6e0" creation-date="12/17/2015 17:15:33" order-index="13" type="entity">
+            <layout ax="470" ay="210" awidth="200" aheight="60" x="470" y="210" width="200" height="60" angle="0" />
+            <class />
+          </item>
+          <item id="di560460873967861456" iid="40f3c0f0a32948a1876f9e116c00aed4" creation-date="01/01/2016 19:46:18" order-index="47" type="entity">
+            <layout ax="470" ay="100" awidth="200" aheight="65" x="470" y="100" width="200" height="65" angle="0" />
+            <class />
+          </item>
+          <item id="di372683487429367925" iid="6b355c1ca70349dbb1e82d493f8e7df4" creation-date="01/01/2016 19:47:07" order-index="48" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="570" y1="165" x2="570" y2="210" start-border-pos="0.625" end-border-pos="0.125">
+              <points>
+                <point x="570" y="165" />
+                <point x="570" y="210" />
+              </points>
+            </layout>
+            <relation from="di560460873967861456" from-iid="40f3c0f0a32948a1876f9e116c00aed4" to="di885621400441736310" to-iid="4779303cffff480fbaa55a3a6763b6e0" />
+            <role-positions start-role="25,15" end-role="25,-15" start-multiplicity="25,-15" end-multiplicity="25,15" />
+          </item>
+        </layer>
+      </diagram>
+    </model>
+  </models>
   <documents />
   <document-templates />
 </sim-project>
