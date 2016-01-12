@@ -39,12 +39,12 @@
         <value>9</value>
       </counter>
       <counter>
-        <item-type stereotype="" type="AbstractElementGroup" />
-        <value>196</value>
-      </counter>
-      <counter>
         <item-type stereotype="" type="UmlGeneralization" />
         <value>2</value>
+      </counter>
+      <counter>
+        <item-type stereotype="" type="AbstractElementGroup" />
+        <value>71</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -104,7 +104,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-class" id="p522830039529587039" name="Initial Class Diagram" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="-40,-5">
+      <diagram type="uml-class" id="p522830039529587039" name="Initial Class Diagram" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="-64,45">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -245,7 +245,55 @@
                       <t>log-</t>
                     </p>
                     <p s="S1">
-                      <t>in
+                      <t>in. </t>
+                    </p>
+                    <p s="S1">
+                      <t>Is </t>
+                    </p>
+                    <p s="S1">
+                      <t>also </t>
+                    </p>
+                    <p s="S1">
+                      <t>responsi</t>
+                    </p>
+                    <p s="S1">
+                      <t>ble </t>
+                    </p>
+                    <p s="S1">
+                      <t>for </t>
+                    </p>
+                    <p s="S1">
+                      <t>managing</t>
+                    </p>
+                    <p s="S1">
+                      <t> </t>
+                    </p>
+                    <p s="S1">
+                      <t>constum </t>
+                    </p>
+                    <p s="S1">
+                      <t>washing </t>
+                    </p>
+                    <p s="S1">
+                      <t>cycles </t>
+                    </p>
+                    <p s="S1">
+                      <t>for </t>
+                    </p>
+                    <p s="S1">
+                      <t>the </t>
+                    </p>
+                    <p s="S1">
+                      <t>current </t>
+                    </p>
+                    <p s="S1">
+                      <t>user.</t>
+                    </p>
+                    <p s="S1">
+                      <t> </t>
+                    </p>
+                    <p s="S1">
+                      <t> 
 </t>
                     </p>
                   </paragraph>
@@ -504,7 +552,7 @@
             <relation from="di320589738880423423" from-iid="00f01db4ff9648e6b7a22221b8190544" to="di560460873967861456" to-iid="40f3c0f0a32948a1876f9e116c00aed4" />
           </item>
           <item id="di408591231365714782" iid="49178f1cfa61414b89acfb25b5f88395" creation-date="01/01/2016 20:12:02" order-index="63" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="420" y1="330" x2="460" y2="330" start-border-pos="0.375" end-border-pos="0.875" name-position="10,-10">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="420" y1="330" x2="460" y2="330" start-border-pos="0.375" end-border-pos="0.875" name-position="10,-10" name-width="40">
               <points>
                 <point x="420" y="330" />
                 <point x="460" y="330" />
@@ -600,7 +648,7 @@
             <relation from="di567948861165984132" from-iid="71e8768e4a6146078ab474f68eef74d3" to="di764082585543403602" to-iid="3ee02dce31564c2eb201c74a87bebaf3" />
           </item>
           <item id="di578630976375638077" iid="06ba40507ae54b78b7ad707999c8e67e" creation-date="12/17/2015 17:33:24" order-index="45" type="relation">
-            <layout start-role-position="25,15" end-role-position="10,-120" start-multiplicity-position="63.79054,77.65801" end-multiplicity-position="20,60" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="320" y1="360" x2="320" y2="400" start-border-pos="0.625" end-border-pos="0.125" name-position="10,-10">
+            <layout start-role-position="25,15" end-role-position="30,0" start-multiplicity-position="63.79054,77.65801" end-multiplicity-position="20,60" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="320" y1="360" x2="320" y2="400" start-border-pos="0.625" end-border-pos="0.125" name-position="10,-10">
               <points>
                 <point x="320" y="360" />
                 <point x="320" y="400" />
