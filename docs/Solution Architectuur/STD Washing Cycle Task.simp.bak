@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<sim-project version="8.5" multi-file="no">
+<sim-project version="9.15" multi-file="no">
   <meta>
     <name>STD Washing Cycle Task</name>
     <authors> </authors>
@@ -13,40 +13,40 @@
       </counter>
       <counter>
         <item-type stereotype="" type="UmlInitialState" />
-        <value>1</value>
+        <value>2</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlState" />
-        <value>1</value>
-      </counter>
-      <counter>
-        <item-type stereotype="" type="LineItem" />
-        <value>1</value>
+        <value>2</value>
       </counter>
     </entity-names>
     <entity-ids>
-      <counter>
-        <item-type stereotype="" type="AbstractElementGroup" />
-        <value>10</value>
-      </counter>
       <counter>
         <item-type stereotype="" type="UmlCompositeState" />
         <value>2</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlInitialState" />
-        <value>2</value>
+        <value>3</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlState" />
-        <value>2</value>
+        <value>3</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlTransition" />
-        <value>2</value>
+        <value>4</value>
       </counter>
       <counter>
         <item-type stereotype="" type="AbstractShapeItem" />
+        <value>3</value>
+      </counter>
+      <counter>
+        <item-type stereotype="" type="AbstractElementGroup" />
+        <value>40</value>
+      </counter>
+      <counter>
+        <item-type stereotype="" type="UmlComment" />
         <value>3</value>
       </counter>
     </entity-ids>
@@ -86,7 +86,7 @@
   <filters />
   <items />
   <models>
-    <model id="p165155298829171252" name="Model 1" type="" namespace="" order-index="1">
+    <model id="p165155298829171252" name="Model 1" namespace="" order-index="1">
       <meta>
         <authors>
           <author> </author>
@@ -111,29 +111,20 @@
           </authors>
           <description />
           <creation-date>01/12/2016 12:14:35</creation-date>
-          <change-date>01/12/2016 12:40:00</change-date>
+          <change-date>01/12/2016 15:41:52</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
         <abstract-items>
-          <item id="di474409633600062197" cid="CS001" type="composite-state" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="Pbff3454af12641e7bc6718df847869d2" creation-date="01/12/2016 12:17:13">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di474409633600062197" cid="CS001" type="composite-state" name="" style-class="" visibility="package" creator="Pbff3454af12641e7bc6718df847869d2" creation-date="01/12/2016 12:17:13">
             <style class="default" />
             <state-invariant />
             <actions />
           </item>
-          <item id="di605055755244405459" cid="IS001" type="initial-state" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="Pbff3454af12641e7bc6718df847869d2" creation-date="01/12/2016 12:17:22">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di605055755244405459" cid="IS001" type="initial-state" name="" style-class="" visibility="package" creator="Pbff3454af12641e7bc6718df847869d2" creation-date="01/12/2016 12:17:22">
             <style class="default" />
           </item>
-          <item id="di721709239860225399" cid="ST001" type="state" name="Interface" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="Pbff3454af12641e7bc6718df847869d2" creation-date="01/12/2016 12:17:36">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di721709239860225399" cid="ST001" type="state" name="Interface" style-class="" visibility="package" creator="Pbff3454af12641e7bc6718df847869d2" creation-date="01/12/2016 12:17:36">
             <style class="default" />
             <state-invariant />
             <actions>
@@ -142,10 +133,59 @@
               <action name="resume()" behavior="cycleInterruptionPool.write(&quot;run&quot;); resumeFlag.set()" />
             </actions>
           </item>
-          <item id="di426750961136806182" cid="ELEM001" type="general-transition" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="Pbff3454af12641e7bc6718df847869d2" creation-date="01/12/2016 12:27:03">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di426750961136806182" cid="ELEM001" type="general-transition" name="" style-class="" visibility="package" creator="Pbff3454af12641e7bc6718df847869d2" creation-date="01/12/2016 12:27:03" from="di605055755244405459" to="di721709239860225399">
+            <style class="default" />
+            <transition guard="" behaviourExpression=" ">
+              <trigger />
+            </transition>
+          </item>
+          <item id="di503762105609670359" cid="ELEM002" type="shape" name="Element1" style-class="" visibility="package" creation-date="01/12/2016 15:15:53">
+            <style class="default" />
+          </item>
+          <item id="di144662309518148619" cid="CMT001" type="comment" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="01/12/2016 15:16:01">
+            <style class="default" />
+            <comment>Rough steps to perform:
+]
+-stall until a program gets loaded
+[
+-load next step, pass required state to Machine Manager
+-start timer for duration of step
+-if next step exists, goto [
+-else, send neutral state to MM
+-goto ]
+
+-periodically: check for interrupt messages
+-if a pause interrupt has happened:
+{
+-send standby state to MM
+-stop timer
+-wait for resume flag
+}
+-if a hard-stop interrupt has happened:
+{
+-send standby state to MM
+-stop timer
+-goto ]
+}
+-else
+{
+-carry on
+}</comment>
+          </item>
+          <item id="di706806493555742857" cid="CMT002" type="comment" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="01/12/2016 15:39:52">
+            <style class="default" />
+            <comment>WCT needs both a clock (for regular interrupt checks) and a timer (for step duration)
+? On resume, must the amount of time remaining for current step be restored from the original amount of time, or original time - time already ran ?</comment>
+          </item>
+          <item id="di303709955242962607" cid="IS002" type="initial-state" name="entry" style-class="" owner="di474409633600062197" visibility="package" change-tracking-state="added" creation-date="01/12/2016 15:41:31">
+            <style class="default" />
+          </item>
+          <item id="di698429506669571847" cid="ST002" type="state" name="Waiting" style-class="" owner="di474409633600062197" visibility="package" change-tracking-state="added" creation-date="01/12/2016 15:41:44">
+            <style class="default" />
+            <state-invariant />
+            <actions />
+          </item>
+          <item id="di963510087460403448" cid="ELEM003" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="01/12/2016 15:41:52" from="di303709955242962607" to="di698429506669571847">
             <style class="default" />
             <transition guard="" behaviourExpression=" ">
               <trigger />
@@ -154,27 +194,48 @@
         </abstract-items>
         <layer name="Default" visible="true" enabled="true" locked="false">
           <item id="di474409633600062197" iid="8549c00ff1364f1085426d9f4d476144" creation-date="01/12/2016 12:17:13" order-index="0" type="entity">
-            <layout ax="170" ay="60" awidth="730" aheight="420" x="170" y="60" width="730" height="420" angle="0" />
+            <layout ax="60" ay="10" awidth="840" aheight="760" x="60" y="10" width="840" height="760" angle="0" />
           </item>
           <item id="di605055755244405459" iid="c175e1c3d4e14e269dc1f38195526d45" container="di474409633600062197" container-iid="8549c00ff1364f1085426d9f4d476144" creation-date="01/12/2016 12:17:22" order-index="1" type="entity">
-            <layout ax="190" ay="90" awidth="30" aheight="30" x="190" y="90" width="30" height="30" angle="0" name-position="0,10" name-anchor="bottom" />
+            <layout ax="80" ay="40" awidth="30" aheight="30" x="80" y="40" width="30" height="30" angle="0" name-position="0,10" name-anchor="bottom" />
           </item>
           <item id="di721709239860225399" iid="c78446959e4d4005b727d8c996ea43ce" container="di474409633600062197" container-iid="8549c00ff1364f1085426d9f4d476144" creation-date="01/12/2016 12:17:36" order-index="2" type="entity">
-            <layout ax="270" ay="80" awidth="430" aheight="95" x="270" y="80" width="430" height="95" angle="0" />
+            <layout ax="160" ay="30" awidth="430" aheight="95" x="160" y="30" width="430" height="95" angle="0" />
           </item>
           <item id="di426750961136806182" iid="cf228765de164987bf37be845860c8b8" creation-date="01/12/2016 12:27:03" order-index="3" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="0,-20" auto-path="" x1="220" y1="106" x2="270" y2="110" start-border-pos="0.38526782989502" end-border-pos="0.920159771567897" name-width="50">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="110" y1="56" x2="160" y2="60" start-border-pos="0.385267861684163" end-border-pos="0.920159771567897" name-position="0,-20" name-width="50">
               <points>
-                <point x="220" y="106" />
-                <point x="270" y="110" />
+                <point x="110" y="56" />
+                <point x="160" y="60" />
               </points>
             </layout>
             <relation from="di605055755244405459" from-iid="c175e1c3d4e14e269dc1f38195526d45" to="di721709239860225399" to-iid="c78446959e4d4005b727d8c996ea43ce" />
           </item>
-          <item id="di853456312662372192" iid="0af9f4a75d7d412eb1d2d37c35ed0b6f" name="Element1" container="di474409633600062197" container-iid="8549c00ff1364f1085426d9f4d476144" creation-date="01/12/2016 12:40:00" order-index="4" type="drawing-line">
-            <layout ax="172" ay="194" awidth="725" aheight="1" x="172" y="194" width="724" height="2" angle="0" />
-            <drawing-line start-point="172,194" end-point="896,194" />
+          <item id="di503762105609670359" iid="0af9f4a75d7d412eb1d2d37c35ed0b6f" name="Element1" container="di474409633600062197" container-iid="8549c00ff1364f1085426d9f4d476144" creation-date="01/12/2016 12:40:00" order-index="4" type="drawing-line">
+            <layout ax="70" ay="150" awidth="811" aheight="1" x="70" y="150" width="811" height="1" angle="0" />
+            <drawing-line start-point="70,150" end-point="880,150" />
             <style class="default" />
+          </item>
+          <item id="di144662309518148619" iid="421097ceb76240dcb8af3902aae00d98" creation-date="01/12/2016 15:16:01" order-index="5" type="entity">
+            <layout ax="980" ay="50" awidth="420" aheight="410" x="980" y="50" width="420" height="410" angle="0" />
+          </item>
+          <item id="di706806493555742857" iid="a23c5d41dd104e61a53bd1783cdfec13" creation-date="01/12/2016 15:39:52" order-index="6" type="entity">
+            <layout ax="1050" ay="510" awidth="296" aheight="100" x="1050" y="510" width="296" height="100" angle="0" />
+          </item>
+          <item id="di303709955242962607" iid="e9d857f48e024207b9e1853e3f2bf2d3" container="di474409633600062197" container-iid="8549c00ff1364f1085426d9f4d476144" creation-date="01/12/2016 15:41:31" order-index="7" type="entity">
+            <layout ax="80" ay="170" awidth="25" aheight="25" x="80" y="170" width="25" height="25" angle="0" name-position="0,10" name-anchor="bottom" />
+          </item>
+          <item id="di698429506669571847" iid="13774593f17c410c9f447412bfeb561d" container="di474409633600062197" container-iid="8549c00ff1364f1085426d9f4d476144" creation-date="01/12/2016 15:41:44" order-index="8" type="entity">
+            <layout ax="220" ay="180" awidth="100" aheight="50" x="220" y="180" width="100" height="50" angle="0" />
+          </item>
+          <item id="di963510087460403448" iid="02aaa86b1e3140ee81a4191681b4f6e7" creation-date="01/12/2016 15:41:52" order-index="9" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="105" y1="184" x2="220" y2="199" start-border-pos="0.386797790527344" end-border-pos="0.90730339050293" name-position="-30,10">
+              <points>
+                <point x="105" y="184" />
+                <point x="220" y="199" />
+              </points>
+            </layout>
+            <relation from="di303709955242962607" from-iid="e9d857f48e024207b9e1853e3f2bf2d3" to="di698429506669571847" to-iid="13774593f17c410c9f447412bfeb561d" />
           </item>
         </layer>
       </diagram>
