@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<sim-project version="8.4" multi-file="no">
+<sim-project version="9.05" multi-file="no">
   <meta>
     <name>Project</name>
     <authors> </authors>
@@ -25,11 +25,11 @@
       </counter>
       <counter>
         <item-type stereotype="" type="ConcurrencyPool" />
-        <value>4</value>
+        <value>5</value>
       </counter>
       <counter>
         <item-type stereotype="" type="ConcurrencyEventFlag" />
-        <value>2</value>
+        <value>3</value>
       </counter>
       <counter>
         <item-type stereotype="" type="ConcurrencyMutex" />
@@ -51,7 +51,7 @@
       </counter>
       <counter>
         <item-type stereotype="" type="UmlCommunicationMessage" />
-        <value>70</value>
+        <value>74</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlDependency" />
@@ -63,11 +63,11 @@
       </counter>
       <counter>
         <item-type stereotype="" type="ConcurrencyPool" />
-        <value>5</value>
+        <value>6</value>
       </counter>
       <counter>
         <item-type stereotype="" type="ConcurrencyEventFlag" />
-        <value>3</value>
+        <value>4</value>
       </counter>
       <counter>
         <item-type stereotype="" type="ConcurrencyMutex" />
@@ -75,7 +75,7 @@
       </counter>
       <counter>
         <item-type stereotype="" type="AbstractElementGroup" />
-        <value>84</value>
+        <value>83</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -139,15 +139,12 @@
           </authors>
           <description />
           <creation-date>12/14/2015 12:03:08</creation-date>
-          <change-date>01/12/2016 11:31:36</change-date>
+          <change-date>01/12/2016 12:59:29</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
         <abstract-items>
-          <item id="di421536150497389104" cid="CMSG049" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:37:15">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di421536150497389104" cid="CMSG049" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:37:15">
             <style class="default" />
             <communication-message from="di629436275313968712" to="di675093765474453453">
               <messages>
@@ -157,10 +154,7 @@
               </messages>
             </communication-message>
           </item>
-          <item id="di388153924401046279" cid="TSK002" type="concurrency-task" name="LoadCycleTask" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="P2d87a3b621ed4d778642bd5c0067fbd0" creation-date="12/14/2015 12:04:23">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di388153924401046279" cid="TSK002" type="concurrency-task" name="LoadCycleTask" style-class="" visibility="package" creator="P2d87a3b621ed4d778642bd5c0067fbd0" creation-date="12/14/2015 12:04:23">
             <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#3C000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9" name-use-defaults="false" name-color="#FF000000" name-font="Verdana;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-use-defaults="false" part-header-color="#FF1E1E1E" part-header-font="Verdana;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-use-defaults="false" text-color="#FF000000" text-font="Verdana;9;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-use-defaults="false" tagged-value-color="#FF1E1E1E" tagged-value-font="Verdana;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-use-defaults="false" stereotype-color="#FF1E1E1E" stereotype-font="Verdana;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center">
               <background type="vertical-linear" color="#FFFFFF00" color2="#FFFFFF00" />
               <border color="#FF000000" width="1" dash-style="Solid" />
@@ -175,10 +169,7 @@
             </style>
             <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
           </item>
-          <item id="di634678521628655255" cid="TSK003" type="concurrency-task" name="WashingCycleTask" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="P2d87a3b621ed4d778642bd5c0067fbd0" creation-date="12/14/2015 12:04:33">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di634678521628655255" cid="TSK003" type="concurrency-task" name="WashingCycleTask" style-class="" visibility="package" creator="P2d87a3b621ed4d778642bd5c0067fbd0" creation-date="12/14/2015 12:04:33">
             <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#3C000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9" name-use-defaults="false" name-color="#FF000000" name-font="Verdana;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-use-defaults="false" part-header-color="#FF1E1E1E" part-header-font="Verdana;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-use-defaults="false" text-color="#FF000000" text-font="Verdana;9;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-use-defaults="false" tagged-value-color="#FF1E1E1E" tagged-value-font="Verdana;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-use-defaults="false" stereotype-color="#FF1E1E1E" stereotype-font="Verdana;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center">
               <background type="vertical-linear" color="#FFFFFF00" color2="#FFFFFF00" />
               <border color="#FF000000" width="1" dash-style="Solid" />
@@ -193,10 +184,7 @@
             </style>
             <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
           </item>
-          <item id="di675093765474453453" cid="TSK004" type="concurrency-task" name="UserInteractionTask" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="P2d87a3b621ed4d778642bd5c0067fbd0" creation-date="12/14/2015 12:04:47">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di675093765474453453" cid="TSK004" type="concurrency-task" name="UserInteractionTask" style-class="" visibility="package" creator="P2d87a3b621ed4d778642bd5c0067fbd0" creation-date="12/14/2015 12:04:47">
             <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#3C000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9" name-use-defaults="false" name-color="#FF000000" name-font="Verdana;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-use-defaults="false" part-header-color="#FF1E1E1E" part-header-font="Verdana;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-use-defaults="false" text-color="#FF000000" text-font="Verdana;9;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-use-defaults="false" tagged-value-color="#FF1E1E1E" tagged-value-font="Verdana;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-use-defaults="false" stereotype-color="#FF1E1E1E" stereotype-font="Verdana;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center">
               <background type="vertical-linear" color="#FFFFFF00" color2="#FFFFFF00" />
               <border color="#FF000000" width="1" dash-style="Solid" />
@@ -211,10 +199,7 @@
             </style>
             <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
           </item>
-          <item id="di112856392409173116" cid="TSK005" type="concurrency-task" name="MachineInteractionTask" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="P2d87a3b621ed4d778642bd5c0067fbd0" creation-date="12/14/2015 12:04:58">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di112856392409173116" cid="TSK005" type="concurrency-task" name="MachineInteractionTask" style-class="" visibility="package" creator="P2d87a3b621ed4d778642bd5c0067fbd0" creation-date="12/14/2015 12:04:58">
             <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#3C000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9" name-use-defaults="false" name-color="#FF000000" name-font="Verdana;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-use-defaults="false" part-header-color="#FF1E1E1E" part-header-font="Verdana;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-use-defaults="false" text-color="#FF000000" text-font="Verdana;9;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-use-defaults="false" tagged-value-color="#FF1E1E1E" tagged-value-font="Verdana;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-use-defaults="false" stereotype-color="#FF1E1E1E" stereotype-font="Verdana;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center">
               <background type="vertical-linear" color="#FFFFFF00" color2="#FFFFFF00" />
               <border color="#FF000000" width="1" dash-style="Solid" />
@@ -229,10 +214,7 @@
             </style>
             <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
           </item>
-          <item id="di136468910445993186" cid="TSK006" type="concurrency-task" name="ReadMachineTask" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="P2d87a3b621ed4d778642bd5c0067fbd0" creation-date="12/14/2015 12:05:05">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di136468910445993186" cid="TSK006" type="concurrency-task" name="ReadMachineTask" style-class="" visibility="package" creator="P2d87a3b621ed4d778642bd5c0067fbd0" creation-date="12/14/2015 12:05:05">
             <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#3C000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9" name-use-defaults="false" name-color="#FF000000" name-font="Verdana;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-use-defaults="false" part-header-color="#FF1E1E1E" part-header-font="Verdana;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-use-defaults="false" text-color="#FF000000" text-font="Verdana;9;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-use-defaults="false" tagged-value-color="#FF1E1E1E" tagged-value-font="Verdana;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-use-defaults="false" stereotype-color="#FF1E1E1E" stereotype-font="Verdana;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center">
               <background type="vertical-linear" color="#FFFFFF00" color2="#FFFFFF00" />
               <border color="#FF000000" width="1" dash-style="Solid" />
@@ -247,17 +229,11 @@
             </style>
             <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
           </item>
-          <item id="di100304407796114659" cid="TMR003" type="concurrency-timer" name="Clock" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:30:30">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di100304407796114659" cid="TMR003" type="concurrency-timer" name="Clock" style-class="" visibility="package" creation-date="01/05/2016 11:30:30">
             <style class="default" />
             <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
           </item>
-          <item id="di778855534723322560" cid="CMSG064" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:46:12">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di778855534723322560" cid="CMSG064" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:46:12">
             <style class="default" />
             <communication-message from="di634678521628655255" to="di513513908869604211">
               <messages>
@@ -267,10 +243,7 @@
               </messages>
             </communication-message>
           </item>
-          <item id="di809609344399285342" cid="CMSG065" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:46:39">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di809609344399285342" cid="CMSG065" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:46:39">
             <style class="default" />
             <communication-message from="di388153924401046279" to="di513513908869604211">
               <messages>
@@ -280,24 +253,15 @@
               </messages>
             </communication-message>
           </item>
-          <item id="di841174370556260733" cid="QUE005" type="concurrency-queue" name="Set Machine State Channel" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:35:25">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di841174370556260733" cid="QUE005" type="concurrency-queue" name="Set Machine State Channel" style-class="" visibility="package" creation-date="01/05/2016 11:35:25">
             <style class="default" />
             <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
           </item>
-          <item id="di421274666491036742" cid="PL004" type="concurrency-pool" name="Washing Cycle State Pool" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/12/2016 11:31:36">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di421274666491036742" cid="PL004" type="concurrency-pool" name="Washing Cycle State Pool" style-class="" visibility="package" creation-date="01/12/2016 11:31:36">
             <style class="default" />
             <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
           </item>
-          <item id="di227221742387595116" cid="CMSG056" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:41:06">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di227221742387595116" cid="CMSG056" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:41:06">
             <style class="default" />
             <communication-message from="di634678521628655255" to="di629436275313968712">
               <messages>
@@ -307,10 +271,7 @@
               </messages>
             </communication-message>
           </item>
-          <item id="di864166367213026512" cid="CMSG025" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:30:54">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di864166367213026512" cid="CMSG025" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:30:54">
             <style class="default" />
             <communication-message from="di100304407796114659" to="di136468910445993186">
               <messages>
@@ -323,10 +284,7 @@
               </messages>
             </communication-message>
           </item>
-          <item id="di954287910858159029" cid="CMSG048" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:36:59">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di954287910858159029" cid="CMSG048" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:36:59">
             <style class="default" />
             <communication-message from="di112856392409173116" to="di629436275313968712">
               <messages>
@@ -336,10 +294,7 @@
               </messages>
             </communication-message>
           </item>
-          <item id="di582832199563848477" cid="CMSG051" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:38:55">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di582832199563848477" cid="CMSG051" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:38:55">
             <style class="default" />
             <communication-message from="di634678521628655255" to="di841174370556260733">
               <messages>
@@ -349,10 +304,7 @@
               </messages>
             </communication-message>
           </item>
-          <item id="di272922064145453436" cid="CMSG052" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:39:13">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di272922064145453436" cid="CMSG052" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:39:13">
             <style class="default" />
             <communication-message from="di112856392409173116" to="di841174370556260733">
               <messages>
@@ -362,10 +314,7 @@
               </messages>
             </communication-message>
           </item>
-          <item id="di715350787247486366" cid="CMSG060" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:42:48">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di715350787247486366" cid="CMSG060" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:42:48">
             <style class="default" />
             <communication-message from="di634678521628655255" to="di421274666491036742">
               <messages>
@@ -375,10 +324,7 @@
               </messages>
             </communication-message>
           </item>
-          <item id="di220999969815383392" cid="CMSG061" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:43:09">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di220999969815383392" cid="CMSG061" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:43:09">
             <style class="default" />
             <communication-message from="di421274666491036742" to="di675093765474453453">
               <messages>
@@ -388,17 +334,11 @@
               </messages>
             </communication-message>
           </item>
-          <item id="di814633376248458716" cid="TMR004" type="concurrency-timer" name="Timer" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:44:15">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di814633376248458716" cid="TMR004" type="concurrency-timer" name="Timer" style-class="" visibility="package" creation-date="01/05/2016 11:44:15">
             <style class="default" />
             <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
           </item>
-          <item id="di705531265887602294" cid="CMSG063" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:45:20">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di705531265887602294" cid="CMSG063" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:45:20">
             <style class="default" />
             <communication-message from="di634678521628655255" to="di814633376248458716">
               <messages>
@@ -411,24 +351,15 @@
               </messages>
             </communication-message>
           </item>
-          <item id="di534638891386641239" cid="EVF002" type="concurrency-eventflag" name="Update Machine Flag" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:32:25">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di534638891386641239" cid="EVF002" type="concurrency-eventflag" name="Update Machine Flag" style-class="" visibility="package" creation-date="01/05/2016 11:32:25">
             <style class="default" />
             <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
           </item>
-          <item id="di513513908869604211" cid="QUE006" type="concurrency-queue" name="Load Cycle Channel" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:45:47">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di513513908869604211" cid="QUE006" type="concurrency-queue" name="Load Cycle Channel" style-class="" visibility="package" creation-date="01/05/2016 11:45:47">
             <style class="default" />
             <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
           </item>
-          <item id="di710060363722345958" cid="CMSG032" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:33:25">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di710060363722345958" cid="CMSG032" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:33:25">
             <style class="default" />
             <communication-message from="di534638891386641239" to="di136468910445993186">
               <messages>
@@ -438,10 +369,7 @@
               </messages>
             </communication-message>
           </item>
-          <item id="di309102788411312958" cid="CMSG039" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:33:58">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di309102788411312958" cid="CMSG039" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:33:58">
             <style class="default" />
             <communication-message from="di534638891386641239" to="di112856392409173116">
               <messages>
@@ -451,73 +379,33 @@
               </messages>
             </communication-message>
           </item>
-          <item id="di772264412602305709" cid="CMSG038" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:33:53">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di772264412602305709" cid="CMSG038" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:33:53">
             <style class="default" />
             <communication-message>
               <messages />
             </communication-message>
           </item>
-          <item id="di629436275313968712" cid="PL003" type="concurrency-pool" name="Machine State Pool" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/12/2016 11:29:09">
-            <stereotypes />
-            <documentation>
-              <text>
-                <styles>
-                  <style name="S1" font-name="Verdana" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
-                    <text>
-                      <solid-brush color="#FF000000" />
-                    </text>
-                  </style>
-                </styles>
-                <content>
-                  <paragraph>
-                    <p s="S1">
-                      <t />
-                    </p>
-                  </paragraph>
-                </content>
-              </text>
-            </documentation>
-            <cooperation>
-              <participants />
-              <comments />
-            </cooperation>
-            <associated-diagrams />
-            <owned-items />
+          <item id="di629436275313968712" cid="PL003" type="concurrency-pool" name="Machine State Pool" style-class="" visibility="package" creation-date="01/12/2016 11:29:09">
             <style class="default" />
             <communication-lifeline classifier-name="" is-active="false" is-multi-object="true" />
           </item>
-          <item id="di145881695160341272" cid="QUE004" type="concurrency-queue" name="Load Washing Cycle Channel" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:35:22">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di145881695160341272" cid="QUE004" type="concurrency-queue" name="Load Washing Cycle Channel" style-class="" visibility="package" creation-date="01/05/2016 11:35:22">
             <style class="default" />
             <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
           </item>
-          <item id="di169755783809962649" cid="CMSG038" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/05/2016 11:33:53">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di169755783809962649" cid="CMSG038" type="communication-message" name="" style-class="" visibility="package" creation-date="01/05/2016 11:33:53">
             <style class="default" />
             <communication-message>
               <messages />
             </communication-message>
           </item>
-          <item id="di759028560647560154" cid="CMSG066" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/11/2016 10:09:27">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di759028560647560154" cid="CMSG066" type="communication-message" name="" style-class="" visibility="package" creation-date="01/11/2016 10:09:27">
             <style class="default" />
             <communication-message from="di388153924401046279" to="di388153924401046279">
               <messages />
             </communication-message>
           </item>
-          <item id="di321373623744460011" cid="CMSG067" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/11/2016 10:09:34">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di321373623744460011" cid="CMSG067" type="communication-message" name="" style-class="" visibility="package" creation-date="01/11/2016 10:09:34">
             <style class="default" />
             <communication-message from="di675093765474453453" to="di145881695160341272">
               <messages>
@@ -527,14 +415,70 @@
               </messages>
             </communication-message>
           </item>
-          <item id="di631300009575067089" cid="CMSG069" type="communication-message" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/11/2016 10:10:33">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di631300009575067089" cid="CMSG069" type="communication-message" name="" style-class="" visibility="package" creation-date="01/11/2016 10:10:33">
             <style class="default" />
             <communication-message from="di388153924401046279" to="di145881695160341272">
               <messages>
                 <message id="" seq-number="" text="Read()" reverse="false" return-value="" assign-to-variable="">
+                  <parameters />
+                </message>
+              </messages>
+            </communication-message>
+          </item>
+          <item id="di145449836142434162" cid="PL005" type="concurrency-pool" name="Pauze CyclePool" style-class="" visibility="package" change-tracking-state="added" creation-date="01/12/2016 12:57:03">
+            <style class="default" />
+            <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
+          </item>
+          <item id="di816370188315635517" cid="EVF003" type="concurrency-eventflag" name="PauzeCycle Flag" style-class="" visibility="package" change-tracking-state="added" creation-date="01/12/2016 12:57:49">
+            <style class="default" />
+            <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
+          </item>
+          <item id="di397793325101531495" cid="CMSG070" type="communication-message" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="01/12/2016 12:58:27">
+            <style class="default" />
+            <communication-message from="di675093765474453453" to="di145449836142434162">
+              <messages>
+                <message id="" seq-number="" text="Write()" reverse="false" return-value="" assign-to-variable="">
+                  <parameters />
+                </message>
+              </messages>
+            </communication-message>
+          </item>
+          <item id="di790689162525482217" cid="CMSG071" type="communication-message" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="01/12/2016 12:58:48">
+            <style class="default" />
+            <communication-message from="di145449836142434162" to="di634678521628655255">
+              <messages>
+                <message id="" seq-number="" text="Read()" reverse="true" return-value="" assign-to-variable="">
+                  <parameters />
+                </message>
+              </messages>
+            </communication-message>
+          </item>
+          <item id="di699571268384430238" cid="CMSG072" type="communication-message" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="01/12/2016 12:59:02">
+            <style class="default" />
+            <communication-message from="di675093765474453453" to="di816370188315635517">
+              <messages>
+                <message id="" seq-number="" text="Set()" reverse="false" return-value="" assign-to-variable="">
+                  <parameters />
+                </message>
+              </messages>
+            </communication-message>
+          </item>
+          <item id="di153249603685621113" cid="CMSG073" type="communication-message" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="01/12/2016 12:59:29">
+            <style style-name="Default" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9" name-use-defaults="false" name-color="#FF000000" name-font="Verdana;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-use-defaults="false" part-header-color="#FF1E1E1E" part-header-font="Verdana;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-use-defaults="false" text-color="#FF000000" text-font="Verdana;9;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-use-defaults="false" tagged-value-color="#FF1E1E1E" tagged-value-font="Verdana;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-use-defaults="false" stereotype-color="#FF1E1E1E" stereotype-font="Verdana;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center">
+              <background type="forward-diagonal" color="#FFFFFFFF" color2="#FFEBEBEB" />
+              <border color="#FF000000" width="1" dash-style="Solid" />
+              <label-connector color="#80000000" width="1" dash-style="Dash" />
+              <alternate-styles>
+                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9" name-use-defaults="false" name-color="#FF000000" name-font="Verdana;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-use-defaults="false" part-header-color="#FF1E1E1E" part-header-font="Verdana;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-use-defaults="false" text-color="#FF000000" text-font="Verdana;9;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-use-defaults="false" tagged-value-color="#FF1E1E1E" tagged-value-font="Verdana;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-use-defaults="false" stereotype-color="#FF1E1E1E" stereotype-font="Verdana;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center">
+                  <background type="vertical-linear" color="#FF1E90FF" color2="#FF87CEFA" />
+                  <border color="#FF00008B" width="1" dash-style="Solid" />
+                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
+                </alternate-style>
+              </alternate-styles>
+            </style>
+            <communication-message from="di816370188315635517" to="di634678521628655255">
+              <messages>
+                <message id="" seq-number="" text="Wait()" reverse="true" return-value="" assign-to-variable="">
                   <parameters />
                 </message>
               </messages>
@@ -561,223 +505,253 @@
             <layout ax="260" ay="-90" awidth="30" aheight="50" x="260" y="-90" width="30" height="50" angle="0" name-position="0,10" name-anchor="bottom" />
           </item>
           <item id="di864166367213026512" iid="5940cd4c26734626a512ef35458d988f" creation-date="01/05/2016 11:30:54" order-index="7" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="290" y1="-65" x2="400" y2="-65" start-border-pos="0.375" end-border-pos="0.875">
+            <layout normal-message-position="0,-30" reverse-message-position="0,25" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="290" y1="-65" x2="400" y2="-65" start-border-pos="0.375" end-border-pos="0.875" name-position="10,-10">
               <points>
                 <point x="290" y="-65" />
                 <point x="400" y="-65" />
               </points>
             </layout>
             <relation from="di100304407796114659" from-iid="3b4009717ad84262b11837c78f9636ed" to="di136468910445993186" to-iid="f4b6d2b6a91a4abea16808bf9d7e93ac" />
-            <positions normal="0,-30" reverse="0,25" />
             <communication-message />
           </item>
           <item id="di534638891386641239" iid="12b7e1c1ff944191bf264fa468eef125" creation-date="01/05/2016 11:32:25" order-index="8" type="entity">
             <layout ax="700" ay="-90" awidth="40" aheight="40" x="700" y="-90" width="40" height="40" angle="0" name-position="0,30" name-anchor="bottom" />
           </item>
           <item id="di710060363722345958" iid="7ab4a6a0db37406981badba4fee09f82" creation-date="01/05/2016 11:33:25" order-index="9" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="700" y1="-70" x2="580" y2="-67" start-border-pos="0.872282600402832" end-border-pos="0.365217399597168">
+            <layout normal-message-position="0,-30" reverse-message-position="15.79505,-41.62762" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="700" y1="-70" x2="580" y2="-67" start-border-pos="0.872282600402832" end-border-pos="0.365217399597168" name-position="10,-10">
               <points>
                 <point x="700" y="-70" />
                 <point x="580" y="-67" />
               </points>
             </layout>
             <relation from="di534638891386641239" from-iid="12b7e1c1ff944191bf264fa468eef125" to="di136468910445993186" to-iid="f4b6d2b6a91a4abea16808bf9d7e93ac" />
-            <positions normal="0,-30" reverse="15.79505,-41.62762" />
             <communication-message />
           </item>
           <item id="di772264412602305709" iid="554b80d8e99347ec97131af0d2869858" creation-date="01/05/2016 11:33:53" order-index="11" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="809" y1="-67" x2="809" y2="-67" start-border-pos="-1" end-border-pos="-1">
+            <layout normal-message-position="0,-30" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="809" y1="-67" x2="809" y2="-67" start-border-pos="-1" end-border-pos="-1" name-position="10,-10">
               <points>
                 <point x="809" y="-67" />
                 <point x="809" y="-67" />
               </points>
             </layout>
             <relation />
-            <positions normal="0,-30" reverse="0,30" />
             <communication-message />
           </item>
           <item id="di309102788411312958" iid="99ec6e99506a4d6fbc6f58f9d9ee8c27" creation-date="01/05/2016 11:33:58" order-index="12" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="740" y1="-70" x2="860" y2="-67" start-border-pos="0.377272748947144" end-border-pos="0.887272720336914">
+            <layout normal-message-position="0,-30" reverse-message-position="4.786263,21.38706" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="740" y1="-70" x2="860" y2="-67" start-border-pos="0.377272748947144" end-border-pos="0.887272720336914" name-position="10,-10">
               <points>
                 <point x="740" y="-70" />
                 <point x="860" y="-67" />
               </points>
             </layout>
             <relation from="di534638891386641239" from-iid="12b7e1c1ff944191bf264fa468eef125" to="di112856392409173116" to-iid="5a12b7da8a7241e8903c8cef4697e044" />
-            <positions normal="0,-30" reverse="4.786263,21.38706" />
             <communication-message />
           </item>
           <item id="di841174370556260733" iid="c8a534d75df4483682cceed6a4f48a83" creation-date="01/05/2016 11:35:25" order-index="15" type="entity">
-            <layout ax="960" ay="30" awidth="70" aheight="40" x="960" y="30" width="70" height="40" angle="0" name-position="60,0" name-anchor="right" />
+            <layout ax="960" ay="30" awidth="70" aheight="40" x="960" y="30" width="70" height="40" angle="0" name-position="70,0" name-anchor="right" />
           </item>
           <item id="di954287910858159029" iid="68cbaf34dda54072aa74952e4d37bf4a" creation-date="01/05/2016 11:36:59" order-index="16" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="953" y1="-40" x2="790" y2="58" start-border-pos="0.663580265751591" end-border-pos="0.3">
+            <layout normal-message-position="18,11" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="953" y1="-40" x2="770" y2="68" start-border-pos="0.664112401891638" end-border-pos="0.301020431518555" name-position="10,-10">
               <points>
                 <point x="953" y="-40" />
-                <point x="790" y="58" />
+                <point x="770" y="68" />
               </points>
             </layout>
             <relation from="di112856392409173116" from-iid="5a12b7da8a7241e8903c8cef4697e044" to="di629436275313968712" to-iid="cce0bac2903f4e8e86115916c2632b21" />
-            <positions normal="17.2488,22.6506" reverse="0,30" />
             <communication-message />
           </item>
           <item id="di421536150497389104" iid="4fba13dac22141fe84aacc4dd232f649" creation-date="01/05/2016 11:37:15" order-index="17" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="750" y1="79" x2="567" y2="160" start-border-pos="0.819711542129517" end-border-pos="0.183876800537109">
+            <layout normal-message-position="0,-30" reverse-message-position="-18,-30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="730" y1="89" x2="567" y2="160" start-border-pos="0.8203125" end-border-pos="0.184523836771647" name-position="10,-10">
               <points>
-                <point x="750" y="79" />
+                <point x="730" y="89" />
                 <point x="567" y="160" />
               </points>
             </layout>
             <relation from="di629436275313968712" from-iid="cce0bac2903f4e8e86115916c2632b21" to="di675093765474453453" to-iid="09040d6642594a75bc5c7d733456917f" />
-            <positions normal="0,-30" reverse="-11.17682,-35.396" />
             <communication-message />
           </item>
           <item id="di582832199563848477" iid="d14a22494a064e118cf2cab99c408238" creation-date="01/05/2016 11:38:55" order-index="19" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="999" y1="160" x2="996" y2="70" start-border-pos="0.123842620849609" end-border-pos="0.622354561941964">
+            <layout normal-message-position="22,-15" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="999" y1="160" x2="996" y2="70" start-border-pos="0.123842620849609" end-border-pos="0.622354561941964" name-position="10,-10">
               <points>
                 <point x="999" y="160" />
                 <point x="996" y="70" />
               </points>
             </layout>
             <relation from="di634678521628655255" from-iid="56857abc0a3f4b6f8347be7cc74f959e" to="di841174370556260733" to-iid="c8a534d75df4483682cceed6a4f48a83" />
-            <positions normal="0,-30" reverse="0,30" />
             <communication-message />
           </item>
           <item id="di272922064145453436" iid="f233303882984ae88fa745f1fea9aa59" creation-date="01/05/2016 11:39:13" order-index="20" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="995" y1="-40" x2="995" y2="30" start-border-pos="0.625" end-border-pos="0.125">
+            <layout normal-message-position="25,-5" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="995" y1="-40" x2="995" y2="30" start-border-pos="0.625" end-border-pos="0.125" name-position="10,-10">
               <points>
                 <point x="995" y="-40" />
                 <point x="995" y="30" />
               </points>
             </layout>
             <relation from="di112856392409173116" from-iid="5a12b7da8a7241e8903c8cef4697e044" to="di841174370556260733" to-iid="c8a534d75df4483682cceed6a4f48a83" />
-            <positions normal="12,32" reverse="0,30" />
             <communication-message />
           </item>
           <item id="di227221742387595116" iid="d642333e1d674e74bfad65578ed0a9df" creation-date="01/05/2016 11:41:06" order-index="21" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="950" y1="160" x2="790" y2="80" start-border-pos="0.0625" end-border-pos="0.4375">
+            <layout normal-message-position="12.64769,-38.80436" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="940" y1="160" x2="770" y2="88" start-border-pos="0.0505952453613281" end-border-pos="0.427500009536743" name-position="10,-10">
               <points>
-                <point x="950" y="160" />
-                <point x="790" y="80" />
+                <point x="940" y="160" />
+                <point x="770" y="88" />
               </points>
             </layout>
             <relation from="di634678521628655255" from-iid="56857abc0a3f4b6f8347be7cc74f959e" to="di629436275313968712" to-iid="cce0bac2903f4e8e86115916c2632b21" />
-            <positions normal="12.64769,-38.80436" reverse="0,30" />
             <communication-message />
           </item>
           <item id="di715350787247486366" iid="d39fd334b1974070a405cd730d3c0212" creation-date="01/05/2016 11:42:48" order-index="22" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="900" y1="203" x2="770" y2="226" start-border-pos="0.785" end-border-pos="0.352499961853027">
+            <layout normal-message-position="18.97613,12.97047" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="900" y1="183" x2="770" y2="180" start-border-pos="0.885" end-border-pos="0.377499961853027" name-position="10,-10">
               <points>
-                <point x="900" y="203" />
-                <point x="770" y="226" />
+                <point x="900" y="183" />
+                <point x="770" y="180" />
               </points>
             </layout>
             <relation from="di634678521628655255" from-iid="56857abc0a3f4b6f8347be7cc74f959e" to="di421274666491036742" to-iid="a8c8dcdfab884e14afca5143bd2b313b" />
-            <positions normal="18.97613,12.97047" reverse="0,30" />
             <communication-message />
           </item>
           <item id="di220999969815383392" iid="cf12e2d54cdc4ebfbff960bd6b3d4145" creation-date="01/05/2016 11:43:09" order-index="23" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="730" y1="226" x2="630" y2="208" start-border-pos="0.8984375" end-border-pos="0.4875">
+            <layout normal-message-position="0,-30" reverse-message-position="-12.02078,9.532087" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="730" y1="180" x2="630" y2="182" start-border-pos="0.87239580154419" end-border-pos="0.3625" name-position="10,-10">
               <points>
-                <point x="730" y="226" />
-                <point x="630" y="208" />
+                <point x="730" y="180" />
+                <point x="630" y="182" />
               </points>
             </layout>
             <relation from="di421274666491036742" from-iid="a8c8dcdfab884e14afca5143bd2b313b" to="di675093765474453453" to-iid="09040d6642594a75bc5c7d733456917f" />
-            <positions normal="0,-30" reverse="-12.02078,9.532087" />
             <communication-message />
           </item>
           <item id="di814633376248458716" iid="428499aa3c2c43238d14415c1491f2d3" creation-date="01/05/2016 11:44:15" order-index="24" type="entity">
             <layout ax="1200" ay="160" awidth="30" aheight="50" x="1200" y="160" width="30" height="50" angle="0" name-position="0,10" name-anchor="bottom" />
           </item>
           <item id="di705531265887602294" iid="28c728acbea44cb1b46554c60e9d163e" creation-date="01/05/2016 11:45:20" order-index="25" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="1100" y1="185" x2="1200" y2="185" start-border-pos="0.375" end-border-pos="0.875">
+            <layout normal-message-position="-30,25" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="1100" y1="185" x2="1200" y2="185" start-border-pos="0.375" end-border-pos="0.875" name-position="10,-10">
               <points>
                 <point x="1100" y="185" />
                 <point x="1200" y="185" />
               </points>
             </layout>
             <relation from="di634678521628655255" from-iid="56857abc0a3f4b6f8347be7cc74f959e" to="di814633376248458716" to-iid="428499aa3c2c43238d14415c1491f2d3" />
-            <positions normal="30,-27" reverse="0,30" />
             <communication-message />
           </item>
           <item id="di513513908869604211" iid="0d875c3cd1e749138682dd2e3b80fa15" creation-date="01/05/2016 11:45:47" order-index="26" type="entity">
             <layout ax="960" ay="320" awidth="70" aheight="40" x="960" y="320" width="70" height="40" angle="0" name-position="60,0" name-anchor="right" />
           </item>
           <item id="di778855534723322560" iid="d0cc582a160a4378960132477964e6e8" creation-date="01/05/2016 11:46:12" order-index="27" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="999" y1="210" x2="996" y2="320" start-border-pos="0.626008071899414" end-border-pos="0.127304077148438">
+            <layout normal-message-position="32,-25" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="999" y1="210" x2="996" y2="320" start-border-pos="0.626008071899414" end-border-pos="0.127304077148438" name-position="10,-10">
               <points>
                 <point x="999" y="210" />
                 <point x="996" y="320" />
               </points>
             </layout>
             <relation from="di634678521628655255" from-iid="56857abc0a3f4b6f8347be7cc74f959e" to="di513513908869604211" to-iid="0d875c3cd1e749138682dd2e3b80fa15" />
-            <positions normal="3.426253,-51.10121" reverse="0,30" />
             <communication-message />
           </item>
           <item id="di809609344399285342" iid="2a9f7c68fcd14495837f30ae23c14d2e" creation-date="01/05/2016 11:46:39" order-index="28" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="992" y1="470" x2="995" y2="360" start-border-pos="0.126509028709739" end-border-pos="0.626382446289062">
+            <layout normal-message-position="26,-15" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="992" y1="470" x2="995" y2="360" start-border-pos="0.126509028709739" end-border-pos="0.626382446289062" name-position="10,-10">
               <points>
                 <point x="992" y="470" />
                 <point x="995" y="360" />
               </points>
             </layout>
             <relation from="di388153924401046279" from-iid="0c5c55a5ed854ab5be77cdb7fa0be302" to="di513513908869604211" to-iid="0d875c3cd1e749138682dd2e3b80fa15" />
-            <positions normal="0,-30" reverse="0,30" />
             <communication-message />
           </item>
           <item id="di145881695160341272" iid="fc942946c7af4c13aebe6ec0f5ecf670" creation-date="01/05/2016 11:35:22" order-index="14" type="entity">
             <layout ax="475" ay="470" awidth="70" aheight="40" x="475" y="470" width="70" height="40" angle="0" name-position="1,26" name-anchor="bottom" name-width="121" />
           </item>
           <item id="di759028560647560154" iid="28e09bf1213f41e19597d2c2f99f8c90" creation-date="01/11/2016 10:09:27" order-index="29" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="943" y1="470" x2="910" y2="510" start-border-pos="0.05" end-border-pos="0.8">
+            <layout normal-message-position="0,-30" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="943" y1="470" x2="910" y2="510" start-border-pos="0.05" end-border-pos="0.8" name-position="10,-10">
               <points>
                 <point x="943" y="470" />
                 <point x="910" y="510" />
               </points>
             </layout>
             <relation from="di388153924401046279" from-iid="0c5c55a5ed854ab5be77cdb7fa0be302" to="di388153924401046279" to-iid="0c5c55a5ed854ab5be77cdb7fa0be302" />
-            <positions normal="0,-30" reverse="0,30" />
             <communication-message />
           </item>
           <item id="di169755783809962649" iid="e910ddd275bf45cca075ec494ffd46e9" creation-date="01/05/2016 11:33:53" order-index="11" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="809" y1="-67" x2="809" y2="-67" start-border-pos="-1" end-border-pos="-1">
+            <layout normal-message-position="0,-30" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="809" y1="-67" x2="809" y2="-67" start-border-pos="-1" end-border-pos="-1" name-position="10,-10">
               <points>
                 <point x="809" y="-67" />
                 <point x="809" y="-67" />
               </points>
             </layout>
             <relation />
-            <positions normal="0,-30" reverse="0,30" />
             <communication-message />
           </item>
           <item id="di321373623744460011" iid="caabe6bbc3614dec9420aa04d9a6832a" creation-date="01/11/2016 10:09:34" order-index="30" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="510" y1="210" x2="510" y2="470" start-border-pos="0.625" end-border-pos="0.125">
+            <layout normal-message-position="0,27.39978" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="510" y1="210" x2="510" y2="470" start-border-pos="0.625" end-border-pos="0.125" name-position="10,-10">
               <points>
                 <point x="510" y="210" />
                 <point x="510" y="470" />
               </points>
             </layout>
             <relation from="di675093765474453453" from-iid="09040d6642594a75bc5c7d733456917f" to="di145881695160341272" to-iid="fc942946c7af4c13aebe6ec0f5ecf670" />
-            <positions normal="0,27.39978" reverse="0,30" />
             <communication-message />
           </item>
           <item id="di631300009575067089" iid="e03659ccf794476d9e24d2cc1486715b" creation-date="01/11/2016 10:10:33" order-index="31" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="910" y1="494" x2="545" y2="490" start-border-pos="0.879253082275391" end-border-pos="0.377269172668457">
+            <layout normal-message-position="25.08613,-22.27624" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="910" y1="494" x2="545" y2="490" start-border-pos="0.879253082275391" end-border-pos="0.377269172668457" name-position="10,-10">
               <points>
                 <point x="910" y="494" />
                 <point x="545" y="490" />
               </points>
             </layout>
             <relation from="di388153924401046279" from-iid="0c5c55a5ed854ab5be77cdb7fa0be302" to="di145881695160341272" to-iid="fc942946c7af4c13aebe6ec0f5ecf670" />
-            <positions normal="25.08613,-22.27624" reverse="0,30" />
             <communication-message />
           </item>
           <item id="di629436275313968712" iid="cce0bac2903f4e8e86115916c2632b21" creation-date="01/12/2016 11:29:09" order-index="32" type="entity">
-            <layout ax="750" ay="50" awidth="40" aheight="40" x="750" y="50" width="40" height="40" angle="0" name-position="0,14" name-anchor="bottom" name-width="97" />
+            <layout ax="730" ay="60" awidth="40" aheight="40" x="730" y="60" width="40" height="40" angle="0" name-position="0,14" name-anchor="bottom" name-width="97" />
           </item>
           <item id="di421274666491036742" iid="a8c8dcdfab884e14afca5143bd2b313b" creation-date="01/12/2016 11:31:36" order-index="33" type="entity">
-            <layout ax="730" ay="210" awidth="40" aheight="40" x="730" y="210" width="40" height="40" angle="0" name-position="5,29" name-anchor="bottom" />
+            <layout ax="730" ay="160" awidth="40" aheight="40" x="730" y="160" width="40" height="40" angle="0" name-position="5,29" name-anchor="bottom" />
+          </item>
+          <item id="di145449836142434162" iid="090d13554db849b7b3e8358ec4136c71" creation-date="01/12/2016 12:57:03" order-index="34" type="entity">
+            <layout ax="730" ay="270" awidth="40" aheight="40" x="730" y="270" width="40" height="40" angle="0" name-position="0,10" name-anchor="bottom" />
+          </item>
+          <item id="di816370188315635517" iid="9bf3eeb37f124dec819b2ac25ba98287" creation-date="01/12/2016 12:57:49" order-index="35" type="entity">
+            <layout ax="730" ay="350" awidth="40" aheight="40" x="730" y="350" width="40" height="40" angle="0" name-position="0,20" name-anchor="bottom" name-width="110" />
+          </item>
+          <item id="di397793325101531495" iid="b9a934f65b9f442783a399c501bac98e" creation-date="01/12/2016 12:58:27" order-index="36" type="relation">
+            <layout normal-message-position="-48,34" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="567" y1="210" x2="730" y2="281" start-border-pos="0.565476163228353" end-border-pos="0.9296875" name-position="10,-10">
+              <points>
+                <point x="567" y="210" />
+                <point x="730" y="281" />
+              </points>
+            </layout>
+            <relation from="di675093765474453453" from-iid="09040d6642594a75bc5c7d733456917f" to="di145449836142434162" to-iid="090d13554db849b7b3e8358ec4136c71" />
+            <communication-message />
+          </item>
+          <item id="di790689162525482217" iid="1c7a4600a44d4c399ecd9cd6b726359e" creation-date="01/12/2016 12:58:48" order-index="37" type="relation">
+            <layout normal-message-position="0,-30" reverse-message-position="-25,34" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="770" y1="282" x2="940" y2="210" start-border-pos="0.322500038146973" end-border-pos="0.699404754638672" name-position="10,-10">
+              <points>
+                <point x="770" y="282" />
+                <point x="940" y="210" />
+              </points>
+            </layout>
+            <relation from="di145449836142434162" from-iid="090d13554db849b7b3e8358ec4136c71" to="di634678521628655255" to-iid="56857abc0a3f4b6f8347be7cc74f959e" />
+            <communication-message />
+          </item>
+          <item id="di699571268384430238" iid="69313fe73fe543c59ac88fc516b5ec45" creation-date="01/12/2016 12:59:02" order-index="38" type="relation">
+            <layout normal-message-position="-1,50" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="530" y1="210" x2="730" y2="361" start-border-pos="0.604166666666667" end-border-pos="0.928571510314941" name-position="10,-10">
+              <points>
+                <point x="530" y="210" />
+                <point x="610" y="310" />
+                <point x="730" y="361" />
+              </points>
+            </layout>
+            <relation from="di675093765474453453" from-iid="09040d6642594a75bc5c7d733456917f" to="di816370188315635517" to-iid="9bf3eeb37f124dec819b2ac25ba98287" />
+            <communication-message />
+          </item>
+          <item id="di153249603685621113" iid="e0db4701ea78497b83fb5384f018ab7b" creation-date="01/12/2016 12:59:29" order-index="39" type="relation">
+            <layout normal-message-position="0,-30" reverse-message-position="45,-14" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="770" y1="363" x2="976" y2="210" start-border-pos="0.329545402526855" end-border-pos="0.655172424316406" name-position="10,-10">
+              <points>
+                <point x="770" y="363" />
+                <point x="860" y="330" />
+                <point x="976" y="210" />
+              </points>
+            </layout>
+            <relation from="di816370188315635517" from-iid="9bf3eeb37f124dec819b2ac25ba98287" to="di634678521628655255" to-iid="56857abc0a3f4b6f8347be7cc74f959e" />
+            <communication-message />
           </item>
         </layer>
       </diagram>
