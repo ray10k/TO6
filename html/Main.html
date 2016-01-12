@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!-- Main v1.0 -->
+<html>
+	<head>
+		<title> Main </title>
+		<script src="myscript.js"> </script>
+	</head>
+	<body bgcolor="#ffffff">
+		
+		<div id = "Main" >
+			<input type = "text" id = "textvak" onkeydown="if (event.keyCode == 13) sendMessage()"/>
+			<button onclick = "sendMessage()" >Send </button>
+			<button onclick = "closeConnection()">Bye</button>
+		</div>
+		
+		<script type="text/javascript">
+			Login_Message();
+        </script>
+		
+	</body>
+</html>
