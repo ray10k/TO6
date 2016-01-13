@@ -43,7 +43,7 @@
       </counter>
       <counter>
         <item-type stereotype="" type="UmlComment" />
-        <value>9</value>
+        <value>10</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlCommentConnector" />
@@ -59,7 +59,7 @@
       </counter>
       <counter>
         <item-type stereotype="" type="AbstractElementGroup" />
-        <value>371</value>
+        <value>378</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -111,7 +111,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-statechart" id="p221753131716271053" name="STD Washing Cycle Task" order-index="1" expanded="true" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="0,13">
+      <diagram type="uml-statechart" id="p221753131716271053" name="STD Washing Cycle Task" order-index="1" expanded="true" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="0,-94">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -123,7 +123,7 @@
           </authors>
           <description />
           <creation-date>01/12/2016 12:14:35</creation-date>
-          <change-date>01/13/2016 17:24:07</change-date>
+          <change-date>01/13/2016 17:26:22</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
@@ -364,6 +364,11 @@ For the time being, ??? is the method to put a new intended machine state in the
             <transition guard="else" behaviourExpression=" ">
               <trigger />
             </transition>
+          </item>
+          <item id="di571868237933319664" cid="CMT009" type="comment" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="01/13/2016 17:26:22">
+            <style class="default" />
+            <comment>"assessState()" compares the last known machine state to the expected state for a given step in a cycle, and sends the MIT command instructions, per example to turn on or off the heating or the tap.
+</comment>
           </item>
         </abstract-items>
         <layer name="Default" visible="true" enabled="true" locked="false">
@@ -642,7 +647,7 @@ For the time being, ??? is the method to put a new intended machine state in the
             <relation from="di218941461377373539" from-iid="a686af291f2649ab936369253c45bc94" to="di815727677660792955" to-iid="8d033961211145f3823eba5a3d71af92" />
           </item>
           <item id="di466070328672824770" iid="693fc7fb457240f8adb925c001ca1f45" creation-date="01/13/2016 17:24:07" order-index="74" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="950" y1="190" x2="960" y2="380" start-border-pos="0.375" end-border-pos="0.375" name-position="0,0">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="950" y1="190" x2="960" y2="380" start-border-pos="0.375" end-border-pos="0.375" name-position="-10,-100">
               <points>
                 <point x="950" y="190" />
                 <point x="1000" y="190" />
@@ -651,6 +656,9 @@ For the time being, ??? is the method to put a new intended machine state in the
               </points>
             </layout>
             <relation from="di218941461377373539" from-iid="a686af291f2649ab936369253c45bc94" to="di619899142974892128" to-iid="f96ab0249ace4ff88cd21f876cfe6272" />
+          </item>
+          <item id="di571868237933319664" iid="a33167edf5d34fa0b527d740170b8c85" creation-date="01/13/2016 17:26:22" order-index="75" type="entity">
+            <layout ax="1040" ay="540" awidth="307" aheight="100" x="1040" y="540" width="307" height="100" angle="0" />
           </item>
         </layer>
       </diagram>
