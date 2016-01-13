@@ -7,15 +7,28 @@
 	</head>
 	<body bgcolor="#ffffff">
 		
-		<script>
-			function Load(html) 
-			{
-				window.open(html, "_self");
-			};
-		</script>
-		
 		<div id = "CreateWashingCycle" >
-			<button onclick = "Load('MUP_EditUserProfile.html')" >Back </button>
+			<button onclick = "Load('MUP_EditUserProfile.html')" >Cancel </button> <BR/><p/>
+			<label> Washing Cycle Name: </label> <input type = "text" id = "CreateWashingCycleName"/> <BR/>
+			
+			<h3  id="Fase1" >Fase 1 &nbsp;
+				<select id="Fase1Opdracht">
+					<option value="Empty1">...</option>
+					<option value="WaterToevoegen1">Water Toevoegen</option>
+					<option value="ZeepToevoegen1">Zeep Toevoegen</option>
+				</select>
+				<label> &nbsp; Duur: </label> <input type = "text" id = "CreateFase1Time"/>
+				Min &nbsp (tussen 5 en 60)
+			<h3/>
+			
+			<h3 id="Fase2" style="Display: none" > <h3/>
+			<h3 id="Fase3" style="Display: none" > <h3/>
+			<h3 id="Fase4" style="Display: none" > <h3/>
+			<h3 id="Fase5" style="Display: none" > <h3/>
+			
+			<button onclick = "AddFase()" >Add Fase</button>
+			<button onclick = "RemoveFase()" >Remove Fase</button>
+			<button onclick = "CreateWashingCycle('MUP_EditUserProfile.html')" >Create Washing Cycle </button> <BR/>
 		</div>
 		
 	</body>
