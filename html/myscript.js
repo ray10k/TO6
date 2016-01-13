@@ -1,6 +1,11 @@
 function Login() 
 {
-	window.open("Main.html", "_self");
+	Print("Login...", "Login");
+}
+
+function Logout() 
+{
+	Print("Logout...", "Main");
 }
 
 function Login_Message()

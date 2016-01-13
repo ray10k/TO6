@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!-- LoadWashingCycle v1.0 -->
+<html>
+	<head>
+		<title> Load Washing Cycle </title>
+		<script src="myscript.js"> </script>
+	</head>
+	<body bgcolor="#ffffff">
+		
+		<script>
+			function Load(html) 
+			{
+				window.open(html, "_self");
+			};
+		</script>
+		
+		<div id = "LoadWashingCycle" >
+			<button onclick = "Load('MUP_EditUserProfile.html')" >Back </button> <BR/>
+			<label> Washing Cycle Naam: </label> <input type = "text" id = "WashingCycleNaamVak"/>
+			<button onclick = "Load('MUP_EUP_EditWashingCycle.html')" >Load Washing Cycle </button> <BR/>
+		</div>
+		
+	</body>
+</html>

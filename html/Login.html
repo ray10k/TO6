@@ -8,11 +8,19 @@
 	</head>
 	<body bgcolor="#ffffff">
 	
+		<script>
+			function LoadMain() 
+			{
+				Login();
+				setTimeout(function(){window.open("Main.html", "_self");},1000);
+			};
+		</script>
+	
 		<div id="Login">
 			Vul je gebruikersnaam en wachtwoord in en druk op login. <BR/>
 			<label>Gebruikersnaam:</label> <input type = "text" id = "naamvak"/> <BR/>
-			<label>Wachtwoord:</label> <input type = "text" id = "wachtwoordvak"/> <BR/>
-			<button onclick = "Login()" >Login </button> <BR/>
+			<label>Wachtwoord:</label> <input type = "password" id = "wachtwoordvak"/> <BR/>
+			<button onclick = "LoadMain()" >Login </button> <BR/>
 		</div>
 		
 	</body>

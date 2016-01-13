@@ -7,10 +7,21 @@
 	</head>
 	<body bgcolor="#ffffff">
 		
+		<script>
+			function LoadLogin() 
+			{
+				Logout();
+				setTimeout(function(){window.open("Login.html", "_self");},500);
+			};
+			function LoadManageUserProfile()
+			{
+				window.open("ManageUserProfile.html", "_self");
+			}
+		</script>
+		
 		<div id = "Main" >
-			<input type = "text" id = "textvak" onkeydown="if (event.keyCode == 13) sendMessage()"/>
-			<button onclick = "sendMessage()" >Send </button>
-			<button onclick = "closeConnection()">Bye</button>
+			<button onclick = "LoadLogin()" >Logout </button>
+			<button onclick = "LoadManageUserProfile()" >Manage User Profile </button>
 		</div>
 		
 		<script type="text/javascript">
