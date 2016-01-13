@@ -63,7 +63,7 @@
       </counter>
       <counter>
         <item-type stereotype="" type="AbstractElementGroup" />
-        <value>88</value>
+        <value>17</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -182,8 +182,8 @@
             <style class="default" />
             <state-invariant />
             <actions>
-              <action name="UpdateMachineState" behavior="MachineStatePool.write()" />
-              <action name="UpdateWashingCycleState" behavior="WashingCyclePool.write()" />
+              <action name="UpdateMachineState" behavior="MachineStateChannel.write()" />
+              <action name="UpdateWashingCycleState" behavior="WashingCycleChannel.write()" />
             </actions>
           </item>
           <item id="di198985836629842775" cid="IS002" type="initial-state" name="" style-class="" visibility="package" change-tracking-state="added" creator="P1e919f8a5c3046b98ba72d003968713a" creation-date="01/12/2016 11:09:40">
@@ -195,7 +195,7 @@
           </item>
           <item id="di528141795485948996" cid="ELEM011" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P1e919f8a5c3046b98ba72d003968713a" creation-date="01/12/2016 11:50:50">
             <style class="default" />
-            <transition guard="" behaviourExpression=" socket.send(MachineStatePool.read()); socket.send(WashingCyclePool.read());">
+            <transition guard="" behaviourExpression=" socket.send(MachineStateChannel.read()); socket.send(WashingCycleChannel.read());">
               <trigger>MessageDirc ==0</trigger>
             </transition>
           </item>
@@ -209,12 +209,8 @@
             <owned-items>
               <owned-item ref="di698828571100690634" />
               <owned-item ref="di198985836629842775" />
-              <owned-item ref="di540884340217249140" />
               <owned-item ref="di398739500643824731" />
               <owned-item ref="di833283491318491537" />
-              <owned-item ref="di394983664766103728" />
-              <owned-item ref="di688859061210148304" />
-              <owned-item ref="di102347942157693546" />
             </owned-items>
             <style class="default" />
             <state-invariant />
@@ -227,6 +223,12 @@
             <style class="default" />
           </item>
           <item id="di398739500643824731" cid="DC003" type="decision" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="01/13/2016 12:42:16">
+            <style class="default" />
+          </item>
+          <item id="di310382458964508208" cid="ELEM003" type="shape" name="Element1" style-class="" visibility="package" creation-date="01/13/2016 13:06:52">
+            <style class="default" />
+          </item>
+          <item id="di214516352982962135" cid="ELEM005" type="shape" name="Element2" style-class="" visibility="package" creation-date="01/13/2016 13:06:52">
             <style class="default" />
           </item>
         </abstract-items>
@@ -330,12 +332,12 @@
             </layout>
             <relation from="di833283491318491537" from-iid="37f07f9f601e4c76862f6dcd95454d96" to="di398739500643824731" to-iid="1a3746e7d0404da4a9ee4ae4b0c131f0" />
           </item>
-          <item id="di242306063603480136" iid="db1c729449ef4033944cc95f783d8303" name="Element1" creation-date="01/12/2016 12:48:54" order-index="25" type="drawing-line">
+          <item id="di310382458964508208" iid="db1c729449ef4033944cc95f783d8303" name="Element1" creation-date="01/12/2016 12:48:54" order-index="25" type="drawing-line">
             <layout ax="-146" ay="171" awidth="140" aheight="160" x="-146" y="171" width="140" height="160" angle="0" />
             <drawing-line start-point="0,0" end-point="0,0" />
             <style class="default" />
           </item>
-          <item id="di646810515498993440" iid="d8aa86fe16e74085b12fb4e5b480684d" name="Element2" creation-date="01/12/2016 12:48:57" order-index="26" type="drawing-line">
+          <item id="di214516352982962135" iid="d8aa86fe16e74085b12fb4e5b480684d" name="Element2" creation-date="01/12/2016 12:48:57" order-index="26" type="drawing-line">
             <layout ax="-20" ay="188" awidth="1278" aheight="3" x="-59" y="188" width="1316" height="105" angle="0" />
             <drawing-line start-point="-20,190" end-point="1257,188" />
             <style class="default" />
