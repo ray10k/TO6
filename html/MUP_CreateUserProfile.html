@@ -7,15 +7,12 @@
 	</head>
 	<body bgcolor="#ffffff">
 		
-		<script>
-			function Load(html) 
-			{
-				window.open(html, "_self");
-			};
-		</script>
-		
 		<div id = "CreateUserProfile" >
-			<button onclick = "Load('ManageUserProfile.html')" >Back </button>
+			<button onclick = "Load('ManageUserProfile.html')" >Cancel </button> <BR/>
+			<label>Username:</label> <input type = "text" id = "CreateProfileUsername"/> <BR/>
+			<label>Password:</label> <input type = "password" id = "CreateProfilePassword"/> <BR/>
+			<label>Repeat Password:</label> <input type = "password" id = "CreateProfileRepeatPassword"/> <BR/>
+			<button onclick = "CreateUserProfile('Main.html')" >Create Profile </button> <BR/>
 		</div>
 		
 	</body>

@@ -7,21 +7,9 @@
 	</head>
 	<body bgcolor="#ffffff">
 		
-		<script>
-			function LoadLogin() 
-			{
-				Logout();
-				setTimeout(function(){window.open("Login.html", "_self");},500);
-			};
-			function LoadManageUserProfile()
-			{
-				window.open("ManageUserProfile.html", "_self");
-			}
-		</script>
-		
 		<div id = "Main" >
-			<button onclick = "LoadLogin()" >Logout </button>
-			<button onclick = "LoadManageUserProfile()" >Manage User Profile </button>
+			<button onclick = "Logout('Login.html')" >Logout </button>
+			<button onclick = "Load('ManageUserProfile.html')" >Manage User Profile </button>
 		</div>
 		
 		<script type="text/javascript">
