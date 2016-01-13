@@ -51,7 +51,11 @@
       </counter>
       <counter>
         <item-type stereotype="" type="AbstractElementGroup" />
-        <value>135</value>
+        <value>31</value>
+      </counter>
+      <counter>
+        <item-type stereotype="" type="UmlComment" />
+        <value>2</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -123,7 +127,7 @@
           </authors>
           <description />
           <creation-date>09/25/2015 14:00:12</creation-date>
-          <change-date>01/05/2016 11:20:51</change-date>
+          <change-date>01/13/2016 13:21:13</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
@@ -133,9 +137,9 @@
           </item>
           <item id="di542882855862618794" cid="C001" type="class" name="UserInteractionTask" style-class="" visibility="private" creator="Pc7258a33b28f45929b0c215661bc37b9" creation-date="09/25/2015 14:00:19">
             <owned-items>
-              <owned-item ref="di606069280834137799" />
-              <owned-item ref="di965604459490806979" />
+              <owned-item ref="di388814805995928189" />
               <owned-item ref="di738476258456511313" />
+              <owned-item ref="di965604459490806979" />
             </owned-items>
             <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#3C000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9" name-use-defaults="false" name-color="#FF000000" name-font="Verdana;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-use-defaults="false" part-header-color="#FF1E1E1E" part-header-font="Verdana;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-use-defaults="false" text-color="#FF000000" text-font="Verdana;9;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-use-defaults="false" tagged-value-color="#FF1E1E1E" tagged-value-font="Verdana;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-use-defaults="false" stereotype-color="#FF1E1E1E" stereotype-font="Verdana;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center">
               <background type="vertical-linear" color="#FFAAAAFF" color2="#FF0000FF" />
@@ -160,24 +164,6 @@
           <item id="di414577085547141670" cid="PAR006" type="part" name="theLoadCtrl" style-class="" visibility="private" creator="Pc7258a33b28f45929b0c215661bc37b9" creation-date="09/25/2015 14:05:42">
             <style class="default" />
           </item>
-          <item id="di149251710105635358" cid="C004" type="class" name="ReadMachineTask" style-class="" visibility="private" creator="Pc7258a33b28f45929b0c215661bc37b9" creation-date="09/25/2015 14:06:34">
-            <owned-items>
-              <owned-item ref="di790416878106645222" />
-            </owned-items>
-            <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#3C000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9" name-use-defaults="false" name-color="#FF000000" name-font="Verdana;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-use-defaults="false" part-header-color="#FF1E1E1E" part-header-font="Verdana;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-use-defaults="false" text-color="#FF000000" text-font="Verdana;9;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-use-defaults="false" tagged-value-color="#FF1E1E1E" tagged-value-font="Verdana;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-use-defaults="false" stereotype-color="#FF1E1E1E" stereotype-font="Verdana;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center">
-              <background type="vertical-linear" color="#FFAAAAFF" color2="#FF0000FF" />
-              <border color="#FF000000" width="1" dash-style="Solid" />
-              <label-connector color="#80000000" width="1" dash-style="Dash" />
-              <alternate-styles>
-                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#3C000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9" name-use-defaults="false" name-color="#FF000000" name-font="Verdana;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-use-defaults="false" part-header-color="#FF1E1E1E" part-header-font="Verdana;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-use-defaults="false" text-color="#FF000000" text-font="Verdana;9;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-use-defaults="false" tagged-value-color="#FF1E1E1E" tagged-value-font="Verdana;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-use-defaults="false" stereotype-color="#FF1E1E1E" stereotype-font="Verdana;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center">
-                  <background type="vertical-linear" color="#FF1E90FF" color2="#FF87CEFA" />
-                  <border color="#FF00008B" width="1" dash-style="Solid" />
-                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
-                </alternate-style>
-              </alternate-styles>
-            </style>
-            <allow-composite-structure />
-          </item>
           <item id="di867973392414452335" cid="PAR007" type="part" name="ReadMachineController" style-class="" visibility="private" creator="Pc7258a33b28f45929b0c215661bc37b9" creation-date="09/25/2015 14:06:53">
             <style class="default" />
           </item>
@@ -185,6 +171,7 @@
             <owned-items>
               <owned-item ref="di420063550686320680" />
               <owned-item ref="di141777991874183300" />
+              <owned-item ref="di867973392414452335" />
             </owned-items>
             <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#3C000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9" name-use-defaults="false" name-color="#FF000000" name-font="Verdana;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-use-defaults="false" part-header-color="#FF1E1E1E" part-header-font="Verdana;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-use-defaults="false" text-color="#FF000000" text-font="Verdana;9;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-use-defaults="false" tagged-value-color="#FF1E1E1E" tagged-value-font="Verdana;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-use-defaults="false" stereotype-color="#FF1E1E1E" stereotype-font="Verdana;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center">
               <background type="vertical-linear" color="#FFAAAAFF" color2="#FF0000FF" />
@@ -208,7 +195,6 @@
           </item>
           <item id="di746912796791964592" cid="C007" type="class" name="LoadCycleTask" style-class="" visibility="private" creator="Pc7258a33b28f45929b0c215661bc37b9" creation-date="09/25/2015 14:11:35">
             <owned-items>
-              <owned-item ref="di606069280834137799" />
               <owned-item ref="di310526056860316819" />
             </owned-items>
             <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#3C000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9" name-use-defaults="false" name-color="#FF000000" name-font="Verdana;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-use-defaults="false" part-header-color="#FF1E1E1E" part-header-font="Verdana;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-use-defaults="false" text-color="#FF000000" text-font="Verdana;9;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-use-defaults="false" tagged-value-color="#FF1E1E1E" tagged-value-font="Verdana;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-use-defaults="false" stereotype-color="#FF1E1E1E" stereotype-font="Verdana;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center">
@@ -255,48 +241,44 @@
         </abstract-items>
         <layer name="Default" visible="true" enabled="true" locked="false">
           <item id="di542882855862618794" iid="211c3604fabe4e54a8d5bae3032e02ee" creation-date="09/25/2015 14:00:19" order-index="1" type="entity">
-            <layout ax="210" ay="200" awidth="220" aheight="240" x="210" y="200" width="220" height="240" angle="0" />
+            <layout ax="210" ay="180" awidth="220" aheight="220" x="210" y="180" width="220" height="220" angle="0" />
             <class />
           </item>
           <item id="di388814805995928189" iid="144a5a247bb142d3bd08160aafd12cf7" container="di542882855862618794" container-iid="211c3604fabe4e54a8d5bae3032e02ee" creation-date="09/25/2015 14:00:17" order-index="0" type="entity">
-            <layout ax="220" ay="250" awidth="120" aheight="50" x="220" y="250" width="120" height="50" angle="0" />
+            <layout ax="220" ay="220" awidth="120" aheight="50" x="220" y="220" width="120" height="50" angle="0" />
           </item>
           <item id="di738476258456511313" iid="bc39cd7401e4478b8db98ccfaf7830fa" container="di542882855862618794" container-iid="211c3604fabe4e54a8d5bae3032e02ee" creation-date="09/25/2015 14:03:13" order-index="5" type="entity">
-            <layout ax="220" ay="310" awidth="146" aheight="50" x="220" y="310" width="146" height="50" angle="0" />
-          </item>
-          <item id="di149251710105635358" iid="e2adbdb05273425d947f067a59d0a1cd" creation-date="09/25/2015 14:06:34" order-index="9" type="entity">
-            <layout ax="210" ay="80" awidth="220" aheight="100" x="210" y="80" width="220" height="100" angle="0" />
-            <class />
-          </item>
-          <item id="di867973392414452335" iid="6a72db10490548d491f8d6c512c7a516" container="di149251710105635358" container-iid="e2adbdb05273425d947f067a59d0a1cd" creation-date="09/25/2015 14:06:53" order-index="10" type="entity">
-            <layout ax="220" ay="120" awidth="200" aheight="40" x="220" y="120" width="200" height="40" angle="0" />
+            <layout ax="220" ay="280" awidth="146" aheight="50" x="220" y="280" width="146" height="50" angle="0" />
           </item>
           <item id="di800484266622432461" iid="22cc326d7b544a328b178343afdac436" creation-date="09/25/2015 14:08:32" order-index="12" type="entity">
-            <layout ax="440" ay="80" awidth="220" aheight="160" x="440" y="80" width="220" height="160" angle="0" />
+            <layout ax="440" ay="80" awidth="220" aheight="220" x="440" y="80" width="220" height="220" angle="0" />
             <class />
           </item>
           <item id="di141777991874183300" iid="e3dd5df794c445e38a99001f94616421" container="di800484266622432461" container-iid="22cc326d7b544a328b178343afdac436" creation-date="09/25/2015 14:09:33" order-index="13" type="entity">
             <layout ax="450" ay="120" awidth="160" aheight="40" x="450" y="120" width="160" height="40" angle="0" />
           </item>
+          <item id="di867973392414452335" iid="6a72db10490548d491f8d6c512c7a516" container="di800484266622432461" container-iid="22cc326d7b544a328b178343afdac436" creation-date="09/25/2015 14:06:53" order-index="10" type="entity">
+            <layout ax="450" ay="240" awidth="200" aheight="40" x="450" y="240" width="200" height="40" angle="0" />
+          </item>
           <item id="di420063550686320680" iid="730c3dc1fa25453d9e7dcf0463631a84" container="di800484266622432461" container-iid="22cc326d7b544a328b178343afdac436" creation-date="09/25/2015 14:10:15" order-index="14" type="entity">
             <layout ax="450" ay="180" awidth="160" aheight="40" x="450" y="180" width="160" height="40" angle="0" />
           </item>
           <item id="di746912796791964592" iid="732848d482bd411bbdc25fff285d46f3" creation-date="09/25/2015 14:11:35" order-index="15" type="entity">
-            <layout ax="440" ay="350" awidth="220" aheight="90" x="440" y="350" width="220" height="90" angle="0" />
+            <layout ax="440" ay="310" awidth="220" aheight="90" x="440" y="310" width="220" height="90" angle="0" />
             <class />
           </item>
           <item id="di310526056860316819" iid="c7446c76bd134dc7b4ed4e6f8200e271" container="di746912796791964592" container-iid="732848d482bd411bbdc25fff285d46f3" creation-date="09/25/2015 14:12:03" order-index="16" type="entity">
-            <layout ax="450" ay="390" awidth="167" aheight="40" x="450" y="390" width="167" height="40" angle="0" />
+            <layout ax="450" ay="350" awidth="167" aheight="40" x="450" y="350" width="167" height="40" angle="0" />
           </item>
           <item id="di965604459490806979" iid="082708174c23469c9f76533fe42dc03f" container="di542882855862618794" container-iid="211c3604fabe4e54a8d5bae3032e02ee" creation-date="09/25/2015 14:03:09" order-index="3" type="entity">
-            <layout ax="220" ay="370" awidth="180" aheight="50" x="220" y="370" width="180" height="50" angle="0" />
+            <layout ax="220" ay="340" awidth="180" aheight="50" x="220" y="340" width="180" height="50" angle="0" />
           </item>
           <item id="di426467388568210799" iid="2c339a4ea04244f49bfbb45195a9a232" creation-date="09/25/2015 14:08:32" order-index="12" type="entity">
-            <layout ax="440" ay="250" awidth="220" aheight="90" x="440" y="250" width="220" height="90" angle="0" />
+            <layout ax="210" ay="80" awidth="220" aheight="90" x="210" y="80" width="220" height="90" angle="0" />
             <class />
           </item>
           <item id="di425723840920434998" iid="a4d857c1ed0c459d98c4e4500ce59188" container="di426467388568210799" container-iid="2c339a4ea04244f49bfbb45195a9a232" creation-date="09/25/2015 14:09:33" order-index="13" type="entity">
-            <layout ax="450" ay="290" awidth="196" aheight="40" x="450" y="290" width="196" height="40" angle="0" />
+            <layout ax="220" ay="120" awidth="196" aheight="40" x="220" y="120" width="196" height="40" angle="0" />
           </item>
         </layer>
       </diagram>
