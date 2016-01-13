@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<sim-project version="8.5" multi-file="no">
+<sim-project version="9.15" multi-file="no">
   <meta>
     <name>STD Read Machine Task</name>
     <authors> Wouter</authors>
@@ -26,16 +26,16 @@
         <value>2</value>
       </counter>
       <counter>
-        <item-type stereotype="" type="AbstractElementGroup" />
-        <value>12</value>
-      </counter>
-      <counter>
         <item-type stereotype="" type="UmlTransition" />
         <value>6</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlComment" />
         <value>2</value>
+      </counter>
+      <counter>
+        <item-type stereotype="" type="AbstractElementGroup" />
+        <value>7</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -74,7 +74,7 @@
   <filters />
   <items />
   <models>
-    <model id="p229160853564945390" name="Model 1" type="" namespace="" order-index="1">
+    <model id="p229160853564945390" name="Model 1" namespace="" order-index="1">
       <meta>
         <authors>
           <author> </author>
@@ -104,42 +104,27 @@
           <version />
         </meta>
         <abstract-items>
-          <item id="di121484099184581418" cid="IS001" type="initial-state" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="P01ad94f01f6d4821919415915025a21b" creation-date="01/12/2016 11:17:59">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di121484099184581418" cid="IS001" type="initial-state" name="" style-class="" visibility="package" creator="P01ad94f01f6d4821919415915025a21b" creation-date="01/12/2016 11:17:59">
             <style class="default" />
           </item>
-          <item id="di101900187682023836" cid="ST001" type="state" name="Waiting" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="P01ad94f01f6d4821919415915025a21b" creation-date="01/12/2016 11:18:10">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di101900187682023836" cid="ST001" type="state" name="Waiting" style-class="" visibility="package" creator="P01ad94f01f6d4821919415915025a21b" creation-date="01/12/2016 11:18:10">
             <style class="default" />
             <state-invariant />
             <actions />
           </item>
-          <item id="di599160451429870988" cid="ELEM002" type="general-transition" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="P01ad94f01f6d4821919415915025a21b" creation-date="01/12/2016 11:18:26">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di599160451429870988" cid="ELEM002" type="general-transition" name="" style-class="" visibility="package" creator="P01ad94f01f6d4821919415915025a21b" creation-date="01/12/2016 11:18:26" from="di121484099184581418" to="di101900187682023836">
             <style class="default" />
             <transition guard="" behaviourExpression=" ">
               <trigger />
             </transition>
           </item>
-          <item id="di352059560140286531" cid="ELEM005" type="general-transition" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="P01ad94f01f6d4821919415915025a21b" creation-date="01/12/2016 11:18:57">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di352059560140286531" cid="ELEM005" type="general-transition" name="" style-class="" visibility="package" creator="P01ad94f01f6d4821919415915025a21b" creation-date="01/12/2016 11:18:57" from="di101900187682023836" to="di101900187682023836">
             <style class="default" />
             <transition guard="" behaviourExpression=" MIT.updateState()">
               <trigger>Timer</trigger>
             </transition>
           </item>
-          <item id="di669342204792827101" cid="CMT001" type="comment" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creator="P01ad94f01f6d4821919415915025a21b" creation-date="01/12/2016 11:22:27">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
+          <item id="di669342204792827101" cid="CMT001" type="comment" name="" style-class="" visibility="package" creator="P01ad94f01f6d4821919415915025a21b" creation-date="01/12/2016 11:22:27">
             <style class="default" />
             <comment>MIT: Machine Interaction Task
 </comment>
@@ -153,7 +138,7 @@
             <layout ax="300" ay="180" awidth="120" aheight="50" x="300" y="180" width="120" height="50" angle="0" />
           </item>
           <item id="di599160451429870988" iid="1f728e900abd4505a76866ec042e8cb1" creation-date="01/12/2016 11:18:26" order-index="2" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="460" y1="205" x2="420" y2="205" start-border-pos="0.875" end-border-pos="0.375">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="460" y1="205" x2="420" y2="205" start-border-pos="0.875" end-border-pos="0.375" name-position="10,-10">
               <points>
                 <point x="460" y="205" />
                 <point x="420" y="205" />
@@ -162,7 +147,7 @@
             <relation from="di121484099184581418" from-iid="b5029f0e70ea4b8cb10cbe970f801f94" to="di101900187682023836" to-iid="d96f65cb43f8487b846ca37023e0b454" />
           </item>
           <item id="di352059560140286531" iid="10d1a1658b8645c4bc20702fb700cc58" creation-date="01/12/2016 11:18:57" order-index="3" type="relation">
-            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" name-position="40,20" auto-path="" x1="360" y1="230" x2="300" y2="210" start-border-pos="0.625" end-border-pos="0.85" name-width="220">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="360" y1="230" x2="300" y2="210" start-border-pos="0.625" end-border-pos="0.85" name-position="40,20" name-width="220">
               <points>
                 <point x="360" y="230" />
                 <point x="350" y="270" />
@@ -174,7 +159,7 @@
             <relation from="di101900187682023836" from-iid="d96f65cb43f8487b846ca37023e0b454" to="di101900187682023836" to-iid="d96f65cb43f8487b846ca37023e0b454" />
           </item>
           <item id="di669342204792827101" iid="3336f0531309420dbd60ece74512a294" creation-date="01/12/2016 11:22:27" order-index="4" type="entity">
-            <layout ax="200" ay="310" awidth="201" aheight="100" x="200" y="310" width="201" height="100" angle="0" />
+            <layout ax="200" ay="310" awidth="200" aheight="30" x="200" y="310" width="200" height="30" angle="0" />
           </item>
         </layer>
       </diagram>
