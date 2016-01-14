@@ -6,14 +6,25 @@
 		<script src="myscript.js"> </script>
 		<link rel="stylesheet" type="text/css" href="Layout.css" />
 	</head>
+	
 	<body>
-	<table  class="logobar">
-	<tr><td >
-		<div id = "ManageUserProfile" >
-			<button onclick = "Load('Main.html')" >Back </button>
-			<button onclick = "Load('MUP_CreateUserProfile.html')" >Create New Profile </button>
-			<button onclick = "Load('MUP_EditUserProfile.html')" >Edit Profile </button>
-		</div></td>
-		<td><img src="soviet_wascha.png" width="240" height="150" class="right"/><div class="center">WasMachine</div></td></tr></table>	
+		<table class="logobar">
+		<tr>
+			<td >
+				<div id="ManageUserProfileTop">
+					<button onclick = "Load('Main.html')" >Back </button>
+					<button onclick = "Load('MUP_CreateUserProfile.html')" >Create New Profile </button>
+					<button onclick = "Load('MUP_EditUserProfile.html')" >Edit Profile </button>
+				</div>
+			</td>
+			<td>
+				<img src="soviet_wascha.png" width="240" height="150" class="right"/>
+				<div class="center">WasMachine</div>
+			</td>
+		</tr>
+		</table>	
+		
+		<div id="ManageUserProfile">
+		</div>
 	</body>
 </html>

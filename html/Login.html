@@ -6,14 +6,25 @@
 		<script src="myscript.js"> </script>
 		<link rel="stylesheet" type="text/css" href="Layout.css" />
 	</head>
+	
 	<body>
-	<table  class="logobar">
-	<tr><td >
+		<table class="logobar">
+		<tr>
+			<td >
+				<div id="LoginTop">
+					<label>Username:</label> <label id = "LPassword">Password: </label><BR/>
+					<input type = "text" id = "LoginUsername"/>  <input type = "password" id = "LoginPassword"/>
+					<button onclick = "Login('Main.html')" id="LoginButton">Login </button> <BR/>
+				</div>
+			</td>
+			<td>
+				<img src="soviet_wascha.png" width="240" height="150" class="right"/>
+				<div class="center">WasMachine</div>
+			</td>
+		</tr>
+		</table>
+		
 		<div id="Login">
-			<label>Username:</label> <label id = "LPassword">Password: </label><BR/>
-			<input type = "text" id = "LoginUsername"/>  <input type = "password" id = "LoginPassword"/>
-			<button onclick = "Login('Main.html')" id="LoginButton">Login </button> <BR/>
-	</div></td>
-		<td><img src="soviet_wascha.png" width="240" height="150" class="right"/><div class="center">WasMachine</div></td></tr></table>	
+		</div>			
 	</body>
 </html>
