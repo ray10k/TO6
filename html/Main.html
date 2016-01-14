@@ -4,17 +4,20 @@
 	<head>
 		<title> Main </title>
 		<script src="myscript.js"> </script>
+		<link rel="stylesheet" type="text/css" href="Layout.css" />
 	</head>
 	<body bgcolor="#ffffff">
 		
-		<div id = "Main" >
-			<button onclick = "Logout('Login.html')" >Logout </button>
-			<button onclick = "Load('ManageUserProfile.html')" >Manage User Profile </button>
-		</div>
-		
-		<script type="text/javascript">
-			Login_Message();
-        </script>
-		
+		<table width="100%" cellspacing="0" cellpadding="0" border="0" class="logobar" bgcolor="#ffff66">
+		<tr><td >
+			<div id = "Main" >
+				<button onclick = "Logout('Login.html')" >Logout </button>
+				<button onclick = "Load('ManageUserProfile.html')" >Manage User Profile </button>
+			</div></td>
+		<td><img src="soviet_wascha.png" width="240" height="150" id="logo" class="right"/><div class="center">WasMachine</div></td></tr></table>
 	</body>
+	<script type="text/javascript">
+		Login_Message();
+    </script>	
+	
 </html>

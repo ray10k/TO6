@@ -4,16 +4,16 @@
 	<head>
 		<title> Login </title>
 		<script src="myscript.js"> </script>
-		<link rel="stylesheet" type="text/css" href="test.css" />
+		<link rel="stylesheet" type="text/css" href="Layout.css" />
 	</head>
-	<body bgcolor="#ffffff">
-	
+	<body>
+	<table  class="logobar">
+	<tr><td >
 		<div id="Login">
-			Enter a username and password and press login. <BR/>
-			<label>Username:</label> <input type = "text" id = "LoginUsername"/> <BR/>
-			<label>Password:</label> <input type = "password" id = "LoginPassword"/> <BR/>
-			<button onclick = "Login('Main.html')" >Login </button> <BR/>
-		</div>
-		
+			<label>Username:</label> <label id = "LPassword">Password: </label><BR/>
+			<input type = "text" id = "LoginUsername"/>  <input type = "password" id = "LoginPassword"/>
+			<button onclick = "Login('Main.html')" id="LoginButton">Login </button> <BR/>
+	</div></td>
+		<td><img src="soviet_wascha.png" width="240" height="150" class="right"/><div class="center">WasMachine</div></td></tr></table>	
 	</body>
 </html>
