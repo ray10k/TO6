@@ -18,17 +18,27 @@ class cycleStep;
 class washingCycle
 {
 public:
-	washingCycle(int length);
-	cycleStep next();
+	//! Creates an empty washing cycle.
+	washingCycle();
+	//! Advances the list to the next step, and returns the new current step.
+	const cycleStep& next();
+	//! True unless either the current step is marked as a final step, or the
+	//! current step is at the end of the list.
 	bool hasNext() const;
+	//! Moves one step back into the cycle.
 	void back();
-	int currentStep() const;
-	int totalSteps() const;
+	//! Returns the current step number, ranging 0 - totalSteps().
+	unsigned int currentStep() const;
+	//! returns the total number of steps in this cycle.
+	unsigned int totalSteps() const;
+	//! Adds a new step to the cycle, at the end. If there is already a final
+	//! step added, calling this function will not add a new step.
 	void addStep(const cycleStep toAdd);
 
 private:
 	std::vector<cycleStep> steps;
 	int current;
+	const static cycleStep end;
 };
 
 //**************************************
@@ -45,22 +55,47 @@ private:
 class cycleStep
 {
 public:
-	cycleStep(arguments);
-	~cycleStep();
+	//! Creates a cycle step that ends as soon as the required temperature and 
+	//! water level are reached.
+	cycleStep(unsigned short int temp,
+		unsigned short int water,
+		bool detergent,
+		signed int speed);
+	//! Creates a cycle step that runs for a given amount of time before
+	//! finishing.
+	cycleStep(unsigned short int temp,
+		unsigned short int water,
+		bool detergent,
+		signed int speed,
+		unsigned int duration,
+		bool flush);
+	//! Creates a finishing step that has no specific settings (returns false or
+	//! 0 for all data access functions,) but will return true for isFinalStep()
+	//! .
+	cycleStep();
 
 	//! true if this step is time-based, false if the step is water level, and
 	//! -temperature based instead.
 	bool isTimed() const;
-	//! returns the duration of this step in ms, or 0 if the step is not time-
-	//! based.
-	int getDuration() const;
+	//! returns the duration of this step in seconds, or 0 if the step is not 
+	//! time-based.
+	unsigned int getDuration() const;
 	//! returns true if detergent must be added during this step.
 	bool addDetergent() const;
 	//! returns true if the pump and tap must both be running during this step.
 	bool mustFlush() const;
+	//! returns true if this step is the last step of the program, following
+	//! which the machine should be brought to a safe
 	//! returns the target water temperature for this step.
 	unsigned short int getTemperature() const;
-
+	//! returns the speed of the drum as a multiplier of 25, without direction.
+	unsigned short int getDrumSpeed() const;
+	//! returns true if the drum should rotate clockwise, false otherwise.
+	bool isDrumClockwise() const;
+	//! returns true if this is the final step of a cycle. If so, the machine
+	//! should be brought to a safe state to open it, and no further steps will
+	//! be executed.
+	bool isFinal() const;
 
 
 private:
@@ -82,14 +117,17 @@ private:
 	//! drum rotational speed, drum will turn counterclockwise if negative. Will
 	//! be set to closest multiple of 25 during initialization, up to 1600 in 
 	//! either direction.
-	signed int drumSpeed;
+	signed short int drumSpeed;
 
 	//! if true, the step ends when the set amount of time has passed, else the
 	//! step ends when the water level and temperature have reached the expected
 	//! values.
 	bool timed;
-	//! Duration of the step.
-	int duration;
+	//! Duration of the step in seconds.
+	unsigned int duration;
+	//! The last step in a cycle must have this set to true, any following steps
+	//! are ignored and the door must be unlocked.
+	bool finalStep;
 };
 
 #endif
