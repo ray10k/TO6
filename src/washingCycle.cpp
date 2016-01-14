@@ -33,6 +33,12 @@ unsigned int washingCycle::totalSteps() const {
 	return this->steps.size();
 }
 
+void addStep(cycleStep toAdd){
+	if (this->steps.empty() || !(this->steps.back().isFinal()))
+	{
+		this->steps.push_back(toAdd);
+	}
+}
 
 cycleStep::cycleStep(unsigned short int temp,
 	unsigned short int water,

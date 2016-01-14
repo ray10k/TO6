@@ -33,7 +33,7 @@ public:
 	unsigned int totalSteps() const;
 	//! Adds a new step to the cycle, at the end. If there is already a final
 	//! step added, calling this function will not add a new step.
-	void addStep(const cycleStep toAdd);
+	void addStep(cycleStep toAdd);
 
 private:
 	std::vector<cycleStep> steps;
