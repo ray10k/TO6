@@ -1,6 +1,6 @@
 	
 BODY {
-	FONT-FAMILY: "Trebuchet MS", Verdana, sans-serif; COLOR: #FFFFFF; background-color: white
+	FONT-FAMILY: "Trebuchet MS", Verdana, sans-serif; COLOR: #000000; background-color: white
 }
 
 table.logobar td { padding: 1px 1px 5px 10px; }
@@ -35,6 +35,7 @@ table.logobar td { padding: 1px 1px 5px 10px; }
 .logobar {
 	BACKGROUND: #0033FF;
 	width: 100%; 
+	COLOR: #FFFFFF;
 }
 
 
