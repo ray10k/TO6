@@ -131,10 +131,9 @@ function SavePassword(html)
 	setTimeout(function(){Load(html);},500);
 }
 
-function LoadWashingCycle(html)
+function LoadWashingCycle()
 {
-	Print("Loading...", "LoadWashingCycle");
-	setTimeout(function(){Load(html);},500);
+	Print("Loading...", "EditWashingCycle");
 }
 
 function Login_Message()
