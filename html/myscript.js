@@ -38,11 +38,11 @@ function FillWashingCycleFases()
 	}
 }
 
-function CreateWashingCycle(html)
+function SaveWashingCycle(html, CurrentFile)
 {
-	var WashingCycleName = document.getElementById("CreateWashingCycleName").value;
-	Print("Creating " + WashingCycleName + "...", "CreateWashingCycle");
-	Print(WashingCycleName + " bevat " + FaseCount + " fases", "CreateWashingCycle");
+	var WashingCycleName = document.getElementById("WashingCycleName").value;
+	Print("Saving " + WashingCycleName + "...", CurrentFile);
+	Print(WashingCycleName + " bevat " + FaseCount + " fases", CurrentFile);
 	for(var fase = 1; fase <= FaseCount; fase++)
 	{
 		var FaseOpdracht = document.getElementById("Fase" + fase + "Opdracht").value;
@@ -64,9 +64,19 @@ function CreateWashingCycle(html)
 				extra = ", Temperatuur: " + Temperatuur;
 				break;
 		}
-		Print(Message + extra, "CreateWashingCycle");
+		Print(Message + extra, CurrentFile);
 	}
 	setTimeout(function(){Load(html);},5000);
+}
+
+function DeleteWashingCycle(html)
+{
+	var WashingCycleName = document.getElementById("EditWashingCycleName").value;
+	Print("Deleting " + WashingCycleName + "...", "EditWashingCycle");
+	
+	//ws.DeleteWashingCycle(WashingCycleName);
+	
+	setTimeout(function(){Load(html);},1000);
 }
 
 function AddFase()
@@ -138,12 +148,13 @@ function LoadWashingCycleNames()
 	{
 		NamesToHtml += "<option value='" + WashingCycleNames[i] + "'>" + WashingCycleNames[i] + "</option>"
 	}
-	document.getElementById("LoadWashingCycleName").innerHTML = NamesToHtml;
+	document.getElementById("EditWashingCycleName").innerHTML = NamesToHtml;
 }
 
 function LoadWashingCycle()
 {
-	var WashingCycleName = document.getElementById("LoadWashingCycleName").value;
+	var WashingCycleName = document.getElementById("EditWashingCycleName").value;
+	document.getElementById("WashingCycleName").value = WashingCycleName;
 	//Print("Loading WashingCycle: " + WashingCycleName + "...", "EditWashingCycle");
 	
 	FaseCount = 5; //ws.LoadWashingCycleFaseCount(WashingCycleName);

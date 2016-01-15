@@ -24,10 +24,8 @@
 			
 		<div class = "BodyPart" id = "EditWashingCycle" >
 			<label> Washing Cycle Name: </label> 
-			<select id="LoadWashingCycleName"></select>
+			<select id="EditWashingCycleName"></select>
 			<button onclick = "LoadWashingCycle()" >Load Washing Cycle </button> <BR/>
-			
-			<!-- <label> Washing Cycle Name: </label> <input type = "text" id = "EditWashingCycleName"/> <BR/> -->
 			
 			<h3 id="Fase1" style="Display: none" > <h3/>
 			<h3 id="Fase2" style="Display: none" > <h3/>
@@ -44,10 +42,11 @@
 			</script>
 			
 			<div style="Display: none" id="EditWashingCycleButtons">
+				<label> Washing Cycle Name: </label> <input type = "text" id = "WashingCycleName"/> <BR/>
 				<button onclick = "AddFase()" >Add Fase</button>
 				<button onclick = "RemoveFase()" >Remove Fase</button>
-				<button onclick = "EditWashingCycleSave('MUP_EditUserProfile.html')" >Save Washing Cycle </button>
-				<button onclick = "EditWashingCycleDelete('MUP_EditUserProfile.html')" >Delete Washing Cycle </button>
+				<button onclick = "SaveWashingCycle('MUP_EditUserProfile.html', 'EditWashingCycle')" >Save Washing Cycle </button>
+				<button onclick = "DeleteWashingCycle('MUP_EditUserProfile.html')" >Delete Washing Cycle </button>
 			</div>
 		</div>
 	</body>
