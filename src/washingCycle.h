@@ -12,6 +12,7 @@
 #define __WASHING_CYCLE 
 
 #include <vector>
+#include <string>
 
 class cycleStep;
 
@@ -19,7 +20,7 @@ class washingCycle
 {
 public:
 	//! Creates an empty washing cycle.
-	washingCycle();
+	washingCycle(const string& name);
 	//! Advances the list to the next step, and returns the new current step.
 	const cycleStep& next();
 	//! True unless either the current step is marked as a final step, or the
@@ -34,11 +35,14 @@ public:
 	//! Adds a new step to the cycle, at the end. If there is already a final
 	//! step added, calling this function will not add a new step.
 	void addStep(cycleStep toAdd);
+	//! returns the name of the cycle as a whole.
+	const string& getName() const;
 
 private:
 	std::vector<cycleStep> steps;
 	int current;
 	const static cycleStep end;
+	string cycleName;
 };
 
 //**************************************
@@ -57,13 +61,15 @@ class cycleStep
 public:
 	//! Creates a cycle step that ends as soon as the required temperature and 
 	//! water level are reached.
-	cycleStep(unsigned short int temp,
+	cycleStep(const string& name,
+		unsigned short int temp,
 		unsigned short int water,
 		bool detergent,
 		signed int speed);
 	//! Creates a cycle step that runs for a given amount of time before
 	//! finishing.
-	cycleStep(unsigned short int temp,
+	cycleStep(const string& name,
+		unsigned short int temp,
 		unsigned short int water,
 		bool detergent,
 		signed int speed,
@@ -96,11 +102,15 @@ public:
 	//! should be brought to a safe state to open it, and no further steps will
 	//! be executed.
 	bool isFinal() const;
+	//! returns the name of this step, as it should be displayed.
+	const string& getName() const;
 
 
 private:
 	//no state for door lock; implied as closed until after the last step of 
 	//the cycle.
+	//! name of the step, for display purposes.
+	string stepName;
 
 	//! detergent will be added for entire duration of step if true, otherwise 
 	//! no detergent will be added.

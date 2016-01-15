@@ -1,8 +1,9 @@
 #include "washingCycle.h"
 
-washingCycle::washingCycle():
+washingCycle::washingCycle(const string& name):
 	steps(),
-	current(0)
+	current(0),
+	cycleName(name)
 {}
 
 const cycleStep& washingCycle::next(){
@@ -33,17 +34,23 @@ unsigned int washingCycle::totalSteps() const {
 	return this->steps.size();
 }
 
-void addStep(cycleStep toAdd){
+void washingCycle::addStep(cycleStep toAdd){
 	if (this->steps.empty() || !(this->steps.back().isFinal()))
 	{
 		this->steps.push_back(toAdd);
 	}
 }
 
-cycleStep::cycleStep(unsigned short int temp,
+const string& washingCycle::getName() const {
+	return this->cycleName;
+}
+
+cycleStep::cycleStep(const string& name,
+	unsigned short int temp,
 	unsigned short int water,
 	bool detergent,
 	signed int speed):
+		stepName(name),
 		addDetergent(detergent),
 		flush(false),
 		temperature(temp),
@@ -54,12 +61,14 @@ cycleStep::cycleStep(unsigned short int temp,
 		finalStep(false)
 	{}
 
-cycleStep::cycleStep(unsigned short int temp,
+cycleStep::cycleStep(const string& name,
+	unsigned short int temp,
 	unsigned short int water,
 	bool detergent,
 	signed int speed,
 	unsigned int duration,
 	bool flush):
+		stepName(name),
 		addDetergent(detergent),
 		flush(flush),
 		temperature(temp),
@@ -71,6 +80,7 @@ cycleStep::cycleStep(unsigned short int temp,
 	{}
 
 cycleStep::cycleStep():
+		stepName("end"),
 		addDetergent(false),
 		flush(false),
 		temperature(20),
@@ -115,4 +125,8 @@ bool cycleStep::isDrumClockwise() const {
 
 bool cycleStep::isFinal() const {
 	return this->finalStep;
+}
+
+const cycleStep::string& getName() const {
+	return this->stepName;
 }

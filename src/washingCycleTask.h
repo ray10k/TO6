@@ -52,7 +52,7 @@ private:
 class machineState
 {
 public:
-	machineState()
+	machineState();
 	short unsigned int temperature;
 	short unsigned int waterLevel;
 	short unsigned int drumSpeed;
