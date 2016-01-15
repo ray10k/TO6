@@ -22,10 +22,27 @@ function CreateUserProfile(html)
 }
 
 var FaseCount = 3;
+function FillWashingCycleFases()
+{
+	for(var i = 1; i <= 8; i++)
+	{
+		var part1 = document.getElementById('Fase' + i).innerHTML = " Fase " + i + " &nbsp; <select id='Fase" + i + "Opdracht'onchange='DropDownChange("+ i +")'><option value='Empty" + i + "'>...</option>";
+		var part2;
+		switch(i)
+		{
+			default:
+			part2 = document.getElementById('Fase' + i).innerHTML = "<option value='WaterToevoegen" + i + "'>Water Toevoegen</option><option value='ZeepToevoegen" + i + "'>Zeep Toevoegen</option><option value='WaterVerwarmen" + i + "'>Water Verwarmen</option><option value='Draaien" + i + "'>Draaien</option><option value='Spoelen" + i + "'>Spoelen</option><option value='WaterWegpompen" + i + "'>Water Wegpompen</option>";
+			break;
+		}
+		document.getElementById('Fase' + i).innerHTML = part1 + part2 + "</select><label> &nbsp; Duur: </label> <input type = 'number' value='0' min='1' max='60' id = 'Fase" + i + "Time' oninput='CheckIfTime_1_60(" + i + ")' disabled=''/> Minuten <div id='Fase" + i + "Extra'>...</div>";
+	}
+}
+
 function CreateWashingCycle(html)
 {
 	var WashingCycleName = document.getElementById("CreateWashingCycleName").value;
 	Print("Creating " + WashingCycleName + "...", "CreateWashingCycle");
+	Print(WashingCycleName + " bevat " + FaseCount + " fases", "CreateWashingCycle");
 	for(var fase = 1; fase <= FaseCount; fase++)
 	{
 		var FaseOpdracht = document.getElementById("Fase" + fase + "Opdracht").value;
@@ -66,6 +83,10 @@ function RemoveFase()
 	if(FaseCount > 1)
 	{
 		document.getElementById("Fase" + FaseCount).style.display = "none";
+		document.getElementById("Fase" + FaseCount + "Opdracht").value = "Empty" + FaseCount;
+		document.getElementById("Fase" + FaseCount + "Time").disabled = true;
+		document.getElementById("Fase" + FaseCount + "Time").value = 0;
+		document.getElementById("Fase" + FaseCount + "Extra").innerHTML = "...";
 		FaseCount--;
 	}
 }
@@ -80,41 +101,23 @@ function DropDownChange(fase)
 	document.getElementById("Fase" + fase + "Time").disabled = disabledBool;
 	document.getElementById("Fase" + fase + "Time").value = value;
 	
+	var InnerHtml = "..."
 	switch(FaseOpdracht)
 	{
-		case "Empty"+fase:
-			//Print("Empty"+fase, "CreateWashingCycle");
-			document.getElementById("Fase" + fase + "Extra").innerHTML = "...";
-			break;
 		case "WaterToevoegen"+fase:
 			//Print("WaterToevoegen"+fase, "CreateWashingCycle");
-			document.getElementById("Fase" + fase + "Extra").innerHTML = "Hoeveelheid: <select id='Fase" + fase + "WaterHoeveelheid'><option value='40Liter" + fase + "'>40</option><option value='45Liter" + fase + "'>45</option><option value='50Liter" + fase + "'>50</option><option value='55Liter" + fase + "'>55</option><option value='60Liter" + fase + "'>60</option></select> Liter";
+			InnerHtml = "Hoeveelheid: <select id='Fase" + fase + "WaterHoeveelheid'><option value='40Liter" + fase + "'>40</option><option value='45Liter" + fase + "'>45</option><option value='50Liter" + fase + "'>50</option><option value='55Liter" + fase + "'>55</option><option value='60Liter" + fase + "'>60</option></select> Liter";
 			break;
 		case "ZeepToevoegen"+fase:
 			//Print("ZeepToevoegen"+fase, "CreateWashingCycle");
-			document.getElementById("Fase" + fase + "Extra").innerHTML = "Zeep voor: <select id='Fase" + fase + "Zeep'><option value='WitteWas" + fase + "'>Witte Was</option><option value='BonteWas" + fase + "'>Gekleurde (Bonte) Was</option><option value='Fijn/WolWas" + fase + "'>Fijn en Wol Was</option><option value='JeansWas" + fase + "'>Jeans Was (Spijkerstof)</option></select>";
+			InnerHtml = "Zeep voor: <select id='Fase" + fase + "Zeep'><option value='WitteWas" + fase + "'>Witte Was</option><option value='BonteWas" + fase + "'>Gekleurde (Bonte) Was</option><option value='Fijn/WolWas" + fase + "'>Fijn en Wol Was</option><option value='JeansWas" + fase + "'>Jeans Was (Spijkerstof)</option></select>";
 			break;
 		case "WaterVerwarmen"+fase:
 			//Print("WaterVerwarmen"+fase, "CreateWashingCycle");
-			document.getElementById("Fase" + fase + "Extra").innerHTML = "Temperatuur: <select id='Fase" + fase + "Temperatuur'><option value='30Graden" + fase + "'>30</option><option value='40Graden" + fase + "'>40</option><option value='60Graden" + fase + "'>60</option><option value='95Graden" + fase + "'>95</option></select> Graden Celcius";
-			break;
-		case "Draaien"+fase:
-			//Print("Draaien"+fase, "CreateWashingCycle");
-			document.getElementById("Fase" + fase + "Extra").innerHTML = "...";
-			break;
-		case "Spoelen"+fase:
-			//Print("Spoelen"+fase, "CreateWashingCycle");
-			document.getElementById("Fase" + fase + "Extra").innerHTML = "...";
-			break;
-		case "WaterWegpompen"+fase:
-			//Print("WaterWegpompen"+fase, "CreateWashingCycle");
-			document.getElementById("Fase" + fase + "Extra").innerHTML = "...";
-			break;
-		default:
-			//Print("Default"+fase, "CreateWashingCycle");
-			document.getElementById("Fase" + fase + "Extra").innerHTML = "...";
+			InnerHtml = "Temperatuur: <select id='Fase" + fase + "Temperatuur'><option value='30Graden" + fase + "'>30</option><option value='40Graden" + fase + "'>40</option><option value='60Graden" + fase + "'>60</option><option value='95Graden" + fase + "'>95</option></select> Graden Celcius";
 			break;
 	}
+	document.getElementById("Fase" + fase + "Extra").innerHTML = InnerHtml;
 }
 
 function CheckIfTime_1_60(fase)
@@ -125,15 +128,57 @@ function CheckIfTime_1_60(fase)
 	document.getElementById("Fase" + fase + "Time").value = FaseTime;
 }
 
+function LoadWashingCycleNames()
+{
+	//Print("Loading Washing Cycle Names...", "EditWashingCycle");
+	
+	var WashingCycleNames = ["Kort Maar Krachtig", "Hot Jeans"]; //ws.LoadWashingCycleNames();
+	var NamesToHtml = "";
+	for(var i=0; i<WashingCycleNames.length; i++)
+	{
+		NamesToHtml += "<option value='" + WashingCycleNames[i] + "'>" + WashingCycleNames[i] + "</option>"
+	}
+	document.getElementById("LoadWashingCycleName").innerHTML = NamesToHtml;
+}
+
+function LoadWashingCycle()
+{
+	var WashingCycleName = document.getElementById("LoadWashingCycleName").value;
+	//Print("Loading WashingCycle: " + WashingCycleName + "...", "EditWashingCycle");
+	
+	FaseCount = 5; //ws.LoadWashingCycleFaseCount(WashingCycleName);
+	for(var fase=1; fase<=FaseCount; fase++)
+	{
+		document.getElementById("Fase" + fase).style.display = "block";
+		
+		var FaseOpdracht = "WaterToevoegen" + fase; //ws.LoadWashingCycleFaseOpdracht(WashingCycleName, fase);
+		document.getElementById("Fase" + fase + "Opdracht").value = FaseOpdracht;
+		switch(FaseOpdracht)
+		{
+			case "WaterToevoegen"+fase:
+				document.getElementById("Fase" + fase + "Extra").innerHTML = "Hoeveelheid: <select id='Fase" + fase + "WaterHoeveelheid'><option value='40Liter" + fase + "'>40</option><option value='45Liter" + fase + "'>45</option><option value='50Liter" + fase + "'>50</option><option value='55Liter" + fase + "'>55</option><option value='60Liter" + fase + "'>60</option></select> Liter";
+				document.getElementById("Fase" + fase + "WaterHoeveelheid").value = "55Liter"+fase; //ws.LoadWashingCycleWaterHoeveelheid(WashingCycleName, fase);
+				break;
+			case "ZeepToevoegen"+fase:
+				document.getElementById("Fase" + fase + "Extra").innerHTML = "Zeep voor: <select id='Fase" + fase + "Zeep'><option value='WitteWas" + fase + "'>Witte Was</option><option value='BonteWas" + fase + "'>Gekleurde (Bonte) Was</option><option value='Fijn/WolWas" + fase + "'>Fijn en Wol Was</option><option value='JeansWas" + fase + "'>Jeans Was (Spijkerstof)</option></select>";
+				document.getElementById("Fase" + fase + "Zeep").value = "Fijn/WolWas"+fase; //ws.LoadWashingCycleZeepSoort(WashingCycleName, fase);
+				break;
+			case "WaterVerwarmen"+fase:
+				document.getElementById("Fase" + fase + "Extra").innerHTML = "Temperatuur: <select id='Fase" + fase + "Temperatuur'><option value='30Graden" + fase + "'>30</option><option value='40Graden" + fase + "'>40</option><option value='60Graden" + fase + "'>60</option><option value='95Graden" + fase + "'>95</option></select> Graden Celcius";
+				document.getElementById("Fase" + fase + "Temperatuur").value = "60Graden"+fase; //ws.LoadWashingCycleTemperatuur(WashingCycleName, fase);
+				break;
+		}
+		
+		document.getElementById("Fase" + fase + "Time").disabled = false;
+		document.getElementById("Fase" + fase + "Time").value = 30; //ws.LoadWashingCycleFaseTime(WashingCycleName, fase);
+	}
+	
+	document.getElementById("EditWashingCycleButtons").style.display = "block";
+}
+
 function SavePassword(html)
 {
 	Print("Saving...", "ChangePassword");
-	setTimeout(function(){Load(html);},500);
-}
-
-function LoadWashingCycle(html)
-{
-	Print("Loading...", "LoadWashingCycle");
 	setTimeout(function(){Load(html);},500);
 }
 

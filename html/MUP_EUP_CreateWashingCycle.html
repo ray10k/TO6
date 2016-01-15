@@ -6,19 +6,22 @@
 		<script src="myscript.js"> </script>
 		<link rel="stylesheet" type="text/css" href="Layout.css" />
 	</head>
+	
 	<body>
-		<table  class="logobar">
-			<tr>
-				<td >
-					<div id="CreateWashingCycleTop">
-						<button onclick = "Load('MUP_EditUserProfile.html')" >Cancel </button> <BR/><p/>
-					</div>
-				</td>
-				<td><img src="soviet_wascha.png" width="240" height="150" class="right"/>
-					<div class="center">WasMachine</div>
-				</td>
-			</tr>
+		<table class="logobar">
+		<tr>
+			<td >
+				<div id="CreateWashingCycleTop">
+					<button onclick = "Load('MUP_EditUserProfile.html')" >Cancel </button> <BR/><p/>
+				</div>
+			</td>
+			<td>
+				<img src="soviet_wascha.png" width="240" height="150" class="right"/>
+				<div class="center">WasMachine</div>
+			</td>
+		</tr>
 		</table>	
+		
 		<div class = "BodyPart" id = "CreateWashingCycle" >
 			<label> Washing Cycle Name: </label> <input type = "text" id = "CreateWashingCycleName"/> <BR/>
 				
@@ -32,24 +35,12 @@
 			<h3 id="Fase8" style="Display: none" > <h3/>
 				
 			<script>
-				for(var i = 1; i <= 8; i++)
-				{
-					var part1 = document.getElementById('Fase' + i).innerHTML = " Fase " + i + " &nbsp; <select id='Fase" + i + "Opdracht'onchange='DropDownChange("+ i +")'><option value='Empty" + i + "'>...</option>";
-					var part2;
-					switch(i)
-					{
-						default:
-							part2 = document.getElementById('Fase' + i).innerHTML = "<option value='WaterToevoegen" + i + "'>Water Toevoegen</option><option value='ZeepToevoegen" + i + "'>Zeep Toevoegen</option><option value='WaterVerwarmen" + i + "'>Water Verwarmen</option><option value='Draaien" + i + "'>Draaien</option><option value='Spoelen" + i + "'>Spoelen</option><option value='WaterWegpompen" + i + "'>Water Wegpompen</option>";
-							break;
-					}
-					document.getElementById('Fase' + i).innerHTML = part1 + part2 + "</select><label> &nbsp; Duur: </label> <input type = 'number' value='0' min='1' max='60' id = 'Fase" + i + "Time' oninput='CheckIfTime_1_60(" + i + ")' disabled=''/> Minuten <div id='Fase" + i + "Extra'>...</div>";
-				}
+				FillWashingCycleFases();
 			</script>
+			
 			<button onclick = "AddFase()" >Add Fase</button>
 			<button onclick = "RemoveFase()" >Remove Fase</button>
 			<button onclick = "CreateWashingCycle('MUP_EditUserProfile.html')" >Create Washing Cycle </button> <BR/>
 		</div>	
-			
 	</body>
-	
 </html>

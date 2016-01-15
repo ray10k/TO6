@@ -4,23 +4,51 @@
 	<head>
 		<title> Edit Washing Cycle </title>
 		<script src="myscript.js"> </script>
-		
+		<link rel="stylesheet" type="text/css" href="Layout.css" />
 	</head>
+	
 	<body>
-		<table  class="logobar">
-			<tr>
-				<td >
-					<div   id="EditWashingCycleTop">
-						<button onclick = "Load('MUP_EditUserProfile.html')" >Cancel </button>
-					</div>
-				</td>
-				<td>
-					<img src="soviet_wascha.png" width="240" height="150" class="right"/>
-					<div class="center">WasMachine</div>
-				</td>
-			</tr>
+		<table class="logobar">
+		<tr>
+			<td >
+				<div id="EditWashingCycleTop">
+					<button onclick = "Load('MUP_EditUserProfile.html')" >Cancel </button>
+				</div>
+			</td>
+			<td>
+				<img src="soviet_wascha.png" width="240" height="150" class="right"/>
+				<div class="center">WasMachine</div>
+			</td>
+		</tr>
 		</table>	
-			<div class = "BodyPart" id = "EditWashingCycle" >
+			
+		<div class = "BodyPart" id = "EditWashingCycle" >
+			<label> Washing Cycle Name: </label> 
+			<select id="LoadWashingCycleName"></select>
+			<button onclick = "LoadWashingCycle()" >Load Washing Cycle </button> <BR/>
+			
+			<!-- <label> Washing Cycle Name: </label> <input type = "text" id = "EditWashingCycleName"/> <BR/> -->
+			
+			<h3 id="Fase1" style="Display: none" > <h3/>
+			<h3 id="Fase2" style="Display: none" > <h3/>
+			<h3 id="Fase3" style="Display: none" > <h3/>
+			<h3 id="Fase4" style="Display: none" > <h3/>
+			<h3 id="Fase5" style="Display: none" > <h3/>
+			<h3 id="Fase6" style="Display: none" > <h3/>
+			<h3 id="Fase7" style="Display: none" > <h3/>
+			<h3 id="Fase8" style="Display: none" > <h3/>
+				
+			<script>
+				LoadWashingCycleNames();
+				FillWashingCycleFases();
+			</script>
+			
+			<div style="Display: none" id="EditWashingCycleButtons">
+				<button onclick = "AddFase()" >Add Fase</button>
+				<button onclick = "RemoveFase()" >Remove Fase</button>
+				<button onclick = "EditWashingCycleSave('MUP_EditUserProfile.html')" >Save Washing Cycle </button>
+				<button onclick = "EditWashingCycleDelete('MUP_EditUserProfile.html')" >Delete Washing Cycle </button>
 			</div>
+		</div>
 	</body>
 </html>
