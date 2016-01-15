@@ -23,13 +23,15 @@ public:
 	washingCycle(const string& name);
 	//! Advances the list to the next step, and returns the new current step.
 	const cycleStep& next();
+	//! returns the current step.
+	const cycleStep& current();
 	//! True unless either the current step is marked as a final step, or the
 	//! current step is at the end of the list.
 	bool hasNext() const;
 	//! Moves one step back into the cycle.
 	void back();
 	//! Returns the current step number, ranging 0 - totalSteps().
-	unsigned int currentStep() const;
+	unsigned int currentStepNumber() const;
 	//! returns the total number of steps in this cycle.
 	unsigned int totalSteps() const;
 	//! Adds a new step to the cycle, at the end. If there is already a final
@@ -37,6 +39,8 @@ public:
 	void addStep(cycleStep toAdd);
 	//! returns the name of the cycle as a whole.
 	const string& getName() const;
+	//! Assignment operator.
+	washingCycle& operator= (const washingCycle& other);
 
 private:
 	std::vector<cycleStep> steps;

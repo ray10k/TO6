@@ -16,6 +16,10 @@ const cycleStep& washingCycle::next(){
 	}
 }
 
+const cycleStep& washingCycle::current(){
+	return steps[current];
+}
+
 bool washingCycle::hasNext() const {
 	return (current < steps.size() && !(steps[current].isLast()));
 }
@@ -26,7 +30,7 @@ void washingCycle::back() {
 	}
 }
 
-unsigned int washingCycle::currentStep() const {
+unsigned int washingCycle::currentStepNumber() const {
 	return this->current;
 }
 
@@ -44,6 +48,17 @@ void washingCycle::addStep(cycleStep toAdd){
 const string& washingCycle::getName() const {
 	return this->cycleName;
 }
+
+washingCycle& washingCycle::operator= (const washingCycle& other) {
+	if (this != &other){
+		//to copy: name, steps, current step.
+		this->cycleName = other.cycleName;
+		this->steps = other.steps;
+		this->current = other.current;
+	}
+	return *this;	
+}
+
 
 cycleStep::cycleStep(const string& name,
 	unsigned short int temp,

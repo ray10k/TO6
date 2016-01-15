@@ -12,6 +12,8 @@
 
 #include "prtos/pRTOS.h"
 #include "washingCycle.h"
+#include "cycleStateListener.h"
+#include <vector>
 
 class machineState;
 
@@ -19,13 +21,25 @@ class washingCycleTask : public RTOS::Task
 {
 public:
 	washingCycleTask();
+	//! Registers a new listener for events describing the progress through the
+	//! currently ongoing cycle.
+	void addCycleStateListener(cycleStateListener* listener);
+	//! Accept a washing cycle to execute, as soon as no cycle is currently
+	//! executing.
+	void runCycle(washingCycle& toRun);
 
 protected:
 	//because the Task interface demands it, and because this task needs to do 
 	//things.
 	main(void);
+	
+	
 
 private:
+	//! notify all listeners of the current state. Should interpret current
+	//! state and adjust what functions are called.
+	void notifyListeners();
+
 	//more than one washing cycle waiting is a serious error; more than one
 	//should never occur.
 	RTOS::channel<washingCycle,1> loadCycleChannel;
@@ -36,6 +50,10 @@ private:
 	//TODO: implement machine state listener stuff.
 	RTOS::channel<machineState,16> machineStateChannel;
 	RTOS::timer currentStepTimer;
+	
+	std::vector<cycleStateListener> listeners;
+	washingCycle ongoing;
+	cycleState state;
 };
 
 //**************************************
