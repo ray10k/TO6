@@ -15,22 +15,31 @@ void washingCycleTask::addCycleStateListener(cycleStateListener* listener){
 }
 
 void washingCycleTask::notifyListeners(){
-	std::vector<cycleStateListener>::iterator current = this->listeners.begin();
+	std::vector<cycleStateListener>::iterator listen = this->listeners.begin();
 	
 	switch(this->state){
 	case cycleState.STOP:
-		for(;current != this->listeners.end(); current++){
-			//bool properEnd = //TODO: figure out how to determine if a cycle
-			//ended due to a STOP by the user, or by reaching the end of the
-			//cycle.
-			*current.cycleEnded(properEnd,);
+		for(;listen != this->listeners.end(); ++listen){
+			bool properEnd = !this->current.hasNext(); //assume that if there is
+			//no next item in the cycle, the cycle has ended properly.
+			*listen.cycleEnded(properEnd,
+				this->current.getName(),
+				this->current.current().getName());
 		}
 		break;
 	case cycleState.PAUSE:
-			
+		for (;listen != this->listeners.end(); ++listen){
+			*listen.cyclePaused(this->current.getName(),
+				this->current.current().getName());
+		}
 		break;
 	case cycleState.RUN:
-		
+		for (;listen != this->listeners.end(); ++listen){
+			*listen.cycleStateChanged(this->current.totalSteps(),
+				this->current.currentStepNumber(),
+				this->current.getName(),
+				this->current.current().getName());
+		}
 		break;
 	}
 }
@@ -41,6 +50,10 @@ void washingCycleTask::runCycle(washingCycle& toRun){
 
 void washingCycleTask::main(){
 	while (1==1){
-		wait(loadCycleChannel);
+		do {
+			wait(cycleStateChannel);
+			this->state = wait.read();
+		while (this->state != cycleState.RUN);
+		
 	}
 }
