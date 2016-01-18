@@ -10,10 +10,10 @@
 	<body bgcolor="#ffffff">	
 		<table class="logobar">
 		<tr>
-			<td >
+			<td>
 				<div id="MainTop">
-					<button onclick = "Logout('Login.html')" >Logout </button>
-					<button onclick = "Load('ManageUserProfile.html')" >Manage User Profile </button>
+					<button id="LogoutButton" onclick = "Logout('Login.html', 'Main')" >Logout </button>
+					<button id="MUPButton" onclick = "Load('ManageUserProfile.html')" >Manage User Profile </button>
 				</div>
 			</td>
 			<td>
@@ -26,8 +26,20 @@
 		<div class = "BodyPart" id="Main">
 		</div>
 		
+		<div id="MainBot">
+			<label> Select Washing Cycle: </label> 
+			<select id="WashingCycleNameList"></select> <BR/>
+			<div id="MainBotButtons">
+				<button id="RunButton" onclick = "SetWashingCycleState('RUN')" >Run </button>
+				<button id="PauseButton" onclick = "SetWashingCycleState('PAUSE')" >Pause </button>
+				<button id="StopButton" onclick = "SetWashingCycleState('STOP')" >Stop </button>
+			</div>
+		</div>
+		
 		<script type="text/javascript">
 			Login_Message();
+			LoadWashingCycleNames();
+			LoadWashingCycleState();
 		</script>
 		
 	</body>	

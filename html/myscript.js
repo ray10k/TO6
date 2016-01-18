@@ -1,27 +1,154 @@
+var PasswordAttempts = 0;
+var FaseCount = 3;
 function Load(html) 
 {
+	PasswordAttempts = 0;
 	window.open(html, "_self");
 };
 
+function Print(message, id, type) 
+{
+	if(type == undefined)
+	{
+		type = "div";
+	}
+	var node=document.createElement(type);
+	var textnode=document.createTextNode(message);
+	node.appendChild(textnode);
+	document.getElementById(id).appendChild(node);
+}
+
 function Login(html) 
 {
-	Print("Login...", "Login");
-	setTimeout(function(){Load(html);},1000);
+	var EnteredUserName = document.getElementById("LoginUsername").value;
+	if(EnteredUserName != "Admin")//if(ws.CheckUserName(EnteredUserName) != true)
+	{
+		Print("Username Does Not Exist...", "Login");
+	}
+	else
+	{
+		var CurrentPassword = "0"; //ws.GetUserPassword(EnteredUserName);
+		var EnteredPassword = document.getElementById("LoginPassword").value;
+	
+		if(EnteredPassword == CurrentPassword)
+		{
+			Print("Loging in as " + EnteredUserName + "...", "Login");
+			//ws.Login(EnteredUserName);
+			setTimeout(function(){Load(html);},1000);
+		}
+		else
+		{
+			PasswordAttempts++;
+			Print("Wrong Password Entered, " + (3-PasswordAttempts) + " Attempts Left", "Login");
+			if(PasswordAttempts >= 3)
+			{
+				Print("No Attempts Left, Closing...", "Login");
+				setTimeout(function(){open(location, '_self').close();},1000);
+			}
+		}
+	}
 };
 
-function Logout(html) 
+function Logout(html, CurrentFile) 
 {
-	Print("Logout...", "Main");
+	Print("Logout...", CurrentFile);
+	//ws.Logout();
 	setTimeout(function(){Load(html);},500);
+}
+
+function Login_Message()
+{
+	var text = "Hallo " + "ws.GetUsername()";
+	Print(text, "Main");
+}
+
+function SavePassword(html)
+{
+	var CurrentPassword = "test"; //ws.GetUserPassword(ws.GetUserName());
+	var EnteredCurrentPassword = document.getElementById("CurrentPassword").value;
+	var EnteredNewPassword = document.getElementById("NewPassword").value;
+	var EnteredRepeatPassword = document.getElementById("RepeatPassword").value;
+	
+	if(EnteredCurrentPassword == CurrentPassword)
+	{
+		if(CheckPassword(EnteredNewPassword, EnteredRepeatPassword, "ChangePassword"))
+		{
+			Print("Saving Password...", "ChangePassword");
+			//ws.SaveUserPassword(EnteredNewPassword);
+			setTimeout(function(){Load(html);},500);
+		}
+	}
+	else
+	{
+		PasswordAttempts++;
+		Print("Wrong Current Password Entered, " + (3-PasswordAttempts) + " Attempts Left", "ChangePassword");
+		if(PasswordAttempts >= 3)
+		{
+			Print("No Attempts Left, Loging out...", "ChangePassword");
+			setTimeout(function(){Logout("Login.html", "ChangePassword");},1000);
+		}
+	}
 }
 
 function CreateUserProfile(html)
 {
-	Print("Creating...", "CreateUserProfile");
-	setTimeout(function(){Load(html);},1000);
+	var EnteredUserName = document.getElementById("ProfileUsername").value;
+	if(EnteredUserName == "")
+	{
+		Print("You must enter a username!", "CreateUserProfile");
+	}
+	else if(isAlphaNumeric(EnteredUserName) != true)
+	{
+		Print("You can only use Numbers and Letters in your username!", "CreateUserProfile");
+	}
+	else if(EnteredUserName == "Admin")//if(ws.CheckUserName(EnteredUserName) == true)
+	{
+		Print("Username: " + EnteredUserName + " Already Exist...", "CreateUserProfile");
+	}
+	else
+	{
+		var EnteredPassword = document.getElementById("ProfilePassword").value;
+		var EnteredRepeatPassword = document.getElementById("ProfileRepeatPassword").value;
+	
+		if(CheckPassword(EnteredPassword, EnteredRepeatPassword, "CreateUserProfile"))
+		{
+			Print("Creating Profile: " + EnteredUserName + "...", "CreateUserProfile");
+			//ws.CreateProfile(EnteredUserName, EnteredPassword);
+			setTimeout(function(){Load(html);},1000);
+		}
+	}
 }
 
-var FaseCount = 3;
+function CheckPassword(EnteredPassword, EnteredRepeatPassword, CurrentFile)
+{
+	if(EnteredPassword == "")
+	{
+		Print("You must enter a password!", CurrentFile);
+	}
+	else if(EnteredPassword.length < 6)
+	{
+		Print("You must enter a password with at least 6 characters!", CurrentFile);
+	}
+	else if(isAlphaNumeric(EnteredPassword) != true)
+	{
+		Print("You can only use Numbers and Letters in your password!", CurrentFile);
+	}
+	else if(EnteredPassword == EnteredRepeatPassword)
+	{
+		return true;
+	}
+	else
+	{
+		Print("New Password and Repeat Password do not match!", CurrentFile);
+	}
+	return false;
+}
+
+function isAlphaNumeric(str) 
+{
+  return /^[a-zA-Z0-9]+$/.test(str);
+}
+
 function FillWashingCycleFases()
 {
 	for(var i = 1; i <= 8; i++)
@@ -40,7 +167,18 @@ function FillWashingCycleFases()
 
 function SaveWashingCycle(html, CurrentFile)
 {
-	var WashingCycleName = document.getElementById("WashingCycleName").value;
+	var WashingCycleName = document.getElementById("WashingCycleName").value; //ws.CreateWashingCycle(WashingCycleName);
+	if(WashingCycleName == "")
+	{
+		Print("You must enter a washing cycle name!", CurrentFile);
+		return false;
+	}
+	else if(isAlphaNumeric(WashingCycleName) != true)
+	{
+		Print("You can only use Numbers and Letters in your Washing Cycle Name!", CurrentFile);
+		return false;
+	}
+	
 	Print("Saving " + WashingCycleName + "...", CurrentFile);
 	Print(WashingCycleName + " bevat " + FaseCount + " fases", CurrentFile);
 	for(var fase = 1; fase <= FaseCount; fase++)
@@ -54,14 +192,20 @@ function SaveWashingCycle(html, CurrentFile)
 			case "WaterToevoegen"+fase:
 				var WaterHoeveelheid = document.getElementById("Fase" + fase + "WaterHoeveelheid").value;
 				extra = ", WaterHoeveelheid: " + WaterHoeveelheid;
+				//ws.AddFase(WashingCycleName, FaseOpdracht, FaseTime, WaterHoeveelheid);
 				break;
 			case "ZeepToevoegen"+fase:
 				var ZeepSoort = document.getElementById("Fase" + fase + "Zeep").value;
 				extra = ", Zeep voor: " + ZeepSoort;
+				//ws.AddFase(WashingCycleName, FaseOpdracht, FaseTime, ZeepSoort);
 				break;
 			case "WaterVerwarmen"+fase:
 				var Temperatuur = document.getElementById("Fase" + fase + "Temperatuur").value;
 				extra = ", Temperatuur: " + Temperatuur;
+				//ws.AddFase(WashingCycleName, FaseOpdracht, FaseTime, Temperatuur);
+				break;
+			default:
+				//ws.AddFase(WashingCycleName, FaseOpdracht, FaseTime);
 				break;
 		}
 		Print(Message + extra, CurrentFile);
@@ -71,7 +215,7 @@ function SaveWashingCycle(html, CurrentFile)
 
 function DeleteWashingCycle(html)
 {
-	var WashingCycleName = document.getElementById("EditWashingCycleName").value;
+	var WashingCycleName = document.getElementById("WashingCycleNameList").value;
 	Print("Deleting " + WashingCycleName + "...", "EditWashingCycle");
 	
 	//ws.DeleteWashingCycle(WashingCycleName);
@@ -106,8 +250,8 @@ function DropDownChange(fase)
 	var FaseOpdracht = document.getElementById("Fase" + fase + "Opdracht").value;
 	var disabledBool, value;
 	
-	if(FaseOpdracht != "Empty"+fase) { disabledBool = false; value = 1; } 
-	else { disabledBool = true; value = 0; }
+	if(FaseOpdracht == "Empty"+fase || FaseOpdracht == "WaterVerwarmen"+fase) { disabledBool = true; value = 0; } 
+	else { disabledBool = false; value = 1; }
 	document.getElementById("Fase" + fase + "Time").disabled = disabledBool;
 	document.getElementById("Fase" + fase + "Time").value = value;
 	
@@ -148,12 +292,12 @@ function LoadWashingCycleNames()
 	{
 		NamesToHtml += "<option value='" + WashingCycleNames[i] + "'>" + WashingCycleNames[i] + "</option>"
 	}
-	document.getElementById("EditWashingCycleName").innerHTML = NamesToHtml;
+	document.getElementById("WashingCycleNameList").innerHTML = NamesToHtml;
 }
 
 function LoadWashingCycle()
 {
-	var WashingCycleName = document.getElementById("EditWashingCycleName").value;
+	var WashingCycleName = document.getElementById("WashingCycleNameList").value;
 	document.getElementById("WashingCycleName").value = WashingCycleName;
 	//Print("Loading WashingCycle: " + WashingCycleName + "...", "EditWashingCycle");
 	
@@ -180,33 +324,46 @@ function LoadWashingCycle()
 				break;
 		}
 		
-		document.getElementById("Fase" + fase + "Time").disabled = false;
+		var disabledBool;	
+		if(FaseOpdracht == "Empty"+fase || FaseOpdracht == "WaterVerwarmen"+fase) { disabledBool = true; } 
+		else { disabledBool = false; }
+		document.getElementById("Fase" + fase + "Time").disabled = disabledBool;
 		document.getElementById("Fase" + fase + "Time").value = 30; //ws.LoadWashingCycleFaseTime(WashingCycleName, fase);
 	}
 	
 	document.getElementById("EditWashingCycleButtons").style.display = "block";
 }
 
-function SavePassword(html)
+var WashingCycleState = "STOP";
+function SetMainBotButtonColor()
 {
-	Print("Saving...", "ChangePassword");
-	setTimeout(function(){Load(html);},500);
+	var buttons = ["RunButton", "PauseButton", "StopButton"];
+	for(var i=0; i<buttons.length; i++)
+	{
+		document.getElementById(buttons[i]).style.background = document.getElementById("LogoutButton").style.background;
+	}
+	switch(WashingCycleState)
+	{
+		case "RUN":
+			document.getElementById("RunButton").style.background = "lime";
+			break;
+		case "PAUSE":
+			document.getElementById("PauseButton").style.background = "orange";
+			break;
+		case "STOP":
+			document.getElementById("StopButton").style.background = "red";
+			break;
+	}
 }
 
-function Login_Message()
+function SetWashingCycleState(State)
 {
-	var text = "Hallo " + "ws.getUsername()";
-	Print(text, "Main");
+	WashingCycleState = State;
+	SetMainBotButtonColor();
 }
-  
-function Print(message, id, type) 
+
+function LoadWashingCycleState()
 {
-	if(type == undefined)
-	{
-		type = "div";
-	}
-	var node=document.createElement(type);
-	var textnode=document.createTextNode(message);
-	node.appendChild(textnode);
-	document.getElementById(id).appendChild(node);
+	var WashingCycleName = document.getElementById("WashingCycleNameList").value;
+	SetWashingCycleState("PAUSE"); //SetWashingCycleState(ws.GetWashingCycleState(WashingCycleName));
 }
