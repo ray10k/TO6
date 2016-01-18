@@ -7,11 +7,23 @@ washingCycleTask::washingCycleTask():
 	currentStepTimer(this,"WCT_currentStepTmr"),
 	listeners(),
 	ongoing(),
-	state(cycleState.STOP)
+	runState(cycleState.STOP),
+	machineState()
 {}
 
-void washingCycleTask::addCycleStateListener(cycleStateListener* listener){
-	listeners.push_back(*listener);
+void washingCycleTask::addCycleStateListener(cycleStateListener& listener){
+	listeners.push_back(listener);
+}
+
+bool washingCycleTask::assessProgress(cycleStep& currentStep){
+	if (currentStep.isTimed()){
+		return false;
+	}
+	
+	//non-timed tasks finish when the water level and temperature are within a
+	//given tolerance. Assume that +/- 1 degree or +/-1 % water level is the
+	//acceptable tolerance.
+	
 }
 
 void washingCycleTask::notifyListeners(){
@@ -116,3 +128,5 @@ void washingCycleTask::main(){
 		}
 	}
 }
+
+
