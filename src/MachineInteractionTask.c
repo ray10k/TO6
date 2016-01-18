@@ -5,7 +5,13 @@ void MachineInteractionTask::Main(){
 	MachineInteractionTask():
 		setMachineStateChannel (this, "set_Machine_state_channel");
 		clock (this, 250, "MIT_clock");
-		{}
+		{
+			Uart = new uart;
+			WashingMachine = new washingMachine;
+			
+		}
+	
+	
 	
 	for(;;){
 		//if(Clock >= 250){ ???????????????????????????
@@ -17,7 +23,7 @@ void MachineInteractionTask::Main(){
 		std::string command = SetMachineStateChannel.read(); //ON_CMD
 		
 		//Translate the request to bytes.
-		std::vector<std::uint8_t> TranslatedRequest = WasMaschine.RequestTranslate(request,command); 
+		std::vector<std::uint8_t> TranslatedRequest = WashingMachine.requestTranslate(request,command); 
 		
 		//Write the request in bytes to the uart/washing machine.
 		uart.write(TranslatedRequest);
@@ -27,7 +33,7 @@ void MachineInteractionTask::Main(){
 		std::vector<std::uint8_t> response = uart.read();
 		
 		//Translate the response from bytes to words.
-		std::string TranslatedResponse = WasMaschine.ResponseTranslate(response); 
+		std::string TranslatedResponse = WashingMachine.responseTranslate(response, request); 
 		
 		//Write the translated response in the machine state channel.
 		machineStateChannel.write(TranslatedResponse); //LET OP!! Strings in de channel
