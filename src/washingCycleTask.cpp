@@ -6,7 +6,7 @@ washingCycleTask::washingCycleTask():
 	machineStateChannel(this,"WCT_machineStateChnl"),
 	currentStepTimer(this,"WCT_currentStepTmr"),
 	listeners(),
-	ongoing(string("not started yet")),
+	ongoing(),
 	state(cycleState.STOP)
 {}
 
@@ -50,10 +50,69 @@ void washingCycleTask::runCycle(washingCycle& toRun){
 
 void washingCycleTask::main(){
 	while (1==1){
-		do {
-			wait(cycleStateChannel);
-			this->state = wait.read();
-		while (this->state != cycleState.RUN);
-		
+		//State: Stopped. Wait until instructed to run.
+		while(this->state != cycleState.RUN){ 
+			//channel.read blocks until something can be read.
+			this->state = this->cycleStateChannel.read();
+		}
+		//State: Waiting. Fetch the washing cycle as soon as it becomes
+		//available.
+		this->ongoing = this->loadCycleChannel.read();
+		//State: Running. Check for the existence of a next cycle step, update 
+		//state, confirm the program does not need to be paused or stopped, 
+		//provide washing machine with current-step instructions.
+		while(this->ongoing.hasNext()){
+			cycleStep currentStep = this->ongoing.next();
+			notifyListeners();
+			if (currentStep.isTimed()){
+				this->currentStepTimer.set(currentStep.getDuration() S);
+			}
+			RTOS::event progress = wait(cycleStateChannel + 
+										machineStateChannel +
+										currentStepTimer);
+			if (progress == cycleStateChannel){
+				//Guaranteed to be at least 1 item waiting in the channel,
+				//so this will not block.
+				this->state = this->cycleStateChannel.read();
+			}
+			
+			bool brake = false;
+			
+			switch(this->state){
+				case cycleState.RUN:
+				break; //nothing to see here, move along.
+				case cycleState.STOP:
+				//TODO: figure out how to properly break out of the outer loop. 
+				//Hack for now. Hope that labeled loop constructs were something
+				//Java copied from c++...
+				brake = true;
+				break;
+				case cycleState.PAUSE:
+				//TODO: figure out a good way to handle this. Uuuuuuugh...
+				break;
+			}
+			
+			if (brake){
+				break;
+			}
+			
+			//TODO: Once the relevant interface is known, instruct the Washing
+			//machine in regards to the current step.
+			
+			//TODO: handle the current state of the machine, based on the most
+			//recent events.
+			
+			if (progress == currentStepTimer){
+				//some time-limited step has expired, move along.
+				continue;
+			}
+			
+			if (assesProgress()){
+				//Current machine state is close enough to a given state re.
+				//temperature/water level, and the current step is not time-
+				//limited. Move along.
+				continue;
+			}
+		}
 	}
 }

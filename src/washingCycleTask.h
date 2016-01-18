@@ -39,6 +39,11 @@ private:
 	//! notify all listeners of the current state. Should interpret current
 	//! state and adjust what functions are called.
 	void notifyListeners();
+	//! compare the latest known state of the machine to what's expected for the
+	//! current step. Returns false if the current step is time-based or the 
+	//! state of the machine is not close enough to the expected state, true
+	//! otherwise.
+	bool assessProgress();
 
 	//more than one washing cycle waiting is a serious error; more than one
 	//should never occur.
