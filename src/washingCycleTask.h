@@ -61,8 +61,11 @@ private:
 	RTOS::timer currentStepTimer;
 	
 	std::vector<cycleStateListener&> listeners;
+	
 	washingCycle ongoing;
+	
 	cycleState runState;
+	
 	internalMachineState machineState;
 	
 	//**************************************

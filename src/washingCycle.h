@@ -94,10 +94,10 @@ public:
 	bool addDetergent() const;
 	//! returns true if the pump and tap must both be running during this step.
 	bool mustFlush() const;
-	//! returns true if this step is the last step of the program, following
-	//! which the machine should be brought to a safe
 	//! returns the target water temperature for this step.
 	unsigned short int getTemperature() const;
+	//! returns the target water level for this step.
+	unsigned short int getWaterLevel() const;
 	//! returns the speed of the drum as a multiplier of 25, without direction.
 	unsigned short int getDrumSpeed() const;
 	//! returns true if the drum should rotate clockwise, false otherwise.

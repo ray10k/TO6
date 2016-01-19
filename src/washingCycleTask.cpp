@@ -16,20 +16,24 @@ void washingCycleTask::addCycleStateListener(cycleStateListener& listener){
 }
 
 bool washingCycleTask::assessProgress(cycleStep& currentStep){
+	//timed steps are handled by the timer, and don't need further confirmation.
 	if (currentStep.isTimed()){
 		return false;
 	}
-	
-	//non-timed tasks finish when the water level and temperature are within a
-	//given tolerance. Assume that +/- 1 degree or +/-1 % water level is the
-	//acceptable tolerance.
-	
+	//non-timed tasks finish when the water level and temperature are equal to,
+	//or greater than the expected level. Assume the MIT is responsible for
+	//keeping the balance.
+	if(currentStep.getTemperature() < this->machineState.temperature ||
+		currentStep.getWaterLevel() < this->machineState.waterLevel){
+		return false;
+	}
+	return true;
 }
 
 void washingCycleTask::notifyListeners(){
 	std::vector<cycleStateListener>::iterator listen = this->listeners.begin();
 	
-	switch(this->state){
+	switch(this->runState){
 	case cycleState.STOP:
 		for(;listen != this->listeners.end(); ++listen){
 			bool properEnd = !this->current.hasNext(); //assume that if there is
@@ -63,9 +67,9 @@ void washingCycleTask::runCycle(washingCycle& toRun){
 void washingCycleTask::main(){
 	while (1==1){
 		//State: Stopped. Wait until instructed to run.
-		while(this->state != cycleState.RUN){ 
+		while(this->runState != cycleState.RUN){ 
 			//channel.read blocks until something can be read.
-			this->state = this->cycleStateChannel.read();
+			this->runState = this->cycleStateChannel.read();
 		}
 		//State: Waiting. Fetch the washing cycle as soon as it becomes
 		//available.
@@ -74,14 +78,13 @@ void washingCycleTask::main(){
 		//state, confirm the program does not need to be paused or stopped, 
 		//provide washing machine with current-step instructions.
 		while(this->ongoing.hasNext()){
-			cycleStep currentStep = this->ongoing.next();
-			notifyListeners();
-			if (currentStep.isTimed()){
-				this->currentStepTimer.set(currentStep.getDuration() S);
-			}
 			RTOS::event progress = wait(cycleStateChannel + 
 										machineStateChannel +
 										currentStepTimer);
+			
+			if (currentStep.isTimed()){
+				this->currentStepTimer.set(currentStep.getDuration() S);
+			}
 			if (progress == cycleStateChannel){
 				//Guaranteed to be at least 1 item waiting in the channel,
 				//so this will not block.
@@ -90,17 +93,23 @@ void washingCycleTask::main(){
 			
 			bool brake = false;
 			
-			switch(this->state){
+			switch(this->runState){
 				case cycleState.RUN:
 				break; //nothing to see here, move along.
 				case cycleState.STOP:
-				//TODO: figure out how to properly break out of the outer loop. 
-				//Hack for now. Hope that labeled loop constructs were something
-				//Java copied from c++...
+				//kinda wish c++ would allow for labled breaks, like Java does.
 				brake = true;
 				break;
 				case cycleState.PAUSE:
-				//TODO: figure out a good way to handle this. Uuuuuuugh...
+				//take a break until you're needed again.
+				//TODO: tell the washing machine to go to a stand-by state.
+				this->currentStepTimer.cancel();
+				while(this->state == cycleState.PAUSE){
+					this->state = this->cycleStateChannel.read();
+					if (this->state == cycleState.STOP){
+						brake = true;
+					}
+				}
 				break;
 			}
 			
@@ -114,15 +123,11 @@ void washingCycleTask::main(){
 			//TODO: handle the current state of the machine, based on the most
 			//recent events.
 			
-			if (progress == currentStepTimer){
-				//some time-limited step has expired, move along.
-				continue;
-			}
-			
-			if (assesProgress()){
-				//Current machine state is close enough to a given state re.
-				//temperature/water level, and the current step is not time-
-				//limited. Move along.
+			if (progress == currentStepTimer||assessProgress()){
+				//some time-limited step has expired, or the latest state of the
+				//machine is sufficient. Move to the next step.
+				cycleStep currentStep = this->ongoing.next();
+				notifyListeners();
 				continue;
 			}
 		}
