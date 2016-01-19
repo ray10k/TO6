@@ -2,16 +2,28 @@
 
 MachineInteractionTask::MachineInteractionTask():
   setMachineStateChannel (this, "set_Machine_state_channel"),
-  clock (this, 500 MS, "MIT_clock")
-  {
-	Uart = new uart;
-  }
-  
-void MachineInteractionTask::setHeater(bool on)
+  clock (this, 500 MS, "MIT_clock"),
+  Uart(),
+  listeners(),
+  currentState()
+  {}
+
+void MachineInteractionTask::addMachineStateListener(machineStateListener& listener)
 {
-	this-> SetMachineStateChannel.write("HEATING_UNIT_REQ");
-	if(on){ this-> SetMachineStateChannel.write("ON_CMD"); }
-	else { this-> SetMachineStateChannel.write("OFF_CMD"); }
+	listeners.push_back(listener);
+}
+  
+void MachineInteractionTask::notifyListeners(ResponseStruct response)
+{
+	std::vector<machineStateListener>::iterator listen = this->listeners.begin();
+	
+	if(stateUpdated)
+	{
+		for(;listen != this->listeners.end(); ++listen)
+		{
+			*listen.stateChanged(currentState);
+		}
+	}
 }
 
 void MachineInteractionTask::Main()
@@ -22,35 +34,130 @@ void MachineInteractionTask::Main()
 		RTOS::wait(this->clock);
 	
 		//read the request in words.
-		std::string request = SetMachineStateChannel.read(); //HEATING_UNIT_REQ
-		
-		//read the command.
-		std::string command = SetMachineStateChannel.read(); //ON_CMD
+		RequestStruct request = SetMachineStateChannel.read(); //{"HEATING_UNIT_REQ", "ON_CMD"}
 		
 		//Translate the request to bytes.
-		std::vector<std::uint8_t> TranslatedRequest = requestTranslate(request,command); 
+		std::vector<std::uint8_t> TranslatedRequest = requestTranslate(request); 
 		
 		//Write the request in bytes to the uart/washing machine.
 		uart.write(TranslatedRequest);
 		RTOS::wait(10);
 		
 		//Read the response of the request.
-		std::uint8_t response = uart.read();
+		std::uint8_t responseByte = uart.read();
 		
 		//Translate the response from bytes to words.
-		ResponseStruct TranslatedResponse = responseTranslate(response, request); 
+		ResponseStruct TranslatedResponse = responseTranslate(responseByte, request); 
 		
-		//Write the translated response in the machine state channel.
-		machineStateChannel.write(TranslatedResponse); //LET OP!! Strings in de channel
+		//Update all the listeners.
+		notifyListeners();//(TranslatedResponse);
 	}
-	
 }
 
-std::vector<std::uint8_t> MachineInteractionTask::requestTranslate(std::string request, std::string command)
+void MachineInteractionTask::getState(std::string request)
+{
+	RequestStruct reqS;
+	reqS.request = request;
+	reqS.command = "STATUS_CMD";
+	this-> SetMachineStateChannel.write(reqS);
+}  
+  
+void MachineInteractionTask::setMachineState(bool start)
+{
+	RequestStruct reqS;
+	reqS.request = "MACHINE_REQ";
+	if(start){ reqS.command = "START_CMD"; }
+	else { reqS.command = "STOP_CMD"; }
+	this-> SetMachineStateChannel.write(reqS);
+}
+
+void MachineInteractionTask::setDoorLock(bool lock)
+{
+	RequestStruct reqS;
+	reqS.request = "DOOR_LOCK_REQ";
+	if(lock){ reqS.command = "LOCK_CMD"; }
+	else { reqS.command = "UNLOCK_CMD"; }
+	this-> SetMachineStateChannel.write(reqS);
+}
+
+void MachineInteractionTask::getWaterLevel()
+{
+	RequestStruct reqS;
+	reqS.request = "WATER_LEVEL_REQ";
+	this-> SetMachineStateChannel.write(reqS);
+}
+
+void MachineInteractionTask::setWaterValve(bool open)
+{
+	RequestStruct reqS;
+	reqS.request = "WATER_VALVE_REQ";
+	if(open){ reqS.command = "OPEN_CMD"; }
+	else { reqS.command = "CLOSE_CMD"; }
+	this-> SetMachineStateChannel.write(reqS);
+}
+
+void MachineInteractionTask::setSoapDispenser(bool open)
+{
+	RequestStruct reqS;
+	reqS.request = "SOAP_DISPENSER_REQ";
+	if(open){ reqS.command = "OPEN_CMD"; }
+	else { reqS.command = "CLOSE_CMD"; }
+	this-> SetMachineStateChannel.write(reqS);
+}
+
+void MachineInteractionTask::setPump(bool on)
+{
+	RequestStruct reqS;
+	reqS.request = "PUMP_REQ";
+	if(on){ reqS.command = "ON_CMD"; }
+	else { reqS.command = "OFF_CMD"; }
+	this-> SetMachineStateChannel.write(reqS);
+}
+
+void MachineInteractionTask::getTemperature()
+{
+	RequestStruct reqS;
+	reqS.request = "TEMPERATURE_REQ";
+	this-> SetMachineStateChannel.write(reqS);
+}
+  
+void MachineInteractionTask::setHeater(bool on)
+{
+	RequestStruct reqS;
+	reqS.request = "HEATING_UNIT_REQ";
+	if(on){ reqS.command = "ON_CMD"; }
+	else { reqS.command = "OFF_CMD"; }
+	this-> SetMachineStateChannel.write(reqS);
+}
+
+void MachineInteractionTask::getRPM()
+{
+	RequestStruct reqS;
+	reqS.request = "GET_RPM_REQ";
+	this-> SetMachineStateChannel.write(reqS);
+}
+  
+void MachineInteractionTask::setRPM(...)
+{
+	RequestStruct reqS;
+	reqS.request = "SET_RPM_REQ";
+	this-> SetMachineStateChannel.write(reqS);
+}
+
+void MachineInteractionTask::setSignalLed(bool on)
+{
+	RequestStruct reqS;
+	reqS.request = "SIGNAL_LED_REQ";
+	if(on){ reqS.command = "ON_CMD"; }
+	else { reqS.command = "OFF_CMD"; }
+	this-> SetMachineStateChannel.write(reqS);
+}
+
+std::vector<std::uint8_t> MachineInteractionTask::requestTranslate(RequestStruct reqS)
 {
 	std::vector<std::uint8_t> bytes;
 	
-	switch(request)
+	switch(reqS.request)
 	{
 		case "MACHINE_REQ": 		bytes[0] = 0x01; break;
 		case "DOOR_LOCK_REQ": 		bytes[0] = 0x02; break;
@@ -66,7 +173,7 @@ std::vector<std::uint8_t> MachineInteractionTask::requestTranslate(std::string r
 		default:					return -1;		 break;
 	}
 	
-	switch(command)
+	switch(reqS.command)
 	{
 		case "STATUS_CMD":	bytes[1] = 0x01; break;
 		case "LOCK_CMD":	bytes[1] = 0x40; break;
@@ -80,57 +187,57 @@ std::vector<std::uint8_t> MachineInteractionTask::requestTranslate(std::string r
 	return bytes;
 }
 
-ResponseStruct MachineInteractionTask::responseTranslate(std::uint8_t responseByte, std::string request)
+ResponseStruct MachineInteractionTask::responseTranslate(std::uint8_t responseByte, RequestStruct reqS)
 {
-	ResponseStruct rs;
-	rs.request = request;
-	rs.value = responseByte;
+	ResponseStruct resS;
+	resS.request = reqS;
+	resS.value = responseByte;
 	
-	switch(request)
+	switch(reqS.request)
 	{
 		case "MACHINE_REQ":
 			switch(responseByte)
 			{
-				case 0x01: rs.response = "HALTED"; 	break;
-				case 0x02: rs.response = "IDLE";	break;
-				case 0x04: rs.response = "RUNNING";	break;
-				case 0x08: rs.response = "STOPPED";	break;
+				case 0x01: resS.response = "HALTED"; 	break;
+				case 0x02: resS.response = "IDLE";	break;
+				case 0x04: resS.response = "RUNNING";	break;
+				case 0x08: resS.response = "STOPPED";	break;
 			}
 			break;
 		
 		case "DOOR_LOCK_REQ": case "WATER_VALVE_REQ": case "SOAP_DISPENSER_REQ":
 			switch(responseByte)
 			{
-				case 0x01: rs.response = "OPENED";		break;
-				case 0x02: rs.response = "CLOSED";		break;
-				case 0x04: if(request == "DOOR_LOCK_REQ")
-						  {rs.response = "LOCKED";}	break;
+				case 0x01: resS.response = "OPENED";		break;
+				case 0x02: resS.response = "CLOSED";		break;
+				case 0x04: if(reqS.request == "DOOR_LOCK_REQ")
+						  {resS.response = "LOCKED";}	break;
 			}
 			break;
 			
 		case "PUMP_REQ": case "HEATING_UNIT_REQ": case "SIGNAL_LED_REQ":
 			switch(responseByte)
 			{
-				case 0x08: rs.response = "ON"; 	break;
-				case 0x10: rs.response = "OFF";	break;
+				case 0x08: resS.response = "ON"; 	break;
+				case 0x10: resS.response = "OFF";	break;
 			}
 			break;
 			
 		case "WATER_LEVEL_REQ":
-			rs.response = "Niveau in %";
+			resS.response = "Niveau in %";
 			break;
 			
 		case "TEMPERATURE_REQ":
-			rs.response = "Temp in Graden Celcius";
+			resS.response = "Temp in Graden Celcius";
 			break;
 			
 		case "SET_RPM_REQ": case "GET_RPM_REQ":
-			rs.response = "RPM";
+			resS.response = "RPM";
 			break;
 			
 		default:
-			rs.response = "NO VALID REQUEST"
+			resS.response = "NO VALID REQUEST"
 			break;
 	}
-	return rs;
+	return resS;
 }
