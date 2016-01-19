@@ -22,17 +22,21 @@ public class MachineInteractionTask : public RTOS::Task{
 	void addMachineStateListener(machineStateListener& listener);
 	
 	void setTemperature(unsigned int temperature);
+	void setWaterLevel(unsigned int waterLevel);
+	void setRPM(bool clockwise, unsigned int rpm);
+	void setMachineState(bool start);
 	
 	protected:
-		Main(void);
+		main(void);
 		
 	private:
 	
 	void notifyListeners();
+	void update();
+	void readChannel();
 	
-	void getState(std::string request);
-	void setMachineState(bool start);
 	void setDoorLock(bool lock);
+	void getState(std::string request);
 	void getWaterLevel();
 	void setWaterValve(bool open);
 	void setSoapDispenser(bool open);
@@ -40,7 +44,6 @@ public class MachineInteractionTask : public RTOS::Task{
 	void getTemperature();
 	void setHeater(bool on);
 	void getRPM();
-	void setRPM(...);
 	void setSignalLed(bool on);
 	
 	//! Translates a string request and a string command to one or two hex values and returns this in a vector.
@@ -48,14 +51,13 @@ public class MachineInteractionTask : public RTOS::Task{
 	//! Translates one hex value to a understandable string response and returns this.
 	//! (this function uses the request string to know where the response is comming from).
 	std::string responseTranslate(std::vector<std::uint8_t> response, std::string request);
-	
-	//TO DO::
+
 	uart Uart;
 	std::vector<cycleStateListener&> listeners;
 	MachineState currentState;
-	bool stateUpdated = false;
+	MachineState setState;
 	
 	RTOS::clock::clock() clock;
-	RTOS::channel<char*,16> setMachineStateChannel;
+	RTOS::channel<char*,16> setMachineStateChannel; // RTOS::channel<RequestStruct, ...>¿
 	
 }

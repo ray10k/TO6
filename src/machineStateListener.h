@@ -29,6 +29,12 @@ struct MachineState
 	int temperature;
 	int waterLevel;
 	int drumRPM;
+	bool doorLock;
+	bool waterValve;
+	bool soapDispenser;
+	bool pump;
+	bool heatingUnit;
+	bool signalLed;
 }
 
 class machineStateListener
@@ -36,7 +42,6 @@ class machineStateListener
 public:
 	//! Called whenever the state of the washing machine is changed.
 	virtual void stateChanged(MachineState currentState);
-	virtual void response(ResponseStruct response);
 };
 
 #endif
