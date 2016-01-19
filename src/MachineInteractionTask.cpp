@@ -17,6 +17,10 @@ void MachineInteractionTask::notifyListeners(ResponseStruct response)
 {
 	std::vector<machineStateListener>::iterator listen = this->listeners.begin();
 	
+	for(;listen != this->listeners.end(); ++listen)
+	{
+		*listen.response(response);
+	}
 	if(stateUpdated)
 	{
 		for(;listen != this->listeners.end(); ++listen)
@@ -50,8 +54,13 @@ void MachineInteractionTask::Main()
 		ResponseStruct TranslatedResponse = responseTranslate(responseByte, request); 
 		
 		//Update all the listeners.
-		notifyListeners();//(TranslatedResponse);
+		notifyListeners(TranslatedResponse);
 	}
+}
+
+void MachineInteractionTask::setTemperature(unsigned int temperature)
+{
+	
 }
 
 void MachineInteractionTask::getState(std::string request)

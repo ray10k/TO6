@@ -21,6 +21,15 @@ public class MachineInteractionTask : public RTOS::Task{
 	MachineInteractionTask();
 	void addMachineStateListener(machineStateListener& listener);
 	
+	void setTemperature(unsigned int temperature);
+	
+	protected:
+		Main(void);
+		
+	private:
+	
+	void notifyListeners();
+	
 	void getState(std::string request);
 	void setMachineState(bool start);
 	void setDoorLock(bool lock);
@@ -34,12 +43,6 @@ public class MachineInteractionTask : public RTOS::Task{
 	void setRPM(...);
 	void setSignalLed(bool on);
 	
-	protected:
-		Main(void);
-		
-	private:
-	
-	void notifyListeners();
 	//! Translates a string request and a string command to one or two hex values and returns this in a vector.
 	std::vector<std::uint8_t> requestTranslate(std::string request, std::string command);
 	//! Translates one hex value to a understandable string response and returns this.
