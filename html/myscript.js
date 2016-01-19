@@ -1,5 +1,6 @@
 var PasswordAttempts = 0;
 var FaseCount = 3;
+var ws;
 function Load(html) 
 {
 	PasswordAttempts = 0;
@@ -33,6 +34,23 @@ function Login(html)
 		if(EnteredPassword == CurrentPassword)
 		{
 			Print("Loging in as " + EnteredUserName + "...", "Login");
+			
+			
+			if ("WebSocket" in window) 
+			{
+				ws = new WebSocket("ws://127.0.0.1:8080");
+				//ws = new WebSocket("ws://"+location.hostname+":8008");
+				ws.onopen = function(evt) { onOpen(evt) };
+				ws.onclose = function(evt) { onClose(evt) };
+				ws.onmessage = function(evt) { onMessage(evt) };
+				ws.onerror = function(evt) { onError(evt) };
+			}
+			else  
+			{
+				alert("WebSocket NOT supported by your Browser!");
+			}
+			
+			
 			//ws.Login(EnteredUserName);
 			setTimeout(function(){Load(html);},1000);
 		}

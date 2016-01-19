@@ -12,9 +12,9 @@ void uart::write(std::vector<std::uint8_t> request)
 	ls.flush();
 }
 
-std::vector<std::uint8_t> uart::read(void)
+std::uint8_t uart::read(void)
 {
-	std::vector<std::uint8_t> response;
+	std::uint8_t response;
 	ls.read(response, 1);
 	ls.flush();
 	return response;

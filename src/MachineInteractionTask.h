@@ -2,6 +2,7 @@
 //! Task responsible for communicating with the washing machine.
 //! \authors
 //! 	- Daniel Klomp
+//!		- Wilco Louwerse
 //!
 //! \context
 //!		- part of TO6 assignment 2015-2016
@@ -10,10 +11,10 @@
 #ifndef __MACHINE_INTERACTION_TASK
 #define __MACHINE_INTERACTION_TASK
 
-#include "washingMachine.h"
 #include "uart.h"
+#include "machineStateListener.h"
 #include "prtos/pRTOS.h"
-#include <string.h>
+#include <string>
 #include <vector>
 
 public class MachineInteractionTask : public RTOS::Task{
@@ -25,9 +26,14 @@ public class MachineInteractionTask : public RTOS::Task{
 		
 	private:
 	
+	//! Translates a string request and a string command to one or two hex values and returns this in a vector.
+	std::vector<std::uint8_t> requestTranslate(std::string request, std::string command);
+	//! Translates one hex value to a understandable string response and returns this.
+	//! (this function uses the request string to know where the response is comming from).
+	std::string responseTranslate(std::vector<std::uint8_t> response, std::string request);
+	
 	//TO DO::
 	uart Uart;
-	washingMachine WashingMachine;
 	
 	RTOS::clock::clock() clock;
 	RTOS::channel<char*,16> setMachineStateChannel;
