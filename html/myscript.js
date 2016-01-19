@@ -19,10 +19,45 @@ function Print(message, id, type)
 	document.getElementById(id).appendChild(node);
 }
 
+function WebSocketConnect() {
+  naam = document.getElementById("naamvak").value;
+  if ("WebSocket" in window) {
+     ws = new WebSocket("ws://127.0.0.1:8080");
+     //ws = new WebSocket("ws://"+location.hostname+":8008");
+     ws.onopen = function(evt) { onOpen(evt) };
+     ws.onclose = function(evt) { onClose(evt) };
+     ws.onerror = function(evt) { onError(evt) };
+  }
+  else  {
+     alert("WebSocket NOT supported by your Browser!");
+  }
+}
+
+function closeConnection() {
+	ws.send(naam + " gaat weg.");
+	ws.close();
+}
+
+function onOpen (evt) {
+	console.log("connection open");
+	ws.send(naam + " heeft zich aangesloten bij het gesprek");
+	document.getElementById("top").style.display = "none";
+	document.getElementById("bottom").style.display = "block";
+}
+ 
+function onClose (evt){
+	console.log("connection closed");
+}
+
+function onError (evt){
+ 	console.log("websocket error" + evt.data);
+ }
+
+
 function Login(html) 
 {
 	var EnteredUserName = document.getElementById("LoginUsername").value;
-	if(EnteredUserName != "Admin")//if(ws.CheckUserName(EnteredUserName) != true)
+	if(ws.CheckUserName(EnteredUserName) != true)
 	{
 		Print("Username Does Not Exist...", "Login");
 	}
@@ -34,22 +69,6 @@ function Login(html)
 		if(EnteredPassword == CurrentPassword)
 		{
 			Print("Loging in as " + EnteredUserName + "...", "Login");
-			
-			
-			if ("WebSocket" in window) 
-			{
-				ws = new WebSocket("ws://127.0.0.1:8080");
-				//ws = new WebSocket("ws://"+location.hostname+":8008");
-				ws.onopen = function(evt) { onOpen(evt) };
-				ws.onclose = function(evt) { onClose(evt) };
-				ws.onmessage = function(evt) { onMessage(evt) };
-				ws.onerror = function(evt) { onError(evt) };
-			}
-			else  
-			{
-				alert("WebSocket NOT supported by your Browser!");
-			}
-			
 			
 			//ws.Login(EnteredUserName);
 			setTimeout(function(){Load(html);},1000);
@@ -76,8 +95,8 @@ function Logout(html, CurrentFile)
 
 function Login_Message()
 {
-	var text = "Hallo " + "ws.GetUsername()";
-	Print(text, "Main");
+	var text = "Hallo " + ws.GetUsername();
+	Print(ws.GetUsername(), "Main");
 }
 
 function SavePassword(html)
