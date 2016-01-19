@@ -17,7 +17,7 @@ public:
 	//! Creates an empty uart object.
 	uart(void);
 	//!
-	void write(std::vector<std::uint8_t> request, int bytes);
+	void write(std::vector<std::uint8_t> request);
 	//!
 	std::uint8_t read(void);
 private:

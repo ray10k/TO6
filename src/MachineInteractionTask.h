@@ -19,13 +19,27 @@
 
 public class MachineInteractionTask : public RTOS::Task{
 	MachineInteractionTask();
-	~MachineInteractionTask();
+	void addMachineStateListener(machineStateListener& listener);
+	
+	void getState(std::string request);
+	void setMachineState(bool start);
+	void setDoorLock(bool lock);
+	void getWaterLevel();
+	void setWaterValve(bool open);
+	void setSoapDispenser(bool open);
+	void setPump(bool on);
+	void getTemperature();
+	void setHeater(bool on);
+	void getRPM();
+	void setRPM(...);
+	void setSignalLed(bool on);
 	
 	protected:
 		Main(void);
 		
 	private:
 	
+	void notifyListeners();
 	//! Translates a string request and a string command to one or two hex values and returns this in a vector.
 	std::vector<std::uint8_t> requestTranslate(std::string request, std::string command);
 	//! Translates one hex value to a understandable string response and returns this.
@@ -34,6 +48,9 @@ public class MachineInteractionTask : public RTOS::Task{
 	
 	//TO DO::
 	uart Uart;
+	std::vector<cycleStateListener&> listeners;
+	MachineState currentState;
+	bool stateUpdated = false;
 	
 	RTOS::clock::clock() clock;
 	RTOS::channel<char*,16> setMachineStateChannel;

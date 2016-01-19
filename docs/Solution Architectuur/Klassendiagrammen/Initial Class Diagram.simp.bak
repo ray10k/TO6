@@ -60,7 +60,7 @@
       </counter>
       <counter>
         <item-type stereotype="" type="AbstractElementGroup" />
-        <value>4</value>
+        <value>2</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -913,17 +913,17 @@
             <class />
           </item>
           <item id="di372683487429367925" iid="6b355c1ca70349dbb1e82d493f8e7df4" creation-date="01/01/2016 19:47:07" order-index="48" type="relation">
-            <layout line-style="straight" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="723" y1="132" x2="791" y2="135" start-border-pos="0.38588069256087" end-border-pos="0.887853949961036">
+            <layout line-style="straight" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="723" y1="137" x2="790" y2="142" start-border-pos="0.394390593794055" end-border-pos="0.893673559631964">
               <points>
-                <point x="723" y="132" />
-                <point x="791" y="135" />
+                <point x="723" y="137" />
+                <point x="790" y="142" />
               </points>
             </layout>
             <relation from="di560460873967861456" from-iid="40f3c0f0a32948a1876f9e116c00aed4" to="di885621400441736310" to-iid="4779303cffff480fbaa55a3a6763b6e0" />
             <role-positions start-role="25,15" end-role="25,-15" start-multiplicity="25,-15" end-multiplicity="25,15" />
           </item>
           <item id="di885621400441736310" iid="4779303cffff480fbaa55a3a6763b6e0" creation-date="12/17/2015 17:15:33" order-index="13" type="entity">
-            <layout ax="791" ay="91" awidth="200" aheight="99" x="791" y="91" width="200" height="99" angle="0" />
+            <layout ax="790" ay="100" awidth="200" aheight="99" x="790" y="100" width="200" height="99" angle="0" />
             <class />
           </item>
           <item id="di560460873967861456" iid="40f3c0f0a32948a1876f9e116c00aed4" creation-date="01/01/2016 19:46:18" order-index="47" type="entity">
