@@ -6,13 +6,46 @@ washingCycleTask::washingCycleTask():
 	machineStateChannel(this,"WCT_machineStateChnl"),
 	currentStepTimer(this,"WCT_currentStepTmr"),
 	listeners(),
+	washingCycles(),
 	ongoing(),
-	runState(cycleState.STOP),
-	machineState()
-{}
+	runState(cycleState.STOP)//,
+	//machineState()
+{
+	washingCycle test = washingCycle("test");
+	test.addStep({"Step1",50,70,false,10});
+	addCycle(test);
+}
 
-void washingCycleTask::addCycleStateListener(cycleStateListener& listener){
+void washingCycleTask::stateChanged(MachineState currentState)
+{
+	this->machineStateChannel.write(currentState);
+}
+
+void washingCycleTask::addCycleStateListener(cycleStateListener& listener)
+{
 	listeners.push_back(listener);
+}
+
+void washingCycleTask::addCycle(washingCycle* cycle)
+{
+	washingCycles.push_back(cycle);
+}
+
+loadCycle(std::string cycleName)
+{
+	std::vector<washingCycle>::iterator cycle = this->washingCycles.begin();
+	for(;cycle != this->washingCycles.end(); ++cycle)
+	{
+		if(cycle.getName() == cycleName)
+		{
+			//ongoing.restart(); ???
+			if(cycle != ongoing)
+			{
+				//ongoing.stop(); ???
+				this->loadCycleChannel.write(cycle);
+			}
+		}
+	}
 }
 
 bool washingCycleTask::assessProgress(cycleStep& currentStep){
@@ -23,8 +56,8 @@ bool washingCycleTask::assessProgress(cycleStep& currentStep){
 	//non-timed tasks finish when the water level and temperature are equal to,
 	//or greater than the expected level. Assume the MIT is responsible for
 	//keeping the balance.
-	if(currentStep.getTemperature() < this->machineState.temperature ||
-		currentStep.getWaterLevel() < this->machineState.waterLevel){
+	if(currentStep.getTemperature() < currentState.temperature ||//this->machineState.temperature ||
+		currentStep.getWaterLevel() < currentState.waterLevel){//this->machineState.waterLevel){
 		return false;
 	}
 	return true;
@@ -60,8 +93,14 @@ void washingCycleTask::notifyListeners(){
 	}
 }
 
-void washingCycleTask::runCycle(washingCycle& toRun){
-	this->loadCycleChannel.write(toRun);
+void washingCycleTask::setCycleState(std::string state)
+{
+	switch(state)
+	{
+		case "RUN": 	this->cycleStateChannel.write(cycleState.RUN); 	 break;
+		case "PAUSE": 	this->cycleStateChannel.write(cycleState.PAUSE); break;
+		case "STOP": 	this->cycleStateChannel.write(cycleState.STOP);  break;
+	}
 }
 
 void washingCycleTask::main(){
@@ -89,6 +128,10 @@ void washingCycleTask::main(){
 				//Guaranteed to be at least 1 item waiting in the channel,
 				//so this will not block.
 				this->state = this->cycleStateChannel.read();
+			}
+			else if(progress == machineStateChannel)
+			{
+				currentState = machineStateChannel.read();
 			}
 			
 			bool brake = false;

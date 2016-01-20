@@ -26,9 +26,10 @@ struct ResponseStruct
 
 struct MachineState
 {
-	int temperature;
-	int waterLevel;
-	int drumRPM;
+	short unsigned int temperature;
+	short unsigned int waterLevel;
+	short unsigned int drumRPM;
+	bool drumClockwise;
 	bool doorLock;
 	bool waterValve;
 	bool soapDispenser;

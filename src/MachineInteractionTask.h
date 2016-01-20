@@ -17,13 +17,16 @@
 #include <string>
 #include <vector>
 
-public class MachineInteractionTask : public RTOS::Task{
+public class MachineInteractionTask : public RTOS::Task
+{
 	MachineInteractionTask();
 	void addMachineStateListener(machineStateListener& listener);
 	
 	void setTemperature(unsigned int temperature);
 	void setWaterLevel(unsigned int waterLevel);
 	void setRPM(bool clockwise, unsigned int rpm);
+	void setDetergent(bool add);
+	void flush();
 	void setMachineState(bool start);
 	
 	protected:
@@ -58,6 +61,6 @@ public class MachineInteractionTask : public RTOS::Task{
 	MachineState setState;
 	
 	RTOS::clock::clock() clock;
-	RTOS::channel<char*,16> setMachineStateChannel; // RTOS::channel<RequestStruct, ...>¿
+	RTOS::channel<RequestStruct,16> setMachineStateChannel;
 	
 }
