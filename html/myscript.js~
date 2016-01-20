@@ -106,8 +106,8 @@ function Logout(html, CurrentFile)
 
 function Login_Message()
 {
-	var text = "Hallo " + ws.GetUsername();
-	Print(text, "Main");
+	//var text = "Hallo " + ws.GetUsername();
+	//Print(text, "Main");
 }
 
 function SavePassword(html)
@@ -406,9 +406,9 @@ function SetMainBotButtonColor()
 
 function SetWashingCycleState(State)
 {
-	ws.send(State);	
 	WashingCycleState = State;
 	SetMainBotButtonColor();
+	ws.send(State);	
 }
 
 function LoadWashingCycleState()

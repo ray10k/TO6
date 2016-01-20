@@ -100,3 +100,46 @@
 	"websocket.h"
 	<thread>
 
+1411075164 source:/home/daniel/Documents/Git/src/Webserver/base64.cpp
+	"base64.h"
+	<iostream>
+
+1441775852 /home/daniel/Documents/Git/src/Webserver/base64.h
+	<string>
+
+1441775852 source:/home/daniel/Documents/Git/src/Webserver/PracticalSocket.cpp
+	"PracticalSocket.h"
+	<errno.h>
+	<signal.h>
+
+1441775852 /home/daniel/Documents/Git/src/Webserver/PracticalSocket.h
+	<winsock2.h>
+	<ws2tcpip.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<netdb.h>
+	<arpa/inet.h>
+	<unistd.h>
+	<netinet/in.h>
+	<stdio.h>
+	<iostream>
+	<cstring>
+	<stdexcept>
+	<vector>
+
+1453209453 source:/home/daniel/Documents/Git/src/Webserver/websocket.cpp
+	"websocket.h"
+	<iostream>
+	<openssl/sha.h>
+	"base64.h"
+
+1453286004 /home/daniel/Documents/Git/src/Webserver/websocket.h
+	"PracticalSocket.h"
+	<thread>
+
+1453287618 source:/home/daniel/Documents/Git/src/Webserver/wsServer.cpp
+	<iostream>
+	"PracticalSocket.h"
+	"websocket.h"
+	<thread>
+

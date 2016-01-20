@@ -11,13 +11,15 @@ using namespace std;
 class MyListener:public WebSocketListener{
 public:
 	void onTextMessage(const string& s, WebSocket* ws){
-		if(s == "RUN"){
-            cout<<"it wordks"<<endl;
-		}
-        else{
-            ws->sendTextMessage(s);
-            cout << "Recieved: " << s << endl;
-		}
+		cout << "Recieved: " << s << endl;
+		switch(s) //Compilation error - switch expression of type illegal
+        {
+            case"RUN":  cout<<"Start"<<endl;break;
+            case"PAUSE":cout<<"Pause"<<endl;break;
+            case"STOP": cout<<"Stop"<<endl;break;
+            default: ws->sendTextMessage(s);break;
+        }
+
 	}
 
 	void onClose(WebSocket* ws){

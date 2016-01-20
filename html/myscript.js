@@ -106,8 +106,8 @@ function Logout(html, CurrentFile)
 
 function Login_Message()
 {
-	var text = "Hallo " + ws.GetUsername();
-	Print(text, "Main");
+
+	Print("Welkom: Admin", "Main");
 }
 
 function SavePassword(html)
