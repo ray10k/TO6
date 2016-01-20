@@ -1,0 +1,6 @@
+#the folders with the temporary products should not be GIT-ed.
+obj/
+compiled/
+
+#Also, the backup files of SIM are not relevant.
+*.simp.bak

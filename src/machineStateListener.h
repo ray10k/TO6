@@ -29,6 +29,12 @@ struct MachineState
 	int temperature;
 	int waterLevel;
 	int drumRPM;
+	bool doorLock;
+	bool waterValve;
+	bool soapDispenser;
+	bool pump;
+	bool heatingUnit;
+	bool signalLed;
 }
 
 class machineStateListener

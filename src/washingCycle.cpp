@@ -126,6 +126,10 @@ unsigned short int cycleStep::getTemperature() const {
 	return this->temperature;
 }
 
+unsigned short int cycleStep::getWaterLevel() const {
+	return this->waterLevel;
+}
+
 unsigned short int cycleStep::getDrumSpeed() const {
 	//speed is saved as rpm with the sign bit deciding direction,
 	//this function must only return the speed as rpm/25, to match the format
