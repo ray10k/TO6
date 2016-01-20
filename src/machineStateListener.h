@@ -11,33 +11,37 @@
 #ifndef __MACHINE_STATE_LISTENER
 #define __MACHINE_STATE_LISTENER
 
+struct RequestStruct
+{
+	std::string request;
+	std::string command = "";
+}
+
 struct ResponseStruct
 {
+	RequestStruct request;
 	std::string response;
-	std::string request;
 	int value;
+}
+
+struct MachineState
+{
+	int temperature;
+	int waterLevel;
+	int drumRPM;
+	bool doorLock;
+	bool waterValve;
+	bool soapDispenser;
+	bool pump;
+	bool heatingUnit;
+	bool signalLed;
 }
 
 class machineStateListener
 {
-	/*
 public:
-	//! Called whenever the next step in a cycle begins execution.
-	virtual void cycleStateChanged(unsigned int totalSteps,
-		unsigned int currentStep,
-		const string& cycleName,
-		const string& stepName)=0;
-	//! Called when the cycle is temporarily suspended. Upon resuming execution,
-	//! cycleStateChanged will be called.
-	virtual void cyclePaused(const string& cycleName,
-		const string& stepName)=0;
-	//! Called when the cycle ends. If the cycle ended by reaching the final
-	//! step, finished will be true. If the cycle got terminated before the end,
-	//! finished will be false.
-	virtual void cycleEnded(bool finished,
-		const string& cycleName,
-		const string& stepName)=0;
-		*/
+	//! Called whenever the state of the washing machine is changed.
+	virtual void stateChanged(MachineState currentState);
 };
 
 #endif
