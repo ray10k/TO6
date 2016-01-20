@@ -13,24 +13,24 @@
 #include "prtos/pRTOS.h"
 #include "washingCycle.h"
 #include "cycleStateListener.h"
+#include "machineStateListener.h"
 #include <vector>
 
 class internalMachineState;
 
-class washingCycleTask : public RTOS::Task
+class washingCycleTask : public RTOS::Task, public machineStateListener
 {
 public:
 	washingCycleTask();
+	void stateChanged(MachineState currentState) override;
 	//! Registers a new listener for events describing the progress through the
 	//! currently ongoing cycle.
 	void addCycleStateListener(cycleStateListener* listener);
+	void addCycle(washingCycle* cycle);
+	void loadCycle(std::string cycleName);
 	//! Accept a washing cycle to execute, as soon as no cycle is currently
 	//! executing.
-	void runCycle(washingCycle& toRun);
-	//! Pause the execution of the current cycle; instructs the machine to go to
-	//! a neutral state, and to re-start from the current step.
-	void pause();
-	//! Start or resume cycle execution
+	void setCycleState(std::string state);
 
 protected:
 	//because the Task interface demands it, and because this task needs to do 
@@ -62,10 +62,15 @@ private:
 	
 	std::vector<cycleStateListener&> listeners;
 	
+	std::vector<washingCycle&> washingCycles;
+	
 	washingCycle ongoing;
 	
 	cycleState runState;
 	
+	MachineState currentState;
+	
+	/*
 	internalMachineState machineState;
 	
 	//**************************************
@@ -92,7 +97,7 @@ private:
 		bool tap;
 		bool detergent;
 		};
-	
+	*/
 };
 
 
