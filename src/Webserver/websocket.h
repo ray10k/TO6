@@ -51,6 +51,7 @@ private:
 class WebSocketListener
 {
 public:
+    string username = "Admin";
 	virtual void onTextMessage(const string& s, WebSocket* ws) = 0;
 	virtual void onClose(WebSocket* ws) = 0;
 	bool CheckUserName(string EnteredUserName);

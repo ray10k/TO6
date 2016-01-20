@@ -51,7 +51,7 @@
 1441775852 source:/home/daniel/Documents/OSNP_practicum/week_4/wsmulticaster.cpp
 	"wsmulticaster.h"
 
-1441775852 source:/home/daniel/Documents/OSNP_practicum/TH6/base64.cpp
+1411075164 source:/home/daniel/Documents/OSNP_practicum/TH6/base64.cpp
 	"base64.h"
 	<iostream>
 
@@ -78,17 +78,23 @@
 	<stdexcept>
 	<vector>
 
-1453198833 source:/home/daniel/Documents/OSNP_practicum/TH6/websocket.cpp
+1453209453 source:/home/daniel/Documents/OSNP_practicum/TH6/websocket.cpp
 	"websocket.h"
 	<iostream>
 	<openssl/sha.h>
 	"base64.h"
 
-1453207501 /home/daniel/Documents/OSNP_practicum/TH6/websocket.h
+1453286004 /home/daniel/Documents/OSNP_practicum/TH6/websocket.h
 	"PracticalSocket.h"
 	<thread>
 
 1453207488 source:/home/daniel/Documents/OSNP_practicum/TH6/wschatmain.cpp
+	<iostream>
+	"PracticalSocket.h"
+	"websocket.h"
+	<thread>
+
+1453283705 source:/home/daniel/Documents/OSNP_practicum/TH6/wsServer.cpp
 	<iostream>
 	"PracticalSocket.h"
 	"websocket.h"

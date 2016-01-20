@@ -6,14 +6,18 @@
 
 using namespace std;
 
-string username = "Admin";
 
 
 class MyListener:public WebSocketListener{
 public:
 	void onTextMessage(const string& s, WebSocket* ws){
-		ws->sendTextMessage(s);
-		cout << "Recieved: " << s << endl;
+		if(s == "RUN"){
+            cout<<"it wordks"<<endl;
+		}
+        else{
+            ws->sendTextMessage(s);
+            cout << "Recieved: " << s << endl;
+		}
 	}
 
 	void onClose(WebSocket* ws){
@@ -21,25 +25,37 @@ public:
 	}
 
 	bool CheckUserName(string EnteredUserName){
+
+        cout<< "TeST" <<endl;
         if(EnteredUserName == username){
+            cout<< EnteredUserName <<endl;
             return true;
         }
         return false;
 	}
+
+
+
+
 };
 
 MyListener ml;
 
 void runserver()
 {
+
 	try {
     // Make a socket to listen for client connections.
     TCPServerSocket servSock(8080);
 	cout << "server running: " << servSock.getLocalAddress().getAddress() << endl;
+
     for (;;) {
+        cout << "Trying to connect"<< endl;
 		TCPSocket *sock = servSock.accept();
+		cout<<"connected"<< endl;
 		WebSocket* ws = new WebSocket(sock);
 		ws->setListener(&	ml);
+		cout<<"connected"<< endl;
 
     }
   } catch (SocketException &e) {

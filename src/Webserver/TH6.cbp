@@ -12,8 +12,14 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
+					<Add option="-std=c++11" />
 				</Compiler>
+				<Linker>
+					<Add library="pthread" />
+					<Add library="crypto" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/TH6" prefix_auto="1" extension_auto="1" />
@@ -32,7 +38,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="main.cpp" />
+		<Unit filename="PracticalSocket.cpp" />
+		<Unit filename="PracticalSocket.h" />
+		<Unit filename="base64.cpp" />
+		<Unit filename="base64.h" />
+		<Unit filename="websocket.cpp" />
+		<Unit filename="websocket.h" />
+		<Unit filename="wsServer.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
