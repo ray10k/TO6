@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="websocket.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="PracticalSocket.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1400" topLine="36" />
-		</Cursor>
-	</File>
-	<File name="wsServer.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="278" topLine="0" />
+			<Cursor1 position="7237" topLine="273" />
 		</Cursor>
 	</File>
 	<File name="websocket.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -16,9 +11,14 @@
 			<Cursor1 position="2502" topLine="287" />
 		</Cursor>
 	</File>
-	<File name="PracticalSocket.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="wsServer.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="7237" topLine="273" />
+			<Cursor1 position="1042" topLine="39" />
+		</Cursor>
+	</File>
+	<File name="websocket.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1400" topLine="36" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
