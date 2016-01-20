@@ -104,16 +104,22 @@ void washingCycleTask::main(){
 				//take a break until you're needed again.
 				//TODO: tell the washing machine to go to a stand-by state.
 				this->currentStepTimer.cancel();
-				while(this->state == cycleState.PAUSE){
-					this->state = this->cycleStateChannel.read();
-					if (this->state == cycleState.STOP){
+				notifyListeners();
+				//State: paused. Wait until execution of washing program resumes
+				//or a shutdown command was sent.
+				while(this->runState == cycleState.PAUSE){
+					this->runState = this->cycleStateChannel.read();
+					if (this->runState == cycleState.STOP){
 						brake = true;
+					}else if (this->runState == cycleState.RUN){
+						notifyListeners();
 					}
 				}
 				break;
 			}
 			
 			if (brake){
+				notifyListeners();
 				break;
 			}
 			
@@ -124,8 +130,8 @@ void washingCycleTask::main(){
 			//recent events.
 			
 			if (progress == currentStepTimer||assessProgress()){
-				//some time-limited step has expired, or the latest state of the
-				//machine is sufficient. Move to the next step.
+				//independent of weather the last step was time- or machine-
+				//constrained, it's finished now. Move on to the next step.
 				cycleStep currentStep = this->ongoing.next();
 				notifyListeners();
 				continue;
@@ -133,5 +139,3 @@ void washingCycleTask::main(){
 		}
 	}
 }
-
-

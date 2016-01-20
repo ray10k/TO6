@@ -13,9 +13,8 @@
 #include "prtos/pRTOS.h"
 #include "washingCycle.h"
 #include "cycleStateListener.h"
+#include "machineStateListener.h"
 #include <vector>
-
-class internalMachineState;
 
 class washingCycleTask : public RTOS::Task
 {
@@ -40,6 +39,7 @@ protected:
 	
 
 private:
+	class internalMachineState;
 	//! notify all listeners of the current state. Should interpret current
 	//! state and adjust what functions are called.
 	void notifyListeners();
@@ -94,7 +94,5 @@ private:
 		};
 	
 };
-
-
 
 #endif

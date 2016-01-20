@@ -15,14 +15,14 @@ struct RequestStruct
 {
 	std::string request;
 	std::string command = "";
-}
+};
 
 struct ResponseStruct
 {
 	RequestStruct request;
 	std::string response;
 	int value;
-}
+};
 
 struct MachineState
 {
@@ -35,7 +35,7 @@ struct MachineState
 	bool pump;
 	bool heatingUnit;
 	bool signalLed;
-}
+};
 
 class machineStateListener
 {
