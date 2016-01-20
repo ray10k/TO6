@@ -32,15 +32,6 @@ void MachineInteractionTask::main()
 		//if(Clock >= 500)
 		RTOS::wait(this->clock);
 	
-	
-		/*currentState.temperature = getTemperature();
-		currentState.waterLevel = getWaterLevel();
-		currentState.drumRPM = getRPM();
-		
-		if(currentState.temperature < setState.temperature)
-		{setHeater(1);}else{setHeater(0);}*/
-	
-	
 		ResponseStruct rs = readChannel();
 		switch(rs.request.request)
 		{
@@ -51,7 +42,7 @@ void MachineInteractionTask::main()
 		}
 		
 		updateCounter++
-		if(updateCounter >= 10)
+		if(updateCounter >= 5)
 		{
 			updateCounter = 0;
 			
@@ -201,8 +192,6 @@ int MachineInteractionTask::getTemperature()
 	RequestStruct reqS;
 	reqS.request = "TEMPERATURE_REQ";
 	this-> SetMachineStateChannel.write(reqS);
-	//ResponseStruct resS = readChannel();
-	//return resS.value;
 }
   
 void MachineInteractionTask::setHeater(bool on)
@@ -212,7 +201,6 @@ void MachineInteractionTask::setHeater(bool on)
 	if(on){ reqS.command = "ON_CMD"; }
 	else { reqS.command = "OFF_CMD"; }
 	this-> SetMachineStateChannel.write(reqS);
-	//readChannel();
 }
 
 void MachineInteractionTask::getRPM()
@@ -258,8 +246,8 @@ std::vector<std::uint8_t> MachineInteractionTask::requestTranslate(RequestStruct
 		case "UNLOCK_CMD":	bytes[1] = 0x80; break;
 		case "START_CMD":	case "OPEN_CMD":	case "ON_CMD":	bytes[1] = 0x10; break;
 		case "STOP_CMD":	case "CLOSE_CMD":	case "OFF_CMD":	bytes[1] = 0x20; break;
-		case "RPM_Clockwise": 		 bytes[1] = 0x80 + setState.drumRPM; break;
-		case "RPM_counterClockwise": bytes[1] = 0x00 + setState.drumRPM; break;
+		case "RPM_Clockwise": 		 bytes[1] = setState.drumRPM | 0x80; break;
+		case "RPM_counterClockwise": bytes[1] = setState.drumRPM; break;
 		//default:	break;
 	}
 	
