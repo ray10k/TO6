@@ -8,44 +8,24 @@ washingCycleTask::washingCycleTask():
 	listeners(),
 	washingCycles(),
 	ongoing(),
-	runState(cycleState.STOP)//,
-	//machineState()
+	runState(cycleState.STOP)
 {
-	washingCycle test = washingCycle("test");
-	test.addStep({"Step1",50,70,false,10});
-	addCycle(test);
+
 }
 
-void washingCycleTask::stateChanged(MachineState currentState)
-{
-	this->machineStateChannel.write(currentState);
+void washingCycleTask::stateChanged(MachineState currentState){
+	internalMachineState toWrite;
+	toWrite.temperature = currentState.temperature;
+	toWrite.waterLevel = currentState.waterLevel;
+	this->machineStateChannel.write(toWrite);
 }
 
-void washingCycleTask::addCycleStateListener(cycleStateListener& listener)
-{
+void washingCycleTask::addCycleStateListener(cycleStateListener& listener){
 	listeners.push_back(listener);
 }
 
-void washingCycleTask::addCycle(washingCycle* cycle)
-{
+void washingCycleTask::addCycle(washingCycle& cycle){
 	washingCycles.push_back(cycle);
-}
-
-loadCycle(std::string cycleName)
-{
-	std::vector<washingCycle>::iterator cycle = this->washingCycles.begin();
-	for(;cycle != this->washingCycles.end(); ++cycle)
-	{
-		if(cycle.getName() == cycleName)
-		{
-			//ongoing.restart(); ???
-			if(cycle != ongoing)
-			{
-				//ongoing.stop(); ???
-				this->loadCycleChannel.write(cycle);
-			}
-		}
-	}
 }
 
 bool washingCycleTask::assessProgress(cycleStep& currentStep){
