@@ -1,8 +1,7 @@
 #include "uart.h"
 
-uart::uart(void)
+uart::uart(void): ls()
 {
-	ls = new LibSerial;
 	ls.open("/dev/ttySO", 9600);
 }
 

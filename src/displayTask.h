@@ -21,19 +21,25 @@
 public class displayTask : public RTOS::Task, public machineStateListener, 
 						   public cycleStateListener
 {
+	//! Constructor.
 	displayTask(washingCycleTask* WCT, loadCycleTask* LCT);
-	void stateChanged(MachineState currentState) override;
+	//! See machineStateListener.h
+	void stateChanged(machineState currentState) override;
+	//! see cycleStateListener.h
 	void cycleStateChanged(unsigned int totalSteps,
 		unsigned int currentStep,
-		const string& cycleName,
-		const string& stepName)=0 override;
-	void cyclePaused(const string& cycleName,
-		const string& stepName)=0 override;
+		const std::string& cycleName,
+		const std::string& stepName) override;
+	//! see cycleStateListener.h
+	void cyclePaused(const std::string& cycleName,
+		const std::string& stepName) override;
+	//! see cycleStateListener.h
 	void cycleEnded(bool finished,
-		const string& cycleName,
-		const string& stepName)=0 override;
-		
+		const std::string& cycleName,
+		const std::string& stepName) override;
+	//! TODO: document this.
 	void setCycleState(std::string state);
+	//! TODO: document this.
 	void loadWashingCycle(std::string userName, std::string washingCycleName);
 	
 	protected:
@@ -41,12 +47,12 @@ public class displayTask : public RTOS::Task, public machineStateListener,
 		
 	private:
 	
-	RTOS::channel<MachineState,1> machineStateChannel;
+	RTOS::channel<machineState,1> machineStateChannel;
 	RTOS::channel<std::string,16> washingCycleStateChannel;
 	washingCycleTask WCT;
 	loadCycleTask LCT;
 	
-	MachineState currentState;
+	machineState currentState;
 };
 
 
