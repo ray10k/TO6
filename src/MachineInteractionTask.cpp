@@ -1,6 +1,6 @@
-#include "MachineInteractionTask.h"
+#include "machineInteractionTask.h"
 
-MachineInteractionTask::MachineInteractionTask():
+machineInteractionTask::machineInteractionTask():
   setMachineStateChannel (this, "set_Machine_State_Channel"),
   clock (this, 500 MS, "MIT_clock"),
   Uart(),
@@ -9,12 +9,12 @@ MachineInteractionTask::MachineInteractionTask():
   setState()
 {}
 
-void MachineInteractionTask::addMachineStateListener(machineStateListener& listener)
+void machineInteractionTask::addMachineStateListener(machineStateListener& listener)
 {
 	listeners.push_back(listener);
 }
   
-void MachineInteractionTask::notifyListeners()
+void machineInteractionTask::notifyListeners()
 {
 	std::vector<machineStateListener>::iterator listen = this->listeners.begin();
 
@@ -24,7 +24,7 @@ void MachineInteractionTask::notifyListeners()
 	}
 }
 
-void MachineInteractionTask::main()
+void machineInteractionTask::main()
 {
 	for(;;)
 	{
@@ -48,7 +48,7 @@ void MachineInteractionTask::main()
 	}
 }
 
-void MachineInteractionTask::update()
+void machineInteractionTask::update()
 {	
 	if(currentState.waterLevel >= setState.waterLevel)
 	{
@@ -75,7 +75,7 @@ void MachineInteractionTask::update()
 	notifyListeners()
 }
 
-ResponseStruct MachineInteractionTask::readChannel()
+ResponseStruct machineInteractionTask::readChannel()
 {
 	//read the request in words.
 	RequestStruct request = SetMachineStateChannel.read(); //{"HEATING_UNIT_REQ", "ON_CMD"}
@@ -94,14 +94,14 @@ ResponseStruct MachineInteractionTask::readChannel()
 	return responseTranslate(responseByte, request); 
 }
 
-void MachineInteractionTask::setTemperature(unsigned int temperature)
+void machineInteractionTask::setTemperature(unsigned int temperature)
 {
 	setState.temperature = temperature;
 	if(currentState.temperature < temperature)
 	{if(currentState.heatingUnit == 0)	{setHeater(1);}}
 }
 
-void MachineInteractionTask::setWaterLevel(unsigned int waterLevel)
+void machineInteractionTask::setWaterLevel(unsigned int waterLevel)
 {
 	setDoorLock(1);
 	setState.waterLevel = waterLevel;
@@ -109,7 +109,7 @@ void MachineInteractionTask::setWaterLevel(unsigned int waterLevel)
 	{if(currentState.waterValve == 0)	{setWaterValve(1);}}
 }
 
-void MachineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
+void machineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 {
 	setState.drumRPM = rpm;
 	RequestStruct reqS;
@@ -122,19 +122,19 @@ void MachineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 	getRPM();
 }
 
-void MachineInteractionTask::setDetergent(bool add)
+void machineInteractionTask::setDetergent(bool add)
 {
 	//?
 }
 
-void MachineInteractionTask::flush()
+void machineInteractionTask::flush()
 {
 	setState.waterLevel = 0;
 	if(currentState.waterLevel > 0)
 	{if(currentState.pump = 0){setPump(1);}}
 }
   
-void MachineInteractionTask::setMachineState(bool start)
+void machineInteractionTask::setMachineState(bool start)
 {
 	RequestStruct reqS;
 	reqS.request = "MACHINE_REQ";
@@ -143,7 +143,7 @@ void MachineInteractionTask::setMachineState(bool start)
 	this-> SetMachineStateChannel.write(reqS);
 }
 
-void MachineInteractionTask::setDoorLock(bool lock)
+void machineInteractionTask::setDoorLock(bool lock)
 {
 	RequestStruct reqS;
 	reqS.request = "DOOR_LOCK_REQ";
@@ -152,7 +152,7 @@ void MachineInteractionTask::setDoorLock(bool lock)
 	this-> SetMachineStateChannel.write(reqS);
 }
 
-void MachineInteractionTask::getState(std::string request)
+void machineInteractionTask::getState(std::string request)
 {
 	RequestStruct reqS;
 	reqS.request = request;
@@ -160,14 +160,14 @@ void MachineInteractionTask::getState(std::string request)
 	this-> SetMachineStateChannel.write(reqS);
 } 
 
-void MachineInteractionTask::getWaterLevel()
+void machineInteractionTask::getWaterLevel()
 {
 	RequestStruct reqS;
 	reqS.request = "WATER_LEVEL_REQ";
 	this-> SetMachineStateChannel.write(reqS);
 }
 
-void MachineInteractionTask::setWaterValve(bool open)
+void machineInteractionTask::setWaterValve(bool open)
 {
 	RequestStruct reqS;
 	reqS.request = "WATER_VALVE_REQ";
@@ -176,7 +176,7 @@ void MachineInteractionTask::setWaterValve(bool open)
 	this-> SetMachineStateChannel.write(reqS);
 }
 
-void MachineInteractionTask::setSoapDispenser(bool open)
+void machineInteractionTask::setSoapDispenser(bool open)
 {
 	RequestStruct reqS;
 	reqS.request = "SOAP_DISPENSER_REQ";
@@ -185,7 +185,7 @@ void MachineInteractionTask::setSoapDispenser(bool open)
 	this-> SetMachineStateChannel.write(reqS);
 }
 
-void MachineInteractionTask::setPump(bool on)
+void machineInteractionTask::setPump(bool on)
 {
 	RequestStruct reqS;
 	reqS.request = "PUMP_REQ";
@@ -194,14 +194,14 @@ void MachineInteractionTask::setPump(bool on)
 	this-> SetMachineStateChannel.write(reqS);
 }
 
-int MachineInteractionTask::getTemperature()
+int machineInteractionTask::getTemperature()
 {
 	RequestStruct reqS;
 	reqS.request = "TEMPERATURE_REQ";
 	this-> SetMachineStateChannel.write(reqS);
 }
   
-void MachineInteractionTask::setHeater(bool on)
+void machineInteractionTask::setHeater(bool on)
 {
 	RequestStruct reqS;
 	reqS.request = "HEATING_UNIT_REQ";
@@ -210,14 +210,14 @@ void MachineInteractionTask::setHeater(bool on)
 	this-> SetMachineStateChannel.write(reqS);
 }
 
-void MachineInteractionTask::getRPM()
+void machineInteractionTask::getRPM()
 {
 	RequestStruct reqS;
 	reqS.request = "GET_RPM_REQ";
 	this-> SetMachineStateChannel.write(reqS);
 }
 
-void MachineInteractionTask::setSignalLed(bool on)
+void machineInteractionTask::setSignalLed(bool on)
 {
 	RequestStruct reqS;
 	reqS.request = "SIGNAL_LED_REQ";
@@ -226,7 +226,7 @@ void MachineInteractionTask::setSignalLed(bool on)
 	this-> SetMachineStateChannel.write(reqS);
 }
 
-std::vector<std::uint8_t> MachineInteractionTask::requestTranslate(RequestStruct reqS)
+std::vector<std::uint8_t> machineInteractionTask::requestTranslate(RequestStruct reqS)
 {
 	std::vector<std::uint8_t> bytes;
 	
@@ -261,7 +261,7 @@ std::vector<std::uint8_t> MachineInteractionTask::requestTranslate(RequestStruct
 	return bytes;
 }
 
-ResponseStruct MachineInteractionTask::responseTranslate(std::uint8_t responseByte, RequestStruct reqS)
+ResponseStruct machineInteractionTask::responseTranslate(std::uint8_t responseByte, RequestStruct reqS)
 {
 	ResponseStruct resS;
 	resS.request = reqS;

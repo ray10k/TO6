@@ -17,9 +17,22 @@
 #include <string>
 #include <vector>
 
-public class MachineInteractionTask : public RTOS::Task
+struct RequestStruct
 {
-	MachineInteractionTask();
+	std::string request;
+	std::string command = "";
+};
+
+struct ResponseStruct
+{
+	RequestStruct request;
+	std::string response;
+	int value;
+};
+
+public class machineInteractionTask : public RTOS::Task
+{
+	machineInteractionTask();
 	void addMachineStateListener(machineStateListener& listener);
 	
 	void setTemperature(unsigned int temperature);
