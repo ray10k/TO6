@@ -16,10 +16,10 @@ struct MachineState
 	short unsigned int temperature;
 	short unsigned int waterLevel;
 	short unsigned int drumRPM;
+	bool soapDispenser;
 	bool drumClockwise;
 	bool doorLock;
 	bool waterValve;
-	bool soapDispenser;
 	bool pump;
 	bool heatingUnit;
 	bool signalLed;

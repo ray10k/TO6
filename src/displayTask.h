@@ -7,8 +7,8 @@
 //!		- part of TO6 assignment 2015-2016
 //**************************************
 
-#ifndef __display_TASK
-#define __display_TASK
+#ifndef __DISPLAY_TASK
+#define __DISPLAY_TASK
 
 #include "prtos/pRTOS.h"
 #include "cycleState.h"
@@ -18,6 +18,22 @@
 #include "machineStateListener.h"
 #include <string>
 #include <vector>
+
+struct User
+{
+	std::string userName;
+	std::string password;
+}
+
+struct CycleStep
+{
+	int totalSteps = -1;
+	int currentStep = -1;
+	int cycleState = -1;
+	std::string cycleName = "";
+	std::string stepName = "";
+	bool finished = false;
+}
 
 public class displayTask : public RTOS::Task, public machineStateListener, 
 						   public cycleStateListener
@@ -42,6 +58,9 @@ public class displayTask : public RTOS::Task, public machineStateListener,
 	void setCycleState(int state);
 	//! TODO: document this.
 	void loadWashingCycle(std::string userName, std::string washingCycleName);
+	void addUser(User user);
+	bool checkUserName(std::string userName);
+	bool checkPassword(std::string userName, std::string password);
 	
 	protected:
 		main(void);
@@ -49,11 +68,14 @@ public class displayTask : public RTOS::Task, public machineStateListener,
 	private:
 	
 	RTOS::channel<machineState,1> machineStateChannel;
-	RTOS::channel<std::string,16> washingCycleStateChannel;
+	RTOS::channel<CycleStep,8> washingCycleStateChannel;
 	washingCycleTask WCT;
 	loadCycleTask LCT;
 	
-	machineState currentState;
+	MachineState currentState;
+	CycleStep currentCycleStep;
+	User currentUser;
+	std::vector<User&> users;
 };
 
 

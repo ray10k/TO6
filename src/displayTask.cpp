@@ -3,9 +3,11 @@
 displayTask::displayTask(washingCycleTask* WCT, loadCycleTask* LCT):
   machineStateChannel (this, "machine_State_Channel"),
   washingCycleStateChannel (this, "washing_Cycle_State_Channel"),
+  users(),
+  WCT(WCT),
+  LCT(LCT)
 {
-	this->WCT = WCT;
-	this->LCT = LCT;
+	addUser({"Admin", "0"});
 }
 
 void displayTask::main()
@@ -16,7 +18,8 @@ void displayTask::main()
 			this->machineStateChannel);
 		if(ev == washingCycleStateChannel)
 		{
-			std::string washingCycleState = washingCycleStateChannel.read();
+			currentStep = washingCycleStateChannel.read();
+			//send currentStep-> websocket-> website
 		}
 		if(ev == machineStateChannel)
 		{
@@ -30,6 +33,58 @@ void displayTask::stateChanged(MachineState currentState)
 {
 	this->machineStateChannel.write(currentState);
 }
+
+void displayTask::cycleStateChanged(
+		unsigned int totalSteps,
+		unsigned int currentStep,
+		const std::string& cycleName,
+		const std::string& stepName)
+{
+	CycleStep sendStep = 
+	{
+		totalSteps, 
+		currentStep, 
+		RUN, 
+		cycleName, 
+		stepName, 
+		currentCycleStep.finished
+	};
+	this->washingCycleStateChannel.write(sendStep);
+}
+
+void displayTask::cyclePaused(
+		const std::string& cycleName,
+		const std::string& stepName)
+{
+	CycleStep sendStep = 
+	{
+		currentCycleStep.totalSteps, 
+		currentCycleStep.currentStep, 
+		PAUSE, 
+		cycleName, 
+		stepName, 
+		currentCycleStep.finished
+	};
+	this->washingCycleStateChannel.write(sendStep);
+}
+
+void displayTask::cycleEnded(
+		bool finished,
+		const std::string& cycleName,
+		const std::string& stepName)
+{
+	CycleStep sendStep = 
+	{
+		currentCycleStep.totalSteps, 
+		currentCycleStep.currentStep, 
+		STOP, 
+		cycleName, 
+		stepName, 
+		finished
+	};
+	this->washingCycleStateChannel.write(sendStep);
+}
+
 
 void displayTask::setCycleState(int state)
 {
@@ -46,26 +101,40 @@ void displayTask::loadWashingCycle(std::string userName, std::string washingCycl
 	LCT.loadWashingCycle(userName, washingCycleName);
 }
 
-void displayTask::cycleStateChanged(
-		unsigned int totalSteps,
-		unsigned int currentStep,
-		const std::string& cycleName,
-		const std::string& stepName)
+void displayTask::addUser(User user)
 {
-	//send cycle state ^info-> websocket-> website
+	users.push_back(user);
 }
 
-void displayTask::cyclePaused(
-		const std::string& cycleName,
-		const std::string& stepName)
+bool displayTask::checkUserName(std::string userName)
 {
-	//send cycle paused-> websocket-> website
+	std::vector<User>::iterator user = this->users.begin();
+	for(;user != this->users.end(); ++user)
+	{
+		if(user.userName == userName)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
-void displayTask::cycleEnded(
-		bool finished,
-		const std::string& cycleName,
-		const std::string& stepName)
+bool displayTask::checkPassword(std::string userName, std::string password)
 {
-	//send cycle ended-> websocket-> website
+	std::vector<User>::iterator user = this->users.begin();
+	for(;user != this->users.end(); ++user)
+	{
+		if(user.userName == userName)
+		{
+			if(user.password == password)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	return false;
 }

@@ -10,7 +10,7 @@ machineInteractionTask::machineInteractionTask():
 {}
 
 void machineInteractionTask::addMachineStateListener(
-								machineStateListener& listener)
+	machineStateListener& listener)
 {
 	listeners.push_back(listener);
 }
@@ -37,18 +37,21 @@ void machineInteractionTask::main()
 			ResponseStruct rs = readChannel();
 			switch(rs.request.request)
 			{
-				case HEATING_UNIT_REQ: 
-				currentState.heatingUnit = rs.value; 
-				break;
-				case WATER_VALVE_REQ:  
-				currentState.waterValve  = rs.value; 
-				break;
 				case DOOR_LOCK_REQ:	 
-				currentState.doorLock	  = rs.value; 
-				break;
+					currentState.doorLock	 	= rs.value; 
+					break;
+				case WATER_VALVE_REQ:  
+					currentState.waterValve  	= rs.value; 
+					break;
+				case SOAP_DISPENSER_REQ:
+					currentState.soapDispenser 	= rs.value;
+					break;
 				case PUMP_REQ:		 
-				currentState.pump		  = rs.value; 
-				break;
+					currentState.pump		 	= rs.value; 
+					break;
+				case HEATING_UNIT_REQ: 
+					currentState.heatingUnit 	= rs.value; 
+					break;
 			}
 		}
 		else if(ev == clock)
@@ -63,6 +66,7 @@ void machineInteractionTask::update()
 	if(currentState.waterLevel >= setState.waterLevel)
 	{
 		if(currentState.waterValve == 1){setWaterValve(0);}
+		if(currentState.soapDispenser == 1){setSoapDispenser(0);}
 	}
 	else if(currentState.waterLevel == 0)
 	{
@@ -108,14 +112,13 @@ ResponseStruct machineInteractionTask::readChannel()
 void machineInteractionTask::setTemperature(unsigned int temperature)
 {
 	setState.temperature = temperature;
-	if(currentState.temperature < temperature)
-	{if(currentState.heatingUnit == 0)	{setHeater(1);}}
 }
 
 void machineInteractionTask::setWaterLevel(unsigned int waterLevel)
 {
-	setDoorLock(1);
 	setState.waterLevel = waterLevel;
+	setState.doorLock = true;
+	setDoorLock(1);
 	if(currentState.waterLevel < waterLevel)
 	{if(currentState.waterValve == 0)	{setWaterValve(1);}}
 }
@@ -123,23 +126,25 @@ void machineInteractionTask::setWaterLevel(unsigned int waterLevel)
 void machineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 {
 	setState.drumRPM = rpm;
+	setState.drumClockwise = clockwise;
+	
 	RequestStruct reqS;
 	reqS.request = SET_RPM_REQ;
-	
 	if(clockwise){reqS.command = RPM_Clockwise;}
 	else{reqS.command = RPM_counterClockwise;}
 	
 	this-> SetMachineStateChannel.write(reqS);
-	getRPM();
 }
 
 void machineInteractionTask::setDetergent(bool add)
 {
-	//?
+	setState.soapDispenser = add;
+	if(currentState.soapDispenser != add){setSoapDispenser(add);}
 }
 
 void machineInteractionTask::flush()
 {
+	setState.temperature = 20;
 	setState.waterLevel = 0;
 	if(currentState.waterLevel > 0)
 	{if(currentState.pump = 0){setPump(1);}}
@@ -238,7 +243,7 @@ void machineInteractionTask::setSignalLed(bool on)
 }
 
 std::vector<std::uint8_t> machineInteractionTask::requestTranslate(
-													RequestStruct reqS)
+	RequestStruct reqS)
 {
 	std::vector<std::uint8_t> bytes;
 	
@@ -274,8 +279,7 @@ std::vector<std::uint8_t> machineInteractionTask::requestTranslate(
 }
 
 ResponseStruct machineInteractionTask::responseTranslate(
-											std::uint8_t responseByte, 
-											RequestStruct reqS)
+	std::uint8_t responseByte, RequestStruct reqS)
 {
 	ResponseStruct resS;
 	resS.request = reqS;
@@ -325,11 +329,13 @@ ResponseStruct machineInteractionTask::responseTranslate(
 			if(responseByte >= 0x00|0x80 && responseByte <= 0x40|0x80)
 			{
 				currentState.drumRPM = responseByte|0x80;
+				currentState.drumClockwise = true;
 				resS.response = "RPM_Clockwise";
 			}
 			else if(responseByte >= 0x00 && responseByte <= 0x40)
 			{
 				currentState.drumRPM = responseByte;
+				currentState.drumClockwise = false;
 				resS.response = "RPM_counterClockwise";
 			}
 			break;

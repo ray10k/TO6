@@ -26,7 +26,7 @@ public class loadCycleTask : public RTOS::Task
 {
 	loadCycleTask(washingCycleTask* WCT);
 	void loadWashingCycle(std::userName, std::string washingCycleName);
-	void addWashingCycle(UserWashingCycle& cycle);
+	void addWashingCycle(std::string userName, washingCycle cycle);
 	
 	protected:
 		main(void);

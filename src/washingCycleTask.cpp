@@ -9,7 +9,8 @@ washingCycleTask::washingCycleTask(machineInteractionTask& machine):
 	ongoing(),
 	currentStep(),
 	runState(cycleState.STOP),
-	machine(machine){}
+	machine(machine)
+{}
 
 void washingCycleTask::stateChanged(MachineState currentState){
 	internalMachineState toWrite;

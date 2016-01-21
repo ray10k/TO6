@@ -67,17 +67,17 @@ function Login(html)
 {
 	var EnteredUserName = document.getElementById("LoginUsername").value;
 
-	if( EnteredUserName != "Admin")
+	if( EnteredUserName != "Admin") //if(ws.checkUserName(EnteredUserName))
 	{
 		Print("Username Does Not Exist...", "Login");
 		
 	}
 	else
 	{
-		var CurrentPassword = "0"; //ws.GetUserPassword(EnteredUserName);
+		var CurrentPassword = "0"; 
 		var EnteredPassword = document.getElementById("LoginPassword").value;
 	
-		if(EnteredPassword == CurrentPassword)
+		if(EnteredPassword == CurrentPassword) //if(ws.checkPassword(EnteredUserName, EnteredPassword))
 		{
 			Print("Loging in as " + EnteredUserName + "...", "Login");
 			

@@ -2,12 +2,12 @@
 
 loadCycleTask::loadCycleTask(washingCycleTask* WCT):
   loadWashingCycleChannel (this, "load_Washing_Cycle_Channel"),
-  washingCycles()
+  washingCycles(),
+  WCT(WCT)
 {
-	this->WCT = WCT;
 	washingCycle cycle = new washingCycle("cycle1");
 	cycle.addStep({"step1",60,75,true,10})
-	addWashingCycle({"Admin", cycle});
+	addWashingCycle("Admin", cycle);
 }
 
 void loadCycleTask::main()
@@ -25,14 +25,15 @@ void loadCycleTask::loadWashingCycle(std::string userName, std::string washingCy
 	std::vector<UserWashingCycle>::iterator cycle = this->washingCycles.begin();
 	for(;cycle != this->washingCycles.end(); ++cycle)
 	{
-		if(cycle.userName == userName && cycle.cycle.getName() == washingCycleName)
+		if(cycle.user.userName == userName && cycle.cycle.getName() == washingCycleName)
 		{
 			this->loadWashingCycleChannel.write(cycle);
 		}
 	}
 }
 
-void loadCycleTask::addWashingCycle(UserWashingCycle& cycle)
+void loadCycleTask::addWashingCycle(std::string userName, washingCycle cycle)
 {
-	washingCycles.push_back(cycle);
+	washingCycles.push_back({userName, cycle});
 }
+
