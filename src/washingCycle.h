@@ -20,11 +20,11 @@ class washingCycle
 {
 public:
 	//! Creates an empty washing cycle.
-	washingCycle(const string& name);
+	washingCycle(const std::string& name);
 	//! Advances the list to the next step, and returns the new current step.
 	const cycleStep& next();
 	//! returns the current step.
-	const cycleStep& current();
+	const cycleStep& current() const;
 	//! True unless either the current step is marked as a final step, or the
 	//! current step is at the end of the list.
 	bool hasNext() const;
@@ -38,7 +38,7 @@ public:
 	//! step added, calling this function will not add a new step.
 	void addStep(cycleStep toAdd);
 	//! returns the name of the cycle as a whole.
-	const string& getName() const;
+	const std::string& getName() const;
 	//! Assignment operator.
 	washingCycle& operator= (const washingCycle& other);
 
@@ -46,7 +46,7 @@ private:
 	std::vector<cycleStep> steps;
 	int current;
 	const static cycleStep end;
-	string cycleName;
+	std::string cycleName;
 };
 
 //**************************************
@@ -65,14 +65,14 @@ class cycleStep
 public:
 	//! Creates a cycle step that ends as soon as the required temperature and 
 	//! water level are reached.
-	cycleStep(const string& name,
+	cycleStep(const std::string& name,
 		unsigned short int temp,
 		unsigned short int water,
 		bool detergent,
 		signed int speed);
 	//! Creates a cycle step that runs for a given amount of time before
 	//! finishing.
-	cycleStep(const string& name,
+	cycleStep(const std::string& name,
 		unsigned short int temp,
 		unsigned short int water,
 		bool detergent,
@@ -107,14 +107,14 @@ public:
 	//! be executed.
 	bool isFinal() const;
 	//! returns the name of this step, as it should be displayed.
-	const string& getName() const;
+	const std::string& getName() const;
 
 
 private:
 	//no state for door lock; implied as closed until after the last step of 
 	//the cycle.
 	//! name of the step, for display purposes.
-	string stepName;
+	std::string stepName;
 
 	//! detergent will be added for entire duration of step if true, otherwise 
 	//! no detergent will be added.

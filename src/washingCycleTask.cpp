@@ -1,6 +1,6 @@
 #include "washingCycleTask.h"
 
-washingCycleTask::washingCycleTask():
+washingCycleTask::washingCycleTask(machineInteractionTask& machine):
 	loadCycleChannel(this,"WCT_loadCycleChnl"),
 	cycleStateChannel(this,"WCT_cycleStateChnl"),
 	machineStateChannel(this,"WCT_machineStateChnl"),
@@ -8,10 +8,9 @@ washingCycleTask::washingCycleTask():
 	listeners(),
 	washingCycles(),
 	ongoing(),
-	runState(cycleState.STOP)
-{
-
-}
+	currentStep(),
+	runState(cycleState.STOP),
+	machine(machine){}
 
 void washingCycleTask::stateChanged(MachineState currentState){
 	internalMachineState toWrite;
@@ -21,14 +20,26 @@ void washingCycleTask::stateChanged(MachineState currentState){
 }
 
 void washingCycleTask::addCycleStateListener(cycleStateListener& listener){
-	listeners.push_back(listener);
+	this->listeners.push_back(listener);
 }
 
 void washingCycleTask::addCycle(washingCycle& cycle){
-	washingCycles.push_back(cycle);
+	this->washingCycles.push_back(cycle);
 }
 
-bool washingCycleTask::assessProgress(cycleStep& currentStep){
+void washingCycleTask::pause(){
+	this->cycleStateChannel.write(cycleState.PAUSE);
+}
+
+void washingCycleTask::run(){
+	this->cycleStateChannel.write(cycleState.RUN);
+}
+
+void washingCycleTask::stop(){
+	this->cycleStateChannel.write(cycleState.STOP);
+}
+
+bool washingCycleTask::assessProgress(){
 	//timed steps are handled by the timer, and don't need further confirmation.
 	if (currentStep.isTimed()){
 		return false;
@@ -36,8 +47,8 @@ bool washingCycleTask::assessProgress(cycleStep& currentStep){
 	//non-timed tasks finish when the water level and temperature are equal to,
 	//or greater than the expected level. Assume the MIT is responsible for
 	//keeping the balance.
-	if(currentStep.getTemperature() < currentState.temperature ||//this->machineState.temperature ||
-		currentStep.getWaterLevel() < currentState.waterLevel){//this->machineState.waterLevel){
+	if(this->knownState.temperature < this->currentStep.getTemperature() ||
+		this->knownState.waterLevel < this->currentStep.getWaterLevel()){
 		return false;
 	}
 	return true;
@@ -56,11 +67,10 @@ void washingCycleTask::notifyListeners(){
 	switch(this->runState){
 	case cycleState.STOP:
 		for(;listen != this->listeners.end(); ++listen){
-			bool properEnd = !this->current.hasNext(); //assume that if there is
-			//no next item in the cycle, the cycle has ended properly.
+			bool properEnd = this->currentStep.isFinal(); 
 			*listen.cycleEnded(properEnd,
-				this->current.getName(),
-				this->current.current().getName());
+				this->ongoing.getName(),
+				this->currentStep.getName();
 		}
 		break;
 	case cycleState.PAUSE:
@@ -77,16 +87,6 @@ void washingCycleTask::notifyListeners(){
 				this->current.current().getName());
 		}
 		break;
-	}
-}
-
-void washingCycleTask::setCycleState(std::string state)
-{
-	switch(state)
-	{
-		case "RUN": 	this->cycleStateChannel.write(cycleState.RUN); 	 break;
-		case "PAUSE": 	this->cycleStateChannel.write(cycleState.PAUSE); break;
-		case "STOP": 	this->cycleStateChannel.write(cycleState.STOP);  break;
 	}
 }
 
@@ -152,14 +152,11 @@ void washingCycleTask::main(){
 				notifyListeners();
 				break;
 			}
-			
-			//TODO: handle the current state of the machine, based on the most
-			//recent events.
+
 			if (progress == machineStateChannel){
-				internalMachineState latest = this->machineStateChannel.read();
-				this->machineState.temperature = latest.temperature;
-				this->machineState.waterLevel = latest.waterLevel;
+				this->knownState = this->machineStateChannel.read();
 			}
+			
 			
 			//TODO: Once the relevant interface is known, instruct the Washing
 			//machine in regards to the current step.

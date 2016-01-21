@@ -15,12 +15,13 @@
 #include "cycleState.h"
 #include "cycleStateListener.h"
 #include "machineStateListener.h"
+#include "machineInteractionTask.h"
 #include <vector>
 
 class washingCycleTask : public RTOS::Task, public machineStateListener
 {
 public:
-	washingCycleTask();
+	washingCycleTask(machineInteractionTask& machine);
 	//! As defined by the interface machineStateListener.
 	void stateChanged(MachineState currentState) override;
 	//! Registers a new listener for events describing the progress through the
@@ -54,7 +55,7 @@ private:
 		internalMachineState(): temperature(20), waterLevel(0) {}
 		unsigned short int temperature;
 		unsigned short int waterLevel;
-	} knownState, wantedState;
+	} knownState;
 
 	//! notify all listeners of the current state. Should interpret current
 	//! state and adjust what functions are called.
@@ -63,7 +64,7 @@ private:
 	//! current step. Returns false if the current step is time-based or the 
 	//! state of the machine is not close enough to the expected state, true
 	//! otherwise.
-	bool assessProgress(cycleStep& currentStep);
+	bool assessProgress();
 
 	//more than one washing cycle waiting is a serious error; more than one
 	//should never occur.
@@ -79,8 +80,11 @@ private:
 	std::vector<cycleStateListener&> listeners;
 	
 	washingCycle ongoing;
+	cycleStep currentStep;
 	
 	cycleState runState;
+	
+	machineInteractionTask& machine;
 };
 
 #endif

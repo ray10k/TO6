@@ -16,7 +16,7 @@ const cycleStep& washingCycle::next(){
 	}
 }
 
-const cycleStep& washingCycle::current(){
+const cycleStep& washingCycle::current() const{
 	return steps[current];
 }
 
@@ -45,7 +45,7 @@ void washingCycle::addStep(cycleStep toAdd){
 	}
 }
 
-const string& washingCycle::getName() const {
+const std::string& washingCycle::getName() const {
 	return this->cycleName;
 }
 
@@ -146,6 +146,6 @@ bool cycleStep::isFinal() const {
 	return this->finalStep;
 }
 
-const cycleStep::string& getName() const {
+const std::string& cycleStep::getName() const {
 	return this->stepName;
 }
