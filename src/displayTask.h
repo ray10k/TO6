@@ -18,7 +18,8 @@
 #include <string>
 #include <vector>
 
-public class displayTask : public RTOS::Task, public machineStateListener, public cycleStateListener
+public class displayTask : public RTOS::Task, public machineStateListener, 
+						   public cycleStateListener
 {
 	displayTask(washingCycleTask* WCT, loadCycleTask* LCT);
 	void stateChanged(MachineState currentState) override;
