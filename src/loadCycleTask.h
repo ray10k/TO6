@@ -12,25 +12,29 @@
 
 #include "prtos/pRTOS.h"
 #include "washingCycleTask.h"
+#include ""washingCycle.h"
 #include <string>
 #include <vector>
 
-struct UserCycleName
+struct UserWashingCycle
 {
 	std::string userName;
-	std::string cycleName;
+	washingCycle cycle;
 }
 
 public class loadCycleTask : public RTOS::Task
 {
 	loadCycleTask(washingCycleTask* WCT);
 	void loadWashingCycle(std::userName, std::string washingCycleName);
+	void addWashingCycle(UserWashingCycle& cycle);
 	
 	protected:
 		main(void);
 		
 	private:
 	
-	RTOS::channel<UserCycleName,1> loadWashingCycleChannel;
+	RTOS::channel<UserWashingCycle,1> loadWashingCycleChannel;
 	washingCycleTask WCT;
+	
+	std::vector<UserWashingCycle&> washingCycles;
 }

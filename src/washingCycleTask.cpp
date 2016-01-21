@@ -6,7 +6,6 @@ washingCycleTask::washingCycleTask():
 	machineStateChannel(this,"WCT_machineStateChnl"),
 	currentStepTimer(this,"WCT_currentStepTmr"),
 	listeners(),
-	washingCycles(),
 	ongoing(),
 	runState(cycleState.STOP)
 {
@@ -24,8 +23,9 @@ void washingCycleTask::addCycleStateListener(cycleStateListener& listener){
 	listeners.push_back(listener);
 }
 
-void washingCycleTask::addCycle(washingCycle& cycle){
-	washingCycles.push_back(cycle);
+void washingCycleTask::loadCycle(washingCycle& cycle)
+{
+	this->loadCycleChannel.read(cycle);
 }
 
 bool washingCycleTask::assessProgress(cycleStep& currentStep){

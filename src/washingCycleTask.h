@@ -28,9 +28,7 @@ public:
 	void addCycleStateListener(cycleStateListener& listener);
 	//! Provide a washingCycle to be performed when there is no ongoing cycle,
 	//! and the system is in a running state.
-	void addCycle(washingCycle& cycle);
-	//! Accept a washing cycle to execute, as soon as no cycle is currently
-	//! executing.
+	void loadCycle(washingCycle& cycle);
 
 	//! Pauses execution of the current cycle.
 	void pause();
