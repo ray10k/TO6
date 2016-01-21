@@ -98,7 +98,23 @@ void displayTask::setCycleState(int state)
 
 void displayTask::loadWashingCycle(std::string userName, std::string washingCycleName)
 {
-	LCT.loadWashingCycle(userName, washingCycleName);
+	if(loggedIn)
+	{
+		if(currentUser.userName = userName)
+		{
+			LCT.loadWashingCycle(userName, washingCycleName);
+		}
+	}
+}
+
+std::vector<std::string> displayTask::loadWashingCycleNames()
+{
+	return LCT.getWashingCycleNames(currentUser.userName);
+}
+
+int displayTask::getTotalCycleSteps(std::string washingCycleName)
+{
+	return LCT.getTotalCycleSteps(washingCycleName);
 }
 
 void displayTask::addUser(User user)
@@ -106,35 +122,66 @@ void displayTask::addUser(User user)
 	users.push_back(user);
 }
 
-bool displayTask::checkUserName(std::string userName)
+User displayTask::findUser(std::string userName)
 {
 	std::vector<User>::iterator user = this->users.begin();
 	for(;user != this->users.end(); ++user)
 	{
 		if(user.userName == userName)
 		{
-			return true;
+			return user;
 		}
+	}
+	return {"", ""};
+}
+
+bool displayTask::checkUserName(std::string userName)
+{
+	if(findUser(userName).userName == userName)
+	{
+		return true;
 	}
 	return false;
 }
 
 bool displayTask::checkPassword(std::string userName, std::string password)
 {
-	std::vector<User>::iterator user = this->users.begin();
-	for(;user != this->users.end(); ++user)
+	if(findUser(userName).password == password)
 	{
-		if(user.userName == userName)
-		{
-			if(user.password == password)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
+		return true;
 	}
 	return false;
+}
+
+void displayTask::login(std::string userName)
+{
+	loggedIn = true;
+	currentUser = findUser(userName);
+}
+
+void displayTask::logout()
+{
+	loggedIn = false;
+	currentUser = {"",""};
+}
+
+bool displayTask::getLoggedIn()
+{
+	return loggedIn;
+}
+
+std::string displayTask::getCurrentUserPassword()
+{
+	if(loggedIn)
+	{
+		return currentUser.password;
+	}	
+}
+
+void displayTask::changeCurrentUserPassword(std::string password)
+{
+	if(loggedIn)
+	{
+		findUser(currentUser.userName).password = password;
+	}
 }

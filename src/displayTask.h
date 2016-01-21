@@ -57,15 +57,26 @@ public class displayTask : public RTOS::Task, public machineStateListener,
 	//! TODO: document this.
 	void setCycleState(int state);
 	//! TODO: document this.
+	
 	void loadWashingCycle(std::string userName, std::string washingCycleName);
+	std::vector<std::string> loadWashingCycleNames();
+	int getTotalCycleSteps(std::string washingCycleName)
+	
 	void addUser(User user);
 	bool checkUserName(std::string userName);
 	bool checkPassword(std::string userName, std::string password);
+	
+	void login(std::string userName);
+	void logout();
+	bool getLoggedIn();
+	std::string getCurrentUserPassword();
+	void changeCurrentUserPassword(std::string password);
 	
 	protected:
 		main(void);
 		
 	private:
+	User findUser(std::string userName);
 	
 	RTOS::channel<machineState,1> machineStateChannel;
 	RTOS::channel<CycleStep,8> washingCycleStateChannel;
@@ -74,8 +85,9 @@ public class displayTask : public RTOS::Task, public machineStateListener,
 	
 	MachineState currentState;
 	CycleStep currentCycleStep;
-	User currentUser;
+	User currentUser = {"", ""};
 	std::vector<User&> users;
+	bool loggedIn = false;
 };
 
 

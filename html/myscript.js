@@ -107,7 +107,7 @@ function Login_Message()
 
 function SavePassword(html)
 {
-	var CurrentPassword = "test"; //ws.GetUserPassword(ws.GetUserName());
+	var CurrentPassword = "test"; //ws.getCurrentUserPassword();
 	var EnteredCurrentPassword = document.getElementById("CurrentPassword").value;
 	var EnteredNewPassword = document.getElementById("NewPassword").value;
 	var EnteredRepeatPassword = document.getElementById("RepeatPassword").value;
@@ -117,7 +117,7 @@ function SavePassword(html)
 		if(CheckPassword(EnteredNewPassword, EnteredRepeatPassword, "ChangePassword"))
 		{
 			Print("Saving Password...", "ChangePassword");
-			//ws.SaveUserPassword(EnteredNewPassword);
+			//ws.changeCurrentUserPassword(EnteredNewPassword);
 			setTimeout(function(){Load(html);},500);
 		}
 	}
@@ -144,7 +144,7 @@ function CreateUserProfile(html)
 	{
 		Print("You can only use Numbers and Letters in your username!", "CreateUserProfile");
 	}
-	else if(EnteredUserName == "Admin")//if(ws.CheckUserName(EnteredUserName) == true)
+	else if(EnteredUserName == "Admin")//if(ws.checkUserName(EnteredUserName) == true)
 	{
 		Print("Username: " + EnteredUserName + " Already Exist...", "CreateUserProfile");
 	}
@@ -156,7 +156,7 @@ function CreateUserProfile(html)
 		if(CheckPassword(EnteredPassword, EnteredRepeatPassword, "CreateUserProfile"))
 		{
 			Print("Creating Profile: " + EnteredUserName + "...", "CreateUserProfile");
-			//ws.CreateProfile(EnteredUserName, EnteredPassword);
+			//ws.addUser({EnteredUserName, EnteredPassword});
 			setTimeout(function(){Load(html);},1000);
 		}
 	}
@@ -329,7 +329,7 @@ function LoadWashingCycleNames()
 {
 	//Print("Loading Washing Cycle Names...", "EditWashingCycle");
 	
-	var WashingCycleNames = ["Kort Maar Krachtig", "Hot Jeans"]; //ws.LoadWashingCycleNames();
+	var WashingCycleNames = ["Kort Maar Krachtig", "Hot Jeans"]; //ws.loadWashingCycleNames();
 	var NamesToHtml = "";
 	for(var i=0; i<WashingCycleNames.length; i++)
 	{
@@ -344,7 +344,7 @@ function LoadWashingCycle()
 	document.getElementById("WashingCycleName").value = WashingCycleName;
 	//Print("Loading WashingCycle: " + WashingCycleName + "...", "EditWashingCycle");
 	
-	FaseCount = 5; //ws.LoadWashingCycleFaseCount(WashingCycleName);
+	FaseCount = 5; //ws.getTotalCycleSteps(WashingCycleName);
 	for(var fase=1; fase<=FaseCount; fase++)
 	{
 		document.getElementById("Fase" + fase).style.display = "block";
