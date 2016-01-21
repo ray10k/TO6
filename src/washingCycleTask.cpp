@@ -30,6 +30,13 @@ bool washingCycleTask::assessProgress(cycleStep& currentStep){
 	return true;
 }
 
+void washingCycleTask::stateChanged (MachineState currentState){
+	internalMachineState temp();
+	temp.temperature = currentState.temperature;
+	temp.waterLevel = currentState.waterLevel;
+	this->machineStateChannel.write(temp);
+}
+
 void washingCycleTask::notifyListeners(){
 	std::vector<cycleStateListener>::iterator listen = this->listeners.begin();
 	
@@ -117,11 +124,16 @@ void washingCycleTask::main(){
 				break;
 			}
 			
-			//TODO: Once the relevant interface is known, instruct the Washing
-			//machine in regards to the current step.
-			
 			//TODO: handle the current state of the machine, based on the most
 			//recent events.
+			if (progress == machineStateChannel){
+				internalMachineState latest = this->machineStateChannel.read();
+				this->machineState.temperature = latest.temperature;
+				this->machineState.waterLevel = latest.waterLevel;
+			}
+			
+			//TODO: Once the relevant interface is known, instruct the Washing
+			//machine in regards to the current step.
 			
 			if (progress == currentStepTimer||assessProgress()){
 				//some time-limited step has expired, or the latest state of the
