@@ -322,8 +322,16 @@ ResponseStruct machineInteractionTask::responseTranslate(
 			break;
 			
 		case SET_RPM_REQ: case GET_RPM_REQ:
-			currentState.drumRPM = responseByte;
-			resS.response = "RPM";
+			if(responseByte >= 0x00|0x80 && responseByte <= 0x40|0x80)
+			{
+				currentState.drumRPM = responseByte|0x80;
+				resS.response = "RPM_Clockwise";
+			}
+			else if(responseByte >= 0x00 && responseByte <= 0x40)
+			{
+				currentState.drumRPM = responseByte;
+				resS.response = "RPM_counterClockwise";
+			}
 			break;
 			
 		default:
