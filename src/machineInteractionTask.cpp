@@ -35,10 +35,10 @@ void machineInteractionTask::main()
 			ResponseStruct rs = readChannel();
 			switch(rs.request.request)
 			{
-				case "HEATING_UNIT_REQ": currentState.heatingUnit = rs.value; break;
-				case "WATER_VALVE_REQ":  currentState.waterValve  = rs.value; break;
-				case "DOOR_LOCK_REQ":	 currentState.doorLock	  = rs.value; break;
-				case "PUMP_REQ":		 currentState.pump		  = rs.value; break;
+				case HEATING_UNIT_REQ: currentState.heatingUnit = rs.value; break;
+				case WATER_VALVE_REQ:  currentState.waterValve  = rs.value; break;
+				case DOOR_LOCK_REQ:	 currentState.doorLock	  = rs.value; break;
+				case PUMP_REQ:		 currentState.pump		  = rs.value; break;
 			}
 		}
 		else if(ev == clock)
@@ -113,10 +113,10 @@ void machineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 {
 	setState.drumRPM = rpm;
 	RequestStruct reqS;
-	reqS.request = "SET_RPM_REQ";
+	reqS.request = SET_RPM_REQ;
 	
-	if(clockwise){reqS.command = "RPM_Clockwise";}
-	else{reqS.command = "RPM_counterClockwise";}
+	if(clockwise){reqS.command = RPM_Clockwise;}
+	else{reqS.command = RPM_counterClockwise;}
 	
 	this-> SetMachineStateChannel.write(reqS);
 	getRPM();
@@ -137,18 +137,18 @@ void machineInteractionTask::flush()
 void machineInteractionTask::setMachineState(bool start)
 {
 	RequestStruct reqS;
-	reqS.request = "MACHINE_REQ";
-	if(start){ reqS.command = "START_CMD"; }
-	else { reqS.command = "STOP_CMD"; }
+	reqS.request = MACHINE_REQ;
+	if(start){ reqS.command = START_CMD; }
+	else { reqS.command = STOP_CMD; }
 	this-> SetMachineStateChannel.write(reqS);
 }
 
 void machineInteractionTask::setDoorLock(bool lock)
 {
 	RequestStruct reqS;
-	reqS.request = "DOOR_LOCK_REQ";
-	if(lock){ reqS.command = "LOCK_CMD"; }
-	else { reqS.command = "UNLOCK_CMD"; }
+	reqS.request = DOOR_LOCK_REQ;
+	if(lock){ reqS.command = LOCK_CMD; }
+	else { reqS.command = UNLOCK_CMD; }
 	this-> SetMachineStateChannel.write(reqS);
 }
 
@@ -156,73 +156,73 @@ void machineInteractionTask::getState(std::string request)
 {
 	RequestStruct reqS;
 	reqS.request = request;
-	reqS.command = "STATUS_CMD";
+	reqS.command = STATUS_CMD;
 	this-> SetMachineStateChannel.write(reqS);
 } 
 
 void machineInteractionTask::getWaterLevel()
 {
 	RequestStruct reqS;
-	reqS.request = "WATER_LEVEL_REQ";
+	reqS.request = WATER_LEVEL_REQ;
 	this-> SetMachineStateChannel.write(reqS);
 }
 
 void machineInteractionTask::setWaterValve(bool open)
 {
 	RequestStruct reqS;
-	reqS.request = "WATER_VALVE_REQ";
-	if(open){ reqS.command = "OPEN_CMD"; }
-	else { reqS.command = "CLOSE_CMD"; }
+	reqS.request = WATER_VALVE_REQ;
+	if(open){ reqS.command = OPEN_CMD; }
+	else { reqS.command = CLOSE_CMD; }
 	this-> SetMachineStateChannel.write(reqS);
 }
 
 void machineInteractionTask::setSoapDispenser(bool open)
 {
 	RequestStruct reqS;
-	reqS.request = "SOAP_DISPENSER_REQ";
-	if(open){ reqS.command = "OPEN_CMD"; }
-	else { reqS.command = "CLOSE_CMD"; }
+	reqS.request = SOAP_DISPENSER_REQ;
+	if(open){ reqS.command = OPEN_CMD; }
+	else { reqS.command = CLOSE_CMD; }
 	this-> SetMachineStateChannel.write(reqS);
 }
 
 void machineInteractionTask::setPump(bool on)
 {
 	RequestStruct reqS;
-	reqS.request = "PUMP_REQ";
-	if(on){ reqS.command = "ON_CMD"; }
-	else { reqS.command = "OFF_CMD"; }
+	reqS.request = PUMP_REQ;
+	if(on){ reqS.command = ON_CMD; }
+	else { reqS.command = OFF_CMD; }
 	this-> SetMachineStateChannel.write(reqS);
 }
 
 int machineInteractionTask::getTemperature()
 {
 	RequestStruct reqS;
-	reqS.request = "TEMPERATURE_REQ";
+	reqS.request = TEMPERATURE_REQ;
 	this-> SetMachineStateChannel.write(reqS);
 }
   
 void machineInteractionTask::setHeater(bool on)
 {
 	RequestStruct reqS;
-	reqS.request = "HEATING_UNIT_REQ";
-	if(on){ reqS.command = "ON_CMD"; }
-	else { reqS.command = "OFF_CMD"; }
+	reqS.request = HEATING_UNIT_REQ;
+	if(on){ reqS.command = ON_CMD; }
+	else { reqS.command = OFF_CMD; }
 	this-> SetMachineStateChannel.write(reqS);
 }
 
 void machineInteractionTask::getRPM()
 {
 	RequestStruct reqS;
-	reqS.request = "GET_RPM_REQ";
+	reqS.request = GET_RPM_REQ;
 	this-> SetMachineStateChannel.write(reqS);
 }
 
 void machineInteractionTask::setSignalLed(bool on)
 {
 	RequestStruct reqS;
-	reqS.request = "SIGNAL_LED_REQ";
-	if(on){ reqS.command = "ON_CMD"; }
-	else { reqS.command = "OFF_CMD"; }
+	reqS.request = SIGNAL_LED_REQ;
+	if(on){ reqS.command = ON_CMD; }
+	else { reqS.command = OFF_CMD; }
 	this-> SetMachineStateChannel.write(reqS);
 }
 
@@ -232,29 +232,29 @@ std::vector<std::uint8_t> machineInteractionTask::requestTranslate(RequestStruct
 	
 	switch(reqS.request)
 	{
-		case "MACHINE_REQ": 		bytes[0] = 0x01; break;
-		case "DOOR_LOCK_REQ": 		bytes[0] = 0x02; break;
-		case "WATER_VALVE_REQ":		bytes[0] = 0x03; break;
-		case "SOAP_DISPENSER_REQ":	bytes[0] = 0x04; break;
-		case "PUMP_REQ": 			bytes[0] = 0x05; break;
-		case "WATER_LEVEL_REQ":		bytes[0] = 0x06; break;
-		case "HEATING_UNIT_REQ":	bytes[0] = 0x07; break;	
-		case "TEMPERATURE_REQ":		bytes[0] = 0x08; break;
-		case "SET_RPM_REQ":			bytes[0] = 0x0A; break;	
-		case "GET_RPM_REQ":			bytes[0] = 0x09; break;
-		case "SIGNAL_LED_REQ":		bytes[0] = 0x0B; break;
+		case MACHINE_REQ: 			bytes[0] = 0x01; break;
+		case DOOR_LOCK_REQ: 		bytes[0] = 0x02; break;
+		case WATER_VALVE_REQ:		bytes[0] = 0x03; break;
+		case SOAP_DISPENSER_REQ:	bytes[0] = 0x04; break;
+		case PUMP_REQ: 				bytes[0] = 0x05; break;
+		case WATER_LEVEL_REQ:		bytes[0] = 0x06; break;
+		case HEATING_UNIT_REQ:		bytes[0] = 0x07; break;	
+		case TEMPERATURE_REQ:		bytes[0] = 0x08; break;
+		case SET_RPM_REQ:			bytes[0] = 0x0A; break;	
+		case GET_RPM_REQ:			bytes[0] = 0x09; break;
+		case SIGNAL_LED_REQ:		bytes[0] = 0x0B; break;
 		default:					return -1;		 break;
 	}
 	
 	switch(reqS.command)
 	{
-		case "STATUS_CMD":	bytes[1] = 0x01; break;
-		case "LOCK_CMD":	bytes[1] = 0x40; break;
-		case "UNLOCK_CMD":	bytes[1] = 0x80; break;
-		case "START_CMD":	case "OPEN_CMD":	case "ON_CMD":	bytes[1] = 0x10; break;
-		case "STOP_CMD":	case "CLOSE_CMD":	case "OFF_CMD":	bytes[1] = 0x20; break;
-		case "RPM_Clockwise": 		 bytes[1] = setState.drumRPM | 0x80; break;
-		case "RPM_counterClockwise": bytes[1] = setState.drumRPM; break;
+		case STATUS_CMD:	bytes[1] = 0x01; break;
+		case LOCK_CMD:		bytes[1] = 0x40; break;
+		case UNLOCK_CMD:	bytes[1] = 0x80; break;
+		case START_CMD:	case OPEN_CMD:	case ON_CMD:	bytes[1] = 0x10; break;
+		case STOP_CMD:	case CLOSE_CMD:	case OFF_CMD:	bytes[1] = 0x20; break;
+		case RPM_Clockwise: 		bytes[1] = setState.drumRPM | 0x80;  break;
+		case RPM_counterClockwise: 	bytes[1] = setState.drumRPM; 		 break;
 		//default:	break;
 	}
 	
@@ -269,7 +269,7 @@ ResponseStruct machineInteractionTask::responseTranslate(std::uint8_t responseBy
 	
 	switch(reqS.request)
 	{
-		case "MACHINE_REQ":
+		case MACHINE_REQ:
 			switch(responseByte)
 			{
 				case 0x01: resS.response = "HALTED"; 	break;
@@ -279,7 +279,7 @@ ResponseStruct machineInteractionTask::responseTranslate(std::uint8_t responseBy
 			}
 			break;
 		
-		case "DOOR_LOCK_REQ": case "WATER_VALVE_REQ": case "SOAP_DISPENSER_REQ":
+		case DOOR_LOCK_REQ: case WATER_VALVE_REQ: case SOAP_DISPENSER_REQ:
 			switch(responseByte)
 			{
 				case 0x01: resS.response = "OPENED"; resS.value = 1; break;
@@ -289,7 +289,7 @@ ResponseStruct machineInteractionTask::responseTranslate(std::uint8_t responseBy
 			}
 			break;
 			
-		case "PUMP_REQ": case "HEATING_UNIT_REQ": case "SIGNAL_LED_REQ":
+		case PUMP_REQ: case HEATING_UNIT_REQ: case SIGNAL_LED_REQ:
 			switch(responseByte)
 			{
 				case 0x08: resS.response = "ON";  resS.value = 1;	break;
@@ -297,17 +297,17 @@ ResponseStruct machineInteractionTask::responseTranslate(std::uint8_t responseBy
 			}
 			break;
 			
-		case "WATER_LEVEL_REQ":
+		case WATER_LEVEL_REQ:
 			currentState.waterLevel = responseByte;
 			resS.response = "Niveau in %";
 			break;
 			
-		case "TEMPERATURE_REQ":
+		case TEMPERATURE_REQ:
 			currentState.temperature = responseByte;
 			resS.response = "Temp in Graden Celcius";
 			break;
 			
-		case "SET_RPM_REQ": case "GET_RPM_REQ":
+		case SET_RPM_REQ: case GET_RPM_REQ:
 			currentState.drumRPM = responseByte;
 			resS.response = "RPM";
 			break;

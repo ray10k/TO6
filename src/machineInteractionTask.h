@@ -19,8 +19,8 @@
 
 struct RequestStruct
 {
-	std::string request;
-	std::string command = "";
+	int request;
+	int command = NONE_CMD;
 };
 
 struct ResponseStruct
@@ -29,6 +29,37 @@ struct ResponseStruct
 	std::string response;
 	int value;
 };
+
+enum requestEnum
+{
+	MACHINE_REQ,
+	DOOR_LOCK_REQ,
+	WATER_VALVE_REQ,
+	SOAP_DISPENSER_REQ,
+	PUMP_REQ,
+	WATER_LEVEL_REQ,
+	HEATING_UNIT_REQ,
+	TEMPERATURE_REQ,
+	SET_RPM_REQ,
+	GET_RPM_REQ,
+	SIGNAL_LED_REQ
+}
+
+enum commandEnum
+	{
+		NONE_CMD,
+		STATUS_CMD,
+		LOCK_CMD,
+		UNLOCK_CMD,
+		START_CMD,
+		STOP_CMD,
+		OPEN_CMD,
+		CLOSE_CMD,
+		ON_CMD,
+		OFF_CMD,
+		RPM_Clockwise,
+		RPM_counterClockwise
+	}
 
 public class machineInteractionTask : public RTOS::Task
 {
