@@ -10,7 +10,7 @@
 
 #ifndef __CYCLE_STATE
 #define __CYCLE_STATE
-
+//! Used to control the progression of the washingCycleTask.
 enum class cycleState {RUN,PAUSE,STOP};
 
 #endif

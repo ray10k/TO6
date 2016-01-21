@@ -14,11 +14,11 @@
 class uart
 {
 public:
-	//! Creates an empty uart object.
+	//! Creates an empty uart object and opens the connection\.
 	uart(void);
-	//!
+	//! Writes the contents of the given vector to the UART.
 	void write(std::vector<std::uint8_t> request);
-	//!
+	//! reads one byte from the UART.
 	std::uint8_t read(void);
 private:
 	LibSerial ls;
