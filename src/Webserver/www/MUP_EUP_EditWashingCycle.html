@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- EditWashingCycle v1.0 -->
+<html>
+	<head>
+		<title> Edit Washing Cycle </title>
+		<script src="myscript.js"> </script>
+		<link rel="stylesheet" type="text/css" href="Layout.css" />
+	</head>
+	
+	<body>
+		<table class="logobar">
+		<tr>
+			<td >
+				<div id="EditWashingCycleTop">
+					<button onclick = "Load('MUP_EditUserProfile.html')" >Cancel </button>
+				</div>
+			</td>
+			<td>
+				<img src="soviet_wascha.png" width="240" height="150" class="right"/>
+				<div class="center">WasMachine</div>
+			</td>
+		</tr>
+		</table>	
+			
+		<div class = "BodyPart" id = "EditWashingCycle" >
+			<label> Washing Cycle Name: </label> 
+			<select id="WashingCycleNameList"></select>
+			<button onclick = "LoadWashingCycle()" >Load Washing Cycle </button> <BR/>
+			
+			<h3 id="Fase1" style="Display: none" > <h3/>
+			<h3 id="Fase2" style="Display: none" > <h3/>
+			<h3 id="Fase3" style="Display: none" > <h3/>
+			<h3 id="Fase4" style="Display: none" > <h3/>
+			<h3 id="Fase5" style="Display: none" > <h3/>
+			<h3 id="Fase6" style="Display: none" > <h3/>
+			<h3 id="Fase7" style="Display: none" > <h3/>
+			<h3 id="Fase8" style="Display: none" > <h3/>
+				
+			<script>
+				LoadWashingCycleNames();
+				FillWashingCycleFases();
+			</script>
+			
+			<div style="Display: none" id="EditWashingCycleButtons">
+				<label> Washing Cycle Name: </label> <input type = "text" id = "WashingCycleName"/> <BR/>
+				<button onclick = "AddFase()" >Add Fase</button>
+				<button onclick = "RemoveFase()" >Remove Fase</button>
+				<button onclick = "SaveWashingCycle('MUP_EditUserProfile.html', 'EditWashingCycle')" >Save Washing Cycle </button>
+				<button onclick = "DeleteWashingCycle('MUP_EditUserProfile.html')" >Delete Washing Cycle </button>
+			</div>
+		</div>
+	</body>
+</html>

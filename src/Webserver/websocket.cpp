@@ -8,6 +8,7 @@
 #include <iostream>
 #include <openssl/sha.h>
 #include "base64.h"
+#include <fstream>
 
 #define CRLF "\r\n"
 
@@ -30,7 +31,7 @@ WebSocketException::WebSocketException(const string &message, const string &deta
 // deze beschouwt  LF en ook CR+LF en ook CR  als einde-regel markering
 // dit is nodig om requests die afkomstig zijn van diverse OS aan te kunnen.
 ///////////////////////////////////////////////////////////////////////////////
-istream & getline(istream & in, string & out) {
+/*istream & getline(istream & in, string & out) {
 	char c;
 	out.clear();
 
@@ -46,7 +47,7 @@ istream & getline(istream & in, string & out) {
 		out.append(1,c);
 	}
 	return in;
-}
+}*/
 
 ///////////////////////////////////////////////////////////////////////////////
 // WebSocket
@@ -304,9 +305,10 @@ void WebSocket::handleConnection() {
 		sock->getForeignAddress().getPort() << " opened" << endl;
 	try{
 		performHandshake();
-		while(!closed){
+
+	/*	while(!closed){
 			processFrame();
-		}
+		}*/
 
 	}
 	catch(WebSocketException& e){

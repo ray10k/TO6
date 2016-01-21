@@ -14,7 +14,6 @@
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
-					<Add option="-std=c++11" />
 				</Compiler>
 				<Linker>
 					<Add library="pthread" />
