@@ -65,6 +65,11 @@ private:
 	//! state of the machine is not close enough to the expected state, true
 	//! otherwise.
 	bool assessProgress();
+	//! instructs the physical machine to go into a stand-by state.
+	void toStandBy();
+	//! instructs the physical machine to match what is expected from the
+	//! current step in the cycle.
+	void updateMachine();
 
 	//more than one washing cycle waiting is a serious error; more than one
 	//should never occur.
