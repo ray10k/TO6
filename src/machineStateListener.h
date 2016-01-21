@@ -11,19 +11,6 @@
 #ifndef __MACHINE_STATE_LISTENER
 #define __MACHINE_STATE_LISTENER
 
-struct RequestStruct
-{
-	std::string request;
-	std::string command = "";
-};
-
-struct ResponseStruct
-{
-	RequestStruct request;
-	std::string response;
-	int value;
-};
-
 struct MachineState
 {
 	short unsigned int temperature;
