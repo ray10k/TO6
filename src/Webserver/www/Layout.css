@@ -1,0 +1,64 @@
+BODY 
+{
+	FONT-FAMILY: "Trebuchet MS", Verdana, sans-serif; COLOR: #000000; background-color: white
+}
+
+table.logobar td 
+{ 
+	padding: 1px 1px 5px 10px; 
+}
+
+.center 
+{
+	TEXT-ALIGN: left;
+	PADDING-BOTTOM: 5px; FONT-STYLE: italic; FONT-SIZE: 2.5em;  
+	FLOAT: right;
+ 
+	margin-top: 1.4em;
+	margin-left: -13em;
+}
+
+#logo
+{
+ 
+}
+
+#Login
+{
+	TEXT-ALIGN: left;
+	FLOAT: left;
+}
+
+#LPassword
+{
+	margin-left: 6em;
+}
+
+#MainBot
+{
+	TEXT-ALIGN: center;
+	margin-top: 5px;
+}
+
+#MainBotButtons
+{
+	margin-top: 2px;
+}
+
+.right 
+{
+	FLOAT: right;
+	TEXT-ALIGN: right;
+}
+
+.logobar 
+{
+	BACKGROUND: #0033FF;
+	width: 100%; 
+	COLOR: #FFFFFF;
+}
+
+.BodyPart
+{
+	margin-top: 1.0em;
+}

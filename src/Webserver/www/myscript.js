@@ -12,11 +12,16 @@ function onMessage (evt){
 }
 
 function append(message) {
-
-	 var node=document.createElement("li");
-	 var textnode=document.createTextNode(message);
-	 node.appendChild(textnode);
-	 document.getElementById("main").appendChild(node);
+	if(message == "Admin"){
+		login();
+	}
+	if(message == "Temp"){
+	updateTemp();
+}
+	// var node=document.createElement("li");
+	// var textnode=document.createTextNode(message);
+	// node.appendChild(textnode);
+	// document.getElementById("messagelist").appendChild(node);
  }
 
 function Print(message, id, type) 
@@ -62,20 +67,20 @@ function Login(html)
 {
 	var EnteredUserName = document.getElementById("LoginUsername").value;
 
-	if( EnteredUserName != "Admin") //if(ws.checkUserName(EnteredUserName))
+	if( EnteredUserName != "Admin")
 	{
 		Print("Username Does Not Exist...", "Login");
 		
 	}
 	else
 	{
-		var CurrentPassword = "0"; 
+		var CurrentPassword = "0"; //ws.GetUserPassword(EnteredUserName);
 		var EnteredPassword = document.getElementById("LoginPassword").value;
 	
-		if(EnteredPassword == CurrentPassword) //if(ws.checkPassword(EnteredUserName, EnteredPassword))
+		if(EnteredPassword == CurrentPassword)
 		{
 			Print("Loging in as " + EnteredUserName + "...", "Login");
-			ws.send("Logged in!");	
+			
 			//ws.Login(EnteredUserName);
 			setTimeout(function(){Load(html);},1000);
 		}
