@@ -21,6 +21,7 @@ void displayTask::main()
 		if(ev == machineStateChannel)
 		{
 			currentState = machineStateChannel.read();
+			//send currentState-> websocket-> website
 		}
 	}
 }
@@ -30,9 +31,14 @@ void displayTask::stateChanged(MachineState currentState)
 	this->machineStateChannel.write(currentState);
 }
 
-void displayTask::setCycleState(std::string state)
+void displayTask::setCycleState(int state)
 {
-	WCT.setCycleState(state);
+	switch(state)
+	{
+		case RUN:	WCT.run(); 		break;
+		case PAUSE: WCT.pause(); 	break;
+		case STOP:  WCT.stop();		break;
+	}
 }
 
 void displayTask::loadWashingCycle(std::string userName, std::string washingCycleName)
@@ -40,20 +46,26 @@ void displayTask::loadWashingCycle(std::string userName, std::string washingCycl
 	LCT.loadWashingCycle(userName, washingCycleName);
 }
 
-void displayTask::cycleStateChanged(unsigned int totalSteps,
+void displayTask::cycleStateChanged(
+		unsigned int totalSteps,
 		unsigned int currentStep,
 		const std::string& cycleName,
-		const std::string& stepName){
-			
+		const std::string& stepName)
+{
+	//send cycle state ^info-> websocket-> website
 }
 
-void displayTask::cyclePaused(const std::string& cycleName,
-		const std::string& stepName){
-			
-}
-
-void displayTask::cycleEnded(bool finished,
+void displayTask::cyclePaused(
 		const std::string& cycleName,
-		const std::string& stepName){
-			
+		const std::string& stepName)
+{
+	//send cycle paused-> websocket-> website
+}
+
+void displayTask::cycleEnded(
+		bool finished,
+		const std::string& cycleName,
+		const std::string& stepName)
+{
+	//send cycle ended-> websocket-> website
 }

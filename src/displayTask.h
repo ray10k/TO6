@@ -11,6 +11,7 @@
 #define __display_TASK
 
 #include "prtos/pRTOS.h"
+#include "cycleState.h"
 #include "loadCycleTask.h"
 #include "washingCycleTask.h"
 #include "cycleStateListener.h"
@@ -38,7 +39,7 @@ public class displayTask : public RTOS::Task, public machineStateListener,
 		const std::string& cycleName,
 		const std::string& stepName) override;
 	//! TODO: document this.
-	void setCycleState(std::string state);
+	void setCycleState(int state);
 	//! TODO: document this.
 	void loadWashingCycle(std::string userName, std::string washingCycleName);
 	
