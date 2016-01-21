@@ -1,13 +1,13 @@
 #include "MachineInteractionTask.h"
 
 MachineInteractionTask::MachineInteractionTask():
-  setMachineStateChannel (this, "set_Machine_state_channel"),
+  setMachineStateChannel (this, "set_Machine_State_Channel"),
   clock (this, 500 MS, "MIT_clock"),
   Uart(),
   listeners(),
   currentState(),
   setState()
-  {}
+{}
 
 void MachineInteractionTask::addMachineStateListener(machineStateListener& listener)
 {
@@ -25,36 +25,24 @@ void MachineInteractionTask::notifyListeners()
 }
 
 void MachineInteractionTask::main()
-{	
-	int updateCounter = 0;
+{
 	for(;;)
 	{
-		//if(Clock >= 500)
-		RTOS::wait(this->clock);
+		RTOS::event ev = RTOS::wait(this->clock + this->SetMachineStateChannel);
 	
-	
-		/*currentState.temperature = getTemperature();
-		currentState.waterLevel = getWaterLevel();
-		currentState.drumRPM = getRPM();
-		
-		if(currentState.temperature < setState.temperature)
-		{setHeater(1);}else{setHeater(0);}*/
-	
-	
-		ResponseStruct rs = readChannel();
-		switch(rs.request.request)
+		if(ev == SetMachineStateChannel)
 		{
-			case "HEATING_UNIT_REQ": currentState.heatingUnit = rs.value; break;
-			case "WATER_VALVE_REQ":  currentState.waterValve  = rs.value; break;
-			case "DOOR_LOCK_REQ":	 currentState.doorLock	  = rs.value; break;
-			case "PUMP_REQ":		 currentState.pump		  = rs.value; break;
+			ResponseStruct rs = readChannel();
+			switch(rs.request.request)
+			{
+				case "HEATING_UNIT_REQ": currentState.heatingUnit = rs.value; break;
+				case "WATER_VALVE_REQ":  currentState.waterValve  = rs.value; break;
+				case "DOOR_LOCK_REQ":	 currentState.doorLock	  = rs.value; break;
+				case "PUMP_REQ":		 currentState.pump		  = rs.value; break;
+			}
 		}
-		
-		updateCounter++
-		if(updateCounter >= 10)
+		else if(ev == clock)
 		{
-			updateCounter = 0;
-			
 			update();
 		}
 	}
@@ -111,7 +99,6 @@ void MachineInteractionTask::setTemperature(unsigned int temperature)
 	setState.temperature = temperature;
 	if(currentState.temperature < temperature)
 	{if(currentState.heatingUnit == 0)	{setHeater(1);}}
-	getTemperature();
 }
 
 void MachineInteractionTask::setWaterLevel(unsigned int waterLevel)
@@ -120,7 +107,6 @@ void MachineInteractionTask::setWaterLevel(unsigned int waterLevel)
 	setState.waterLevel = waterLevel;
 	if(currentState.waterLevel < waterLevel)
 	{if(currentState.waterValve == 0)	{setWaterValve(1);}}
-	getWaterLevel();
 }
 
 void MachineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
@@ -134,7 +120,19 @@ void MachineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 	
 	this-> SetMachineStateChannel.write(reqS);
 	getRPM();
-} 
+}
+
+void MachineInteractionTask::setDetergent(bool add)
+{
+	//?
+}
+
+void MachineInteractionTask::flush()
+{
+	setState.waterLevel = 0;
+	if(currentState.waterLevel > 0)
+	{if(currentState.pump = 0){setPump(1);}}
+}
   
 void MachineInteractionTask::setMachineState(bool start)
 {
@@ -201,8 +199,6 @@ int MachineInteractionTask::getTemperature()
 	RequestStruct reqS;
 	reqS.request = "TEMPERATURE_REQ";
 	this-> SetMachineStateChannel.write(reqS);
-	//ResponseStruct resS = readChannel();
-	//return resS.value;
 }
   
 void MachineInteractionTask::setHeater(bool on)
@@ -212,7 +208,6 @@ void MachineInteractionTask::setHeater(bool on)
 	if(on){ reqS.command = "ON_CMD"; }
 	else { reqS.command = "OFF_CMD"; }
 	this-> SetMachineStateChannel.write(reqS);
-	//readChannel();
 }
 
 void MachineInteractionTask::getRPM()
@@ -258,8 +253,8 @@ std::vector<std::uint8_t> MachineInteractionTask::requestTranslate(RequestStruct
 		case "UNLOCK_CMD":	bytes[1] = 0x80; break;
 		case "START_CMD":	case "OPEN_CMD":	case "ON_CMD":	bytes[1] = 0x10; break;
 		case "STOP_CMD":	case "CLOSE_CMD":	case "OFF_CMD":	bytes[1] = 0x20; break;
-		case "RPM_Clockwise": 		 bytes[1] = 0x80 + setState.drumRPM; break;
-		case "RPM_counterClockwise": bytes[1] = 0x00 + setState.drumRPM; break;
+		case "RPM_Clockwise": 		 bytes[1] = setState.drumRPM | 0x80; break;
+		case "RPM_counterClockwise": bytes[1] = setState.drumRPM; break;
 		//default:	break;
 	}
 	

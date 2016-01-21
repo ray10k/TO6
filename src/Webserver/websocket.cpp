@@ -1,4 +1,5 @@
 //Gemaakt door Jan Zuurbier, sept 2014
+//en Daniel Klomp, Januari 2016
 //Vrij om te gebruiken en aan te passen.
 //Alleen voor onderwijsdoelen.
 
@@ -88,7 +89,6 @@ void WebSocket::setListener(WebSocketListener* l){
 }
 
 void WebSocket::sendTextMessage(const string &message) throw (WebSocketException, SocketException){
-	//throw WebSocketException("de methode sendTextMessage is nog niet geimplementeerd");
 	if(closing||closed){
 		throw WebSocketException("Socked already closed");
 	}

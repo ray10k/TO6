@@ -15,27 +15,28 @@ struct RequestStruct
 {
 	std::string request;
 	std::string command = "";
-}
+};
 
 struct ResponseStruct
 {
 	RequestStruct request;
 	std::string response;
 	int value;
-}
+};
 
 struct MachineState
 {
-	int temperature;
-	int waterLevel;
-	int drumRPM;
+	short unsigned int temperature;
+	short unsigned int waterLevel;
+	short unsigned int drumRPM;
+	bool drumClockwise;
 	bool doorLock;
 	bool waterValve;
 	bool soapDispenser;
 	bool pump;
 	bool heatingUnit;
 	bool signalLed;
-}
+};
 
 class machineStateListener
 {

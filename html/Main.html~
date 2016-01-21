@@ -37,7 +37,7 @@
 		</div>
 		
 		<script type="text/javascript">
-			WebSocketConnect();
+			//WebSocketConnect();
 			Login_Message();
 			LoadWashingCycleNames();
 			LoadWashingCycleState();
