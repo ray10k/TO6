@@ -9,14 +9,16 @@ machineInteractionTask::machineInteractionTask():
   setState()
 {}
 
-void machineInteractionTask::addMachineStateListener(machineStateListener& listener)
+void machineInteractionTask::addMachineStateListener(
+								machineStateListener& listener)
 {
 	listeners.push_back(listener);
 }
   
 void machineInteractionTask::notifyListeners()
 {
-	std::vector<machineStateListener>::iterator listen = this->listeners.begin();
+	std::vector<machineStateListener>::iterator listen = 
+			this->listeners.begin();
 
 	for(;listen != this->listeners.end(); ++listen)
 	{
@@ -35,10 +37,18 @@ void machineInteractionTask::main()
 			ResponseStruct rs = readChannel();
 			switch(rs.request.request)
 			{
-				case HEATING_UNIT_REQ: currentState.heatingUnit = rs.value; break;
-				case WATER_VALVE_REQ:  currentState.waterValve  = rs.value; break;
-				case DOOR_LOCK_REQ:	 currentState.doorLock	  = rs.value; break;
-				case PUMP_REQ:		 currentState.pump		  = rs.value; break;
+				case HEATING_UNIT_REQ: 
+				currentState.heatingUnit = rs.value; 
+				break;
+				case WATER_VALVE_REQ:  
+				currentState.waterValve  = rs.value; 
+				break;
+				case DOOR_LOCK_REQ:	 
+				currentState.doorLock	  = rs.value; 
+				break;
+				case PUMP_REQ:		 
+				currentState.pump		  = rs.value; 
+				break;
 			}
 		}
 		else if(ev == clock)
@@ -78,7 +88,8 @@ void machineInteractionTask::update()
 ResponseStruct machineInteractionTask::readChannel()
 {
 	//read the request in words.
-	RequestStruct request = SetMachineStateChannel.read(); //{"HEATING_UNIT_REQ", "ON_CMD"}
+	RequestStruct request = SetMachineStateChannel.read(); 
+	//{"HEATING_UNIT_REQ", "ON_CMD"}
 		
 	//Translate the request to bytes.
 	std::vector<std::uint8_t> TranslatedRequest = requestTranslate(request); 
@@ -226,7 +237,8 @@ void machineInteractionTask::setSignalLed(bool on)
 	this-> SetMachineStateChannel.write(reqS);
 }
 
-std::vector<std::uint8_t> machineInteractionTask::requestTranslate(RequestStruct reqS)
+std::vector<std::uint8_t> machineInteractionTask::requestTranslate(
+													RequestStruct reqS)
 {
 	std::vector<std::uint8_t> bytes;
 	
@@ -261,7 +273,9 @@ std::vector<std::uint8_t> machineInteractionTask::requestTranslate(RequestStruct
 	return bytes;
 }
 
-ResponseStruct machineInteractionTask::responseTranslate(std::uint8_t responseByte, RequestStruct reqS)
+ResponseStruct machineInteractionTask::responseTranslate(
+											std::uint8_t responseByte, 
+											RequestStruct reqS)
 {
 	ResponseStruct resS;
 	resS.request = reqS;

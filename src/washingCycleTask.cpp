@@ -187,6 +187,7 @@ void washingCycleTask::main(){
 				//independent of weather the last step was time- or machine-
 				//constrained, it's finished now. Move on to the next step.
 				this->currentStep = this->ongoing.next();
+				updateMachine();
 				
 				notifyListeners();
 				continue;
