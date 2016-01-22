@@ -17,12 +17,15 @@
 #include <string>
 #include <vector>
 
+//! A struct dat combines a request and his command.
 struct RequestStruct
 {
 	int request;
 	int command = NONE_CMD;
 };
 
+//! A struct that combines a request with its response 
+//! and the read value of this response.
 struct ResponseStruct
 {
 	RequestStruct request;
@@ -30,6 +33,8 @@ struct ResponseStruct
 	int value;
 };
 
+//! A enum containing all possible requests, 
+//! this is used for switch statements
 enum requestEnum
 {
 	MACHINE_REQ,
@@ -45,38 +50,57 @@ enum requestEnum
 	SIGNAL_LED_REQ
 }
 
+//! A enum containing all possible request commands, 
+//! this is used for switch statements
 enum commandEnum
-	{
-		NONE_CMD,
-		STATUS_CMD,
-		LOCK_CMD,
-		UNLOCK_CMD,
-		START_CMD,
-		STOP_CMD,
-		OPEN_CMD,
-		CLOSE_CMD,
-		ON_CMD,
-		OFF_CMD,
-		RPM_Clockwise,
-		RPM_counterClockwise
-	}
+{
+	NONE_CMD,
+	STATUS_CMD,
+	LOCK_CMD,
+	UNLOCK_CMD,
+	START_CMD,
+	STOP_CMD,
+	OPEN_CMD,
+	CLOSE_CMD,
+	ON_CMD,
+	OFF_CMD,
+	RPM_Clockwise,
+	RPM_counterClockwise
+}
 
 public class machineInteractionTask : public RTOS::Task
 {
+public:
 	machineInteractionTask();
+	//! Register a new listener that wants to get 
+	//! the current state of the washing machine when updated.
 	void addMachineStateListener(machineStateListener& listener);
 	
+	//! Sets the wanted temperature to a given value.
+	//! (wanted temperature = the value in degrees celcius to which 
+	//! the temperature will be set by this machineInteractionTask)
 	void setTemperature(unsigned int temperature);
+	//! Sets the wanted waterLevel to a given value.
+	//! (wanted waterLevel = the value in percentage to which
+	//! the waterLevel will be set by this machineInteractionTask)
 	void setWaterLevel(unsigned int waterLevel);
+	//! Sets the speed of the drum to a given value, also sets the rotation 
+	//! to clockwise or counterclockwise with the given boolean clockwise.
 	void setRPM(bool clockwise, unsigned int rpm);
+	//! Sets if the detergent should be added.
 	void setDetergent(bool add);
+	//! Makes the washing machine flush by activating the pump,
+	//! this also sets the temperature to a low stand by temperature.
 	void flush();
+	//! Starts or stops the entire washing machine.
 	void setMachineState(bool start);
 	
-	protected:
-		main(void);
+protected:
+	//because the Task interface demands it, and because this task needs to do 
+	//things.
+	main(void);
 		
-	private:
+private:
 	
 	void notifyListeners();
 	void update();

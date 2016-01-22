@@ -11,6 +11,7 @@
 #ifndef __MACHINE_STATE_LISTENER
 #define __MACHINE_STATE_LISTENER
 
+//! A struct that can contain all possible information of the washing machine.
 struct MachineState
 {
 	short unsigned int temperature;

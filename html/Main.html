@@ -7,7 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="Layout.css" />
 	</head>
 	
-	<body bgcolor="#ffffff">	
+	<body onload="WebSocketConnect()">	
 		<table class="logobar">
 		<tr>
 			<td>
@@ -37,7 +37,6 @@
 		</div>
 		
 		<script type="text/javascript">
-			WebSocketConnect();
 			Login_Message();
 			LoadWashingCycleNames();
 			LoadWashingCycleState();
