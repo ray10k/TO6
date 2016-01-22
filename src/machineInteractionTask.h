@@ -71,6 +71,7 @@ enum commandEnum
 public class machineInteractionTask : public RTOS::Task
 {
 public:
+	//! Constructor.
 	machineInteractionTask();
 	//! Register a new listener that wants to get 
 	//! the current state of the washing machine when updated.
@@ -101,20 +102,42 @@ protected:
 	main(void);
 		
 private:
-	
+	//! Updates all the registered machineStateListeners, 
+	//! sending the current state of the washing machine.
 	void notifyListeners();
+	//! This function is used to check if the current state of the washing machine 
+	//! needs to be changed according to the setState. 
+	//! This also updates the current temperature and waterLevel.
 	void update();
+	//! This function reads the setMachineStateChannel and executes the read request 
+	//! through the uart, after this the response will be read and returned in a ResponseStruct.
 	void readChannel();
 	
+	//! Used to lock or unlock the washing machine door. 
 	void setDoorLock(bool lock);
+	//! Adds to the setMachineStateChannel a request to get the state of a given
+	//! request/part of the washing machine, when the channel is read this requested state 
+	//! will be returned and saved as the current state of the washing machine.
 	void getState(std::string request);
+	//! Adds to the setMachineStateChannel a request to get the waterLevel, when the 
+	//! channel is read this value will be returned and saved as the current waterLevel.
 	void getWaterLevel();
+	//! Used to open or close the water valve.
 	void setWaterValve(bool open);
+	//! Used to open or close the soap dispenser.
 	void setSoapDispenser(bool open);
+	//! Used to turn the pump on or off.
 	void setPump(bool on);
+	//! Adds to the setMachineStateChannel a request to get the temperature, when the 
+	//! channel is read this value will be returned and saved as the current temperature.
 	void getTemperature();
+	//! Used to turn the heater on or off.
 	void setHeater(bool on);
+	//! Adds to the setMachineStateChannel a request to get the RPM speed, when the 
+	//! channel is read this value will be returned and saved as the current RPM.
+	//! This also returns and saves if the rotation is clockwise or counterclockwise.
 	void getRPM();
+	//! Used to turn the signal led on or off.
 	void setSignalLed(bool on);
 	
 	//! Translates a string request and a string command to one or two hex values and returns this in a vector.
