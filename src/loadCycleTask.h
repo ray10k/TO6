@@ -29,15 +29,17 @@ public class loadCycleTask : public RTOS::Task
 	void addWashingCycle(std::string userName, washingCycle cycle);
 	std::vector<std::string> getWashingCycleNames(std::string userName);
 	int getTotalCycleSteps(std::string washingCycleName)
-	
+
 	protected:
 		main(void);
-		
+
 	private:
 	UserWashingCycle findUserWashingCycle(std::string userName, std::string washingCycleName);
-	
+
 	RTOS::channel<UserWashingCycle,1> loadWashingCycleChannel;
 	washingCycleTask WCT;
-	
+
 	std::vector<UserWashingCycle&> washingCycles;
 }
+
+#endif // __LOAD_CYCLE_TASK

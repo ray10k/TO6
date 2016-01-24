@@ -7,7 +7,7 @@ washingCycle::washingCycle(const string& name):
 {}
 
 const cycleStep& washingCycle::next(){
-	
+
 	if (this->hasNext()) {
 		++current;
 		return steps[current];
@@ -16,7 +16,7 @@ const cycleStep& washingCycle::next(){
 	}
 }
 
-const cycleStep& washingCycle::current() const{
+const cycleStep& washingCycle::Current() const{
 	return steps[current];
 }
 
@@ -56,7 +56,7 @@ washingCycle& washingCycle::operator= (const washingCycle& other) {
 		this->steps = other.steps;
 		this->current = other.current;
 	}
-	return *this;	
+	return *this;
 }
 
 
@@ -134,7 +134,7 @@ unsigned short int cycleStep::getDrumSpeed() const {
 	//speed is saved as rpm with the sign bit deciding direction,
 	//this function must only return the speed as rpm/25, to match the format
 	//expected by the device.
-	unsigned int retval = this->drumSpeed; 
+	unsigned int retval = this->drumSpeed;
 	return retval / 25;
 }
 
