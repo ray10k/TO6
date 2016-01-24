@@ -68,7 +68,7 @@ struct ResponseStruct
 	int value;
 };
 
-public class machineInteractionTask : public RTOS::Task
+class machineInteractionTask : public RTOS::task
 {
 public:
 	//! Constructor.
@@ -99,7 +99,7 @@ public:
 protected:
 	//because the Task interface demands it, and because this task needs to do
 	//things.
-	main(void);
+	void main(void);
 
 private:
 	//! Updates all the registered machineStateListeners,
@@ -154,6 +154,6 @@ private:
 	RTOS::clock::clock() clock;
 	RTOS::channel<RequestStruct,16> setMachineStateChannel;
 
-}
+};
 
 #endif

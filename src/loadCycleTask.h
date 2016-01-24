@@ -20,9 +20,9 @@ struct UserWashingCycle
 {
 	std::string userName;
 	washingCycle cycle;
-}
+};
 
-public class loadCycleTask : public RTOS::Task
+class loadCycleTask : public RTOS::task
 {
 	loadCycleTask(washingCycleTask* WCT);
 	void loadWashingCycle(std::userName, std::string washingCycleName);

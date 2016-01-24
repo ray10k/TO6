@@ -64,11 +64,11 @@ void washingCycleTask::stateChanged (MachineState currentState){
 
 void washingCycleTask::notifyListeners(){
 	std::vector<cycleStateListener>::iterator listen = this->listeners.begin();
-	
+
 	switch(this->runState){
 	case cycleState.STOP:
 		for(;listen != this->listeners.end(); ++listen){
-			bool properEnd = this->currentStep.isFinal(); 
+			bool properEnd = this->currentStep.isFinal();
 			*listen.cycleEnded(properEnd,
 				this->ongoing.getName(),
 				this->currentStep.getName();
@@ -103,52 +103,52 @@ void washingCycleTask::updateMachine(){
 		this->currentStepTimer.set(
 			this->currentStep.getDuration() S);
 	}
-	
+
 	if (this->currentStep.mustFlush()){
 		this->machine.flush();
 	}else{
 		this->machine.setTemperature(
 			this->currentStep.getTemperature());
-	
+
 		this->machine.setWaterLevel(
 			this->currentStep.getWaterLevel());
 	}
-	
+
 	this->machine.setRPM(
 		this->currentStep.isDrumClockwise(),
 		this->currentStep.getDrumSpeed());
-	
+
 	this->machine.setDetergent(
 		this->currentStep.addDetergent());
-	
+
 	this->machine.setMachineState(true);
 }
 
 void washingCycleTask::main(){
 	while (1==1){
 		//State: Stopped. Wait until instructed to run.
-		while(this->runState != cycleState.RUN){ 
+		while(this->runState != cycleState.RUN){
 			this->runState = this->cycleStateChannel.read();
 		}
 		//State: Waiting. Fetch the washing cycle as soon as it becomes
 		//available.
 		this->ongoing = this->loadCycleChannel.read();
-		//State: Running. Check for the existence of a next cycle step, update 
-		//state, confirm the program does not need to be paused or stopped, 
+		//State: Running. Check for the existence of a next cycle step, update
+		//state, confirm the program does not need to be paused or stopped,
 		//provide washing machine with current-step instructions.
 		while(this->ongoing.hasNext()){
-			RTOS::event progress = wait(cycleStateChannel + 
+			RTOS::event progress = wait(cycleStateChannel +
 										machineStateChannel +
 										currentStepTimer);
-			
+
 			if (progress == cycleStateChannel){
 				//Guaranteed to be at least 1 item waiting in the channel,
 				//so this will not block.
 				this->state = this->cycleStateChannel.read();
 			}
-			
+
 			bool brake = false;
-			
+
 			switch(this->runState){
 				case cycleState.RUN:
 				break; //nothing to see here, move along.
@@ -174,7 +174,7 @@ void washingCycleTask::main(){
 				}
 				break;
 			}
-			
+
 			if (brake){
 				notifyListeners();
 				break;
@@ -183,13 +183,13 @@ void washingCycleTask::main(){
 			if (progress == machineStateChannel){
 				this->knownState = this->machineStateChannel.read();
 			}
-			
+
 			if (progress == currentStepTimer||assessProgress()){
 				//independent of weather the last step was time- or machine-
 				//constrained, it's finished now. Move on to the next step.
 				this->currentStep = this->ongoing.next();
 				updateMachine();
-				
+
 				notifyListeners();
 				continue;
 			}

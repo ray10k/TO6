@@ -18,7 +18,7 @@
 #include "machineInteractionTask.h"
 #include <vector>
 
-class washingCycleTask : public RTOS::Task, public machineStateListener
+class washingCycleTask : public RTOS::task, public machineStateListener
 {
 public:
 	washingCycleTask(machineInteractionTask& machine);
@@ -42,7 +42,7 @@ public:
 protected:
 	//because the Task interface demands it, and because this task needs to do
 	//things.
-	main(void);
+	void main(void);
 
 
 
