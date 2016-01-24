@@ -1,5 +1,5 @@
 //**************************************
-//! Class responsible for communication between the device and the physical 
+//! Class responsible for communication between the device and the physical
 //! washing machine.
 //! \authors
 //! 	- Wilco Louwerse
@@ -23,4 +23,4 @@ public:
 	std::uint8_t read(void);
 private:
 	LibSerial ls;
-}
+};

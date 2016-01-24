@@ -17,22 +17,6 @@
 #include <string>
 #include <vector>
 
-//! A struct dat combines a request and his command.
-struct RequestStruct
-{
-	int request;
-	int command = NONE_CMD;
-};
-
-//! A struct that combines a request with its response
-//! and the read value of this response.
-struct ResponseStruct
-{
-	RequestStruct request;
-	std::string response;
-	int value;
-};
-
 //! A enum containing all possible requests,
 //! this is used for switch statements
 enum requestEnum
@@ -48,7 +32,7 @@ enum requestEnum
 	SET_RPM_REQ,
 	GET_RPM_REQ,
 	SIGNAL_LED_REQ
-}
+};
 
 //! A enum containing all possible request commands,
 //! this is used for switch statements
@@ -66,7 +50,23 @@ enum commandEnum
 	OFF_CMD,
 	RPM_Clockwise,
 	RPM_counterClockwise
-}
+};
+
+//! A struct dat combines a request and his command.
+struct RequestStruct
+{
+	int request;
+	int command = NONE_CMD;
+};
+
+//! A struct that combines a request with its response
+//! and the read value of this response.
+struct ResponseStruct
+{
+	RequestStruct request;
+	std::string response;
+	int value;
+};
 
 public class machineInteractionTask : public RTOS::Task
 {

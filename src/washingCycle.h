@@ -24,7 +24,7 @@ public:
 	//! Advances the list to the next step, and returns the new current step.
 	const cycleStep& next();
 	//! returns the current step.
-	const cycleStep& Current() const;
+	const cycleStep& getCurrent() const;
 	//! True unless either the current step is marked as a final step, or the
 	//! current step is at the end of the list.
 	bool hasNext() const;
@@ -91,7 +91,7 @@ public:
 	//! time-based.
 	unsigned int getDuration() const;
 	//! returns true if detergent must be added during this step.
-	bool addDetergent() const;
+	bool getAddDetergent() const;
 	//! returns true if the pump and tap must both be running during this step.
 	bool mustFlush() const;
 	//! returns the target water temperature for this step.

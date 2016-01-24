@@ -23,7 +23,7 @@ public:
 		const std::string& stepName)=0;
 	//! Called when the cycle is temporarily suspended. Upon resuming execution,
 	//! cycleStateChanged will be called.
-	virtual void cyclePaused(const string& cycleName,
+	virtual void cyclePaused(const std::string& cycleName,
 		const std::string& stepName)=0;
 	//! Called when the cycle ends. If the cycle ended by reaching the final
 	//! step, finished will be true. If the cycle got terminated before the end,

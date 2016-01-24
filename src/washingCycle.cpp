@@ -16,7 +16,7 @@ const cycleStep& washingCycle::next(){
 	}
 }
 
-const cycleStep& washingCycle::Current() const{
+const cycleStep& washingCycle::getCurrent() const{
 	return steps[current];
 }
 
@@ -66,7 +66,7 @@ cycleStep::cycleStep(const string& name,
 	bool detergent,
 	signed int speed):
 		stepName(name),
-		addDetergent(detergent),
+		getAddDetergent(detergent),
 		flush(false),
 		temperature(temp),
 		waterLevel(water),
@@ -84,7 +84,7 @@ cycleStep::cycleStep(const string& name,
 	unsigned int duration,
 	bool flush):
 		stepName(name),
-		addDetergent(detergent),
+		getAddDetergent(detergent),
 		flush(flush),
 		temperature(temp),
 		waterLevel(water),
@@ -96,7 +96,7 @@ cycleStep::cycleStep(const string& name,
 
 cycleStep::cycleStep():
 		stepName("end"),
-		addDetergent(false),
+		getAddDetergent(false),
 		flush(false),
 		temperature(20),
 		waterLevel(0),
@@ -114,7 +114,7 @@ unsigned int cycleStep::getDuration() const {
 	return this->duration;
 }
 
-bool cycleStep::addDetergent() const {
+bool cycleStep::getAddDetergent() const {
 	return this->addDetergent;
 }
 

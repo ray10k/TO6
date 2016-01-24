@@ -37,14 +37,14 @@ public:
 	void run();
 	//! abruptly halts the current cycle, if any.
 	void stop();
-	
+
 
 protected:
-	//because the Task interface demands it, and because this task needs to do 
+	//because the Task interface demands it, and because this task needs to do
 	//things.
 	main(void);
-	
-	
+
+
 
 private:
 	//! contains the relevant data from the last handled machine state event,
@@ -59,7 +59,7 @@ private:
 	//! state and adjust what functions are called.
 	void notifyListeners();
 	//! compare the latest known state of the machine to what's expected for the
-	//! current step. Returns false if the current step is time-based or the 
+	//! current step. Returns false if the current step is time-based or the
 	//! state of the machine is not close enough to the expected state, true
 	//! otherwise.
 	bool assessProgress();
@@ -79,14 +79,14 @@ private:
 	//TODO: implement machine state listener stuff.
 	RTOS::channel<internalMachineState,16> machineStateChannel;
 	RTOS::timer currentStepTimer;
-	
+
 	std::vector<cycleStateListener&> listeners;
-	
+
 	washingCycle ongoing;
 	cycleStep currentStep;
-	
+
 	cycleState runState;
-	
+
 	machineInteractionTask& machine;
 };
 
