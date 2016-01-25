@@ -52,7 +52,8 @@ enum commandEnum
 	RPM_counterClockwise
 };
 
-//! A struct dat combines a request and his command.
+//! A struct that combines a request and his command. See requestEnum and commandEnum
+//! for all possible request and commands. This struct is used for sending requests through the uart.
 struct RequestStruct
 {
 	int request;
