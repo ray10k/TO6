@@ -9,7 +9,7 @@
     <entity-names>
       <counter>
         <item-type stereotype="" type="UmlCompositeState" />
-        <value>1</value>
+        <value>2</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlInitialState" />
@@ -23,11 +23,15 @@
         <item-type stereotype="" type="UmlExitPoint" />
         <value>1</value>
       </counter>
+      <counter>
+        <item-type stereotype="" type="LineItem" />
+        <value>2</value>
+      </counter>
     </entity-names>
     <entity-ids>
       <counter>
         <item-type stereotype="" type="UmlCompositeState" />
-        <value>2</value>
+        <value>3</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlInitialState" />
@@ -43,11 +47,11 @@
       </counter>
       <counter>
         <item-type stereotype="" type="AbstractShapeItem" />
-        <value>3</value>
+        <value>4</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlComment" />
-        <value>12</value>
+        <value>13</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlCommentConnector" />
@@ -63,7 +67,7 @@
       </counter>
       <counter>
         <item-type stereotype="" type="AbstractElementGroup" />
-        <value>1045</value>
+        <value>1231</value>
       </counter>
       <counter>
         <item-type stereotype="" type="UmlExitPoint" />
@@ -119,7 +123,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-statechart" id="p221753131716271053" name="STD Washing Cycle Task" order-index="1" expanded="true" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="-108,0" zoom="0.6">
+      <diagram type="uml-statechart" id="p221753131716271053" name="STD Washing Cycle Task" order-index="1" expanded="true" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="-196,53" zoom="0.5">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -131,7 +135,7 @@
           </authors>
           <description />
           <creation-date>01/12/2016 12:14:35</creation-date>
-          <change-date>01/25/2016 18:23:26</change-date>
+          <change-date>01/25/2016 20:14:23</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
@@ -183,14 +187,12 @@
             <associated-diagrams />
             <owned-items />
             <style class="default" />
-            <comment>"standby" is a predefined 'safe' state for the washing machine to be in while either suspended, or not in use.
+            <comment>"toStandBy()"
+"standby" is a predefined 'safe' state for the washing machine to be in while either suspended, or not in use.
 Presumably:
 - water level 0
 - temp 20 C
-- 0 rpm
-
-- door unlocked, maybe?
--pump off?</comment>
+- 0 rpm</comment>
           </item>
           <item id="di303709955242962607" cid="IS002" type="initial-state" name="entry" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/12/2016 15:41:31">
             <stereotypes />
@@ -206,6 +208,14 @@ Presumably:
             <state-invariant />
             <actions />
           </item>
+          <item id="di431843380500105191" cid="CMT012" type="comment" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/25/2016 20:06:43">
+            <stereotypes />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <comment>"updateMachine()"
+instructs the physical washing machine to match what is expected from the current step in the cycle.</comment>
+          </item>
           <item id="di749804504386636802" cid="ST011" type="state" name="Paused" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/13/2016 17:15:18">
             <stereotypes />
             <associated-diagrams />
@@ -215,6 +225,14 @@ Presumably:
             <actions>
               <action name="entry" behavior="currentStepTimer.cancel();MIT.???(standby)" />
             </actions>
+          </item>
+          <item id="di654625347606712217" cid="CS002" type="composite-state" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/25/2016 20:13:07">
+            <stereotypes />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <state-invariant />
+            <actions />
           </item>
           <item id="di266255638398869975" cid="IS004" type="initial-state" name="InitialState" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/25/2016 18:19:06">
             <stereotypes />
@@ -314,7 +332,8 @@ Presumably:
             <associated-diagrams />
             <owned-items />
             <style class="default" />
-            <comment>"assessState()" compares the last known machine state to the expected state for a given step in a cycle, and sends the MIT command instructions, per example to turn on or off the heating or the tap.
+            <comment>"assessProgress()" 
+compares the last known machine state to the expected state for a given step in a cycle, and sends the MIT command instructions, per example to turn on or off the heating or the tap.
 </comment>
           </item>
           <item id="di544144209213153950" cid="IS003" type="initial-state" name="InitialState" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/25/2016 14:45:43">
@@ -392,11 +411,16 @@ Presumably:
 CSC = cycleStateChannel
 MSC = machineStateChannel
 
-runState
-ongoing
-currentStepTimer
-brake
-knownState</comment>
+runState = a cycleState object = Enum of states that can influence the washingCycleTask. 
+(RUN, PAUSE, STOP).
+
+ongoing = the currently active washingCycle.
+
+currentStepTimer = this is a timer object that keeps track of how long a step still takes.
+
+brake = a boolean that is true when the washing cycle should be stopping.
+
+knownState = internalMachineState struct that contains the last read relevent data from the physical washingMachine.</comment>
           </item>
           <item id="di302768199632848763" cid="DC012" type="decision" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/25/2016 14:58:31">
             <stereotypes />
@@ -666,10 +690,8 @@ knownState</comment>
             <associated-diagrams />
             <owned-items />
             <style class="default" />
-            <comment>toStandBy();
-notifyListeners();
-updateMachine();
-assessProgress();</comment>
+            <comment>"notifyListeners()"
+notifies all cycleStateListeners of the current state.</comment>
           </item>
           <item id="di611100005423450079" cid="ELEM087" type="general-transition" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/25/2016 18:09:22">
             <stereotypes />
@@ -682,11 +704,17 @@ assessProgress();</comment>
           </item>
         </abstract-items>
         <layer name="Default" visible="true" enabled="true" locked="false">
+          <item id="di654625347606712217" iid="0d40dd5e3ab24796ad06cec0d679ddd0" creation-date="01/25/2016 20:13:07" order-index="135" type="entity">
+            <layout ax="-297" ay="180" awidth="1312" aheight="1297" x="-297" y="180" width="1312" height="1297" angle="0" />
+          </item>
           <item id="di776096493284663579" iid="6c84af92e8fb49c5a64cd5964a949a57" creation-date="01/12/2016 16:18:46" order-index="31" type="entity">
-            <layout ax="681" ay="841.5" awidth="310" aheight="150" x="681" y="841.5" width="310" height="150" angle="0" />
+            <layout ax="641" ay="1309" awidth="361" aheight="111" x="641" y="1309" width="361" height="111" angle="0" />
           </item>
           <item id="di571868237933319664" iid="a33167edf5d34fa0b527d740170b8c85" creation-date="01/13/2016 17:26:22" order-index="75" type="entity">
-            <layout ax="682.5" ay="1024.5" awidth="307" aheight="100" x="682.5" y="1024.5" width="307" height="100" angle="0" />
+            <layout ax="641" ay="1128" awidth="361" aheight="81" x="641" y="1128" width="361" height="81" angle="0" />
+          </item>
+          <item id="di563342080711390280" iid="8ec0acca09034c22ba39fc971b8c52c4" creation-date="01/25/2016 18:02:09" order-index="127" type="entity">
+            <layout ax="641" ay="1058" awidth="361" aheight="50" x="641" y="1058" width="361" height="50" angle="0" />
           </item>
           <item id="di449356743811702937" iid="005e816a08954c91be70ea6394e96725" creation-date="01/25/2016 18:22:17" order-index="132" type="entity">
             <layout ax="176" ay="560.6097" awidth="106" aheight="49.39024" x="176" y="560.6097" width="106" height="49.39024" angle="0" />
@@ -701,7 +729,10 @@ assessProgress();</comment>
             <relation from="di449356743811702937" from-iid="005e816a08954c91be70ea6394e96725" to="di333273806996197562" to-iid="1dc76179d43f4f7cbbb78aee6dcba631" />
           </item>
           <item id="di754656968677598220" iid="7f146f29ac1a41aa8df56cdc1d2aa04a" creation-date="01/25/2016 14:55:13" order-index="84" type="entity">
-            <layout ax="768.5" ay="673.5" awidth="221" aheight="135" x="768.5" y="673.5" width="221" height="135" angle="0" />
+            <layout ax="641" ay="758" awidth="361" aheight="280" x="641" y="758" width="361" height="280" angle="0" />
+          </item>
+          <item id="di431843380500105191" iid="0fe7adf96e904bee95ff5db7e36657da" creation-date="01/25/2016 20:06:43" order-index="134" type="entity">
+            <layout ax="641" ay="1229" awidth="361" aheight="60" x="641" y="1229" width="361" height="60" angle="0" />
           </item>
           <item id="di667784497815616667" iid="062b6f4ce6e84f93a66e68f5bfa9f59e" creation-date="01/25/2016 14:50:42" order-index="82" type="relation">
             <layout line-style="oblique" lock-start-point="false" lock-end-point="true" lock-to-fields="false" name-position="-184,-4" auto-path="" x1="226" y1="529" x2="226" y2="561" start-border-pos="0.625" end-border-pos="0.117924528301887" name-width="350">
@@ -865,26 +896,11 @@ assessProgress();</comment>
             </layout>
             <relation from="di131539778404667913" from-iid="f7729899c7b24b7e8e4595b07d6deec3" to="di806286316417518702" to-iid="829b8a430ccd4604b9b7ea9dad5712ef" />
           </item>
-          <item id="di266255638398869975" iid="3905bb3ebacb4d269b50e39355461c87" creation-date="01/25/2016 18:19:06" order-index="129" type="entity">
-            <layout ax="13" ay="224" awidth="25" aheight="25" x="13" y="224" width="25" height="25" angle="0" name-position="0,10" name-anchor="bottom" />
-          </item>
           <item id="di806286316417518702" iid="829b8a430ccd4604b9b7ea9dad5712ef" creation-date="01/25/2016 17:27:15" order-index="108" type="entity">
             <layout ax="-223" ay="1056" awidth="122" aheight="50" x="-223" y="1056" width="122" height="50" angle="0" />
           </item>
-          <item id="di703094013207877224" iid="9b4e4eebeceb4059b30145b4b8424a71" creation-date="01/25/2016 18:19:11" order-index="130" type="entity">
-            <layout ax="202.7271" ay="180" awidth="703.5459" aheight="111" x="202.7271" y="180" width="703.5459" height="111" angle="0" />
-          </item>
           <item id="di461648790519623361" iid="befbb185c04b4795a76963ee26a5a3e6" creation-date="01/25/2016 17:38:31" order-index="112" type="entity">
             <layout ax="-182" ay="1273" awidth="40" aheight="60" x="-182" y="1273" width="40" height="60" angle="0" name-position="0,10" name-anchor="bottom" />
-          </item>
-          <item id="di689453652621424004" iid="efa69bc053b746899818d5c9536b577e" creation-date="01/25/2016 18:19:20" order-index="131" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="38" y1="236" x2="203" y2="236" start-border-pos="0.37" end-border-pos="0.873873873873874">
-              <points>
-                <point x="38" y="236" />
-                <point x="203" y="236" />
-              </points>
-            </layout>
-            <relation from="di266255638398869975" from-iid="3905bb3ebacb4d269b50e39355461c87" to="di703094013207877224" to-iid="9b4e4eebeceb4059b30145b4b8424a71" />
           </item>
           <item id="di390044352532714942" iid="effe36c5df644ed5844085a4ec5b42b1" creation-date="01/25/2016 17:38:34" order-index="113" type="relation">
             <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="61,-5" auto-path="" x1="-162" y1="1106" x2="-162" y2="1273" start-border-pos="0.625" end-border-pos="0.125" name-width="104">
@@ -949,6 +965,9 @@ assessProgress();</comment>
             </layout>
             <relation from="di866356854195297079" from-iid="89d0d3151c844acbb5e754ca0e461442" to="di272499220469345199" to-iid="b69be57a60644dba8379605c57dcbb13" />
           </item>
+          <item id="di266255638398869975" iid="3905bb3ebacb4d269b50e39355461c87" container="di654625347606712217" container-iid="0d40dd5e3ab24796ad06cec0d679ddd0" creation-date="01/25/2016 18:19:06" order-index="129" type="entity">
+            <layout ax="-240.7729" ay="237" awidth="25" aheight="25" x="-240.7729" y="237" width="25" height="25" angle="0" name-position="0,10" name-anchor="bottom" />
+          </item>
           <item id="di653977081491124058" iid="96ae9355eac54bdf98a5ed17d489a11e" creation-date="01/25/2016 17:05:22" order-index="96" type="relation">
             <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" name-position="-60,8" auto-path="" x1="238" y1="709" x2="494" y2="738" start-border-pos="0.441666666666667" end-border-pos="0.870833333333333">
               <points>
@@ -960,6 +979,9 @@ assessProgress();</comment>
             </layout>
             <relation from="di333273806996197562" from-iid="1dc76179d43f4f7cbbb78aee6dcba631" to="di661487512106100718" to-iid="0a4d4ba9bdc445918ad54512c370fb79" />
           </item>
+          <item id="di703094013207877224" iid="9b4e4eebeceb4059b30145b4b8424a71" container="di654625347606712217" container-iid="0d40dd5e3ab24796ad06cec0d679ddd0" creation-date="01/25/2016 18:19:11" order-index="130" type="entity">
+            <layout ax="-51.0459" ay="193" awidth="703.5459" aheight="111" x="-51.0459" y="193" width="703.5459" height="111" angle="0" />
+          </item>
           <item id="di204198984482798307" iid="f0f76ae813da4df0bda38f5b44be076b" creation-date="01/25/2016 17:53:20" order-index="121" type="relation">
             <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="-72,-198" auto-path="" x1="514" y1="1245" x2="514" y2="767" start-border-pos="0.125" end-border-pos="0.625" name-width="156">
               <points>
@@ -968,6 +990,15 @@ assessProgress();</comment>
               </points>
             </layout>
             <relation from="di423029178384131316" from-iid="24d68c7f7d594790bd3b8b0652928091" to="di661487512106100718" to-iid="0a4d4ba9bdc445918ad54512c370fb79" />
+          </item>
+          <item id="di689453652621424004" iid="efa69bc053b746899818d5c9536b577e" creation-date="01/25/2016 18:19:20" order-index="131" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="10,-10" auto-path="" x1="-216" y1="250" x2="-51" y2="249" start-border-pos="0.379508514404297" end-border-pos="0.873128805074606">
+              <points>
+                <point x="-216" y="250" />
+                <point x="-51" y="249" />
+              </points>
+            </layout>
+            <relation from="di266255638398869975" from-iid="3905bb3ebacb4d269b50e39355461c87" to="di703094013207877224" to-iid="9b4e4eebeceb4059b30145b4b8424a71" />
           </item>
           <item id="di661487512106100718" iid="0a4d4ba9bdc445918ad54512c370fb79" creation-date="01/25/2016 17:53:17" order-index="120" type="entity">
             <layout ax="494" ay="707" awidth="40" aheight="60" x="494" y="707" width="40" height="60" angle="0" name-position="0,10" name-anchor="bottom" />
@@ -1009,9 +1040,6 @@ assessProgress();</comment>
             </layout>
             <relation from="di272499220469345199" from-iid="b69be57a60644dba8379605c57dcbb13" to="di387436473773902013" to-iid="bcaa6b42ac0a4316bb6834c16375f930" />
           </item>
-          <item id="di563342080711390280" iid="8ec0acca09034c22ba39fc971b8c52c4" creation-date="01/25/2016 18:02:09" order-index="127" type="entity">
-            <layout ax="689.5" ay="1157.5" awidth="134" aheight="100" x="689.5" y="1157.5" width="134" height="100" angle="0" />
-          </item>
           <item id="di611100005423450079" iid="57862c4a4b9647b3b42053a97f3d92a3" creation-date="01/25/2016 18:09:22" order-index="128" type="relation">
             <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="-24,32" auto-path="" x1="249" y1="1361" x2="514" y2="1305" start-border-pos="0.375" end-border-pos="0.625" name-width="280">
               <points>
@@ -1021,6 +1049,11 @@ assessProgress();</comment>
               </points>
             </layout>
             <relation from="di272499220469345199" from-iid="b69be57a60644dba8379605c57dcbb13" to="di423029178384131316" to-iid="24d68c7f7d594790bd3b8b0652928091" />
+          </item>
+          <item id="di544706674251762901" iid="8076386f7b854ba88700b288e38f5681" name="Element2" container="di654625347606712217" container-iid="0d40dd5e3ab24796ad06cec0d679ddd0" creation-date="01/25/2016 20:14:23" order-index="136" type="drawing-line">
+            <layout ax="-297" ay="318" awidth="1312" aheight="2" x="-296" y="315" width="1308" height="10" angle="0" />
+            <drawing-line start-point="-297,319" end-point="1014,318" />
+            <style class="default" />
           </item>
         </layer>
       </diagram>
