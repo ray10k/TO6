@@ -1,19 +1,19 @@
 #include <washingCycleTask.h>
 #include <loadCycleTask.h>
 #include <machineInteractionTask.h>
-#include <displayTask.h>
+#include <userInteractionTask.h>
 
 int main(int argc, char* argv[])
 {
 	machineInteractionTask MIT = new machineInteractionTask();
     washingCycleTask WCT = new washingCycleTask(MIT);
 	loadCycleTask LCT = new loadCycleTask(WCT);
-	displayTask DT = new displayTask(WCT, LCT);
+	userInteractionTask UIT = new userInteractionTask(WCT, LCT);
 
 	MIT.addMachineStateListener(WCT);
-	MIT.addMachineStateListener(DT);
+	MIT.addMachineStateListener(UIT);
 
-	WCT.addCycleStateListener(DT);
+	WCT.addCycleStateListener(UIT);
     return 0;
 }
 

@@ -8,8 +8,8 @@
 //!		- part of TO6 assignment 2015-2016
 //**************************************
 
-#ifndef __DISPLAY_TASK
-#define __DISPLAY_TASK
+#ifndef __USER_INTERACTION_TASK
+#define __USER_INTERACTION_TASK
 
 #include "prtos/pRTOS.h"
 #include "cycleState.h"
@@ -40,11 +40,11 @@ struct CycleStep
 								//and wasn't forced to stop.
 };
 
-class displayTask : public RTOS::task, public machineStateListener,
+class userInteractionTask : public RTOS::task, public machineStateListener,
 						   public cycleStateListener
 {
 	//! Constructor.
-	displayTask(washingCycleTask* WCT, loadCycleTask* LCT);
+	userInteractionTask(washingCycleTask* WCT, loadCycleTask* LCT);
 	//! An override function from machineStateListener.h.
 	void stateChanged(machineState currentState) override;
 	//! An override function from cycleStateListener.h.

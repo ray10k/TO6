@@ -69,6 +69,10 @@
         <item-type stereotype="" type="UmlComment" />
         <value>2</value>
       </counter>
+      <counter>
+        <item-type stereotype="" type="AbstractElementGroup" />
+        <value>36</value>
+      </counter>
     </entity-ids>
     <diagrams>
       <counter>
@@ -134,7 +138,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-statechart" id="p435175151952473776" name="StateMachineDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="213,-120" zoom="0.7">
+      <diagram type="uml-statechart" id="p435175151952473776" name="StateMachineDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="660,-123" zoom="0.9">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -173,7 +177,7 @@
             <owned-items />
             <style class="default" />
             <transition guard="" behaviourExpression=" ">
-              <trigger />
+              <trigger>main()</trigger>
             </transition>
           </item>
           <item id="di180949597893533478" cid="ELEM002" type="general-transition" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/11/2016 14:46:35">
@@ -283,7 +287,8 @@
             <comment>SMSC = SetMachineStateChannel
 
 setState = the state in which we want the washing machine to be.
-This task will keep the temperature as close as possible to the setState.temperature during the Updating state of this task</comment>
+This task will keep the temperature as close as possible to the setState.temperature during the Updating state of this task
+currentState = struct that contains the current state of the washing machine</comment>
           </item>
           <item id="di186061773818653913" cid="ELEM017" type="general-transition" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="package" creation-date="01/25/2016 11:40:16">
             <stereotypes />
@@ -335,9 +340,9 @@ This task will keep the temperature as close as possible to the setState.tempera
         </abstract-items>
         <layer name="Default" visible="true" enabled="true" locked="false">
           <item id="di387200786153180875" iid="50c7724fe4374c42bc3feb3966a84444" creation-date="01/11/2016 14:42:57" order-index="6" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="1,-10" auto-path="" x1="332" y1="306" x2="408" y2="306" start-border-pos="0.38" end-border-pos="0.876984126984127">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" name-position="-5,-11" auto-path="" x1="315" y1="306" x2="408" y2="306" start-border-pos="0.38" end-border-pos="0.876984126984127">
               <points>
-                <point x="332" y="306" />
+                <point x="315" y="306" />
                 <point x="408" y="306" />
               </points>
             </layout>
@@ -416,7 +421,7 @@ This task will keep the temperature as close as possible to the setState.tempera
             <relation from="di802293273414416326" from-iid="4619ec058b53442cb1e77f45ae53332f" to="di644873300978222251" to-iid="b2d08c08e246434c8f0707ee46949b2f" />
           </item>
           <item id="di840713122113935307" iid="7d488022b245452d918b0c8b54556c55" container="di161468258813133512" container-iid="4845bf64dba24a8ca87a36c4d47f007b" creation-date="01/11/2016 13:39:26" order-index="0" type="entity">
-            <layout ax="307.5" ay="293" awidth="25" aheight="25" x="307.5" y="293" width="25" height="25" angle="0" name-position="0,15" name-anchor="bottom" />
+            <layout ax="290" ay="293" awidth="25" aheight="25" x="290" y="293" width="25" height="25" angle="0" name-position="0,15" name-anchor="bottom" />
           </item>
           <item id="di760381674809383559" iid="9d14bc485c894d0cb5aefd1a63b47596" container="di161468258813133512" container-iid="4845bf64dba24a8ca87a36c4d47f007b" creation-date="01/11/2016 14:53:26" order-index="9" type="entity">
             <layout ax="408" ay="275" awidth="257" aheight="63" x="408" y="275" width="257" height="63" angle="0" />
@@ -462,10 +467,10 @@ This task will keep the temperature as close as possible to the setState.tempera
             <layout ax="1333.5" ay="274" awidth="25" aheight="35" x="1333.5" y="274" width="25" height="35" angle="0" name-position="0,10" name-anchor="bottom" />
           </item>
           <item id="di314523358616220179" iid="bd7a64758d12422a867fea317b6cd467" container="di161468258813133512" container-iid="4845bf64dba24a8ca87a36c4d47f007b" creation-date="01/25/2016 12:46:14" order-index="30" type="entity">
-            <layout ax="1066.5" ay="-25" awidth="431" aheight="79" x="1066.5" y="-25" width="431" height="79" angle="0" />
+            <layout ax="1060.5" ay="-36.5" awidth="436" aheight="117" x="1060.5" y="-36.5" width="436" height="117" angle="0" />
           </item>
-          <item id="di647827236678124609" iid="106b275749494e4ba25ba525caa291fb" name="Element2" container="di161468258813133512" container-iid="4845bf64dba24a8ca87a36c4d47f007b" creation-date="01/25/2016 13:10:45" order-index="31" type="drawing-line">
-            <layout ax="195" ay="111" awidth="1317" aheight="2" x="198" y="112" width="1313" height="6" angle="0" />
+          <item id="di516630839329169896" iid="106b275749494e4ba25ba525caa291fb" name="Element2" container="di161468258813133512" container-iid="4845bf64dba24a8ca87a36c4d47f007b" creation-date="01/25/2016 13:10:45" order-index="31" type="drawing-line">
+            <layout ax="195" ay="111" awidth="1317" aheight="2" x="195" y="111" width="1317" height="2" angle="0" />
             <drawing-line start-point="1511,112" end-point="195,111" />
             <style class="default" />
           </item>

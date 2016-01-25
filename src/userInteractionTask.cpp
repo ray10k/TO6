@@ -1,6 +1,6 @@
-#include "displayTask.h"
+#include "userInteractionTask.h"
 
-displayTask::displayTask(washingCycleTask* WCT, loadCycleTask* LCT):
+userInteractionTask::userInteractionTask(washingCycleTask* WCT, loadCycleTask* LCT):
   machineStateChannel (this, "machine_State_Channel"),
   washingCycleStateChannel (this, "washing_Cycle_State_Channel"),
   users(),
@@ -10,7 +10,7 @@ displayTask::displayTask(washingCycleTask* WCT, loadCycleTask* LCT):
 	addUser({"Admin", "0"});
 }
 
-void displayTask::main()
+void userInteractionTask::main()
 {
 	for(;;)
 	{
@@ -29,12 +29,12 @@ void displayTask::main()
 	}
 }
 
-void displayTask::stateChanged(MachineState currentState)
+void userInteractionTask::stateChanged(MachineState currentState)
 {
 	this->machineStateChannel.write(currentState);
 }
 
-void displayTask::cycleStateChanged(
+void userInteractionTask::cycleStateChanged(
 		unsigned int totalSteps,
 		unsigned int currentStep,
 		const std::string& cycleName,
@@ -52,7 +52,7 @@ void displayTask::cycleStateChanged(
 	this->washingCycleStateChannel.write(sendStep);
 }
 
-void displayTask::cyclePaused(
+void userInteractionTask::cyclePaused(
 		const std::string& cycleName,
 		const std::string& stepName)
 {
@@ -68,7 +68,7 @@ void displayTask::cyclePaused(
 	this->washingCycleStateChannel.write(sendStep);
 }
 
-void displayTask::cycleEnded(
+void userInteractionTask::cycleEnded(
 		bool finished,
 		const std::string& cycleName,
 		const std::string& stepName)
@@ -86,7 +86,7 @@ void displayTask::cycleEnded(
 }
 
 
-void displayTask::setCycleState(int state)
+void userInteractionTask::setCycleState(int state)
 {
 	switch(state)
 	{
@@ -96,7 +96,7 @@ void displayTask::setCycleState(int state)
 	}
 }
 
-void displayTask::loadWashingCycle(std::string userName, std::string washingCycleName)
+void userInteractionTask::loadWashingCycle(std::string userName, std::string washingCycleName)
 {
 	if(loggedIn)
 	{
@@ -107,22 +107,22 @@ void displayTask::loadWashingCycle(std::string userName, std::string washingCycl
 	}
 }
 
-std::vector<std::string> displayTask::loadWashingCycleNames()
+std::vector<std::string> userInteractionTask::loadWashingCycleNames()
 {
 	return LCT.getWashingCycleNames(currentUser.userName);
 }
 
-int displayTask::getTotalCycleSteps(std::string washingCycleName)
+int userInteractionTask::getTotalCycleSteps(std::string washingCycleName)
 {
 	return LCT.getTotalCycleSteps(washingCycleName);
 }
 
-void displayTask::addUser(User user)
+void userInteractionTask::addUser(User user)
 {
 	users.push_back(user);
 }
 
-User displayTask::findUser(std::string userName)
+User userInteractionTask::findUser(std::string userName)
 {
 	std::vector<User>::iterator user = this->users.begin();
 	for(;user != this->users.end(); ++user)
@@ -135,7 +135,7 @@ User displayTask::findUser(std::string userName)
 	return {"", ""};
 }
 
-bool displayTask::checkUserName(std::string userName)
+bool userInteractionTask::checkUserName(std::string userName)
 {
 	if(findUser(userName).userName == userName)
 	{
@@ -144,7 +144,7 @@ bool displayTask::checkUserName(std::string userName)
 	return false;
 }
 
-bool displayTask::checkPassword(std::string userName, std::string password)
+bool userInteractionTask::checkPassword(std::string userName, std::string password)
 {
 	if(findUser(userName).password == password)
 	{
@@ -153,24 +153,24 @@ bool displayTask::checkPassword(std::string userName, std::string password)
 	return false;
 }
 
-void displayTask::login(std::string userName)
+void userInteractionTask::login(std::string userName)
 {
 	loggedIn = true;
 	currentUser = findUser(userName);
 }
 
-void displayTask::logout()
+void userInteractionTask::logout()
 {
 	loggedIn = false;
 	currentUser = {"",""};
 }
 
-bool displayTask::getLoggedIn()
+bool userInteractionTask::getLoggedIn()
 {
 	return loggedIn;
 }
 
-std::string displayTask::getCurrentUserPassword()
+std::string userInteractionTask::getCurrentUserPassword()
 {
 	if(loggedIn)
 	{
@@ -178,7 +178,7 @@ std::string displayTask::getCurrentUserPassword()
 	}	
 }
 
-void displayTask::changeCurrentUserPassword(std::string password)
+void userInteractionTask::changeCurrentUserPassword(std::string password)
 {
 	if(loggedIn)
 	{
