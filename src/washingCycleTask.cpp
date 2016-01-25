@@ -129,6 +129,7 @@ void washingCycleTask::main(){
 		//State: Stopped. Wait until instructed to run.
 		while(this->runState != cycleState.RUN){
 			this->runState = this->cycleStateChannel.read();
+			RTOS::wait(500);
 		}
 		//State: Waiting. Fetch the washing cycle as soon as it becomes
 		//available.
@@ -137,7 +138,7 @@ void washingCycleTask::main(){
 		//state, confirm the program does not need to be paused or stopped,
 		//provide washing machine with current-step instructions.
 		while(this->ongoing.hasNext()){
-			RTOS::event progress = wait(cycleStateChannel +
+			RTOS::event progress = RTOS::wait(cycleStateChannel +
 										machineStateChannel +
 										currentStepTimer);
 
