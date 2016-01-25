@@ -31,7 +31,7 @@ class loadCycleTask : public RTOS::task
 	int getTotalCycleSteps(std::string washingCycleName)
 
 	protected:
-		main(void);
+		void main(void);
 
 	private:
 	UserWashingCycle findUserWashingCycle(std::string userName, std::string washingCycleName);
