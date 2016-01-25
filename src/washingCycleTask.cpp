@@ -25,7 +25,7 @@ void washingCycleTask::addCycleStateListener(cycleStateListener& listener){
 
 void washingCycleTask::loadCycle(washingCycle& cycle)
 {
-	this->loadCycleChannel.read(cycle);
+	this->loadCycleChannel.write(cycle);
 }
 
 void washingCycleTask::pause(){
@@ -145,7 +145,7 @@ void washingCycleTask::main(){
 			if (progress == cycleStateChannel){
 				//Guaranteed to be at least 1 item waiting in the channel,
 				//so this will not block.
-				this->state = this->cycleStateChannel.read();
+				this->runState = this->cycleStateChannel.read();
 			}
 
 			bool brake = false;
@@ -172,6 +172,7 @@ void washingCycleTask::main(){
 						updateMachine();
 						notifyListeners();
 					}
+					RTOS::wait(500);
 				}
 				break;
 			}
