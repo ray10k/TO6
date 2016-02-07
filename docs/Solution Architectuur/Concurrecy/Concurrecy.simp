@@ -25,23 +25,19 @@
       </counter>
       <counter>
         <item-type stereotype="" type="ConcurrencyPool" />
-        <value>5</value>
+        <value>6</value>
       </counter>
       <counter>
         <item-type stereotype="" type="ConcurrencyEventFlag" />
-        <value>3</value>
+        <value>4</value>
       </counter>
       <counter>
         <item-type stereotype="" type="ConcurrencyMutex" />
         <value>1</value>
       </counter>
       <counter>
-        <item-type stereotype="" type="ConcurrencyPool" />
-        <value>6</value>
-      </counter>
-      <counter>
         <item-type stereotype="" type="ConcurrencyEventFlag" />
-        <value>4</value>
+        <value>1</value>
       </counter>
       <counter>
         <item-type type="ConcurrencyEventFlag" />
@@ -75,39 +71,39 @@
       </counter>
       <counter>
         <item-type stereotype="" type="ConcurrencyPool" />
-        <value>6</value>
-      </counter>
-      <counter>
-        <item-type stereotype="" type="ConcurrencyEventFlag" />
-        <value>4</value>
-      </counter>
-      <counter>
-        <item-type stereotype="" type="ConcurrencyMutex" />
-        <value>2</value>
-      </counter>
-      <counter>
-        <item-type stereotype="" type="ConcurrencyPool" />
         <value>10</value>
-      </counter>
-      <counter>
-        <item-type stereotype="" type="UmlCommunicationMessage" />
-        <value>20</value>
       </counter>
       <counter>
         <item-type stereotype="" type="ConcurrencyEventFlag" />
         <value>9</value>
       </counter>
       <counter>
-        <item-type type="AbstractElementGroup" />
-        <value>28</value>
+        <item-type stereotype="" type="ConcurrencyMutex" />
+        <value>2</value>
       </counter>
       <counter>
-        <item-type type="ConcurrencyEventFlag" />
+        <item-type stereotype="" type="ConcurrencyEventFlag" />
         <value>11</value>
       </counter>
       <counter>
-        <item-type type="UmlCommunicationMessage" />
+        <item-type stereotype="" type="UmlCommunicationMessage" />
         <value>21</value>
+      </counter>
+      <counter>
+        <item-type type="ConcurrencyEventFlag" />
+        <value>2</value>
+      </counter>
+      <counter>
+        <item-type type="UmlComment" />
+        <value>2</value>
+      </counter>
+      <counter>
+        <item-type type="AbstractElementGroup" />
+        <value>25</value>
+      </counter>
+      <counter>
+        <item-type type="UmlCommunicationMessage" />
+        <value>24</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -159,7 +155,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="concurrency" id="p903484867637937297" name="ConcurrencyDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="306,-174" zoom="0.9">
+      <diagram type="concurrency" id="p903484867637937297" name="ConcurrencyDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="0,-174" zoom="0.9">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -171,7 +167,7 @@
           </authors>
           <description />
           <creation-date>12/14/2015 12:03:08</creation-date>
-          <change-date>02/04/2016 12:20:52</change-date>
+          <change-date>02/07/2016 12:50:44</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
@@ -586,6 +582,40 @@
             <communication-message from="di634678521628655255" to="di872405305734680599">
               <messages>
                 <message id="" seq-number="" text="wait()" reverse="false" return-value="" assign-to-variable="">
+                  <parameters />
+                </message>
+              </messages>
+            </communication-message>
+          </item>
+          <item id="di290642455559506924" cid="EVF001" type="concurrency-eventflag" name="State Update Flag" style-class="" visibility="package" change-tracking-state="added" creation-date="02/07/2016 12:49:41">
+            <style class="default" />
+            <communication-lifeline classifier-name="" is-active="false" is-multi-object="false" />
+          </item>
+          <item id="di695404619784897035" cid="CMSG021" type="communication-message" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="02/07/2016 12:50:13" from="di675093765474453453" to="di290642455559506924">
+            <style class="default" />
+            <communication-message from="di675093765474453453" to="di290642455559506924">
+              <messages>
+                <message id="" seq-number="" text="wait()" reverse="false" return-value="" assign-to-variable="">
+                  <parameters />
+                </message>
+              </messages>
+            </communication-message>
+          </item>
+          <item id="di555287653785191084" cid="CMSG022" type="communication-message" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="02/07/2016 12:50:33" from="di634678521628655255" to="di290642455559506924">
+            <style class="default" />
+            <communication-message from="di634678521628655255" to="di290642455559506924">
+              <messages>
+                <message id="" seq-number="" text="set()" reverse="false" return-value="" assign-to-variable="">
+                  <parameters />
+                </message>
+              </messages>
+            </communication-message>
+          </item>
+          <item id="di717384013633531316" cid="CMSG023" type="communication-message" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="02/07/2016 12:50:44" from="di112856392409173116" to="di290642455559506924">
+            <style class="default" />
+            <communication-message from="di112856392409173116" to="di290642455559506924">
+              <messages>
+                <message id="" seq-number="" text="set()" reverse="false" return-value="" assign-to-variable="">
                   <parameters />
                 </message>
               </messages>
@@ -1020,6 +1050,39 @@
               </points>
             </layout>
             <relation from="di634678521628655255" from-iid="56857abc0a3f4b6f8347be7cc74f959e" to="di872405305734680599" to-iid="5609488bb1644ec8ba36c58c8ff99766" />
+            <communication-message />
+          </item>
+          <item id="di290642455559506924" iid="75c566a9111c4b91a70d33f5b97a2fd8" creation-date="02/07/2016 12:49:41" order-index="73" type="entity">
+            <layout ax="662" ay="30" awidth="40" aheight="40" x="662" y="30" width="40" height="40" name-position="-9.777348,2.037758" name-anchor="left" />
+          </item>
+          <item id="di695404619784897035" iid="06ba82d710644b1cbb47e5fac26fc7a3" creation-date="02/07/2016 12:50:13" order-index="74" type="relation">
+            <layout normal-message-position="1,-5" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="526" y1="300" x2="669" y2="70" start-border-pos="0.14128786722819" end-border-pos="0.703181838989258" name-position="0,0">
+              <points>
+                <point x="526" y="300" />
+                <point x="669" y="70" />
+              </points>
+            </layout>
+            <relation from="di675093765474453453" from-iid="09040d6642594a75bc5c7d733456917f" to="di290642455559506924" to-iid="75c566a9111c4b91a70d33f5b97a2fd8" />
+            <communication-message />
+          </item>
+          <item id="di555287653785191084" iid="97868cb48d7e41e6835b5241d03fba8a" creation-date="02/07/2016 12:50:33" order-index="75" type="relation">
+            <layout normal-message-position="7,-33" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="941" y1="160" x2="702" y2="58" start-border-pos="0.0513888549804688" end-border-pos="0.42806601524353" name-position="0,0">
+              <points>
+                <point x="941" y="160" />
+                <point x="702" y="58" />
+              </points>
+            </layout>
+            <relation from="di634678521628655255" from-iid="56857abc0a3f4b6f8347be7cc74f959e" to="di290642455559506924" to-iid="75c566a9111c4b91a70d33f5b97a2fd8" />
+            <communication-message />
+          </item>
+          <item id="di717384013633531316" iid="7cd04b116bdd4c68bbe27a98655976f7" creation-date="02/07/2016 12:50:44" order-index="76" type="relation">
+            <layout normal-message-position="-39,7" reverse-message-position="0,30" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="927" y1="-40" x2="702" y2="43" start-border-pos="0.688003200954861" end-border-pos="0.329073476791382" name-position="0,0">
+              <points>
+                <point x="927" y="-40" />
+                <point x="702" y="43" />
+              </points>
+            </layout>
+            <relation from="di112856392409173116" from-iid="5a12b7da8a7241e8903c8cef4697e044" to="di290642455559506924" to-iid="75c566a9111c4b91a70d33f5b97a2fd8" />
             <communication-message />
           </item>
         </layer>
