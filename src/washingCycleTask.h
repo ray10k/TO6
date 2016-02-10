@@ -82,13 +82,16 @@ private:
 
 	//more than one washing cycle waiting is a serious error; more than one
 	//should never occur.
-	RTOS::channel<washingCycle&,1> loadCycleChannel;
+	RTOS::flag pauseFlag;
+	RTOS::flag stopFlag;
+	RTOS::flag runFlag;
 	//if the user spams too hard, their problem.
-	RTOS::channel<cycleState,4> cycleStateChannel;
+	RTOS::pool<washingCycle&> newCyclePool;
+	RTOS::flag newCycleflag;
 	//no easy way of knowing how much of these we'll get; assign big and hope
 	//for the best.
 	//TODO: implement machine state listener stuff.
-	RTOS::channel<internalMachineState,16> machineStateChannel;
+	RTOS::pool<internalMachineState> machineStatePool;
 	RTOS::timer currentStepTimer;
 
 	std::vector<cycleStateListener&> listeners;
