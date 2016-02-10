@@ -1,23 +1,14 @@
-#include <washingCycleTask.h>
-#include <loadCycleTask.h>
-#include <machineInteractionTask.h>
-#include <userInteractionTask.h>
-#include <pthread.h>
+#include "washingCycleTask.h"
+#include "loadCycleTask.h"
+#include "machineInteractionTask.h"
+#include "userInteractionTask.h"
+#include <thread>
 #include <cstdlib>
 
-void *webSocket(void * nothing);
+void webSocket(userInteractionTask * user);
 
 int main(int argc, char* argv[])
 {
-	pthread_t socketThread;
-	int threadStart;
-	threadStart = pthread_create (socketThread, NULL, webSocket, NULL);
-	
-	//couldn't start the thread for the socket, time to panic.
-	if(threadStart != 0){
-		abort();
-	}
-	
 	machineInteractionTask MIT = new machineInteractionTask();
     washingCycleTask WCT = new washingCycleTask(MIT);
 	loadCycleTask LCT = new loadCycleTask(WCT);
@@ -27,11 +18,16 @@ int main(int argc, char* argv[])
 	MIT.addMachineStateListener(UIT);
 
 	WCT.addCycleStateListener(UIT);
+	
+	std::thread webSocketThread(webSocket, &UIT);
+	
+	rtos::run();
+	
     return 0;
 }
 
-void *webSocket(void * nothing){
-	//doodle doodle doodle
+void webSocket(userInteractionTask * user){
+	
 }
 
 #endif
