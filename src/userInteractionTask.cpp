@@ -14,15 +14,13 @@ void userInteractionTask::main()
 {
 	for(;;)
 	{
-		RTOS::event ev = RTOS::wait(this->stateUpdateFlag);
-		if(ev == stateUpdateFlag)
-		{
-			currentStep = cycleStatePool.read();
-			//send currentStep-> websocket-> website
-			
-			currentState = machineStatePool.read();
-			//send currentState-> websocket-> website
-		}
+		RTOS::wait(this->stateUpdateFlag);
+		
+		currentStep = cycleStatePool.read();
+		//send currentStep-> websocket-> website
+	
+		currentState = machineStatePool.read();
+		//send currentState-> websocket-> website
 	}
 }
 
