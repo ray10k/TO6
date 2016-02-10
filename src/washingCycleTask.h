@@ -2,6 +2,7 @@
 //! Task responsible for executing a washing cycle.
 //! \authors
 //! 	- Wouter van den Heuvel
+//!		- Wilco Louwerse
 //!
 //! \context
 //!		- part of TO6 assignment 2015-2016
@@ -18,6 +19,12 @@
 #include "machineInteractionTask.h"
 #include <vector>
 
+struct UserWashingCycle
+{
+	std::string userName;
+	washingCycle cycle;
+};
+
 class washingCycleTask : public RTOS::task, public machineStateListener
 {
 public:
@@ -29,7 +36,10 @@ public:
 	void addCycleStateListener(cycleStateListener& listener);
 	//! Provide a washingCycle to be performed when there is no ongoing cycle,
 	//! and the system is in a running state.
-	void loadCycle(washingCycle& cycle);
+	void loadCycle(std::string userName, std::string washingCycleName);
+	void addWashingCycle(std::string userName, washingCycle cycle);
+	std::vector<std::string> getWashingCycleNames(std::string userName);
+	int getTotalCycleSteps(std::string washingCycleName);
 
 	//! Pauses execution of the current cycle.
 	void pause();
@@ -68,6 +78,7 @@ private:
 	//! instructs the physical machine to match what is expected from the
 	//! current step in the cycle.
 	void updateMachine();
+	UserWashingCycle findUserWashingCycle(std::string userName, std::string washingCycleName);
 
 	//more than one washing cycle waiting is a serious error; more than one
 	//should never occur.
@@ -81,6 +92,7 @@ private:
 	RTOS::timer currentStepTimer;
 
 	std::vector<cycleStateListener&> listeners;
+	std::vector<UserWashingCycle&> washingCycles;
 
 	washingCycle ongoing;
 	cycleStep currentStep;

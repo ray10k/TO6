@@ -10,7 +10,11 @@ washingCycleTask::washingCycleTask(machineInteractionTask& machine):
 	currentStep(),
 	runState(cycleState.STOP),
 	machine(machine)
-{}
+{
+	washingCycle cycle = new washingCycle("cycle1");
+	cycle.addStep({"step1",60,75,true,10});
+	addWashingCycle("Admin", cycle);
+}
 
 void washingCycleTask::stateChanged(MachineState currentState){
 	internalMachineState toWrite;
@@ -23,9 +27,41 @@ void washingCycleTask::addCycleStateListener(cycleStateListener& listener){
 	this->listeners.push_back(listener);
 }
 
-void washingCycleTask::loadCycle(washingCycle& cycle)
+void washingCycleTask::loadCycle(std::string userName, std::string washingCycleName)
 {
-	this->loadCycleChannel.write(cycle);
+	UserWashingCycle cycle = findUserWashingCycle(userName,"");
+	if(cycle.userName == userName && cycle.cycle.getName() == washingCycleName)
+	{
+		this->loadCycleChannel.write(cycle);
+	}
+}
+
+void washingCycleTask::addWashingCycle(std::string userName, washingCycle cycle)
+{
+	washingCycles.push_back({userName, cycle});
+}
+
+std::vector<std::string> washingCycleTask::getWashingCycleNames(std::string userName)
+{
+	std::vector<std::string> cycleNames;
+	std::vector<UserWashingCycle>::iterator cycle = this->washingCycles.begin();
+	for(;cycle != this->washingCycles.end(); ++cycle)
+	{
+		if(cycle.userName == userName)
+		{
+			cycleNames.push_back(cycle.cycle.getName());
+		}
+	}
+	return cycleNames;
+}
+
+int washingCycleTask::getTotalCycleSteps(std::string washingCycleName)
+{
+	if(findUserWashingCycle("",washingCycleName).cycle.getName() == washingCycleName)
+	{
+		return cycle.cycle.totalSteps();
+	}
+	return 0;
 }
 
 void washingCycleTask::pause(){
@@ -122,6 +158,21 @@ void washingCycleTask::updateMachine(){
 		this->currentStep.addDetergent());
 
 	this->machine.setMachineState(true);
+}
+
+UserWashingCycle washingCycleTask::findUserWashingCycle(
+	std::string userName, std::string washingCycleName)
+{
+	std::vector<UserWashingCycle>::iterator cycle = this->washingCycles.begin();
+	for(;cycle != this->washingCycles.end(); ++cycle)
+	{
+		if(cycle.userName == userName || cycle.cycle.getName() == washingCycleName)
+		{
+			return cycle;
+		}
+	}
+	washingCycle emptyCycle;
+	return {"", emptyCycle};
 }
 
 void washingCycleTask::main(){
