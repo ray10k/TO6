@@ -13,6 +13,7 @@
 
 #include <vector>
 #include <string>
+#include "cycleID.h"
 
 class cycleStep;
 

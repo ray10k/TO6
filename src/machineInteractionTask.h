@@ -122,14 +122,14 @@ private:
 	void update();
 	//! This function reads the machineInstructionPool and executes the read request
 	//! through the uart, after this the response will be read and returned in a ResponseStruct.
-	void readPool();
+	ResponseStruct readPool();
 
 	//! Used to lock or unlock the washing machine door.
 	void setDoorLock(bool lock);
 	//! Adds to the machineInstructionPool a request to get the state of a given
 	//! request/part of the washing machine, when the pool is read this requested state
 	//! will be returned and saved as the current state of the washing machine.
-	void getState(std::string request);
+	void getState(int request);
 	//! Adds to the machineInstructionPool a request to get the waterLevel, when the
 	//! pool is read this value will be returned and saved as the current waterLevel.
 	void getWaterLevel();
@@ -152,10 +152,10 @@ private:
 	void setSignalLed(bool on);
 
 	//! Translates a string request and a string command to one or two hex values and returns this in a vector.
-	std::vector<std::uint8_t> requestTranslate(std::string request, std::string command);
+	std::vector<std::uint8_t> requestTranslate(RequestStruct reqS);
 	//! Translates one hex value to a understandable string response and returns this.
 	//! (this function uses the request string to know where the response is comming from).
-	std::string responseTranslate(std::vector<std::uint8_t> response, std::string request);
+	ResponseStruct responseTranslate(std::uint8_t response, RequestStruct reqS);
 
 	uart Uart;
 	std::vector<machineStateListener> listeners;

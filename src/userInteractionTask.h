@@ -14,7 +14,6 @@
 
 #include "prtos/pRTOS.h"
 #include "cycleState.h"
-#include "loadCycleTask.h"
 #include "washingCycleTask.h"
 #include "cycleStateListener.h"
 #include "machineStateListener.h"
