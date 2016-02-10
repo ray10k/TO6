@@ -4,6 +4,7 @@ washingCycleTask::washingCycleTask(machineInteractionTask& machine):
 	newCyclePool(this,"WCT_newCyclePool"),
 	newCycleFlag(this,"WCT_newCycleFlag"),
 	machineStatePool(this,"WCT_machineStatePool"),
+	updateFlag(this,"WCT_updateFlag"),
 	pauseFlag(this, "WCT_pauseFlag"),
 	runFlag(this, "WCT_runFlag"),
 	stopFlag(this, "WCT_stopFlag"),
@@ -66,6 +67,21 @@ int washingCycleTask::getTotalCycleSteps(std::string washingCycleName)
 		return cycle.cycle.totalSteps();
 	}
 	return 0;
+}
+
+UserWashingCycle washingCycleTask::findUserWashingCycle(
+	std::string userName, std::string washingCycleName)
+{
+	std::vector<UserWashingCycle>::iterator cycle = this->washingCycles.begin();
+	for(;cycle != this->washingCycles.end(); ++cycle)
+	{
+		if(cycle.userName == userName || cycle.cycle.getName() == washingCycleName)
+		{
+			return cycle;
+		}
+	}
+	washingCycle emptyCycle;
+	return {"", emptyCycle};
 }
 
 void washingCycleTask::pause(){
@@ -164,91 +180,43 @@ void washingCycleTask::updateMachine(){
 	this->machine.setMachineState(true);
 }
 
-UserWashingCycle washingCycleTask::findUserWashingCycle(
-	std::string userName, std::string washingCycleName)
-{
-	std::vector<UserWashingCycle>::iterator cycle = this->washingCycles.begin();
-	for(;cycle != this->washingCycles.end(); ++cycle)
-	{
-		if(cycle.userName == userName || cycle.cycle.getName() == washingCycleName)
-		{
-			return cycle;
-		}
-	}
-	washingCycle emptyCycle;
-	return {"", emptyCycle};
-}
-
 void washingCycleTask::main(){
-	while (1==1){
+	while (true)
+	{
 		//State: Stopped. Wait until instructed to run.
-		while(this->runState != cycleState.RUN){
-			this->runState = this->cycleStateChannel.read();
-			RTOS::wait(500);
-		}
-		//State: Waiting. Fetch the washing cycle as soon as it becomes
-		//available.
-		this->ongoing = this->loadCyclePool.read();
-		//State: Running. Check for the existence of a next cycle step, update
-		//state, confirm the program does not need to be paused or stopped,
-		//provide washing machine with current-step instructions.
-		while(this->ongoing.hasNext()){
-			RTOS::event progress = RTOS::wait(cycleStateChannel +
-										machineStatePool +
-										currentStepTimer);
-
-			if (progress == cycleStateChannel){
-				//Guaranteed to be at least 1 item waiting in the channel,
-				//so this will not block.
-				this->runState = this->cycleStateChannel.read();
-			}
-
+		RTOS::wait(runFlag);
+		runState = cycleState.RUN;
+		
+		RTOS::wait(newCycleFlag);
+		ongoing = newCyclePool.read();
+		currentStep = ongoing.getCurrent();
+		
+		while(this->ongoing.hasNext())
+		{
+			updateMachine();
+			RTOS::event progress = RTOS::wait(runFlag + pauseFlag + stopFlag + 
+											  updateFlag + currentStepTimer);
 			bool brake = false;
-
-			switch(this->runState){
-				case cycleState.RUN:
-				break; //nothing to see here, move along.
-				case cycleState.STOP:
-				//kinda wish c++ would allow for labled breaks, like Java does.
-				brake = true;
-				break;
-				case cycleState.PAUSE:
-				//take a break until you're needed again.
-				toStandBy();
-				this->currentStepTimer.cancel();
-				notifyListeners();
-				//State: paused. Wait until execution of washing program resumes
-				//or a shutdown command was sent.
-				while(this->runState == cycleState.PAUSE){
-					this->runState = this->cycleStateChannel.read();
-					if (this->runState == cycleState.STOP){
-						brake = true;
-					}else if (this->runState == cycleState.RUN){
-						updateMachine();
-						notifyListeners();
-					}
-					RTOS::wait(500);
-				}
-				break;
+			
+			if(progress == runFlag){runState = cycleState.RUN;}
+			else if(progress == stopFlag) {runState = cycleState.STOP; brake = true;}
+			else if(progress == pauseFlag)
+			{
+				runState = cycleState.PAUSE; toStandBy(); currentStepTimer.cancel(); 
+				notifyListeners(); RTOS::event ev = RTOS::wait(runFlag + stopFlag)
+				if(ev == runFlag) {updateMachine(); notifyListeners();}
+				else if(ev == stopFlag) {brake = true;}
 			}
-
-			if (brake){
+			else if(progress == currentStepTimer || assessProgress())
+			{
+				currentStep = ongoing.next(); updateMachine(); notifyListeners();
+			}
+			else if(progress == updateFlag){knownState = machineStatePool.read();}
+			
+			if (brake)
+			{
 				notifyListeners();
 				break;
-			}
-
-			if (progress == machineStatePool){
-				this->knownState = this->machineStatePool.read();
-			}
-
-			if (progress == currentStepTimer||assessProgress()){
-				//independent of weather the last step was time- or machine-
-				//constrained, it's finished now. Move on to the next step.
-				this->currentStep = this->ongoing.next();
-				updateMachine();
-
-				notifyListeners();
-				continue;
 			}
 		}
 	}

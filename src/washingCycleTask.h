@@ -92,6 +92,7 @@ private:
 	//for the best.
 	//TODO: implement machine state listener stuff.
 	RTOS::pool<internalMachineState> machineStatePool;
+	RTOS::flag updateFlag;
 	RTOS::timer currentStepTimer;
 
 	std::vector<cycleStateListener&> listeners;
