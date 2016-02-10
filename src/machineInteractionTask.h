@@ -62,6 +62,7 @@ struct RequestStruct
 	RequestStruct operator=(const RequestStruct& rhs){
         this->request = rhs.request;
         this->command = rhs.command;
+        return *this;
 	}
 };
 
@@ -76,6 +77,7 @@ struct ResponseStruct
         this->request = rhs.request;
         this->response = rhs.response;
         this->value = rhs.value;
+        return *this;
 	}
 };
 
