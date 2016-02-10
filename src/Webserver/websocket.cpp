@@ -31,7 +31,7 @@ WebSocketException::WebSocketException(const string &message, const string &deta
 // deze beschouwt  LF en ook CR+LF en ook CR  als einde-regel markering
 // dit is nodig om requests die afkomstig zijn van diverse OS aan te kunnen.
 ///////////////////////////////////////////////////////////////////////////////
-/*istream & getline(istream & in, string & out) {
+istream & getline(istream & in, string & out) {
 	char c;
 	out.clear();
 
@@ -47,7 +47,7 @@ WebSocketException::WebSocketException(const string &message, const string &deta
 		out.append(1,c);
 	}
 	return in;
-}*/
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // WebSocket
@@ -57,8 +57,8 @@ WebSocketException::WebSocketException(const string &message, const string &deta
 WebSocket::WebSocket(TCPSocket* sock) : data(NULL), datalen(0), closed(false), closing(false)
 {
 	this->sock = sock;
-	thr = new thread(&WebSocket::handleConnection, this);
-	thr->detach();
+	thr = new thread(&WebSocket::handlePerform, this);
+    thr->detach();
 }
 
 WebSocket::~WebSocket()
@@ -144,6 +144,7 @@ void WebSocket::sendPong(const char* payload, size_t payloadlen) throw (SocketEx
 }
 
 void WebSocket::performHandshake() throw (WebSocketException, SocketException ){
+
 	iostream& stream = sock->getStream();
 	string regel;
 	string websocketversion;
@@ -159,8 +160,7 @@ void WebSocket::performHandshake() throw (WebSocketException, SocketException ){
 		throw WebSocketException("connection closed");
 	while(getline(stream, regel)) {
 		std::cout << regel << endl;
-		if(regel.empty())
-			break;
+		if(regel.empty()) break;
 		if(regel.compare(0,21,"Sec-WebSocket-Version") == 0)
 			websocketversion = regel.substr(23);
 		if(regel.compare(0,17,"Sec-WebSocket-Key") == 0)
@@ -188,12 +188,14 @@ void WebSocket::performHandshake() throw (WebSocketException, SocketException ){
 		stream << "Upgrade: websocket" << CRLF;
 		stream << "Connection: upgrade" << CRLF;
 		websocketkey += "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
+
 		unsigned char hash[SHA_DIGEST_LENGTH];
 		memset(hash, 0, SHA_DIGEST_LENGTH);
 		SHA1(reinterpret_cast<const unsigned char*>(websocketkey.c_str()), websocketkey.length(), hash);
 		string accept_b64 = base64_encode(hash, SHA_DIGEST_LENGTH);
 		stream << "Sec-WebSocket-Accept: " << accept_b64 << CRLF << CRLF;
 		stream.flush();
+
 	}
 }
 
@@ -300,15 +302,19 @@ void WebSocket::processFrame() throw(WebSocketException, SocketException){
 
 }
 
-void WebSocket::handleConnection() {
+bool WebSocket::getClosed(){
+    return closed;
+}
+
+void WebSocket::handlePerform() {
 	cout << "connection to " << sock->getForeignAddress().getAddress() << ":" <<
 		sock->getForeignAddress().getPort() << " opened" << endl;
 	try{
 		performHandshake();
 
-	/*	while(!closed){
+		while(!closed){
 			processFrame();
-		}*/
+		}
 
 	}
 	catch(WebSocketException& e){
