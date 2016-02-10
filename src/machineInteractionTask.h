@@ -154,7 +154,7 @@ private:
 	void setSignalLed(bool on);
 
 	//! Translates a string request and a string command to one or two hex values and returns this in a vector.
-	std::vector<std::uint8_t> requestTranslate(RequestStruct reqS);
+	std::vector<std::uint8_t>* requestTranslate(RequestStruct reqS);
 	//! Translates one hex value to a understandable string response and returns this.
 	//! (this function uses the request string to know where the response is comming from).
 	ResponseStruct responseTranslate(std::uint8_t response, RequestStruct reqS);
