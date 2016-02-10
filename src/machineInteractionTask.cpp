@@ -106,14 +106,14 @@ ResponseStruct machineInteractionTask::readPool()
 	//return example: {"HEATING_UNIT_REQ", "ON_CMD"}
 
 	//Translate the request to bytes.
-	std::vector<std::uint8_t> TranslatedRequest = requestTranslate(request);
+	std::vector<std::uint8_t>* TranslatedRequest = requestTranslate(request);
 
 	//Write the request in bytes to the uart/washing machine.
 	Uart.write(TranslatedRequest);
 	this->sleep(10);
 
 	//Read the response byte of the request.
-	std::uint8_t responseByte = Uart.read();
+	std::uint8_t responseByte = (*Uart.read());
 
 	//Translate the response from byte to words and return it.
 	return responseTranslate(responseByte, request);
@@ -253,38 +253,39 @@ void machineInteractionTask::setSignalLed(bool on)
 	this-> machineInstructionPool.write(reqS);
 }
 
-std::vector<std::uint8_t> machineInteractionTask::requestTranslate(
+
+std::vector<std::uint8_t>* machineInteractionTask::requestTranslate(
 	RequestStruct reqS)
 {
 	//Vector that will contain the bytes that will be returned.
-	std::vector<std::uint8_t> bytes;
+	std::vector<std::uint8_t>* bytes;
 
 	//Check which request byte should be send
 	switch(reqS.request)
 	{
-		case MACHINE_REQ: 			bytes[0] = 0x01; break;
-		case DOOR_LOCK_REQ: 		bytes[0] = 0x02; break;
-		case WATER_VALVE_REQ:		bytes[0] = 0x03; break;
-		case SOAP_DISPENSER_REQ:	bytes[0] = 0x04; break;
-		case PUMP_REQ: 				bytes[0] = 0x05; break;
-		case WATER_LEVEL_REQ:		bytes[0] = 0x06; break;
-		case HEATING_UNIT_REQ:		bytes[0] = 0x07; break;
-		case TEMPERATURE_REQ:		bytes[0] = 0x08; break;
-		case SET_RPM_REQ:			bytes[0] = 0x0A; break;
-		case GET_RPM_REQ:			bytes[0] = 0x09; break;
-		case SIGNAL_LED_REQ:		bytes[0] = 0x0B; break;
-		default:					bytes[0] = 0x00; break;
+		case MACHINE_REQ: 			(*bytes)[0] = 0x01; break;
+		case DOOR_LOCK_REQ: 		(*bytes)[0] = 0x02; break;
+		case WATER_VALVE_REQ:		(*bytes)[0] = 0x03; break;
+		case SOAP_DISPENSER_REQ:	(*bytes)[0] = 0x04; break;
+		case PUMP_REQ: 				(*bytes)[0] = 0x05; break;
+		case WATER_LEVEL_REQ:		(*bytes)[0] = 0x06; break;
+		case HEATING_UNIT_REQ:		(*bytes)[0] = 0x07; break;
+		case TEMPERATURE_REQ:		(*bytes)[0] = 0x08; break;
+		case SET_RPM_REQ:			(*bytes)[0] = 0x0A; break;
+		case GET_RPM_REQ:			(*bytes)[0] = 0x09; break;
+		case SIGNAL_LED_REQ:		(*bytes)[0] = 0x0B; break;
+		default:					(*bytes)[0] = 0x00; break;
 	}
 	//Check which command byte should be send.
 	switch(reqS.command)
 	{
-		case STATUS_CMD:	bytes[1] = 0x01; break;
-		case LOCK_CMD:		bytes[1] = 0x40; break;
-		case UNLOCK_CMD:	bytes[1] = 0x80; break;
-		case START_CMD:	case OPEN_CMD:	case ON_CMD:	bytes[1] = 0x10; break;
-		case STOP_CMD:	case CLOSE_CMD:	case OFF_CMD:	bytes[1] = 0x20; break;
-		case RPM_Clockwise: 		bytes[1] = setState.drumRPM | 0x80;  break;
-		case RPM_counterClockwise: 	bytes[1] = setState.drumRPM; 		 break;
+		case STATUS_CMD:	(*bytes)[1] = 0x01; break;
+		case LOCK_CMD:		(*bytes)[1] = 0x40; break;
+		case UNLOCK_CMD:	(*bytes)[1] = 0x80; break;
+		case START_CMD:	case OPEN_CMD:	case ON_CMD:	(*bytes)[1] = 0x10; break;
+		case STOP_CMD:	case CLOSE_CMD:	case OFF_CMD:	(*bytes)[1] = 0x20; break;
+		case RPM_Clockwise: 		(*bytes)[1] = setState.drumRPM | 0x80;  break;
+		case RPM_counterClockwise: 	(*bytes)[1] = setState.drumRPM; 		break;
 		//default:	break;
 	}
 

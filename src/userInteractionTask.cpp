@@ -1,11 +1,11 @@
 #include "userInteractionTask.h"
 
-userInteractionTask::userInteractionTask(washingCycleTask* WCT, loadCycleTask* LCT):
-  machineStatePool (this, "machineStatePool"),
+userInteractionTask::userInteractionTask(washingCycleTask* WCT):
+  machineStatePool ("machineStatePool"),
   stateUpdateFlag (this,"stateUpdateFlag"),
-  cycleStatePool (this, "cycleStatePool"),
+  cycleStatePool ("cycleStatePool"),
   users(),
-  WCT(WCT)
+  WCT(*WCT)
 {
 	addUser({"Admin", "0"});
 }
@@ -14,11 +14,11 @@ void userInteractionTask::main()
 {
 	for(;;)
 	{
-		RTOS::wait(this->stateUpdateFlag);
-		
-		currentStep = cycleStatePool.read();
+		this->wait(this->stateUpdateFlag);
+
+		currentCycleStep = cycleStatePool.read();
 		//send currentStep-> websocket-> website
-	
+
 		currentState = machineStatePool.read();
 		//send currentState-> websocket-> website
 	}
@@ -35,13 +35,13 @@ void userInteractionTask::cycleStateChanged(
 		const std::string& cycleName,
 		const std::string& stepName)
 {
-	CycleStep sendStep = 
+	CycleStep sendStep =
 	{
-		totalSteps, 
-		currentStep, 
-		RUN, 
-		cycleName, 
-		stepName, 
+		totalSteps,
+		currentCycleStep,
+		cycleState.RUN,
+		cycleName,
+		stepName,
 		currentCycleStep.finished
 	};
 	this->cycleStatePool.write(sendStep);
@@ -51,13 +51,13 @@ void userInteractionTask::cyclePaused(
 		const std::string& cycleName,
 		const std::string& stepName)
 {
-	CycleStep sendStep = 
+	CycleStep sendStep =
 	{
-		currentCycleStep.totalSteps, 
-		currentCycleStep.currentStep, 
-		PAUSE, 
-		cycleName, 
-		stepName, 
+		currentCycleStep.totalSteps,
+		currentCycleStep.currentStep,
+		cycleState.PAUSE,
+		cycleName,
+		stepName,
 		currentCycleStep.finished
 	};
 	this->cycleStatePool.write(sendStep);
@@ -68,13 +68,13 @@ void userInteractionTask::cycleEnded(
 		const std::string& cycleName,
 		const std::string& stepName)
 {
-	CycleStep sendStep = 
+	CycleStep sendStep =
 	{
-		currentCycleStep.totalSteps, 
-		currentCycleStep.currentStep, 
-		STOP, 
-		cycleName, 
-		stepName, 
+		currentCycleStep.totalSteps,
+		currentCycleStep.currentStep,
+		cycleState.STOP,
+		cycleName,
+		stepName,
 		finished
 	};
 	this->cycleStatePool.write(sendStep);
@@ -170,7 +170,7 @@ std::string userInteractionTask::getCurrentUserPassword()
 	if(loggedIn)
 	{
 		return currentUser.password;
-	}	
+	}
 }
 
 void userInteractionTask::changeCurrentUserPassword(std::string password)

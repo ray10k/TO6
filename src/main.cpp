@@ -8,19 +8,18 @@ void webSocket(userInteractionTask * user);
 
 int main(int argc, char* argv[])
 {
-	machineInteractionTask MIT = new machineInteractionTask();
-    washingCycleTask WCT = new washingCycleTask(MIT);
-	loadCycleTask LCT = new loadCycleTask(WCT);
-	userInteractionTask UIT = new userInteractionTask(WCT, LCT);
+	machineInteractionTask * MIT = new machineInteractionTask();
+    washingCycleTask * WCT = new washingCycleTask(*MIT);
+	userInteractionTask * UIT = new userInteractionTask(WCT);
 
-	MIT.addMachineStateListener(WCT);
-	MIT.addMachineStateListener(UIT);
+	MIT->addMachineStateListener(*WCT);
+	MIT->addMachineStateListener(*UIT);
 
-	WCT.addCycleStateListener(UIT);
+	WCT->addCycleStateListener(*UIT);
 
-	std::thread webSocketThread(webSocket, &UIT);
+	std::thread webSocketThread(webSocket, UIT);
 
-	rtos::run();
+	RTOS::run();
 
     return 0;
 }
