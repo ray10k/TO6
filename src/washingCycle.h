@@ -22,6 +22,9 @@ class washingCycle
 public:
 	//! Creates an empty washing cycle.
 	washingCycle (cycleID& ID);
+	//! Creates an empty washing cycle that belongs to "DEFAULT" and is called
+	//! "DEFAULT"
+	washingCycle ();
 	//! Advances the list to the next step, and returns the new current step.
 	const cycleStep& next();
 	//! returns the current step.

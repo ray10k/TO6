@@ -4,8 +4,15 @@ washingCycle::washingCycle(cycleID& ID):
 	myID(ID),
 	steps(),
 	current(0)
-	
 {}
+
+washingCycle::washingCycle():
+	myID("DEFAULT","DEFAULT"),
+	steps(),
+	current(0)
+{
+	steps.push_back(end);
+}
 
 const cycleStep& washingCycle::next(){
 	if (this->hasNext()) {
