@@ -1,11 +1,11 @@
 #include "userInteractionTask.h"
 
 userInteractionTask::userInteractionTask(washingCycleTask* WCT, loadCycleTask* LCT):
-  machineStateChannel (this, "machine_State_Channel"),
-  washingCycleStateChannel (this, "washing_Cycle_State_Channel"),
+  machineStatePool (this, "machineStatePool"),
+  stateUpdateFlag (this,"stateUpdateFlag"),
+  cycleStatePool (this, "cycleStatePool"),
   users(),
-  WCT(WCT),
-  LCT(LCT)
+  WCT(WCT)
 {
 	addUser({"Admin", "0"});
 }
@@ -14,24 +14,19 @@ void userInteractionTask::main()
 {
 	for(;;)
 	{
-		RTOS::event ev = RTOS::wait(this->washingCycleStateChannel + 
-			this->machineStateChannel);
-		if(ev == washingCycleStateChannel)
-		{
-			currentStep = washingCycleStateChannel.read();
-			//send currentStep-> websocket-> website
-		}
-		if(ev == machineStateChannel)
-		{
-			currentState = machineStateChannel.read();
-			//send currentState-> websocket-> website
-		}
+		RTOS::wait(this->stateUpdateFlag);
+		
+		currentStep = cycleStatePool.read();
+		//send currentStep-> websocket-> website
+	
+		currentState = machineStatePool.read();
+		//send currentState-> websocket-> website
 	}
 }
 
 void userInteractionTask::stateChanged(MachineState currentState)
 {
-	this->machineStateChannel.write(currentState);
+	this->machineStatePool.write(currentState);
 }
 
 void userInteractionTask::cycleStateChanged(
@@ -49,7 +44,7 @@ void userInteractionTask::cycleStateChanged(
 		stepName, 
 		currentCycleStep.finished
 	};
-	this->washingCycleStateChannel.write(sendStep);
+	this->cycleStatePool.write(sendStep);
 }
 
 void userInteractionTask::cyclePaused(
@@ -65,7 +60,7 @@ void userInteractionTask::cyclePaused(
 		stepName, 
 		currentCycleStep.finished
 	};
-	this->washingCycleStateChannel.write(sendStep);
+	this->cycleStatePool.write(sendStep);
 }
 
 void userInteractionTask::cycleEnded(
@@ -82,7 +77,7 @@ void userInteractionTask::cycleEnded(
 		stepName, 
 		finished
 	};
-	this->washingCycleStateChannel.write(sendStep);
+	this->cycleStatePool.write(sendStep);
 }
 
 
@@ -102,19 +97,19 @@ void userInteractionTask::loadWashingCycle(std::string userName, std::string was
 	{
 		if(currentUser.userName = userName)
 		{
-			LCT.loadWashingCycle(userName, washingCycleName);
+			WCT.loadCycle(userName, washingCycleName);
 		}
 	}
 }
 
 std::vector<std::string> userInteractionTask::loadWashingCycleNames()
 {
-	return LCT.getWashingCycleNames(currentUser.userName);
+	return WCT.getWashingCycleNames(currentUser.userName);
 }
 
 int userInteractionTask::getTotalCycleSteps(std::string washingCycleName)
 {
-	return LCT.getTotalCycleSteps(washingCycleName);
+	return WCT.getTotalCycleSteps(washingCycleName);
 }
 
 void userInteractionTask::addUser(User user)

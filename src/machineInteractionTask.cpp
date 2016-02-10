@@ -1,7 +1,7 @@
 #include "machineInteractionTask.h"
 
 machineInteractionTask::machineInteractionTask():
-  setMachineStateChannel (this, "set_Machine_State_Channel"),
+  machineInstructionPool (this, "machineInstructionPool"),
   clock (this, 500 MS, "MIT_clock"),
   Uart(),
   listeners(),
@@ -30,35 +30,31 @@ void machineInteractionTask::main()
 {
 	for(;;)
 	{
-		//Wait for clock (and/)or the channel.
-		RTOS::event ev = RTOS::wait(this->clock + this->SetMachineStateChannel);
+		//Wait for clock.
+		RTOS::wait(this->clock);
 	
-		//If event that occurred was the channel.
-		if(ev == SetMachineStateChannel)
+		//Read the pool and execute request through the uart,
+		//returns the response in the ResponseStruct.
+		ResponseStruct rs = readPool();
+		//Updates the currentState of the machine with the new read value
+		//from the ResponseStruct.
+		switch(rs.request.request)
 		{
-			//Read the channel and execute request through the uart,
-			//returns the response in the ResponseStruct.
-			ResponseStruct rs = readChannel();
-			//Updates the currentState of the machine with the new read value
-			//from the ResponseStruct.
-			switch(rs.request.request)
-			{
-				case DOOR_LOCK_REQ:	 
-					currentState.doorLock	 	= rs.value; 
-					break;
-				case WATER_VALVE_REQ:  
-					currentState.waterValve  	= rs.value; 
-					break;
-				case SOAP_DISPENSER_REQ:
-					currentState.soapDispenser 	= rs.value;
-					break;
-				case PUMP_REQ:		 
-					currentState.pump		 	= rs.value; 
-					break;
-				case HEATING_UNIT_REQ: 
-					currentState.heatingUnit 	= rs.value; 
-					break;
-			}
+			case DOOR_LOCK_REQ:	 
+				currentState.doorLock	 	= rs.value; 
+				break;
+			case WATER_VALVE_REQ:  
+				currentState.waterValve  	= rs.value; 
+				break;
+			case SOAP_DISPENSER_REQ:
+				currentState.soapDispenser 	= rs.value;
+				break;
+			case PUMP_REQ:		 
+				currentState.pump		 	= rs.value; 
+				break;
+			case HEATING_UNIT_REQ: 
+				currentState.heatingUnit 	= rs.value; 
+				break;
 		}
 		//If event that occurred was the clock.
 		else if(ev == clock)
@@ -110,10 +106,10 @@ void machineInteractionTask::update()
 	notifyListeners()
 }
 
-ResponseStruct machineInteractionTask::readChannel()
+ResponseStruct machineInteractionTask::readPool()
 {
 	//Read the request in words.
-	RequestStruct request = SetMachineStateChannel.read(); 
+	RequestStruct request = machineStatePool.read(); 
 	//return example: {"HEATING_UNIT_REQ", "ON_CMD"}
 		
 	//Translate the request to bytes.
@@ -155,7 +151,7 @@ void machineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 	if(clockwise){reqS.command = RPM_Clockwise;}
 	else{reqS.command = RPM_counterClockwise;}
 	
-	this-> SetMachineStateChannel.write(reqS);
+	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::setDetergent(bool add)
@@ -178,7 +174,7 @@ void machineInteractionTask::setMachineState(bool start)
 	reqS.request = MACHINE_REQ;
 	if(start){ reqS.command = START_CMD; }
 	else { reqS.command = STOP_CMD; }
-	this-> SetMachineStateChannel.write(reqS);
+	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::setDoorLock(bool lock)
@@ -187,7 +183,7 @@ void machineInteractionTask::setDoorLock(bool lock)
 	reqS.request = DOOR_LOCK_REQ;
 	if(lock){ reqS.command = LOCK_CMD; }
 	else { reqS.command = UNLOCK_CMD; }
-	this-> SetMachineStateChannel.write(reqS);
+	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::getState(std::string request)
@@ -195,14 +191,14 @@ void machineInteractionTask::getState(std::string request)
 	RequestStruct reqS;
 	reqS.request = request;
 	reqS.command = STATUS_CMD;
-	this-> SetMachineStateChannel.write(reqS);
+	this-> machineInstructionPool.write(reqS);
 } 
 
 void machineInteractionTask::getWaterLevel()
 {
 	RequestStruct reqS;
 	reqS.request = WATER_LEVEL_REQ;
-	this-> SetMachineStateChannel.write(reqS);
+	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::setWaterValve(bool open)
@@ -211,7 +207,7 @@ void machineInteractionTask::setWaterValve(bool open)
 	reqS.request = WATER_VALVE_REQ;
 	if(open){ reqS.command = OPEN_CMD; }
 	else { reqS.command = CLOSE_CMD; }
-	this-> SetMachineStateChannel.write(reqS);
+	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::setSoapDispenser(bool open)
@@ -220,7 +216,7 @@ void machineInteractionTask::setSoapDispenser(bool open)
 	reqS.request = SOAP_DISPENSER_REQ;
 	if(open){ reqS.command = OPEN_CMD; }
 	else { reqS.command = CLOSE_CMD; }
-	this-> SetMachineStateChannel.write(reqS);
+	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::setPump(bool on)
@@ -229,14 +225,14 @@ void machineInteractionTask::setPump(bool on)
 	reqS.request = PUMP_REQ;
 	if(on){ reqS.command = ON_CMD; }
 	else { reqS.command = OFF_CMD; }
-	this-> SetMachineStateChannel.write(reqS);
+	this-> machineInstructionPool.write(reqS);
 }
 
 int machineInteractionTask::getTemperature()
 {
 	RequestStruct reqS;
 	reqS.request = TEMPERATURE_REQ;
-	this-> SetMachineStateChannel.write(reqS);
+	this-> machineInstructionPool.write(reqS);
 }
   
 void machineInteractionTask::setHeater(bool on)
@@ -245,14 +241,14 @@ void machineInteractionTask::setHeater(bool on)
 	reqS.request = HEATING_UNIT_REQ;
 	if(on){ reqS.command = ON_CMD; }
 	else { reqS.command = OFF_CMD; }
-	this-> SetMachineStateChannel.write(reqS);
+	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::getRPM()
 {
 	RequestStruct reqS;
 	reqS.request = GET_RPM_REQ;
-	this-> SetMachineStateChannel.write(reqS);
+	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::setSignalLed(bool on)
@@ -261,7 +257,7 @@ void machineInteractionTask::setSignalLed(bool on)
 	reqS.request = SIGNAL_LED_REQ;
 	if(on){ reqS.command = ON_CMD; }
 	else { reqS.command = OFF_CMD; }
-	this-> SetMachineStateChannel.write(reqS);
+	this-> machineInstructionPool.write(reqS);
 }
 
 std::vector<std::uint8_t> machineInteractionTask::requestTranslate(

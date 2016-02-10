@@ -3,6 +3,7 @@
 //! saved data like washingCycles and users.
 //! \authors
 //!		- Wilco Louwerse
+//!		- Daniel Klomp
 //!
 //! \context
 //!		- part of TO6 assignment 2015-2016
@@ -44,7 +45,7 @@ class userInteractionTask : public RTOS::task, public machineStateListener,
 						   public cycleStateListener
 {
 	//! Constructor.
-	userInteractionTask(washingCycleTask* WCT, loadCycleTask* LCT);
+	userInteractionTask(washingCycleTask* WCT);
 	//! An override function from machineStateListener.h.
 	void stateChanged(machineState currentState) override;
 	//! An override function from cycleStateListener.h.
@@ -65,7 +66,7 @@ class userInteractionTask : public RTOS::task, public machineStateListener,
 	//! A function used to set the state of the current washingCycle, see cycleState.h.
 	void setCycleState(int state);
 	//!
-	void loadWashingCycle(std::string userName, std::string washingCycleName);
+	void loadCycle(std::string userName, std::string washingCycleName);
 	std::vector<std::string> loadWashingCycleNames();
 	int getTotalCycleSteps(std::string washingCycleName)
 
@@ -85,10 +86,10 @@ class userInteractionTask : public RTOS::task, public machineStateListener,
 	private:
 	User findUser(std::string userName);
 
-	RTOS::channel<machineState,1> machineStateChannel;
-	RTOS::channel<CycleStep,8> washingCycleStateChannel;
+	RTOS::flag stateUpdateFlag
+	RTOS::pool<machineState> machineStatePool
+	RTOS::pool<CycleStep> cycleStatePool
 	washingCycleTask WCT;
-	loadCycleTask LCT;
 
 	MachineState currentState;
 	CycleStep currentCycleStep;

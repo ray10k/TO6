@@ -110,18 +110,18 @@ private:
 	//! needs to be changed according to the setState.
 	//! This also updates the current temperature and waterLevel.
 	void update();
-	//! This function reads the setMachineStateChannel and executes the read request
+	//! This function reads the machineInstructionPool and executes the read request
 	//! through the uart, after this the response will be read and returned in a ResponseStruct.
-	void readChannel();
+	void readPool();
 
 	//! Used to lock or unlock the washing machine door.
 	void setDoorLock(bool lock);
-	//! Adds to the setMachineStateChannel a request to get the state of a given
-	//! request/part of the washing machine, when the channel is read this requested state
+	//! Adds to the machineInstructionPool a request to get the state of a given
+	//! request/part of the washing machine, when the pool is read this requested state
 	//! will be returned and saved as the current state of the washing machine.
 	void getState(std::string request);
-	//! Adds to the setMachineStateChannel a request to get the waterLevel, when the
-	//! channel is read this value will be returned and saved as the current waterLevel.
+	//! Adds to the machineInstructionPool a request to get the waterLevel, when the
+	//! pool is read this value will be returned and saved as the current waterLevel.
 	void getWaterLevel();
 	//! Used to open or close the water valve.
 	void setWaterValve(bool open);
@@ -129,13 +129,13 @@ private:
 	void setSoapDispenser(bool open);
 	//! Used to turn the pump on or off.
 	void setPump(bool on);
-	//! Adds to the setMachineStateChannel a request to get the temperature, when the
-	//! channel is read this value will be returned and saved as the current temperature.
+	//! Adds to the machineInstructionPool a request to get the temperature, when the
+	//! pool is read this value will be returned and saved as the current temperature.
 	void getTemperature();
 	//! Used to turn the heater on or off.
 	void setHeater(bool on);
-	//! Adds to the setMachineStateChannel a request to get the RPM speed, when the
-	//! channel is read this value will be returned and saved as the current RPM.
+	//! Adds to the machineInstructionPool a request to get the RPM speed, when the
+	//! pool is read this value will be returned and saved as the current RPM.
 	//! This also returns and saves if the rotation is clockwise or counterclockwise.
 	void getRPM();
 	//! Used to turn the signal led on or off.
@@ -153,7 +153,7 @@ private:
 	MachineState setState;
 
 	RTOS::clock::clock() clock;
-	RTOS::channel<RequestStruct,16> setMachineStateChannel;
+	RTOS::pool<RequestStruct> machineInstructionPool;
 
 };
 
