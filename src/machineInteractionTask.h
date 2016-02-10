@@ -13,6 +13,7 @@
 
 #include "uart.h"
 #include "machineStateListener.h"
+#include "cycleStateListener.h"
 #include "prtos/pRTOS.h"
 #include <string>
 #include <vector>
@@ -58,6 +59,10 @@ struct RequestStruct
 {
 	int request;
 	int command = NONE_CMD;
+	RequestStruct operator=(const RequestStruct& rhs){
+        this->request = rhs.request;
+        this->command = rhs.command;
+	}
 };
 
 //! A struct that combines a request with its response
@@ -67,6 +72,11 @@ struct ResponseStruct
 	RequestStruct request;
 	std::string response;
 	int value;
+	ResponseStruct operator= (const ResponseStruct& rhs){
+        this->request = rhs.request;
+        this->response = rhs.response;
+        this->value = rhs.value;
+	}
 };
 
 class machineInteractionTask : public RTOS::task
@@ -148,11 +158,11 @@ private:
 	std::string responseTranslate(std::vector<std::uint8_t> response, std::string request);
 
 	uart Uart;
-	std::vector<cycleStateListener&> listeners;
+	std::vector<machineStateListener> listeners;
 	MachineState currentState;
 	MachineState setState;
 
-	RTOS::clock::clock() clock;
+	RTOS::clock clock;
 	RTOS::pool<RequestStruct> machineInstructionPool;
 
 };
