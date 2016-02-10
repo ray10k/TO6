@@ -7,7 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="Layout.css" />
 	</head>
 	
-	<body onload="WebSocketConnect()">	
+	<body bgcolor="#ffffff">	
 		<table class="logobar">
 		<tr>
 			<td>

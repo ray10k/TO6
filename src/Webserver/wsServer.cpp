@@ -17,14 +17,14 @@ public:
 		}
 		else if(s == "PAUZE"){
            // DT.setCycleState(PAUZE);
-           cout<<"RUN"<<endl;
+           cout<<"PAUSE"<<endl;
 		}
 		else if(s == "STOP"){
             //DT.setCycleState(STOP);
-            cout<<"RUN"<<endl;
+            cout<<"STOP"<<endl;
 		}
 		else{ws->sendTextMessage(s);}
-		cout << "Recieved==================================================================================: " << s << endl;
+		cout << "Recieved: " << s << endl;
 	}
 
 	void onClose(WebSocket* ws){
@@ -37,7 +37,7 @@ MyListener ml;
 
 
 
-istream & getline(istream & in, string & out) {
+/*istream & getline(istream & in, string & out) {
 	char c;
 	out.clear();
 
@@ -136,11 +136,11 @@ void handleConnection(TCPSocket *sock, iostream& stream){
 		}
 	}
 }
-
+*/
 
 //=========================================================================================
 
-/*
+
 void runserver()
 {
 
@@ -151,10 +151,12 @@ void runserver()
 
     for (;;) {
         cout << "Trying to connect"<< endl;
-		TCPSocket *sock = servSock.accept();
 
+        TCPSocket *sock = servSock.accept();
+
+        WebSocket* ws = new WebSocket(sock);
 		cout<<"connected"<< endl;
-
+        ws->setListener(&	ml);
 
 		cout<<"connected"<< endl;
 
@@ -162,36 +164,37 @@ void runserver()
   } catch (SocketException &e) {
     cerr << e.what() << endl;           // Report errors to the console
   }
-}*/
+}
 
 int main(int argc, char **argv)
 {
-    //thread serverthread(runserver);
-	//serverthread.join();
- try {
+    thread serverthread(runserver);
+	serverthread.join();
+ /*try {
 
     // Make a socket to listen for client connections.
     TCPServerSocket servSock(8080);
 	cout << "server running: " << servSock.getLocalAddress().getAddress() << endl;
     for (;;) {                          // Repeatedly accept connections
 		TCPSocket *sock = servSock.accept();
-		WebSocket* ws = new WebSocket(sock);
-		ws->setListener(&	ml);
-		iostream& stream = sock->getStream();
-        handleConnection(sock, stream);
-		//while(!closed){
-        ws->processFrame();		//}
 
+        WebSocket* ws = new WebSocket(sock);
+        ws->setListener(&	ml);
+
+        iostream& stream = sock->getStream();
+
+        while(true){
+           ws->handlePerform();
+           handleConnection(sock, stream);
+           ws->processFrame();
+       }
 
 		cout << "Socket accept" << endl;
-
 		}
 
   } catch (SocketException &e) {
     cerr << e.what() << endl;           // Report errors to the console
   }
-
+    */
   return 0;
-
-
 }
