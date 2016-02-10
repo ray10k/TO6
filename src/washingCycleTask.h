@@ -11,7 +11,7 @@
 #ifndef __WASHING_CYCLE_TASK
 #define __WASHING_CYCLE_TASK
 
-#include "prtos/pRTOS.h"
+#include "./prtos/pRTOS.h"
 #include "washingCycle.h"
 #include "cycleState.h"
 #include "cycleStateListener.h"
@@ -86,7 +86,7 @@ private:
 	RTOS::flag stopFlag;
 	RTOS::flag runFlag;
 	//if the user spams too hard, their problem.
-	RTOS::pool<washingCycle&> newCyclePool;
+	RTOS::pool<washingCycle> newCyclePool;
 	RTOS::flag newCycleflag;
 	//no easy way of knowing how much of these we'll get; assign big and hope
 	//for the best.
@@ -95,8 +95,8 @@ private:
 	RTOS::flag updateFlag;
 	RTOS::timer currentStepTimer;
 
-	std::vector<cycleStateListener&> listeners;
-	std::vector<UserWashingCycle&> washingCycles;
+	std::vector<cycleStateListener> listeners;
+	std::vector<UserWashingCycle> washingCycles;
 
 	washingCycle ongoing;
 	cycleStep currentStep;

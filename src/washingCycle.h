@@ -13,6 +13,7 @@
 
 #include <vector>
 #include <string>
+#include "cycleID.h"
 
 class cycleStep;
 
@@ -20,7 +21,7 @@ class washingCycle
 {
 public:
 	//! Creates an empty washing cycle.
-	washingCycle(cycleID& ID);
+	washingCycle (cycleID& ID);
 	//! Advances the list to the next step, and returns the new current step.
 	const cycleStep& next();
 	//! returns the current step.
