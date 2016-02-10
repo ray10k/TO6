@@ -20,7 +20,7 @@ class washingCycle
 {
 public:
 	//! Creates an empty washing cycle.
-	washingCycle(const std::string& name);
+	washingCycle(cycleID& ID);
 	//! Advances the list to the next step, and returns the new current step.
 	const cycleStep& next();
 	//! returns the current step.
@@ -39,14 +39,18 @@ public:
 	void addStep(cycleStep toAdd);
 	//! returns the name of the cycle as a whole.
 	const std::string& getName() const;
+	//! returns the name of the cycle's owner.
+	const std::string& getUser() const;
 	//! Assignment operator.
 	washingCycle& operator= (const washingCycle& other);
+	//! comparison operator for loading.
+	bool operator== (const cycleID& lhs) const;
 
 private:
+	cycleID myID;
 	std::vector<cycleStep> steps;
 	int current;
 	const static cycleStep end;
-	std::string cycleName;
 };
 
 //**************************************

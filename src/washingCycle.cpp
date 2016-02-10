@@ -1,13 +1,13 @@
 #include "washingCycle.h"
 
-washingCycle::washingCycle(const string& name):
+washingCycle::washingCycle(cycleID& ID):
+	myID(ID),
 	steps(),
-	current(0),
-	cycleName(name)
+	current(0)
+	
 {}
 
 const cycleStep& washingCycle::next(){
-
 	if (this->hasNext()) {
 		++current;
 		return steps[current];
@@ -46,7 +46,11 @@ void washingCycle::addStep(cycleStep toAdd){
 }
 
 const std::string& washingCycle::getName() const {
-	return this->cycleName;
+	return this->myID.name;
+}
+
+const std::string& washingCycle::getUser() const {
+	return this->myID.user;
 }
 
 washingCycle& washingCycle::operator= (const washingCycle& other) {
@@ -59,6 +63,9 @@ washingCycle& washingCycle::operator= (const washingCycle& other) {
 	return *this;
 }
 
+bool operator== (const cycleID& lhs) const{
+	return this->myID == lhs;
+}
 
 cycleStep::cycleStep(const string& name,
 	unsigned short int temp,
