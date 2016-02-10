@@ -1,5 +1,4 @@
 #include "washingCycleTask.h"
-#include "loadCycleTask.h"
 #include "machineInteractionTask.h"
 #include "userInteractionTask.h"
 #include <thread>
@@ -18,16 +17,14 @@ int main(int argc, char* argv[])
 	MIT.addMachineStateListener(UIT);
 
 	WCT.addCycleStateListener(UIT);
-	
+
 	std::thread webSocketThread(webSocket, &UIT);
-	
+
 	rtos::run();
-	
+
     return 0;
 }
 
 void webSocket(userInteractionTask * user){
-	
-}
 
-#endif
+}

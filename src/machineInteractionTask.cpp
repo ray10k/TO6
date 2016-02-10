@@ -31,11 +31,11 @@ void machineInteractionTask::main()
 	{
 		//Wait for clock.
 		this->wait(this->clock);
+		update();
 
 		//Read the pool and execute request through the uart,
 		//returns the response in the ResponseStruct.
-		ResponseStruct rs;
-		rs = this->readPool();
+		ResponseStruct rs = readPool();
 		//Updates the currentState of the machine with the new read value
 		//from the ResponseStruct.
 		switch(rs.request.request)
@@ -55,13 +55,6 @@ void machineInteractionTask::main()
 			case HEATING_UNIT_REQ:
 				currentState.heatingUnit 	= rs.value;
 				break;
-		}
-		//If event that occurred was the clock.
-		else if(ev == clock)
-		{
-			//Check if the machine has to change his state and do so if needed.
-			//This also updates the currentState temperature and waterLevel.
-			update();
 		}
 	}
 }
@@ -103,24 +96,24 @@ void machineInteractionTask::update()
 	getTemperature(); getWaterLevel();
 
 	//Update all the listeners.
-	notifyListeners()
+	notifyListeners();
 }
 
 ResponseStruct machineInteractionTask::readPool()
 {
 	//Read the request in words.
-	RequestStruct request = machineStatePool.read();
+	RequestStruct request = machineInstructionPool.read();
 	//return example: {"HEATING_UNIT_REQ", "ON_CMD"}
 
 	//Translate the request to bytes.
 	std::vector<std::uint8_t> TranslatedRequest = requestTranslate(request);
 
 	//Write the request in bytes to the uart/washing machine.
-	uart.write(TranslatedRequest);
-	RTOS::wait(10);
+	Uart.write(TranslatedRequest);
+	this->sleep(10);
 
 	//Read the response byte of the request.
-	std::uint8_t responseByte = uart.read();
+	std::uint8_t responseByte = Uart.read();
 
 	//Translate the response from byte to words and return it.
 	return responseTranslate(responseByte, request);
@@ -186,7 +179,7 @@ void machineInteractionTask::setDoorLock(bool lock)
 	this-> machineInstructionPool.write(reqS);
 }
 
-void machineInteractionTask::getState(std::string request)
+void machineInteractionTask::getState(int request)
 {
 	RequestStruct reqS;
 	reqS.request = request;
@@ -228,7 +221,7 @@ void machineInteractionTask::setPump(bool on)
 	this-> machineInstructionPool.write(reqS);
 }
 
-int machineInteractionTask::getTemperature()
+void machineInteractionTask::getTemperature()
 {
 	RequestStruct reqS;
 	reqS.request = TEMPERATURE_REQ;
@@ -280,7 +273,7 @@ std::vector<std::uint8_t> machineInteractionTask::requestTranslate(
 		case SET_RPM_REQ:			bytes[0] = 0x0A; break;
 		case GET_RPM_REQ:			bytes[0] = 0x09; break;
 		case SIGNAL_LED_REQ:		bytes[0] = 0x0B; break;
-		default:					return -1;		 break;
+		default:					bytes[0] = 0x00; break;
 	}
 	//Check which command byte should be send.
 	switch(reqS.command)
@@ -324,7 +317,7 @@ ResponseStruct machineInteractionTask::responseTranslate(
 			{
 				case 0x01: resS.response = "OPENED"; resS.value = 1; break;
 				case 0x02: resS.response = "CLOSED"; resS.value = 0; break;
-				case 0x04: if(reqS.request == "DOOR_LOCK_REQ")
+				case 0x04: if(reqS.request == DOOR_LOCK_REQ)
 						  {resS.response = "LOCKED";}	break;
 			}
 			break;
@@ -363,7 +356,7 @@ ResponseStruct machineInteractionTask::responseTranslate(
 			break;
 
 		default:
-			resS.response = "NO VALID REQUEST"
+			resS.response = "NO VALID REQUEST";
 			break;
 	}
 	return resS;
