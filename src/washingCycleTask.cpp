@@ -16,8 +16,15 @@ washingCycleTask::washingCycleTask(machineInteractionTask& machine):
 	listeners(),
 	washingCycles()
 {
-	washingCycle cycle;
+    cycleID defaultID("cycle1", "Admin");
+	washingCycle cycle(defaultID);
+	cycleStep step1 = {"step1",20,60,false,0}; cycle.addStep(step1);
+	cycleStep step2 = {"step2",95,60,false,0}; cycle.addStep(step2);
+	cycleStep step3 = {"step3",95,60,true,0}; cycle.addStep(step3);
+	cycleStep step4 = {"step4",95,60,false,1000, 500, false}; cycle.addStep(step4);
+	cycleStep step5 = {"step5",20,0,false,0, 100, true}; cycle.addStep(step5);
 	addWashingCycle(cycle);
+	loadCycle(defaultID);
 }
 
 void washingCycleTask::stateChanged(MachineState currentState){
@@ -72,7 +79,7 @@ int washingCycleTask::getTotalCycleSteps(const cycleID& toFind)const
 
 washingCycle washingCycleTask::findUserWashingCycle(const cycleID& toFind)const
 {
-	std::vector<washingCycle>::const_iterator cycle = 
+	std::vector<washingCycle>::const_iterator cycle =
 		this->washingCycles.begin();
 	for(;cycle != this->washingCycles.end(); ++cycle)
 	{
@@ -117,7 +124,7 @@ void washingCycleTask::notifyListeners(){
 
 	switch(this->state){
 		case cycleState::STOP:{
-			bool properEnd = this->currentStep.isFinal();	
+			bool properEnd = this->currentStep.isFinal();
 			for(;listen != this->listeners.end(); ++listen){
 				(*listen)->cycleEnded(properEnd,
 					this->ongoing.getName(),
@@ -183,27 +190,27 @@ void washingCycleTask::main(){
 		//State: Stopped. Wait until instructed to run.
 		this->wait(runFlag);
 		state = cycleState::RUN;
-		
+
 		this->wait(CycleFlag);
 		ongoing = newCyclePool.read();
 		currentStep = ongoing.getCurrent();
-		
+
 		while(this->ongoing.hasNext())
 		{
 			updateMachine();
-			RTOS::event progress = this->wait(runFlag + pauseFlag + stopFlag + 
+			RTOS::event progress = this->wait(runFlag + pauseFlag + stopFlag +
 											  updateFlag + currentStepTimer);
 			bool brake = false;
-			
+
 			if(progress == runFlag){
 				state = cycleState::RUN;
 			}else if(progress == stopFlag) {
 				state = cycleState::STOP; brake = true;
 			}else if(progress == pauseFlag){
-				state = cycleState::PAUSE; 
-				toStandBy(); 
-				currentStepTimer.cancel(); 
-				notifyListeners(); 
+				state = cycleState::PAUSE;
+				toStandBy();
+				currentStepTimer.cancel();
+				notifyListeners();
 				RTOS::event ev = this->wait(runFlag + stopFlag);
 				if(ev == runFlag) {
 					updateMachine(); notifyListeners();
@@ -214,7 +221,7 @@ void washingCycleTask::main(){
 				currentStep = ongoing.next(); updateMachine(); notifyListeners();
 			}
 			else if(progress == updateFlag){knownState = machineStatePool.read();}
-			
+
 			if (brake)
 			{
 				notifyListeners();

@@ -54,7 +54,7 @@ private:
 	cycleID myID;
 	std::vector<cycleStep> steps;
 	int current;
-	const static cycleStep end;
+	const static cycleStep last;
 };
 
 //**************************************
