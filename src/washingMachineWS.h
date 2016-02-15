@@ -10,20 +10,24 @@
 #include <mutex>
 #include <thread>
 
-class washingMachineWS:public WebSocketListener{
+class washingMachineWS{
 public:
 	washingMachineWS(int portNr, userInteractionTask * talkTo);
-	void startListener();
-	void startQueuePassthrough();
 	
 	void onTextMessage(const std::string& s, WebSocket* ws);
 	void onClose(WebSocket* ws);
 	
 private:
+	class internalListener: public WebSocketListener{
+		internalListener(Websocket* client);
+		~internalListener();
+	};
+	void startListener(int portNr);
+	void startQueuePassthrough();
 	userInteractionTask * task;
 	std::mutex internalLock;
 	std::deque<std::string> incomingMessages;
-	std::thread listener, queuePassThrough;
+	std::thread listener, queuePassthrough;
 	readBlockingQueue<std::string> outgoingMessages;
 };
 
