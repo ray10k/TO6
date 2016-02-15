@@ -1,22 +1,28 @@
 //******************************************************************************
-//! Should-be thread-safe implementation of a queue, simplified.
+//! Simple thread-safe queue that can block on write, while reading is 
+//! guaranteed not to block.
 //! \authors
 //! 	- Wouter van den Heuvel
 //! \context
 //! 	Part of TO6 2015-2016.
 //******************************************************************************
 
-#ifndef __THREADSAFEQUEUE_H
-#define __THREADSAFEQUEUE_H
+#ifndef __WRITEBLOCKINGQUEUE_H
+#define __WRITEBLOCKINGQUEUE_H
 
 #include <mutex>
 #include <deque>
 
+<<<<<<< HEAD:src/threadSafeQueue.h
 template <class T>
 class threadSafeQueue{
+=======
+template <class T> 
+class writeBlockingQueue{
+>>>>>>> 7e840291a23d75050ed9431cbaedf95dfa352f99:src/writeBlockingQueue.h
 	//! Constructs a new queue, with the given object as the default value to be
 	//! returned when a read fails due to locking.
-	threadSafeQueue(T& defaultVal);
+	writeBlockingQueue(T& defaultVal);
 	//! Pops the frontmost value from this queue, or returns the previously
 	//! given default value if the queue is empty or locked by another thread.
 	//! Does not lock the thread.
