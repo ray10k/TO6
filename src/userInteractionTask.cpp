@@ -8,6 +8,7 @@ userInteractionTask::userInteractionTask(washingCycleTask* WCT):
   WCT(*WCT)
 {
 	addUser({"Admin", "0"});
+	currentCycleStep = {-1,-1,cycleState::STOP," ", " ", false};
 }
 
 void userInteractionTask::main()
@@ -38,8 +39,8 @@ void userInteractionTask::cycleStateChanged(
 	CycleStep sendStep =
 	{
 		totalSteps,
-		currentCycleStep,
-		cycleState.RUN,
+		currentStep,
+		cycleState::RUN,
 		cycleName,
 		stepName,
 		currentCycleStep.finished
@@ -55,7 +56,7 @@ void userInteractionTask::cyclePaused(
 	{
 		currentCycleStep.totalSteps,
 		currentCycleStep.currentStep,
-		cycleState.PAUSE,
+		cycleState::PAUSE,
 		cycleName,
 		stepName,
 		currentCycleStep.finished
@@ -72,7 +73,7 @@ void userInteractionTask::cycleEnded(
 	{
 		currentCycleStep.totalSteps,
 		currentCycleStep.currentStep,
-		cycleState.STOP,
+		cycleState::STOP,
 		cycleName,
 		stepName,
 		finished
@@ -85,9 +86,9 @@ void userInteractionTask::setCycleState(int state)
 {
 	switch(state)
 	{
-		case RUN:	WCT.run(); 		break;
-		case PAUSE: WCT.pause(); 	break;
-		case STOP:  WCT.stop();		break;
+		case (int)cycleState::RUN:	WCT.run(); 		break;
+		case (int)cycleState::PAUSE: WCT.pause(); 	break;
+		case (int)cycleState::STOP:  WCT.stop();		break;
 	}
 }
 
