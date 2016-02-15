@@ -33,9 +33,15 @@ struct CycleStep
 {
 	int totalSteps;
 	int currentStep;
+
 	cycleState state ;		//RUN=0, PAUSE=1, STOP=2
 	std::string cycleName ;
 	std::string stepName ;
+
+	cycleState state;		//RUN=0, PAUSE=1, STOP=2
+	std::string cycleName;
+	std::string stepName;
+
 	bool finished;		//Is true when the washingCycle finished correctly
 								//and wasn't forced to stop.
 };

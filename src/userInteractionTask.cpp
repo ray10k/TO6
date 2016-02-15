@@ -8,6 +8,7 @@ userInteractionTask::userInteractionTask(washingCycleTask* WCT):
   WCT(*WCT)
 {
 	addUser({"Admin", "0"});
+	currentCycleStep = {-1,-1,cycleState::STOP," ", " ", false};
 }
 
 void userInteractionTask::main()
