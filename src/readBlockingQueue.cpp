@@ -1,14 +1,14 @@
 #include "readBlockingQueue.h"
 
 template <class T> 
-readBlockingQueue::readBlockingQueue():
+readBlockingQueue<T>::readBlockingQueue(const T& defaultVal):
 	fallback(defaultVal),
 	internal(),
 	synchronization()
 {}
 
 template <class T>
-const T& readBlockingQueue::getNext(){
+const T& readBlockingQueue<T>::getNext(){
 	T retval = this->fallback;
 	if (! this->isEmpty()){
 		this->synchronization.lock();
@@ -20,7 +20,7 @@ const T& readBlockingQueue::getNext(){
 }
 
 template <class T>
-void readBlockingQueue::push(const T& toPush){
+bool readBlockingQueue<T>::push(const T& toPush){
 	if( this->synchronization.try_lock()){
 		this->internal.push(toPush);
 		this->synchronization.unlock();
@@ -30,6 +30,6 @@ void readBlockingQueue::push(const T& toPush){
 }
 
 template <class T>
-bool readBlockingQueue::isEmpty() const{
+bool readBlockingQueue<T>::isEmpty() const{
 	return this->internal.size() == 0;
 }

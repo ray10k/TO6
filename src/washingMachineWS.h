@@ -18,7 +18,7 @@ public:
 	
 private:
 	writeBlockingQueue<string> incomingMessages;
-	readBlockingQueue<string> 
+	readBlockingQueue<string> outgoingMessages;
 };
 
 #endif

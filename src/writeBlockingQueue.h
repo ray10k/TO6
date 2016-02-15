@@ -21,10 +21,10 @@ class writeBlockingQueue{
 	//! Pops the frontmost value from this queue, or returns the previously
 	//! given default value if the queue is empty or locked by another thread.
 	//! Does not lock the thread.
-	T getNext();
+	const T& getNext();
 	//! Locks the thread until the queue is available, and pushes the given item
 	//! to the back of the queue.
-	void push(T& toPush);
+	void push(const T& toPush);
 	//! Returns true if there are no items in the queue. Note that this is not
 	//! thread-safe.
 	bool isEmpty() const;

@@ -4,3 +4,7 @@ compiled/
 
 #Also, the backup files of SIM are not relevant.
 *.simp.bak
+
+#temporary compilation junk can also be ignored.
+*.gch
+*.o
