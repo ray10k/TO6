@@ -13,13 +13,8 @@
 #include <mutex>
 #include <deque>
 
-<<<<<<< HEAD:src/threadSafeQueue.h
-template <class T>
-class threadSafeQueue{
-=======
 template <class T> 
 class writeBlockingQueue{
->>>>>>> 7e840291a23d75050ed9431cbaedf95dfa352f99:src/writeBlockingQueue.h
 	//! Constructs a new queue, with the given object as the default value to be
 	//! returned when a read fails due to locking.
 	writeBlockingQueue(T& defaultVal);
