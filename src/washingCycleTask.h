@@ -33,7 +33,7 @@ public:
 	void stateChanged(MachineState currentState) override;
 	//! Registers a new listener for events describing the progress through the
 	//! currently ongoing cycle.
-	void addCycleStateListener(cycleStateListener& listener);
+	void addCycleStateListener(cycleStateListener* listener);
 	//! Provide a washingCycle to be performed when there is no ongoing cycle,
 	//! and the system is in a running state.
 	void loadCycle(const cycleID& toLoad);

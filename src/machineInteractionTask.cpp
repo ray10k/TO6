@@ -1,6 +1,7 @@
 #include "machineInteractionTask.h"
 
 machineInteractionTask::machineInteractionTask():
+  RTOS::task(5,"machine interaction"),
   machineInstructionPool ("machineInstructionPool"),
   clock (this, 500 MS, "MIT_clock"),
   Uart(),
