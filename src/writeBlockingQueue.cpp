@@ -1,14 +1,14 @@
-#include "threadSafeQueue.h"
+#include "writeBlockingQueue.h"
 
 template <class T> 
-threadSafeQueue::threadSafeQueue(T& defaultVal):
+writeBlockingQueue::writeBlockingQueue(T& defaultVal):
 	fallback(defaultVal),
 	internal(),
 	synchronization()
 {}
 
 template <class T>
-const T& threadSafeQueue::getNext(){
+const T& writeBlockingQueue::getNext(){
 	T retval = this->fallback;
 	if (this->synchronization.try_lock()&&this->internal.size() > 0){
 		retval = this->internal.front();
@@ -19,7 +19,7 @@ const T& threadSafeQueue::getNext(){
 }
 
 template <class T>
-void threadSafeQueue::push(const T& toPush){
+void writeBlockingQueue::push(const T& toPush){
 	this->synchronization.lock();
 	this->internal.push(toPush);
 	this->synchronization.unlock();
@@ -27,6 +27,6 @@ void threadSafeQueue::push(const T& toPush){
 }
 
 template <class T>
-bool threadSafeQueue::isEmpty() const{
+bool writeBlockingQueue::isEmpty() const{
 	return this->internal.size() == 0;
 }
