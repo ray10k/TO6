@@ -38,8 +38,8 @@ void userInteractionTask::cycleStateChanged(
 	CycleStep sendStep =
 	{
 		totalSteps,
-		currentCycleStep,
-		cycleState.RUN,
+		currentStep,
+		cycleState::RUN,
 		cycleName,
 		stepName,
 		currentCycleStep.finished
@@ -55,7 +55,7 @@ void userInteractionTask::cyclePaused(
 	{
 		currentCycleStep.totalSteps,
 		currentCycleStep.currentStep,
-		cycleState.PAUSE,
+		cycleState::PAUSE,
 		cycleName,
 		stepName,
 		currentCycleStep.finished
@@ -72,7 +72,7 @@ void userInteractionTask::cycleEnded(
 	{
 		currentCycleStep.totalSteps,
 		currentCycleStep.currentStep,
-		cycleState.STOP,
+		cycleState::STOP,
 		cycleName,
 		stepName,
 		finished
@@ -85,19 +85,19 @@ void userInteractionTask::setCycleState(int state)
 {
 	switch(state)
 	{
-		case RUN:	WCT.run(); 		break;
-		case PAUSE: WCT.pause(); 	break;
-		case STOP:  WCT.stop();		break;
+		case (int)cycleState::RUN:	WCT.run(); 		break;
+		case (int)cycleState::PAUSE: WCT.pause(); 	break;
+		case (int)cycleState::STOP:  WCT.stop();		break;
 	}
 }
 
-void userInteractionTask::loadWashingCycle(std::string userName, std::string washingCycleName)
+void userInteractionTask::loadCycle(std::string userName, std::string washingCycleName)
 {
 	if(loggedIn)
 	{
-		if(currentUser.userName = userName)
+		if(currentUser.userName == userName)
 		{
-			WCT.loadCycle(userName, washingCycleName);
+			this->loadCycle(userName, washingCycleName);
 		}
 	}
 }
@@ -107,9 +107,9 @@ std::vector<std::string> userInteractionTask::loadWashingCycleNames()
 	return WCT.getWashingCycleNames(currentUser.userName);
 }
 
-int userInteractionTask::getTotalCycleSteps(std::string washingCycleName)
+int userInteractionTask::getTotalCycleSteps(cycleID id)
 {
-	return WCT.getTotalCycleSteps(washingCycleName);
+	return WCT.getTotalCycleSteps(id);
 }
 
 void userInteractionTask::addUser(User user)
@@ -122,9 +122,9 @@ User userInteractionTask::findUser(std::string userName)
 	std::vector<User>::iterator user = this->users.begin();
 	for(;user != this->users.end(); ++user)
 	{
-		if(user.userName == userName)
+		if((*user).userName == userName)
 		{
-			return user;
+			return *user;
 		}
 	}
 	return {"", ""};

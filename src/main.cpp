@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 	MIT->addMachineStateListener(*WCT);
 	MIT->addMachineStateListener(*UIT);
 
-	WCT->addCycleStateListener(*UIT);
+	WCT->addCycleStateListener(UIT);
 
 	std::thread webSocketThread(webSocket, UIT);
 

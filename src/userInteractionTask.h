@@ -31,12 +31,12 @@ struct User
 //! current washingCycle and sending this information in a easy way.
 struct CycleStep
 {
-	int totalSteps = -1;
-	int currentStep = -1;
-	cycleState state;		//RUN=0, PAUSE=1, STOP=2
-	std::string cycleName = "";
-	std::string stepName = "";
-	bool finished = false;		//Is true when the washingCycle finished correctly
+	int totalSteps;
+	int currentStep;
+	cycleState state ;		//RUN=0, PAUSE=1, STOP=2
+	std::string cycleName ;
+	std::string stepName ;
+	bool finished;		//Is true when the washingCycle finished correctly
 								//and wasn't forced to stop.
 };
 
@@ -68,7 +68,7 @@ public:
 	//!
 	void loadCycle(std::string userName, std::string washingCycleName);
 	std::vector<std::string> loadWashingCycleNames();
-	int getTotalCycleSteps(std::string washingCycleName);
+	int getTotalCycleSteps(cycleID id);
 
 	void addUser(User user);
 	bool checkUserName(std::string userName);
