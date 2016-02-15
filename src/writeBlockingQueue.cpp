@@ -1,14 +1,14 @@
 #include "writeBlockingQueue.h"
 
 template <class T> 
-writeBlockingQueue::writeBlockingQueue(T& defaultVal):
+writeBlockingQueue<T>::writeBlockingQueue(T& defaultVal):
 	fallback(defaultVal),
 	internal(),
 	synchronization()
 {}
 
 template <class T>
-const T& writeBlockingQueue::getNext(){
+const T& writeBlockingQueue<T>::getNext(){
 	T retval = this->fallback;
 	if (this->synchronization.try_lock()&&this->internal.size() > 0){
 		retval = this->internal.front();
@@ -19,7 +19,7 @@ const T& writeBlockingQueue::getNext(){
 }
 
 template <class T>
-void writeBlockingQueue::push(const T& toPush){
+void writeBlockingQueue<T>::push(const T& toPush){
 	this->synchronization.lock();
 	this->internal.push(toPush);
 	this->synchronization.unlock();
@@ -27,6 +27,6 @@ void writeBlockingQueue::push(const T& toPush){
 }
 
 template <class T>
-bool writeBlockingQueue::isEmpty() const{
+bool writeBlockingQueue<T>::isEmpty() const{
 	return this->internal.size() == 0;
 }
