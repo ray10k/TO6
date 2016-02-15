@@ -12,7 +12,7 @@
 #include <mutex>
 #include <deque>
 
-template <class T> 
+template <class T>
 class threadSafeQueue{
 	//! Constructs a new queue, with the given object as the default value to be
 	//! returned when a read fails due to locking.
@@ -31,6 +31,6 @@ private:
 	T fallback;
 	std::deque<T> internal;
 	std::mutex synchronization;
-}
+};
 
 #endif

@@ -33,11 +33,11 @@ public:
 	void stateChanged(MachineState currentState) override;
 	//! Registers a new listener for events describing the progress through the
 	//! currently ongoing cycle.
-	void addCycleStateListener(cycleStateListener* listener);
+	void addCycleStateListener(cycleStateListener& listener);
 	//! Provide a washingCycle to be performed when there is no ongoing cycle,
 	//! and the system is in a running state.
 	void loadCycle(const cycleID& toLoad);
-	
+
 	void addWashingCycle(washingCycle& cycle);
 	std::vector<std::string> getWashingCycleNames(std::string userName);
 	int getTotalCycleSteps(const cycleID& toFind)const;
@@ -85,7 +85,7 @@ private:
 	washingCycle ongoing;
 	cycleStep currentStep;
 	cycleState state;
-	
+
 	machineInteractionTask machine;
 
 	RTOS::flag CycleFlag;
