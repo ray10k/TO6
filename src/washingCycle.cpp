@@ -6,12 +6,14 @@ washingCycle::washingCycle(cycleID& ID):
 	current(0)
 {}
 
+const cycleStep washingCycle::last = cycleStep();
+
 washingCycle::washingCycle():
 	myID("DEFAULT","DEFAULT"),
 	steps(),
 	current(0)
 {
-	steps.push_back(end);
+	steps.push_back(last);
 }
 
 const cycleStep& washingCycle::next(){
@@ -19,7 +21,7 @@ const cycleStep& washingCycle::next(){
 		++current;
 		return steps[current];
 	}else{
-		return end;
+		return last;
 	}
 }
 
@@ -28,7 +30,7 @@ const cycleStep& washingCycle::getCurrent() const{
 }
 
 bool washingCycle::hasNext() const {
-	return (current < steps.size() && !(steps[current].isFinal()));
+	return (current < (int)steps.size() && !(steps[current].isFinal()));
 }
 
 void washingCycle::back() {
