@@ -4,6 +4,9 @@
 #include "webserver/PracticalSocket.h"
 #include "webserver/websocket.h"
 #include "userInteractionTask.h"
+#include "writeBlockingQueue.h"
+#include "readBlockingQueue.h"
+#include <string>
 
 class washingMachineWS:public WebSocketListener{
 public:
@@ -14,7 +17,8 @@ public:
 	void onClose(WebSocket* ws);
 	
 private:
-	threadSafeQueue 
-}
+	writeBlockingQueue<string> incomingMessages;
+	readBlockingQueue<string> 
+};
 
 #endif

@@ -32,6 +32,6 @@ private:
 	T fallback;
 	std::deque<T> internal;
 	std::mutex synchronization;
-}
+};
 
 #endif
