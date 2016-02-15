@@ -1,24 +1,25 @@
 #include "userInteractionTask.h"
 
-userInteractionTask::userInteractionTask(washingCycleTask* WCT, loadCycleTask* LCT):
-  machineStatePool (this, "machineStatePool"),
+userInteractionTask::userInteractionTask(washingCycleTask* WCT):
+  machineStatePool ("machineStatePool"),
   stateUpdateFlag (this,"stateUpdateFlag"),
-  cycleStatePool (this, "cycleStatePool"),
+  cycleStatePool ("cycleStatePool"),
   users(),
-  WCT(WCT)
+  WCT(*WCT)
 {
 	addUser({"Admin", "0"});
+	currentCycleStep = {-1,-1,cycleState::STOP," ", " ", false};
 }
 
 void userInteractionTask::main()
 {
 	for(;;)
 	{
-		RTOS::wait(this->stateUpdateFlag);
-		
-		currentStep = cycleStatePool.read();
+		this->wait(this->stateUpdateFlag);
+
+		currentCycleStep = cycleStatePool.read();
 		//send currentStep-> websocket-> website
-	
+
 		currentState = machineStatePool.read();
 		//send currentState-> websocket-> website
 	}
@@ -35,13 +36,13 @@ void userInteractionTask::cycleStateChanged(
 		const std::string& cycleName,
 		const std::string& stepName)
 {
-	CycleStep sendStep = 
+	CycleStep sendStep =
 	{
-		totalSteps, 
-		currentStep, 
-		RUN, 
-		cycleName, 
-		stepName, 
+		totalSteps,
+		currentStep,
+		cycleState::RUN,
+		cycleName,
+		stepName,
 		currentCycleStep.finished
 	};
 	this->cycleStatePool.write(sendStep);
@@ -51,13 +52,13 @@ void userInteractionTask::cyclePaused(
 		const std::string& cycleName,
 		const std::string& stepName)
 {
-	CycleStep sendStep = 
+	CycleStep sendStep =
 	{
-		currentCycleStep.totalSteps, 
-		currentCycleStep.currentStep, 
-		PAUSE, 
-		cycleName, 
-		stepName, 
+		currentCycleStep.totalSteps,
+		currentCycleStep.currentStep,
+		cycleState::PAUSE,
+		cycleName,
+		stepName,
 		currentCycleStep.finished
 	};
 	this->cycleStatePool.write(sendStep);
@@ -68,13 +69,13 @@ void userInteractionTask::cycleEnded(
 		const std::string& cycleName,
 		const std::string& stepName)
 {
-	CycleStep sendStep = 
+	CycleStep sendStep =
 	{
-		currentCycleStep.totalSteps, 
-		currentCycleStep.currentStep, 
-		STOP, 
-		cycleName, 
-		stepName, 
+		currentCycleStep.totalSteps,
+		currentCycleStep.currentStep,
+		cycleState::STOP,
+		cycleName,
+		stepName,
 		finished
 	};
 	this->cycleStatePool.write(sendStep);
@@ -85,19 +86,19 @@ void userInteractionTask::setCycleState(int state)
 {
 	switch(state)
 	{
-		case RUN:	WCT.run(); 		break;
-		case PAUSE: WCT.pause(); 	break;
-		case STOP:  WCT.stop();		break;
+		case (int)cycleState::RUN:	WCT.run(); 		break;
+		case (int)cycleState::PAUSE: WCT.pause(); 	break;
+		case (int)cycleState::STOP:  WCT.stop();		break;
 	}
 }
 
-void userInteractionTask::loadWashingCycle(std::string userName, std::string washingCycleName)
+void userInteractionTask::loadCycle(std::string userName, std::string washingCycleName)
 {
 	if(loggedIn)
 	{
-		if(currentUser.userName = userName)
+		if(currentUser.userName == userName)
 		{
-			WCT.loadCycle(userName, washingCycleName);
+			this->loadCycle(userName, washingCycleName);
 		}
 	}
 }
@@ -107,9 +108,9 @@ std::vector<std::string> userInteractionTask::loadWashingCycleNames()
 	return WCT.getWashingCycleNames(currentUser.userName);
 }
 
-int userInteractionTask::getTotalCycleSteps(std::string washingCycleName)
+int userInteractionTask::getTotalCycleSteps(cycleID id)
 {
-	return WCT.getTotalCycleSteps(washingCycleName);
+	return WCT.getTotalCycleSteps(id);
 }
 
 void userInteractionTask::addUser(User user)
@@ -122,9 +123,9 @@ User userInteractionTask::findUser(std::string userName)
 	std::vector<User>::iterator user = this->users.begin();
 	for(;user != this->users.end(); ++user)
 	{
-		if(user.userName == userName)
+		if((*user).userName == userName)
 		{
-			return user;
+			return *user;
 		}
 	}
 	return {"", ""};
@@ -170,7 +171,7 @@ std::string userInteractionTask::getCurrentUserPassword()
 	if(loggedIn)
 	{
 		return currentUser.password;
-	}	
+	}
 }
 
 void userInteractionTask::changeCurrentUserPassword(std::string password)

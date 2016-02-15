@@ -13,6 +13,7 @@
 
 #include <vector>
 #include <string>
+#include "cycleID.h"
 
 class cycleStep;
 
@@ -20,7 +21,10 @@ class washingCycle
 {
 public:
 	//! Creates an empty washing cycle.
-	washingCycle(cycleID& ID);
+	washingCycle (cycleID& ID);
+	//! Creates an empty washing cycle that belongs to "DEFAULT" and is called
+	//! "DEFAULT"
+	washingCycle ();
 	//! Advances the list to the next step, and returns the new current step.
 	const cycleStep& next();
 	//! returns the current step.
@@ -50,7 +54,7 @@ private:
 	cycleID myID;
 	std::vector<cycleStep> steps;
 	int current;
-	const static cycleStep end;
+	const static cycleStep last;
 };
 
 //**************************************

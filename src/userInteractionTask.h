@@ -14,7 +14,6 @@
 
 #include "prtos/pRTOS.h"
 #include "cycleState.h"
-#include "loadCycleTask.h"
 #include "washingCycleTask.h"
 #include "cycleStateListener.h"
 #include "machineStateListener.h"
@@ -32,22 +31,25 @@ struct User
 //! current washingCycle and sending this information in a easy way.
 struct CycleStep
 {
-	int totalSteps = -1;
-	int currentStep = -1;
-	int cycleState = -1;		//RUN=0, PAUSE=1, STOP=2
-	std::string cycleName = "";
-	std::string stepName = "";
-	bool finished = false;		//Is true when the washingCycle finished correctly
+	int totalSteps;
+	int currentStep;
+
+	cycleState state ;		//RUN=0, PAUSE=1, STOP=2
+	std::string cycleName ;
+	std::string stepName ;
+
+	bool finished;		//Is true when the washingCycle finished correctly
 								//and wasn't forced to stop.
 };
 
 class userInteractionTask : public RTOS::task, public machineStateListener,
 						   public cycleStateListener
 {
+public:
 	//! Constructor.
 	userInteractionTask(washingCycleTask* WCT);
 	//! An override function from machineStateListener.h.
-	void stateChanged(machineState currentState) override;
+	void stateChanged(MachineState currentState) override;
 	//! An override function from cycleStateListener.h.
 	void cycleStateChanged(unsigned int totalSteps,
 		unsigned int currentStep,
@@ -68,7 +70,7 @@ class userInteractionTask : public RTOS::task, public machineStateListener,
 	//!
 	void loadCycle(std::string userName, std::string washingCycleName);
 	std::vector<std::string> loadWashingCycleNames();
-	int getTotalCycleSteps(std::string washingCycleName)
+	int getTotalCycleSteps(cycleID id);
 
 	void addUser(User user);
 	bool checkUserName(std::string userName);
@@ -80,21 +82,21 @@ class userInteractionTask : public RTOS::task, public machineStateListener,
 	std::string getCurrentUserPassword();
 	void changeCurrentUserPassword(std::string password);
 
-	protected:
-		main(void);
+protected:
+		void main(void);
 
-	private:
+private:
 	User findUser(std::string userName);
 
-	RTOS::flag stateUpdateFlag
-	RTOS::pool<machineState> machineStatePool
-	RTOS::pool<CycleStep> cycleStatePool
+	RTOS::flag stateUpdateFlag;
+	RTOS::pool<MachineState> machineStatePool;
+	RTOS::pool<CycleStep> cycleStatePool;
 	washingCycleTask WCT;
 
 	MachineState currentState;
 	CycleStep currentCycleStep;
 	User currentUser = {"", ""};
-	std::vector<User&> users;
+	std::vector<User> users;
 	bool loggedIn = false;
 };
 

@@ -1,11 +1,11 @@
 #include "cycleID.h"
 
-cycleID(const std::string& cycleName, const std::string& owner):
+cycleID::cycleID(const std::string& cycleName, const std::string& owner):
 	name(cycleName),
 	user(owner)
 {}
 
-cycleID(const cycleID& rhs):
+cycleID::cycleID(const cycleID& rhs):
 	name(rhs.name),
 	user(rhs.user)
 {}

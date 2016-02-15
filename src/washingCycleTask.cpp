@@ -1,22 +1,30 @@
 #include "washingCycleTask.h"
 
 washingCycleTask::washingCycleTask(machineInteractionTask& machine):
-	newCyclePool(this,"WCT_newCyclePool"),
-	newCycleFlag(this,"WCT_newCycleFlag"),
-	machineStatePool(this,"WCT_machineStatePool"),
-	pauseFlag(this, "WCT_pauseFlag"),
-	runFlag(this, "WCT_runFlag"),
-	stopFlag(this, "WCT_stopFlag"),
-	currentStepTimer(this,"WCT_currentStepTmr"),
-	listeners(),
 	ongoing(),
 	currentStep(),
-	runState(cycleState.STOP),
-	machine(machine)
+	state(cycleState::STOP),
+	machine(machine),
+	CycleFlag((RTOS::task*)this,"WCT_newCycleFlag"),
+	runFlag((RTOS::task*)this, "WCT_runFlag"),
+	updateFlag((RTOS::task*)this,"WCT_updateFlag"),
+	pauseFlag((RTOS::task*)this, "WCT_pauseFlag"),
+	stopFlag((RTOS::task*)this, "WCT_stopFlag"),
+	machineStatePool("WCT_machineStatePool"),
+	newCyclePool("WCT_newCyclePool"),
+	currentStepTimer((RTOS::task*)this,"WCT_currentStepTmr"),
+	listeners(),
+	washingCycles()
 {
-	washingCycle cycle = new washingCycle("cycle1");
-	cycle.addStep({"step1",60,75,true,10});
-	addWashingCycle("Admin", cycle);
+    cycleID defaultID("cycle1", "Admin");
+	washingCycle cycle(defaultID);
+	cycleStep step1 = {"step1",20,60,false,0}; cycle.addStep(step1);
+	cycleStep step2 = {"step2",95,60,false,0}; cycle.addStep(step2);
+	cycleStep step3 = {"step3",95,60,true,0}; cycle.addStep(step3);
+	cycleStep step4 = {"step4",95,60,false,1000, 500, false}; cycle.addStep(step4);
+	cycleStep step5 = {"step5",20,0,false,0, 100, true}; cycle.addStep(step5);
+	addWashingCycle(cycle);
+	loadCycle(defaultID);
 }
 
 void washingCycleTask::stateChanged(MachineState currentState){
@@ -26,46 +34,62 @@ void washingCycleTask::stateChanged(MachineState currentState){
 	this->machineStatePool.write(toWrite);
 }
 
-void washingCycleTask::addCycleStateListener(cycleStateListener& listener){
+void washingCycleTask::addCycleStateListener(cycleStateListener* listener){
 	this->listeners.push_back(listener);
 }
 
-void washingCycleTask::loadCycle(std::string userName, std::string washingCycleName)
+void washingCycleTask::loadCycle(const cycleID& toLoad)
 {
-	UserWashingCycle cycle = findUserWashingCycle(userName,"");
-	if(cycle.userName == userName && cycle.cycle.getName() == washingCycleName)
+	washingCycle cycle = findUserWashingCycle(toLoad);
+	if(cycle == toLoad)
 	{
-		this->newCycleFlag.set();
-		this->newCyclePool.write(cycle.cycle);
+		this->CycleFlag.set();
+		this->newCyclePool.write(cycle);
 	}
 }
 
-void washingCycleTask::addWashingCycle(std::string userName, washingCycle cycle)
+void washingCycleTask::addWashingCycle(washingCycle& cycle)
 {
-	washingCycles.push_back({userName, cycle});
+	washingCycles.push_back(cycle);
 }
 
 std::vector<std::string> washingCycleTask::getWashingCycleNames(std::string userName)
 {
 	std::vector<std::string> cycleNames;
-	std::vector<UserWashingCycle>::iterator cycle = this->washingCycles.begin();
+	std::vector<washingCycle>::iterator cycle = this->washingCycles.begin();
 	for(;cycle != this->washingCycles.end(); ++cycle)
 	{
-		if(cycle.userName == userName)
+		if(cycle->getUser() == userName)
 		{
-			cycleNames.push_back(cycle.cycle.getName());
+			cycleNames.push_back(cycle->getName());
 		}
 	}
 	return cycleNames;
 }
 
-int washingCycleTask::getTotalCycleSteps(std::string washingCycleName)
+int washingCycleTask::getTotalCycleSteps(const cycleID& toFind)const
 {
-	if(findUserWashingCycle("",washingCycleName).cycle.getName() == washingCycleName)
+	washingCycle temp = this->findUserWashingCycle(toFind);
+	if(temp == toFind)
 	{
-		return cycle.cycle.totalSteps();
+		return temp.totalSteps();
 	}
-	return 0;
+	return -1;
+}
+
+washingCycle washingCycleTask::findUserWashingCycle(const cycleID& toFind)const
+{
+	std::vector<washingCycle>::const_iterator cycle =
+		this->washingCycles.begin();
+	for(;cycle != this->washingCycles.end(); ++cycle)
+	{
+		if((*cycle) == toFind)
+		{
+			return *cycle;
+		}
+	}
+	washingCycle defaultVal;
+	return defaultVal;
 }
 
 void washingCycleTask::pause(){
@@ -95,39 +119,35 @@ bool washingCycleTask::assessProgress(){
 	return true;
 }
 
-void washingCycleTask::stateChanged (MachineState currentState){
-	internalMachineState temp();
-	temp.temperature = currentState.temperature;
-	temp.waterLevel = currentState.waterLevel;
-	this->machineStatePool.write(temp);
-}
-
 void washingCycleTask::notifyListeners(){
-	std::vector<cycleStateListener>::iterator listen = this->listeners.begin();
+	std::vector<cycleStateListener*>::iterator listen = this->listeners.begin();
 
-	switch(this->runState){
-	case cycleState.STOP:
-		for(;listen != this->listeners.end(); ++listen){
+	switch(this->state){
+		case cycleState::STOP:{
 			bool properEnd = this->currentStep.isFinal();
-			*listen.cycleEnded(properEnd,
-				this->ongoing.getName(),
-				this->currentStep.getName();
+			for(;listen != this->listeners.end(); ++listen){
+				(*listen)->cycleEnded(properEnd,
+					this->ongoing.getName(),
+					this->currentStep.getName());
+			}
+			break;
 		}
-		break;
-	case cycleState.PAUSE:
-		for (;listen != this->listeners.end(); ++listen){
-			*listen.cyclePaused(this->ongoing.getName(),
-				this->currentStep.getName());
+		case cycleState::PAUSE:{
+			for (;listen != this->listeners.end(); ++listen){
+				(*listen)->cyclePaused(this->ongoing.getName(),
+					this->currentStep.getName());
+			}
+			break;
 		}
-		break;
-	case cycleState.RUN:
-		for (;listen != this->listeners.end(); ++listen){
-			*listen.cycleStateChanged(this->ongoing.totalSteps(),
-				this->ongoing.currentStepNumber(),
-				this->ongoing.getName(),
-				this->currentStep.getName());
+		case cycleState::RUN:{
+			for (;listen != this->listeners.end(); ++listen){
+				(*listen)->cycleStateChanged(this->ongoing.totalSteps(),
+					this->ongoing.currentStepNumber(),
+					this->ongoing.getName(),
+					this->currentStep.getName());
+			}
+			break;
 		}
-		break;
 	}
 }
 
@@ -159,96 +179,53 @@ void washingCycleTask::updateMachine(){
 		this->currentStep.getDrumSpeed());
 
 	this->machine.setDetergent(
-		this->currentStep.addDetergent());
+		this->currentStep.getAddDetergent());
 
 	this->machine.setMachineState(true);
 }
 
-UserWashingCycle washingCycleTask::findUserWashingCycle(
-	std::string userName, std::string washingCycleName)
-{
-	std::vector<UserWashingCycle>::iterator cycle = this->washingCycles.begin();
-	for(;cycle != this->washingCycles.end(); ++cycle)
-	{
-		if(cycle.userName == userName || cycle.cycle.getName() == washingCycleName)
-		{
-			return cycle;
-		}
-	}
-	washingCycle emptyCycle;
-	return {"", emptyCycle};
-}
-
 void washingCycleTask::main(){
-	while (1==1){
+	while (true)
+	{
 		//State: Stopped. Wait until instructed to run.
-		while(this->runState != cycleState.RUN){
-			this->runState = this->cycleStateChannel.read();
-			RTOS::wait(500);
-		}
-		//State: Waiting. Fetch the washing cycle as soon as it becomes
-		//available.
-		this->ongoing = this->loadCyclePool.read();
-		//State: Running. Check for the existence of a next cycle step, update
-		//state, confirm the program does not need to be paused or stopped,
-		//provide washing machine with current-step instructions.
-		while(this->ongoing.hasNext()){
-			RTOS::event progress = RTOS::wait(cycleStateChannel +
-										machineStatePool +
-										currentStepTimer);
+		this->wait(runFlag);
+		state = cycleState::RUN;
 
-			if (progress == cycleStateChannel){
-				//Guaranteed to be at least 1 item waiting in the channel,
-				//so this will not block.
-				this->runState = this->cycleStateChannel.read();
-			}
+		this->wait(CycleFlag);
+		ongoing = newCyclePool.read();
+		currentStep = ongoing.getCurrent();
 
+		while(this->ongoing.hasNext())
+		{
+			updateMachine();
+			RTOS::event progress = this->wait(runFlag + pauseFlag + stopFlag +
+											  updateFlag + currentStepTimer);
 			bool brake = false;
 
-			switch(this->runState){
-				case cycleState.RUN:
-				break; //nothing to see here, move along.
-				case cycleState.STOP:
-				//kinda wish c++ would allow for labled breaks, like Java does.
-				brake = true;
-				break;
-				case cycleState.PAUSE:
-				//take a break until you're needed again.
+			if(progress == runFlag){
+				state = cycleState::RUN;
+			}else if(progress == stopFlag) {
+				state = cycleState::STOP; brake = true;
+			}else if(progress == pauseFlag){
+				state = cycleState::PAUSE;
 				toStandBy();
-				this->currentStepTimer.cancel();
+				currentStepTimer.cancel();
 				notifyListeners();
-				//State: paused. Wait until execution of washing program resumes
-				//or a shutdown command was sent.
-				while(this->runState == cycleState.PAUSE){
-					this->runState = this->cycleStateChannel.read();
-					if (this->runState == cycleState.STOP){
-						brake = true;
-					}else if (this->runState == cycleState.RUN){
-						updateMachine();
-						notifyListeners();
-					}
-					RTOS::wait(500);
+				RTOS::event ev = this->wait(runFlag + stopFlag);
+				if(ev == runFlag) {
+					updateMachine(); notifyListeners();
+				}else if(ev == stopFlag) {
+					brake = true;
 				}
-				break;
+			}else if(progress == currentStepTimer || assessProgress()){
+				currentStep = ongoing.next(); updateMachine(); notifyListeners();
 			}
+			else if(progress == updateFlag){knownState = machineStatePool.read();}
 
-			if (brake){
+			if (brake)
+			{
 				notifyListeners();
 				break;
-			}
-
-			if (progress == machineStatePool){
-				this->knownState = this->machineStatePool.read();
-			}
-
-			if (progress == currentStepTimer||assessProgress()){
-				//independent of weather the last step was time- or machine-
-				//constrained, it's finished now. Move on to the next step.
-				this->currentStep = this->ongoing.next();
-				updateMachine();
-
-				notifyListeners();
-				continue;
 			}
 		}
 	}
