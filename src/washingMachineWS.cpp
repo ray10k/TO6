@@ -1,58 +1,51 @@
 #include "washingMachineWS.h"
-#include <functional>
 
-washingMachineWS::washingMachineWS(int portNr, userInteractionTask * talkTo):
-	task(talkTo),
-	internalLock(),
-	incomingMessages(),
-	listeners(),
-	outgoingMessages("")
-	{
-		void (washingMachineWS::*listenThreadFunc)(int) = 
-			&washingMachineWS::startListener;
-		void (washingMachineWS::*passthroughThreadFunc)(void) = 
-			&washingMachineWS::startQueuePassthrough;
-			
-		listener(&washingMachineWS::startListener, std::ref(*this), portNr);
-		queuePassthrough(passthroughThreadFunc);
-	}
-	
-void washingMachineWS::startListener(int portNr){
-	//make the connection in a separate thread, even though WebSocket itself
-	//also spins off a thread, so that any number of connections can be made
-	//without blocking the main thread.
-	while (1==1){
-		TCPServerSocket serverSock(portNr);
-		TCPSocket * actualSock = serverSock.accept();
-		WebSocket * webSock = new WebSocket(actualSock);
-		internalListener * listen = new internalListener(webSock,this);
-		listeners.push_back(listen);
-	}
-}
-
-void washingMachineWS::startQueuePassthrough(){
-	//this thread is supposed to push stuff to the userInteractionTask.
-	//Figure out what can come in, and what the UIT expects.
-}	
-
-washingMachineWS::internalListener::internalListener(WebSocket * client, 
+socketConnection::socketConnection(WebSocket* thisIsMe, 
 	washingMachineWS * parent):
-	myClient(client),
+	currentState(),
+	updated(false),
 	myParent(parent){
-	client->setListener(this);
+	//doodle
 }
 
-washingMachineWS::internalListener::~internalListener(){
-	delete myClient;
+socketConnection::~socketConnection(){
+	//doodle
 }
 
-void washingMachineWS::internalListener::onTextMessage(const std::string& s, 
-	WebSocket* ws){
-	//doodle doodle doodle
-	//(no idea what the (...) should even happen here.)
+socketConnection::socketConnection(const socketConnection& other):
+	currentState(other.currentState),
+	updated(true),
+	myParent(other.myParent){
+	//doodle
 }
 
-void washingMachineWS::internalListener::onClose(WebSocket* ws){
-	//time to clean up.
-	myParent->unregisterConnection(this);
+void socketConnection::machineUpdateHappened(MachineState current){
+	//inform connected client. (got to figure out the comm. protocol here)
+}
+
+void socketConnection::onTextMessage(const string& s, WebSocket* ws){
+	//user wants something now.
+}
+
+void socketConnection::onClose(WebSocket* ws){
+	//time to die.
+	this->myParent->disposeConnection(this);
+}
+
+void washingMachineWS::run(){
+	
+}
+
+void washingMachineWS::updateMachineState(MachineState current){
+	
+}
+
+void washingMachineWS::disposeConnection(socketConnection * toClose){
+	
+}
+
+washingMachineWS * newWebSocket(int portNr, userInteractionTask* myBuddy){
+	washingMachineWS washmachine(portNr,myBuddy);
+	std::thread listener(&washingMachineWS::run(), &washmachine);
+	return &washmachine;
 }
