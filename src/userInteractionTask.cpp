@@ -38,8 +38,8 @@ void userInteractionTask::cycleStateChanged(
 {
 	CycleStep sendStep =
 	{
-		totalSteps,
-		currentStep,
+		(int)totalSteps,
+		(int)currentStep,
 		cycleState::RUN,
 		cycleName,
 		stepName,
@@ -54,8 +54,8 @@ void userInteractionTask::cyclePaused(
 {
 	CycleStep sendStep =
 	{
-		currentCycleStep.totalSteps,
-		currentCycleStep.currentStep,
+		(int)currentCycleStep.totalSteps,
+		(int)currentCycleStep.currentStep,
 		cycleState::PAUSE,
 		cycleName,
 		stepName,
@@ -71,8 +71,8 @@ void userInteractionTask::cycleEnded(
 {
 	CycleStep sendStep =
 	{
-		currentCycleStep.totalSteps,
-		currentCycleStep.currentStep,
+		(int)currentCycleStep.totalSteps,
+		(int)currentCycleStep.currentStep,
 		cycleState::STOP,
 		cycleName,
 		stepName,
@@ -82,13 +82,13 @@ void userInteractionTask::cycleEnded(
 }
 
 
-void userInteractionTask::setCycleState(int state)
+void userInteractionTask::setCycleState(cycleState state)
 {
 	switch(state)
 	{
-		case (int)cycleState::RUN:	WCT.run(); 		break;
-		case (int)cycleState::PAUSE: WCT.pause(); 	break;
-		case (int)cycleState::STOP:  WCT.stop();		break;
+		case cycleState::RUN:	WCT.run(); 		break;
+		case cycleState::PAUSE: WCT.pause(); 	break;
+		case cycleState::STOP:  WCT.stop();		break;
 	}
 }
 
@@ -172,6 +172,7 @@ std::string userInteractionTask::getCurrentUserPassword()
 	{
 		return currentUser.password;
 	}
+	return "";
 }
 
 void userInteractionTask::changeCurrentUserPassword(std::string password)

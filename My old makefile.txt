@@ -1,0 +1,24 @@
+# location of the folder containing the source files.
+source:=./src
+
+# names of all the source and header files, respectively.
+cpp:=$(wildcard $(source)/*cpp)
+h:=$(wildcard $(source)/*.h)
+
+# compilation script location.
+compile:=python mkt.py
+
+# default compilation script arguments
+args:=-cleanup -noclever -optimize -sections -errors -pause -echo -term
+runargs:= -run -noclever -nocleanup
+
+.PHONY: all build run
+
+all: 
+	$(compile) $(args) -go $(cpp) $(h)
+
+build:
+	$(compile) $(args) -build $(cpp) $(h)
+
+run:
+	$(compile) $(runargs)

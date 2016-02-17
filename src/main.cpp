@@ -3,6 +3,8 @@
 #include "userInteractionTask.h"
 #include <cstdlib>
 
+#define PORTNO 25565
+
 void webSocket(userInteractionTask * user);
 
 int main(int argc, char* argv[])
@@ -15,7 +17,8 @@ int main(int argc, char* argv[])
 	MIT->addMachineStateListener(*UIT);
 
 	WCT->addCycleStateListener(UIT);
-
+	
+	washingMachineWS websock(PORTNO, UIT);
 
 	RTOS::run();
 
