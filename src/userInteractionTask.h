@@ -63,29 +63,47 @@ public:
 		const std::string& cycleName,
 		const std::string& stepName) override;
 
-	//The following functions are all used by the websocket to get information that
-	//this task will provide.
+	//The following functions are all used by the websocket to (set/)get information 
+	//that this task will provide.
 	//! A function used to set the state of the current washingCycle, see cycleState.h.
 	void setCycleState(int state);
-	//!
+	//! A function used to load/set a washingCycle that will be run.
 	void loadCycle(std::string userName, std::string washingCycleName);
+	//! A function that returns all washingCycle names of the washingCycles owned by
+	//!	the current active user.
 	std::vector<std::string> loadWashingCycleNames();
+	//! A function that returns the total amount of steps of a given washingCycle.
 	int getTotalCycleSteps(cycleID id);
 
+	//! A function that adds a new user to the list of users.
 	void addUser(User user);
+	//! A function that returns true if the given userName exists.
 	bool checkUserName(std::string userName);
+	//! A function that returns true if the given userName has the same password 
+	//! as the given password.
 	bool checkPassword(std::string userName, std::string password);
 
+	//! A function that sets the loggedIn boolean and sets the currentUser
+	//! to the given user.
 	void login(std::string userName);
+	//! A function that sets the loggedIn boolean to false and resets the currentUser.
 	void logout();
+	//! A function that returns true if a user is logged in.
 	bool getLoggedIn();
+	//! A function that returns the password of the currently active user.
 	std::string getCurrentUserPassword();
+	//! A function that sets the password of the currently active user 
+	//! to a new given password
 	void changeCurrentUserPassword(std::string password);
 
 protected:
+		//because the Task interface demands it, and because this task needs to do
+		//things.
 		void main(void);
 
 private:
+	//! A function that searches if a user exists using a given userName 
+	//! and if so it will return this user.
 	User findUser(std::string userName);
 
 	RTOS::flag stateUpdateFlag;
