@@ -154,19 +154,19 @@ private:
 	void setSignalLed(bool on);
 
 	//! Translates a string request and a string command to one or two hex values and returns this in a vector.
-	std::vector<std::uint8_t>* requestTranslate(RequestStruct reqS);
+	std::uint16_t requestTranslate(RequestStruct reqS);
 	//! Translates one hex value to a understandable string response and returns this.
 	//! (this function uses the request string to know where the response is comming from).
 	ResponseStruct responseTranslate(std::uint8_t response, RequestStruct reqS);
 
-	uart Uart;
-	std::vector<machineStateListener> listeners;
+	RTOS::pool<RequestStruct> machineInstructionPool;
+	RTOS::clock clock;
+	
 	MachineState currentState;
 	MachineState setState;
+	uart Uart;
 
-	RTOS::clock clock;
-	RTOS::pool<RequestStruct> machineInstructionPool;
-
+	std::vector<machineStateListener> listeners;
 };
 
 #endif
