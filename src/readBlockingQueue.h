@@ -15,6 +15,7 @@
 
 template <class T> 
 class readBlockingQueue{
+public:
 	//! Constructs a new queue, with the given default.
 	readBlockingQueue(const T& defaultVal);
 	//! Pops the frontmost value from this queue, or returns the default 

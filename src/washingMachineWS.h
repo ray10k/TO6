@@ -17,10 +17,10 @@ public:
 
 	class internalListener: public WebSocketListener{
 	public:
-		internalListener(Websocket* client, washingMachineWS * parent);
+		internalListener(WebSocket * client, washingMachineWS * parent);
 		~internalListener();
 		
-		Websocket* myClient;
+		WebSocket* myClient;
 		washingMachineWS * myParent;
 		void onTextMessage(const std::string& s, WebSocket* ws);
 		void onClose(WebSocket* ws);
@@ -34,8 +34,8 @@ private:
 	std::mutex internalLock;
 	std::deque<std::string> incomingMessages;
 	std::vector<internalListener*> listeners;
-	std::thread listener, queuePassthrough;
 	readBlockingQueue<std::string> outgoingMessages;
+	std::thread listener, queuePassthrough;
 };
 
 #endif

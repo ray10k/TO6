@@ -5,9 +5,9 @@ washingMachineWS::washingMachineWS(int portNr, userInteractionTask * talkTo):
 	internalLock(),
 	incomingMessages(),
 	listeners(),
-	outgoingMessages(),
-	listener(this->startListener,portNr),
-	queuePassthrough(this->startQueuePassthrough)
+	outgoingMessages(""),
+	listener(this->startListener,portNr)
+//	queuePassthrough(this->startQueuePassthrough)
 	{}
 	
 void washingMachineWS::startListener(int portNr){

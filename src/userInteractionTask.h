@@ -66,7 +66,6 @@ public:
 		const std::string& cycleName,
 		const std::string& stepName) override;
 
-<<<<<<< HEAD
 	//The following functions are all used by the websocket to (set/)get information 
 	//that this task will provide.
 	//! A function used to set the state of the current washingCycle, see cycleState.h.
@@ -98,37 +97,6 @@ public:
 	std::string getCurrentUserPassword();
 	//! A function that sets the password of the currently active user 
 	//! to a new given password
-=======
-	//The following functions are all used by the websocket to get information 
-	//that this task will provide.
-	//! A function used to set the state of the current washingCycle, see 
-	//! cycleState.h.
-	void setCycleState(cycleState state);
-	//! Attempts to load a given cycle. Can fail, and will not indicate when
-	//! this happens.
-	void loadCycle(std::string userName, std::string washingCycleName);
-	//! Fetches a list of *all* washing cycle names.
-	std::vector<std::string> loadWashingCycleNames();
-	//! Returns the total number of steps for the given cycle.
-	int getTotalCycleSteps(cycleID id);
-
-	
-	void addUser(User user);
-	//! Returns true if the given userName is known within the system.
-	bool checkUserName(std::string userName);
-	//! Returns true if the given name/pass are a valid login combination.
-	bool checkPassword(std::string userName, std::string password);
-	
-	//! ?
-	void login(std::string userName);
-	//! !
-	void logout();
-	//! Returns true if anyone is currently logged in.
-	bool getLoggedIn();
-	//! :P
-	std::string getCurrentUserPassword();
-	//! Changes the registered password of whoever is currently logged in.
->>>>>>> be599d0be346572e291837e8c29bf7719174d84e
 	void changeCurrentUserPassword(std::string password);
 
 protected:
