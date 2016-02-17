@@ -1,14 +1,21 @@
 #include "washingMachineWS.h"
+#include <functional>
 
 washingMachineWS::washingMachineWS(int portNr, userInteractionTask * talkTo):
 	task(talkTo),
 	internalLock(),
 	incomingMessages(),
 	listeners(),
-	outgoingMessages(""),
-	listener(this->startListener,portNr)
-//	queuePassthrough(this->startQueuePassthrough)
-	{}
+	outgoingMessages("")
+	{
+		void (washingMachineWS::*listenThreadFunc)(int) = 
+			&washingMachineWS::startListener;
+		void (washingMachineWS::*passthroughThreadFunc)(void) = 
+			&washingMachineWS::startQueuePassthrough;
+			
+		listener(&washingMachineWS::startListener, std::ref(*this), portNr);
+		queuePassthrough(passthroughThreadFunc);
+	}
 	
 void washingMachineWS::startListener(int portNr){
 	//make the connection in a separate thread, even though WebSocket itself
@@ -17,8 +24,8 @@ void washingMachineWS::startListener(int portNr){
 	while (1==1){
 		TCPServerSocket serverSock(portNr);
 		TCPSocket * actualSock = serverSock.accept();
-		WebSocket * webSock = new webSocket(actualSock);
-		internalListener * listen = new internalListener( webSock);
+		WebSocket * webSock = new WebSocket(actualSock);
+		internalListener * listen = new internalListener(webSock,this);
 		listeners.push_back(listen);
 	}
 }
