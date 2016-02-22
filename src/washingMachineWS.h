@@ -3,6 +3,7 @@
 
 #include "webserver/PracticalSocket.h"
 #include "webserver/websocket.h"
+#include "cycleID.h"
 #include "cycleState.h"
 #include "userInteractionTask.h"
 #include "readBlockingQueue.h"
@@ -24,6 +25,7 @@
 //******************************************************************************
 
 class washingMachineWS;
+class userInteractionTask;
 
 class socketConnection: public WebSocketListener{
 public:
@@ -31,7 +33,7 @@ public:
 	virtual ~socketConnection();
 	socketConnection(const socketConnection& other);
 	
-	void machineUpdateHappened(MachineState current);
+	void machineUpdateHappened(const std::string& toSend);
 	void onTextMessage(const std::string& s, WebSocket* ws);
 	void onClose(WebSocket* ws);
 	std::string getAddress() ;

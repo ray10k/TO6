@@ -19,6 +19,7 @@
 #include "cycleStateListener.h"
 #include "machineStateListener.h"
 #include "washingCycleTask.h"
+#include "washingMachineWS.h"
 
 #include <string>
 #include <vector>
@@ -44,6 +45,8 @@ struct CycleStep
 	bool finished;		//Is true when the washingCycle finished correctly
 								//and wasn't forced to stop.
 };
+
+class washingMachineWS;
 
 class userInteractionTask : public RTOS::task, public machineStateListener,
 						   public cycleStateListener
@@ -98,6 +101,8 @@ public:
 	//! A function that sets the password of the currently active user 
 	//! to a new given password
 	void changeCurrentUserPassword(std::string password);
+	//! Gives the task access to the outside world.
+	void setWebsocket(washingMachineWS* out);
 
 protected:
 		//because the Task interface demands it, and because this task needs to do
@@ -118,6 +123,7 @@ private:
 	User currentUser = {"", ""};
 	std::vector<User> users;
 	washingCycleTask WCT;
+	washingMachineWS* mySock;
 	bool loggedIn = false;
 };
 

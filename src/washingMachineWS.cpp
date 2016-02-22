@@ -27,7 +27,7 @@ void socketConnection::machineUpdateHappened(const std::string& current){
 
 void socketConnection::onTextMessage(const std::string& s, WebSocket* ws){
 	//user wants something now.
-	this->parent->command(s);
+	this->myParent->command(s);
 }
 
 void socketConnection::onClose(WebSocket* ws){
@@ -63,46 +63,46 @@ void washingMachineWS::acceptConnections(){
 	}
 }
 
+void appendBool(std::stringstream & in, const std::string & name, bool value){
+	in << name << ":";
+	value ? in<<"true," : in<<"false,"; 
+}
+
 void washingMachineWS::passAlongCommands(){
 	//Periodically check to see if any new commands came in, and let the system
 	//know what it should do.
 	std::chrono::milliseconds sleepTime(250);
 	while (1==1){
 		std::this_thread::sleep_for(sleepTime);
-		std::string latest = this->queuedCommands.getNext();
+		std::string latestCommand = this->queuedCommands.getNext();
 		//parse here, once formatting is known.
 		//handle the parsed command.
-		//check the current machine state, and let everyone know.
-		
-	//let everyone know the new state of things.
-	std::stringstream builder;
-	builder << "{temperature:"<<current.temperature<<",water:"
-		<<current.waterLevel<<",drum:"<<current.drumRPM;
-	builder << ",";
-	appendBool(builder,"soap",current.soapDispenser);
-	appendBool(builder,"clockwise",current.drumClockwise);
-	appendBool(builder,"lock",current.doorLock);
-	appendBool(builder,"water",current.waterValve);
-	appendBool(builder,"pump",current.pump);
-	appendBool(builder,"heater",current.heatingUnit);
-	builder << "signal:";
-	current.signalLed ? builder << "true}" : builder << "false}";
-	std::string message = builder.str();
 	
-	std::set<socketConnection*>::iterator 
-			start = this->liveConnections.begin();
-	std::set<socketConnection*>::iterator 
-			end = this->liveConnections.end();
-	for (;start != end; ++start){
-		(*start)->machineUpdateHappened(message);
+		if (this->machineUpdated){
+			this->machineUpdated = false;
+			std::stringstream builder;
+			builder << "{temperature:"<<this->latest.temperature<<",water:"
+				<<this->latest.waterLevel<<",drum:"<<this->latest.drumRPM;
+			builder << ",";
+			appendBool(builder,"soap",this->latest.soapDispenser);
+			appendBool(builder,"clockwise",this->latest.drumClockwise);
+			appendBool(builder,"lock",this->latest.doorLock);
+			appendBool(builder,"water",this->latest.waterValve);
+			appendBool(builder,"pump",this->latest.pump);
+			appendBool(builder,"heater",this->latest.heatingUnit);
+			builder << "signal:";
+			this->latest.signalLed ? builder << "true}" : builder << "false}";
+			std::string message = builder.str();
+			
+			std::set<socketConnection*>::iterator 
+					start = this->liveConnections.begin();
+			std::set<socketConnection*>::iterator 
+					end = this->liveConnections.end();
+			for (;start != end; ++start){
+				(*start)->machineUpdateHappened(message);
+			}
+		}
 	}
-}
-	}
-}
-
-void appendBool(std::stringstream & in, const std::string & name, bool value){
-	in << name << ":";
-	value ? in<<"true," : in<<"false,"; 
 }
 
 void washingMachineWS::updateMachineState(MachineState current){
@@ -117,8 +117,17 @@ void washingMachineWS::command(const std::string& rawInput){
 	
 	if (command.compare("stop") == 0){
 		this->buddy->setCycleState(cycleState::STOP);
+	} else if (command.compare("pause") == 0){
+		this->buddy->setCycleState(cycleState::PAUSE);
+	} else if (command.compare("resume") == 0){
+		this->buddy->setCycleState(cycleState::RUN);
 	} else if (command.compare("start") == 0){
-		//doodle
+		unsigned int spacer = rawInput.find_last_of(' ');
+		std::string userName,cycleName;
+		
+		userName(rawInput,commandLength+2,(spacer-commandLength));
+		cycleName(rawInput,spacer,std::string::npos);
+		this->buddy->loadCycle(userName,cycleName);
 	}
 	
 }

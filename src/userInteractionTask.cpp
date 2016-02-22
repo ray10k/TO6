@@ -5,7 +5,8 @@ userInteractionTask::userInteractionTask(washingCycleTask* WCT):
   stateUpdateFlag (this,"stateUpdateFlag"),
   cycleStatePool ("cycleStatePool"),
   users(),
-  WCT(*WCT)
+  WCT(*WCT),
+  mySock()
 {
 	addUser({"Admin", "0"});
 	currentCycleStep = {-1,-1,cycleState::STOP," ", " ", false};
@@ -28,6 +29,9 @@ void userInteractionTask::main()
 void userInteractionTask::stateChanged(MachineState currentState)
 {
 	this->machineStatePool.write(currentState);
+	if (this->mySock != nullptr){
+		this->mySock->updateMachineState(currentState);
+	}
 }
 
 void userInteractionTask::cycleStateChanged(
@@ -181,4 +185,8 @@ void userInteractionTask::changeCurrentUserPassword(std::string password)
 	{
 		findUser(currentUser.userName).password = password;
 	}
+}
+
+void userInteractionTask::setWebsocket(washingMachineWS * out){
+	this->mySock = out;
 }
