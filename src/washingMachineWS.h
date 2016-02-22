@@ -7,10 +7,10 @@
 #include "readBlockingQueue.h"
 #include "machineStateListener.h"
 #include <string>
-#include <deque>
-#include <vector>
-#include <mutex>
+#include <sstream>
+#include <set>
 #include <thread>
+#include <chrono>
 
 //******************************************************************************
 //! Container for a single live websocket connection.
@@ -27,19 +27,28 @@ class washingMachineWS;
 class socketConnection: public WebSocketListener{
 public:
 	socketConnection(WebSocket* thisIsMe, washingMachineWS * parent);
-	~socketConnection();
+	virtual ~socketConnection();
 	socketConnection(const socketConnection& other);
 	
-	void machineUpdateHappened(MachineState current);
-	void onTextMessage(const string& s, WebSocket* ws);
+	void machineUpdateHappened(const std::string& current);
+	void onTextMessage(const std::string& s, WebSocket* ws);
 	void onClose(WebSocket* ws);
+	std::string getAddress() ;
 	
 private:
-	//you know what, let's just tempt fate and do this the thread-non-safe way.
 	MachineState currentState;
 	bool updated;
 	washingMachineWS * myParent;
+	WebSocket * connection;
 };
+
+//Why can't a socket get its address in a const-safe way?
+struct scPointerComp {
+	bool operator() ( socketConnection* left, socketConnection* right) const {
+		return (left->getAddress().compare(right->getAddress()) > 0);
+	}
+};
+
 
 //******************************************************************************
 //! Container for all live websocket connections. 
@@ -51,18 +60,20 @@ private:
 //!		- part of TO6 assignment 2015-2016
 //******************************************************************************
 
-//seriously, c++ threads are a major headache.
-
 class washingMachineWS{
 public:
 	friend washingMachineWS * newWebSocket(int portNr, 
 		userInteractionTask* myBuddy);
-	void run();
+	void acceptConnections();
+	void passAlongCommands();
 	void updateMachineState(MachineState current);
+	void command(std::string rawInput);
 	void disposeConnection(socketConnection * toClose);
 private:
 	washingMachineWS(int portNr, userInteractionTask * talkTo);
 	userInteractionTask* buddy;
+	readBlockingQueue<std::string> queuedCommands;
+	std::set<socketConnection*,scPointerComp> liveConnections;
 };
 
 
