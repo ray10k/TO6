@@ -7,17 +7,11 @@ function Load(html)
 	window.open(html, "_self");
 }
 
-function onMessage (evt){
-	append(evt.data);
+function onMessage (evt)
+{
+	var obj = JSON.parse(evt.data);
+	document.getElementById('MachineInfo').innerHTML = "Temperatuur: " + obj[0];
 }
-
-function append(message) {
-
-	 var node=document.createElement("li");
-	 var textnode=document.createTextNode(message);
-	 node.appendChild(textnode);
-	 document.getElementById("main").appendChild(node);
- }
 
 function Print(message, id, type) 
 {
@@ -57,7 +51,6 @@ function onError (evt){
  	console.log("websocket error" + evt.data);
  }
 
-
 function Login(html) 
 {
 	var EnteredUserName = document.getElementById("LoginUsername").value;
@@ -65,7 +58,6 @@ function Login(html)
 	if( EnteredUserName != "Admin") //if(ws.checkUserName(EnteredUserName))
 	{
 		Print("Username Does Not Exist...", "Login");
-		
 	}
 	else
 	{
@@ -75,7 +67,7 @@ function Login(html)
 		if(EnteredPassword == CurrentPassword) //if(ws.checkPassword(EnteredUserName, EnteredPassword))
 		{
 			Print("Loging in as " + EnteredUserName + "...", "Login");
-			ws.send("Logged in!");	
+			//ws.send("Logged in!");	
 			//ws.Login(EnteredUserName);
 			setTimeout(function(){Load(html);},1000);
 		}
@@ -377,7 +369,8 @@ function LoadWashingCycle()
 	document.getElementById("EditWashingCycleButtons").style.display = "block";
 }
 
-var WashingCycleState = "STOP";
+var WashingCycleState = "stop";
+var LastWashingCycleState = "stop";
 function SetMainBotButtonColor()
 {
 	var buttons = ["RunButton", "PauseButton", "StopButton"];
@@ -387,13 +380,13 @@ function SetMainBotButtonColor()
 	}
 	switch(WashingCycleState)
 	{
-		case "RUN":
+		case "run":
 			document.getElementById("RunButton").style.background = "lime";
 			break;
-		case "PAUSE":
+		case "pause":
 			document.getElementById("PauseButton").style.background = "orange";
 			break;
-		case "STOP":
+		case "stop":
 			document.getElementById("StopButton").style.background = "red";
 			break;
 	}
@@ -401,13 +394,29 @@ function SetMainBotButtonColor()
 
 function SetWashingCycleState(State)
 {
+	var WashingCycleName = document.getElementById("WashingCycleNameList").value;
 	WashingCycleState = State;
 	SetMainBotButtonColor();
-	ws.send(State);	
+	if(state == "run")
+	{
+		if(LastWashingCycleState == "pause")
+		{
+			ws.send("resume");
+		}
+		else
+		{
+			ws.send(State + " " + WashingCycleName + " " + "Admin");
+		}
+	}
+	else
+	{
+		ws.send(State);	
+	}
+	LastWashingCycleState = State;
 }
 
 function LoadWashingCycleState()
 {
 	var WashingCycleName = document.getElementById("WashingCycleNameList").value;
-	SetWashingCycleState("PAUSE"); //SetWashingCycleState(ws.GetWashingCycleState(WashingCycleName));
+	SetWashingCycleState("stop"); //SetWashingCycleState(ws.GetWashingCycleState(WashingCycleName));
 }
