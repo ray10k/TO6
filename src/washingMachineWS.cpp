@@ -27,6 +27,7 @@ void socketConnection::machineUpdateHappened(const std::string& current){
 
 void socketConnection::onTextMessage(const std::string& s, WebSocket* ws){
 	//user wants something now.
+	this->parent->command(s);
 }
 
 void socketConnection::onClose(WebSocket* ws){
@@ -39,6 +40,7 @@ std::string socketConnection::getAddress(){
 }
 
 washingMachineWS::washingMachineWS(int portNr, userInteractionTask * talkTo):
+	machineUpdated(false),
 	buddy(talkTo),
 	queuedCommands(""),
 	liveConnections()
@@ -72,15 +74,6 @@ void washingMachineWS::passAlongCommands(){
 		//handle the parsed command.
 		//check the current machine state, and let everyone know.
 		
-	}
-}
-
-void appendBool(std::stringstream & in, const std::string & name, bool value){
-	in << name << ":";
-	value ? in<<"true," : in<<"false,"; 
-}
-
-void washingMachineWS::updateMachineState(MachineState current){
 	//let everyone know the new state of things.
 	std::stringstream builder;
 	builder << "{temperature:"<<current.temperature<<",water:"
@@ -96,19 +89,44 @@ void washingMachineWS::updateMachineState(MachineState current){
 	current.signalLed ? builder << "true}" : builder << "false}";
 	std::string message = builder.str();
 	
-	std::set<socketConnection*>::iterator start = this->liveConnections.begin();
-	std::set<socketConnection*>::iterator end = this->liveConnections.end();
+	std::set<socketConnection*>::iterator 
+			start = this->liveConnections.begin();
+	std::set<socketConnection*>::iterator 
+			end = this->liveConnections.end();
 	for (;start != end; ++start){
 		(*start)->machineUpdateHappened(message);
 	}
+}
+	}
+}
+
+void appendBool(std::stringstream & in, const std::string & name, bool value){
+	in << name << ":";
+	value ? in<<"true," : in<<"false,"; 
+}
+
+void washingMachineWS::updateMachineState(MachineState current){
+	this->machineUpdated = true;
+	this->latest  = current;
+}
+
+void washingMachineWS::command(const std::string& rawInput){
+	//command and operands are space-separated.
+	unsigned int commandLength = rawInput.find_first_of(' ');
+	std::string command(rawInput,0,commandLength);
+	
+	if (command.compare("stop") == 0){
+		this->buddy->setCycleState(cycleState::STOP);
+	} else if (command.compare("start") == 0){
+		//doodle
+	}
+	
 }
 
 void washingMachineWS::disposeConnection(socketConnection * toClose){
 	//connection was closed; time to clean up.
 	delete toClose;
 }
-
-
 
 washingMachineWS * newWebSocket(int portNr, userInteractionTask* myBuddy){
 	washingMachineWS  *washmachine=new washingMachineWS(portNr,myBuddy);

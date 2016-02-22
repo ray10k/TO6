@@ -69,7 +69,7 @@ public:
 	//The following functions are all used by the websocket to (set/)get information 
 	//that this task will provide.
 	//! A function used to set the state of the current washingCycle, see cycleState.h.
-	void setCycleState(int state);
+	void setCycleState(cycleState state);
 	//! A function used to load/set a washingCycle that will be run.
 	void loadCycle(std::string userName, std::string washingCycleName);
 	//! A function that returns all washingCycle names of the washingCycles owned by

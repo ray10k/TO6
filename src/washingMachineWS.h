@@ -3,6 +3,7 @@
 
 #include "webserver/PracticalSocket.h"
 #include "webserver/websocket.h"
+#include "cycleState.h"
 #include "userInteractionTask.h"
 #include "readBlockingQueue.h"
 #include "machineStateListener.h"
@@ -30,12 +31,13 @@ public:
 	virtual ~socketConnection();
 	socketConnection(const socketConnection& other);
 	
-	void machineUpdateHappened(const std::string& current);
+	void machineUpdateHappened(MachineState current);
 	void onTextMessage(const std::string& s, WebSocket* ws);
 	void onClose(WebSocket* ws);
 	std::string getAddress() ;
 	
 private:
+	void update();
 	MachineState currentState;
 	bool updated;
 	washingMachineWS * myParent;
@@ -67,9 +69,11 @@ public:
 	void acceptConnections();
 	void passAlongCommands();
 	void updateMachineState(MachineState current);
-	void command(std::string rawInput);
+	void command(const std::string& rawInput);
 	void disposeConnection(socketConnection * toClose);
 private:
+	bool machineUpdated;
+	MachineState latest;
 	washingMachineWS(int portNr, userInteractionTask * talkTo);
 	userInteractionTask* buddy;
 	readBlockingQueue<std::string> queuedCommands;
