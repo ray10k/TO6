@@ -1,15 +1,12 @@
-# location of the folder containing the source files.
-source:=./src
-
 # names of all the source and header files, respectively.
-cpp:=$(wildcard $(source)/*cpp)
-h:=$(wildcard $(source)/*.h)
+cpp:=$(shell find ./src -name '*.cpp')
+h:=$(shell find ./src -name '*.h')
 o:=$(cpp:.cpp=.o)
 
 # compiler.
 compile := g++
-comFlag := -std=c++11 -Wall -Werror -c
-comLink := -lstdc++ -lpthread
+comFlag := -std=c++11 -Wall -c
+comLink := -lstdc++ -lpthread -lcrypto
 
 #implicit rule to make .cpp files into object files.
 .cpp.o:
@@ -17,4 +14,7 @@ comLink := -lstdc++ -lpthread
 
 #compile.
 all: $(h) $(o)
-	$(compile) $(comFlag) $(comLink) $(o) -o myFile
+	$(compile) -o runnable $(o) $(comLink)
+
+clean:
+	rm $(o)
