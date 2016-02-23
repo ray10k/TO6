@@ -1,6 +1,7 @@
 #include "washingCycleTask.h"
 
 washingCycleTask::washingCycleTask(machineInteractionTask& machine):
+	RTOS::task(15,"washing cycle"),
 	ongoing(),
 	currentStep(),
 	state(cycleState::STOP),

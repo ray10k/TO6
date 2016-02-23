@@ -26,14 +26,14 @@ public:
 	//! supplied during construction if the queue is empty. Will block if
 	//! another thread is accessing the queue.
 	const T& getNext(){
-	T retval = this->fallback;
+		T * retval = this->fallback;
 		if (! this->isEmpty()){
 			this->synchronization.lock();
-			retval = this->internal.front();
+			retval = &(this->internal.front());
 			this->internal.pop_front();
 			this->synchronization.unlock();
 		}
-		return retval;
+		return *retval;
 	}
 
 	//! Attempts to push the given item to the back of the queue. Returns true

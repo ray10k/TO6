@@ -1,6 +1,7 @@
 #include "userInteractionTask.h"
 
 userInteractionTask::userInteractionTask(washingCycleTask* WCT):
+  RTOS::task(10,"user interaction"),
   machineStatePool ("machineStatePool"),
   stateUpdateFlag (this,"stateUpdateFlag"),
   cycleStatePool ("cycleStatePool"),
