@@ -42,7 +42,7 @@ std::string socketConnection::getAddress(){
 washingMachineWS::washingMachineWS(int portNr, userInteractionTask * talkTo):
 	machineUpdated(false),
 	buddy(talkTo),
-	queuedCommands(""),
+	queuedCommands(std::string("")),
 	liveConnections()
 	{}
 
@@ -123,10 +123,9 @@ void washingMachineWS::command(const std::string& rawInput){
 		this->buddy->setCycleState(cycleState::RUN);
 	} else if (command.compare("start") == 0){
 		unsigned int spacer = rawInput.find_last_of(' ');
-		std::string userName,cycleName;
 		
-		userName(rawInput,commandLength+2,(spacer-commandLength));
-		cycleName(rawInput,spacer,std::string::npos);
+		std::string userName(rawInput,commandLength+2,(spacer-commandLength));
+		std::string cycleName(rawInput,spacer,std::string::npos);
 		this->buddy->loadCycle(userName,cycleName);
 	}
 	
@@ -137,9 +136,11 @@ void washingMachineWS::disposeConnection(socketConnection * toClose){
 	delete toClose;
 }
 
-washingMachineWS * newWebSocket(int portNr, userInteractionTask* myBuddy){
+washingMachineWS * washingMachineWS::newWebSocket(int portNr, 
+		userInteractionTask* myBuddy){
 	washingMachineWS  *washmachine=new washingMachineWS(portNr,myBuddy);
 	std::thread listener(&washingMachineWS::acceptConnections, washmachine);
 	std::thread commands(&washingMachineWS::passAlongCommands, washmachine);
 	return washmachine;
 }
+

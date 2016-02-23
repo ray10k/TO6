@@ -1,11 +1,10 @@
 #include "washingCycleTask.h"
 #include "machineInteractionTask.h"
 #include "userInteractionTask.h"
+#include "washingMachineWS.h"
 #include <cstdlib>
 
 #define PORTNO 25565
-
-void webSocket(userInteractionTask * user);
 
 int main(int argc, char* argv[])
 {
@@ -18,7 +17,8 @@ int main(int argc, char* argv[])
 
 	WCT->addCycleStateListener(UIT);
 	
-	washingMachineWS websock(PORTNO, UIT);
+	washingMachineWS * wmws = washingMachineWS::newWebSocket(PORTNO,UIT);
+	UIT->setWebsocket(wmws);
 
 	RTOS::run();
 

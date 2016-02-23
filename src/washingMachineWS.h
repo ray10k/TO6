@@ -64,9 +64,10 @@ struct scPointerComp {
 //!		- part of TO6 assignment 2015-2016
 //******************************************************************************
 
+
 class washingMachineWS{
 public:
-	friend washingMachineWS * newWebSocket(int portNr, 
+	static washingMachineWS* newWebSocket(int portNr, 
 		userInteractionTask* myBuddy);
 	void acceptConnections();
 	void passAlongCommands();
@@ -81,6 +82,5 @@ private:
 	readBlockingQueue<std::string> queuedCommands;
 	std::set<socketConnection*,scPointerComp> liveConnections;
 };
-
 
 #endif
