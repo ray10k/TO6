@@ -9,8 +9,13 @@ function Load(html)
 
 function onMessage (evt)
 {
-	var obj = JSON.parse(evt.data);
-	document.getElementById('MachineInfo').innerHTML = "Temperatuur: " + obj[0];
+	var innerHtml = document.getElementById('MachineInfo').innerHTML = "<p></p>";
+	//var obj = JSON.parse(evt.data);
+	//innerHtml += "Temperatuur: " + obj[0];
+	//innerHtml += "<BR/>Water Level: " + obj[1];
+	innerHtml += "Temperatuur: " + evt[0];			//remove
+	innerHtml += "<BR/>Water Level: " + evt[1];		//remove
+	document.getElementById('MachineInfo').innerHTML = innerHtml;
 }
 
 function Print(message, id, type) 
