@@ -129,7 +129,7 @@ void washingMachineWS::command(const std::string& rawInput){
 		this->buddy->loadCycle(userName,cycleName);
 	}
 	
-}
+} 
 
 void washingMachineWS::disposeConnection(socketConnection * toClose){
 	//connection was closed; time to clean up.
