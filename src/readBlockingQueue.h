@@ -26,7 +26,7 @@ public:
 	//! supplied during construction if the queue is empty. Will block if
 	//! another thread is accessing the queue.
 	const T& getNext(){
-		T * retval = this->fallback;
+		T * retval = &(this->fallback);
 		if (! this->isEmpty()){
 			this->synchronization.lock();
 			retval = &(this->internal.front());
