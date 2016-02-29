@@ -44,6 +44,7 @@ private:
 	bool updated;
 	washingMachineWS * myParent;
 	WebSocket * connection;
+	std::thread listen,command;
 };
 
 //Why can't a socket get its address in a const-safe way?

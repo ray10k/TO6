@@ -147,6 +147,10 @@ washingMachineWS * washingMachineWS::newWebSocket(int portNr,
 	washingMachineWS  *washmachine=new washingMachineWS(portNr,myBuddy);
 	std::thread listener(&washingMachineWS::acceptConnections, washmachine);
 	std::thread commands(&washingMachineWS::passAlongCommands, washmachine);
+	//assign to local, or else the program crashes as the threads go out-of-
+	//scope.
+	washmachine->listen(listener);
+	washmachine->command(commands);
 	return washmachine;
 }
 
