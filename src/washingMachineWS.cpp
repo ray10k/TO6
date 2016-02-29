@@ -149,8 +149,8 @@ washingMachineWS * washingMachineWS::newWebSocket(int portNr,
 	std::thread commands(&washingMachineWS::passAlongCommands, washmachine);
 	//assign to local, or else the program crashes as the threads go out-of-
 	//scope.
-	washmachine->listen(listener);
-	washmachine->command(commands);
+	washmachine->listenThread = listener;
+	washmachine->commandThread = commands;
 	return washmachine;
 }
 

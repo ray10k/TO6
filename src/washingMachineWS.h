@@ -44,7 +44,6 @@ private:
 	bool updated;
 	washingMachineWS * myParent;
 	WebSocket * connection;
-	std::thread listen,command;
 };
 
 //Why can't a socket get its address in a const-safe way?
@@ -82,6 +81,7 @@ private:
 	userInteractionTask* buddy;
 	readBlockingQueue<std::string> queuedCommands;
 	std::set<socketConnection*,scPointerComp> liveConnections;
+	std::thread listenThread,commandThread;
 };
 
 #endif
