@@ -77,6 +77,9 @@ void appendBool(std::stringstream & in, const std::string & name, bool value){
 void washingMachineWS::passAlongCommands(){
 	//Periodically check to see if any new commands came in, and let the system
 	//know what it should do.
+#ifdef DEBUG
+	cout << "ready to process."<<endl;
+#endif
 	std::chrono::milliseconds sleepTime(250);
 	while (1==1){
 		std::this_thread::sleep_for(sleepTime);
@@ -147,10 +150,8 @@ washingMachineWS * washingMachineWS::newWebSocket(int portNr,
 	washingMachineWS  *washmachine=new washingMachineWS(portNr,myBuddy);
 	std::thread listener(&washingMachineWS::acceptConnections, washmachine);
 	std::thread commands(&washingMachineWS::passAlongCommands, washmachine);
-	//assign to local, or else the program crashes as the threads go out-of-
-	//scope.
-	washmachine->listenThread = listener;
-	washmachine->commandThread = commands;
+	listener.detach();
+	commands.detach();
 	return washmachine;
 }
 

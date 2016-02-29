@@ -2,6 +2,9 @@
 obj/
 compiled/
 
+#ignore the compiled file.
+runnable
+
 #Also, the backup files of SIM are not relevant.
 *.simp.bak
 

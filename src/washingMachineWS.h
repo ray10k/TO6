@@ -81,7 +81,6 @@ private:
 	userInteractionTask* buddy;
 	readBlockingQueue<std::string> queuedCommands;
 	std::set<socketConnection*,scPointerComp> liveConnections;
-	std::thread listenThread,commandThread;
 };
 
 #endif
