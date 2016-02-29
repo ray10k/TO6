@@ -53,10 +53,16 @@ void washingMachineWS::acceptConnections(){
 	
 	while (1==1){
 		try{
+#ifdef DEBUG
+			cout << "waiting for connection";
+#endif
 			TCPSocket * sock = servSock.accept();
 			WebSocket * wSock = new WebSocket(sock);
 			socketConnection * actual = new socketConnection(wSock,this);
 			this->liveConnections.insert(actual);
+#ifdef DEBUG
+			cout << "connection received.";
+#endif
 		} catch(SocketException &e) {
 			cerr << e.what() << endl;
 		}

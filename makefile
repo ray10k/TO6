@@ -5,7 +5,7 @@ o:=$(cpp:.cpp=.o)
 
 # compiler.
 compile := g++
-comFlag := -std=c++11 -Wall -c
+comFlag := -std=c++11 -Wall -DDEBUG -c
 comLink := -lstdc++ -lpthread -lcrypto
 
 #implicit rule to make .cpp files into object files.
