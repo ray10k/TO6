@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- Main v1.0 -->
+<html>
+	<head>
+		<title> Main </title>
+		<script src="myscript.js"> </script>
+		<link rel="stylesheet" type="text/css" href="Layout.css" />
+	</head>
+	
+	<body onload="WebSocketConnect()">	
+		<table class="logobar">
+		<tr>
+			<td>
+				<div id="MainTop">
+					<button id="LogoutButton" onclick = "Logout('Login.html', 'Main')" >Logout </button>
+					<button id="MUPButton" onclick = "Load('ManageUserProfile.html')" >Manage User Profile </button>
+				</div>
+			</td>
+			<td>
+				<img src="soviet_wascha.png" width="240" height="150" id="logo" class="right"/>
+				<div class="center">WasMachine</div>
+			</td>
+		</tr>
+		</table>
+		
+		<div class = "BodyPart" id="Main">
+		</div>
+		
+		<div id="MainBot">
+			<label> Select Washing Cycle: </label> 
+			<select id="WashingCycleNameList"></select> <BR/>
+			<div id="MainBotButtons">
+				<button id="RunButton" onclick = "SetWashingCycleState('run')" >Run </button>
+				<button id="PauseButton" onclick = "SetWashingCycleState('pause')" >Pause </button>
+				<button id="StopButton" onclick = "SetWashingCycleState('stop')" >Stop </button>
+			</div>
+			<div id="MachineInfo">
+				
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			Login_Message();
+			LoadWashingCycleNames();
+			
+			var evt = [95,20]; 	//remove
+			onMessage(evt);		//remove
+			
+			LoadWashingCycleState();			
+		</script>
+		
+	</body>	
+</html>

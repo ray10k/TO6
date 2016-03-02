@@ -29,8 +29,8 @@ struct MachineState
 class machineStateListener
 {
 public:
-	//! Called whenever the state of the washing machine is changed.
-	virtual void stateChanged(MachineState currentState);
+	//! A function called whenever the state of the washing machine is changed.
+	virtual void stateChanged(MachineState currentState){};
 };
 
 #endif

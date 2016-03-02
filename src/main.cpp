@@ -1,18 +1,31 @@
-#include <washingCycleTask.h>
-#include <loadCycleTask.h>
-#include <machineInteractionTask.h>
-#include <displayTask.h>
+#include "washingCycleTask.h"
+#include "machineInteractionTask.h"
+#include "userInteractionTask.h"
+#include "washingMachineWS.h"
+#include <cstdlib>
+
+#define PORTNO 25565
 
 int main(int argc, char* argv[])
 {
-	machineInteractionTask MIT = new machineInteractionTask();
-    washingCycleTask WCT = new washingCycleTask(MIT);
-	loadCycleTask LCT = new loadCycleTask(WCT);
-	displayTask DT = new displayTask(WCT, LCT);
+#ifdef DEBUG
+	cout << "starting program." << std::endl;
+#endif
+	machineInteractionTask * MIT = new machineInteractionTask();
+    washingCycleTask * WCT = new washingCycleTask(*MIT);
+	userInteractionTask * UIT = new userInteractionTask(WCT);
+
+	MIT->addMachineStateListener(*WCT);
+	MIT->addMachineStateListener(*UIT);
+
+	WCT->addCycleStateListener(UIT);
 	
-	MIT.addMachineStateListener(WCT);
-	MIT.addMachineStateListener(DT);
-	
-	WCT.addCycleStateListener(DT);
+	washingMachineWS * wmws = washingMachineWS::newWebSocket(PORTNO,UIT);
+	UIT->setWebsocket(wmws);
+#ifdef DEBUG
+	cout << "setup complete, entering running phase." << std::endl;
+#endif
+	RTOS::run();
+
     return 0;
 }

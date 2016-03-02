@@ -1,5 +1,5 @@
 //**************************************
-//! Class responsible for communication between the device and the physical 
+//! Class responsible for communication between the device and the physical
 //! washing machine.
 //! \authors
 //! 	- Wilco Louwerse
@@ -18,9 +18,11 @@ public:
 	//! Creates an empty uart object and opens the connection.
 	uart(void);
 	//! Writes the contents of the given vector to the UART.
-	void write(std::vector<std::uint8_t> request);
+	void write(std::vector<std::uint8_t>* request);
+	//! Writes the given two bytes to the UART.
+	void write(std::uint16_t request);
 	//! reads one byte from the UART.
 	std::uint8_t read(void);
 private:
 	LibSerial ls;
-}
+};

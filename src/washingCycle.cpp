@@ -1,27 +1,36 @@
 #include "washingCycle.h"
 
-washingCycle::washingCycle(const string& name):
+washingCycle::washingCycle(cycleID& ID):
+	myID(ID),
 	steps(),
-	current(0),
-	cycleName(name)
+	current(0)
 {}
 
+const cycleStep washingCycle::last = cycleStep();
+
+washingCycle::washingCycle():
+	myID("DEFAULT","DEFAULT"),
+	steps(),
+	current(0)
+{
+	steps.push_back(last);
+}
+
 const cycleStep& washingCycle::next(){
-	
 	if (this->hasNext()) {
 		++current;
 		return steps[current];
 	}else{
-		return end;
+		return last;
 	}
 }
 
-const cycleStep& washingCycle::current() const{
+const cycleStep& washingCycle::getCurrent() const{
 	return steps[current];
 }
 
 bool washingCycle::hasNext() const {
-	return (current < steps.size() && !(steps[current].isLast()));
+	return (current < (int)steps.size() && !(steps[current].isFinal()));
 }
 
 void washingCycle::back() {
@@ -46,21 +55,28 @@ void washingCycle::addStep(cycleStep toAdd){
 }
 
 const std::string& washingCycle::getName() const {
-	return this->cycleName;
+	return this->myID.name;
+}
+
+const std::string& washingCycle::getUser() const {
+	return this->myID.user;
 }
 
 washingCycle& washingCycle::operator= (const washingCycle& other) {
 	if (this != &other){
 		//to copy: name, steps, current step.
-		this->cycleName = other.cycleName;
+		this->myID = other.myID;
 		this->steps = other.steps;
 		this->current = other.current;
 	}
-	return *this;	
+	return *this;
 }
 
+bool washingCycle::operator== (const cycleID& lhs) const{
+	return this->myID == lhs;
+}
 
-cycleStep::cycleStep(const string& name,
+cycleStep::cycleStep(const std::string& name,
 	unsigned short int temp,
 	unsigned short int water,
 	bool detergent,
@@ -76,7 +92,7 @@ cycleStep::cycleStep(const string& name,
 		finalStep(false)
 	{}
 
-cycleStep::cycleStep(const string& name,
+cycleStep::cycleStep(const std::string& name,
 	unsigned short int temp,
 	unsigned short int water,
 	bool detergent,
@@ -114,7 +130,7 @@ unsigned int cycleStep::getDuration() const {
 	return this->duration;
 }
 
-bool cycleStep::addDetergent() const {
+bool cycleStep::getAddDetergent() const {
 	return this->addDetergent;
 }
 
@@ -134,7 +150,7 @@ unsigned short int cycleStep::getDrumSpeed() const {
 	//speed is saved as rpm with the sign bit deciding direction,
 	//this function must only return the speed as rpm/25, to match the format
 	//expected by the device.
-	unsigned int retval = this->drumSpeed; 
+	unsigned int retval = this->drumSpeed;
 	return retval / 25;
 }
 
