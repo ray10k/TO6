@@ -185,6 +185,7 @@ void machineInteractionTask::setDoorLock(bool lock)
 	this-> machineInstructionPool.write(reqS);
 }
 
+//Function marked private, and doesn't get called at all. Still needed?
 void machineInteractionTask::getState(requestEnum request)
 {
 	RequestStruct reqS;
