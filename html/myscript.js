@@ -341,7 +341,7 @@ function LoadWashingCycle()
 	document.getElementById("WashingCycleName").value = WashingCycleName;
 	//Print("Loading WashingCycle: " + WashingCycleName + "...", "EditWashingCycle");
 	
-	FaseCount = 5; //ws.getTotalCycleSteps(WashingCycleName);
+	FaseCount = 5; 
 	for(var fase=1; fase<=FaseCount; fase++)
 	{
 		document.getElementById("Fase" + fase).style.display = "block";
@@ -399,14 +399,15 @@ function SetMainBotButtonColor()
 
 function SetWashingCycleState(State)
 {
+	
 	var WashingCycleName = document.getElementById("WashingCycleNameList").value;
 	WashingCycleState = State;
 	SetMainBotButtonColor();
-	if(state == "run")
+	if(State == "run")
 	{
 		if(LastWashingCycleState == "pause")
-		{
-			ws.send("resume");
+		{ 			
+		ws.send("resume");
 		}
 		else
 		{
