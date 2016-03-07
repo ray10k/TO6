@@ -41,20 +41,22 @@ void machineInteractionTask::main()
 		//from the ResponseStruct.
 		switch(rs.request.request)
 		{
-			case DOOR_LOCK_REQ:
+			case requestEnum::DOOR_LOCK_REQ:
 				currentState.doorLock	 	= rs.value;
 				break;
-			case WATER_VALVE_REQ:
+			case requestEnum::WATER_VALVE_REQ:
 				currentState.waterValve  	= rs.value;
 				break;
-			case SOAP_DISPENSER_REQ:
+			case requestEnum::SOAP_DISPENSER_REQ:
 				currentState.soapDispenser 	= rs.value;
 				break;
-			case PUMP_REQ:
+			case requestEnum::PUMP_REQ:
 				currentState.pump		 	= rs.value;
 				break;
-			case HEATING_UNIT_REQ:
+			case requestEnum::HEATING_UNIT_REQ:
 				currentState.heatingUnit 	= rs.value;
+				break;
+			default:
 				break;
 		}
 	}
@@ -141,9 +143,9 @@ void machineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 	setState.drumClockwise = clockwise;
 
 	RequestStruct reqS;
-	reqS.request = SET_RPM_REQ;
-	if(clockwise){reqS.command = RPM_Clockwise;}
-	else{reqS.command = RPM_counterClockwise;}
+	reqS.request = requestEnum::SET_RPM_REQ;
+	if(clockwise){reqS.command = commandEnum::RPM_Clockwise;}
+	else{reqS.command = commandEnum::RPM_counterClockwise;}
 
 	this-> machineInstructionPool.write(reqS);
 }
@@ -168,92 +170,92 @@ void machineInteractionTask::flush()
 void machineInteractionTask::setMachineState(bool start)
 {
 	RequestStruct reqS;
-	reqS.request = MACHINE_REQ;
-	if(start){ reqS.command = START_CMD; }
-	else { reqS.command = STOP_CMD; }
+	reqS.request = requestEnum::MACHINE_REQ;
+	if(start){ reqS.command = commandEnum::START_CMD; }
+	else { reqS.command = commandEnum::STOP_CMD; }
 	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::setDoorLock(bool lock)
 {
 	RequestStruct reqS;
-	reqS.request = DOOR_LOCK_REQ;
-	if(lock){ reqS.command = LOCK_CMD; }
-	else { reqS.command = UNLOCK_CMD; }
+	reqS.request = requestEnum::DOOR_LOCK_REQ;
+	if(lock){ reqS.command = commandEnum::LOCK_CMD; }
+	else { reqS.command = commandEnum::UNLOCK_CMD; }
 	this-> machineInstructionPool.write(reqS);
 }
 
-void machineInteractionTask::getState(int request)
+void machineInteractionTask::getState(requestEnum request)
 {
 	RequestStruct reqS;
 	reqS.request = request;
-	reqS.command = STATUS_CMD;
+	reqS.command = commandEnum::STATUS_CMD;
 	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::getWaterLevel()
 {
 	RequestStruct reqS;
-	reqS.request = WATER_LEVEL_REQ;
+	reqS.request = requestEnum::WATER_LEVEL_REQ;
 	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::setWaterValve(bool open)
 {
 	RequestStruct reqS;
-	reqS.request = WATER_VALVE_REQ;
-	if(open){ reqS.command = OPEN_CMD; }
-	else { reqS.command = CLOSE_CMD; }
+	reqS.request = requestEnum::WATER_VALVE_REQ;
+	if(open){ reqS.command = commandEnum::OPEN_CMD; }
+	else { reqS.command = commandEnum::CLOSE_CMD; }
 	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::setSoapDispenser(bool open)
 {
 	RequestStruct reqS;
-	reqS.request = SOAP_DISPENSER_REQ;
-	if(open){ reqS.command = OPEN_CMD; }
-	else { reqS.command = CLOSE_CMD; }
+	reqS.request = requestEnum::SOAP_DISPENSER_REQ;
+	if(open){ reqS.command = commandEnum::OPEN_CMD; }
+	else { reqS.command = commandEnum::CLOSE_CMD; }
 	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::setPump(bool on)
 {
 	RequestStruct reqS;
-	reqS.request = PUMP_REQ;
-	if(on){ reqS.command = ON_CMD; }
-	else { reqS.command = OFF_CMD; }
+	reqS.request = requestEnum::PUMP_REQ;
+	if(on){ reqS.command = commandEnum::ON_CMD; }
+	else { reqS.command = commandEnum::OFF_CMD; }
 	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::getTemperature()
 {
 	RequestStruct reqS;
-	reqS.request = TEMPERATURE_REQ;
+	reqS.request = requestEnum::TEMPERATURE_REQ;
 	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::setHeater(bool on)
 {
 	RequestStruct reqS;
-	reqS.request = HEATING_UNIT_REQ;
-	if(on){ reqS.command = ON_CMD; }
-	else { reqS.command = OFF_CMD; }
+	reqS.request = requestEnum::HEATING_UNIT_REQ;
+	if(on){ reqS.command = commandEnum::ON_CMD; }
+	else { reqS.command = commandEnum::OFF_CMD; }
 	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::getRPM()
 {
 	RequestStruct reqS;
-	reqS.request = GET_RPM_REQ;
+	reqS.request = requestEnum::GET_RPM_REQ;
 	this-> machineInstructionPool.write(reqS);
 }
 
 void machineInteractionTask::setSignalLed(bool on)
 {
 	RequestStruct reqS;
-	reqS.request = SIGNAL_LED_REQ;
-	if(on){ reqS.command = ON_CMD; }
-	else { reqS.command = OFF_CMD; }
+	reqS.request = requestEnum::SIGNAL_LED_REQ;
+	if(on){ reqS.command = commandEnum::ON_CMD; }
+	else { reqS.command = commandEnum::OFF_CMD; }
 	this-> machineInstructionPool.write(reqS);
 }
 
@@ -262,33 +264,33 @@ std::uint16_t machineInteractionTask::requestTranslate(RequestStruct reqS){
 	std::uint16_t retval = 0;
 	//Check which request byte should be send
 	switch(reqS.request){
-		case MACHINE_REQ: 			retval |= 0x01; break;
-		case DOOR_LOCK_REQ: 		retval |= 0x02; break;
-		case WATER_VALVE_REQ:		retval |= 0x03; break;
-		case SOAP_DISPENSER_REQ:	retval |= 0x04; break;
-		case PUMP_REQ: 				retval |= 0x05; break;
-		case WATER_LEVEL_REQ:		retval |= 0x06; break;
-		case HEATING_UNIT_REQ:		retval |= 0x07; break;
-		case TEMPERATURE_REQ:		retval |= 0x08; break;
-		case SET_RPM_REQ:			retval |= 0x0A; break;
-		case GET_RPM_REQ:			retval |= 0x09; break;
-		case SIGNAL_LED_REQ:		retval |= 0x0B; break;
-		default:					retval |= 0x00; break;
+		case requestEnum::MACHINE_REQ: 			retval |= 0x01; break;
+		case requestEnum::DOOR_LOCK_REQ: 		retval |= 0x02; break;
+		case requestEnum::WATER_VALVE_REQ:		retval |= 0x03; break;
+		case requestEnum::SOAP_DISPENSER_REQ:	retval |= 0x04; break;
+		case requestEnum::PUMP_REQ:				retval |= 0x05; break;
+		case requestEnum::WATER_LEVEL_REQ:		retval |= 0x06; break;
+		case requestEnum::HEATING_UNIT_REQ:		retval |= 0x07; break;
+		case requestEnum::TEMPERATURE_REQ:		retval |= 0x08; break;
+		case requestEnum::SET_RPM_REQ:			retval |= 0x0A; break;
+		case requestEnum::GET_RPM_REQ:			retval |= 0x09; break;
+		case requestEnum::SIGNAL_LED_REQ:		retval |= 0x0B; break;
+		default:								retval |= 0x00; break;
 	}
 	//Check which command byte should be send.
 	switch(reqS.command){
-		case STATUS_CMD:	retval |= (0x01) << 8; break;
-		case LOCK_CMD:		retval |= (0x40) << 8; break;
-		case UNLOCK_CMD:	retval |= (0x80) << 8; break;
-		case START_CMD:	
-		case OPEN_CMD:	
-		case ON_CMD:		retval |= (0x10) << 8; break;
-		case STOP_CMD:	
-		case CLOSE_CMD:	
-		case OFF_CMD:		retval |= (0x20) << 8; break;
-		case RPM_Clockwise: 		
+		case commandEnum::STATUS_CMD:	retval |= (0x01) << 8; break;
+		case commandEnum::LOCK_CMD:		retval |= (0x40) << 8; break;
+		case commandEnum::UNLOCK_CMD:	retval |= (0x80) << 8; break;
+		case commandEnum::START_CMD:	
+		case commandEnum::OPEN_CMD:	
+		case commandEnum::ON_CMD:		retval |= (0x10) << 8; break;
+		case commandEnum::STOP_CMD:	
+		case commandEnum::CLOSE_CMD:	
+		case commandEnum::OFF_CMD:		retval |= (0x20) << 8; break;
+		case commandEnum::RPM_Clockwise: 		
 			retval |= (setState.drumRPM | 0x80) << 8;  break;
-		case RPM_counterClockwise: 	
+		case commandEnum::RPM_counterClockwise: 	
 			retval |= (setState.drumRPM) << 8; 		break;
 	}
 
@@ -306,7 +308,7 @@ ResponseStruct machineInteractionTask::responseTranslate(
 	//Check to which request this response came from and what the returned byte means.
 	switch(reqS.request)
 	{
-		case MACHINE_REQ:
+		case requestEnum::MACHINE_REQ:
 			switch(responseByte)
 			{
 				case 0x01: resS.response = "HALTED"; 	break;
@@ -316,17 +318,21 @@ ResponseStruct machineInteractionTask::responseTranslate(
 			}
 			break;
 
-		case DOOR_LOCK_REQ: case WATER_VALVE_REQ: case SOAP_DISPENSER_REQ:
+		case requestEnum::DOOR_LOCK_REQ: 
+		case requestEnum::WATER_VALVE_REQ: 
+		case requestEnum::SOAP_DISPENSER_REQ:
 			switch(responseByte)
 			{
 				case 0x01: resS.response = "OPENED"; resS.value = 1; break;
 				case 0x02: resS.response = "CLOSED"; resS.value = 0; break;
-				case 0x04: if(reqS.request == DOOR_LOCK_REQ)
+				case 0x04: if(reqS.request == requestEnum::DOOR_LOCK_REQ)
 						  {resS.response = "LOCKED";}	break;
 			}
 			break;
 
-		case PUMP_REQ: case HEATING_UNIT_REQ: case SIGNAL_LED_REQ:
+		case requestEnum::PUMP_REQ: 
+		case requestEnum::HEATING_UNIT_REQ: 
+		case requestEnum::SIGNAL_LED_REQ:
 			switch(responseByte)
 			{
 				case 0x08: resS.response = "ON";  resS.value = 1;	break;
@@ -334,17 +340,18 @@ ResponseStruct machineInteractionTask::responseTranslate(
 			}
 			break;
 
-		case WATER_LEVEL_REQ:
+		case requestEnum::WATER_LEVEL_REQ:
 			currentState.waterLevel = responseByte; //Save read waterLevel value
 			resS.response = "Niveau in %";
 			break;
 
-		case TEMPERATURE_REQ:
+		case requestEnum::TEMPERATURE_REQ:
 			currentState.temperature = responseByte; //Save read temperature value
 			resS.response = "Temp in Graden Celcius";
 			break;
 
-		case SET_RPM_REQ: case GET_RPM_REQ:
+		case requestEnum::SET_RPM_REQ: 
+		case requestEnum::GET_RPM_REQ:
 		//What do these values mean? (COMMENT_ME)
 			if(responseByte >= (0x00|0x80) && responseByte <= (0x40|0x80))
 			{

@@ -20,7 +20,7 @@
 
 //! A enum containing all possible requests,
 //! this is used for switch statements
-enum requestEnum
+enum class requestEnum
 {
 	MACHINE_REQ,
 	DOOR_LOCK_REQ,
@@ -37,7 +37,7 @@ enum requestEnum
 
 //! A enum containing all possible request commands,
 //! this is used for switch statements
-enum commandEnum
+enum class commandEnum
 {
 	NONE_CMD,
 	STATUS_CMD,
@@ -57,8 +57,8 @@ enum commandEnum
 //! for all possible request and commands. This struct is used for sending requests through the uart.
 struct RequestStruct
 {
-	int request;
-	int command = NONE_CMD;
+	requestEnum request;
+	commandEnum command = commandEnum::NONE_CMD;
 	RequestStruct operator=(const RequestStruct& rhs){
         this->request = rhs.request;
         this->command = rhs.command;
@@ -131,7 +131,7 @@ private:
 	//! Adds to the machineInstructionPool a request to get the state of a given
 	//! request/part of the washing machine, when the pool is read this requested state
 	//! will be returned and saved as the current state of the washing machine.
-	void getState(int request);
+	void getState(requestEnum request);
 	//! Adds to the machineInstructionPool a request to get the waterLevel, when the
 	//! pool is read this value will be returned and saved as the current waterLevel.
 	void getWaterLevel();
