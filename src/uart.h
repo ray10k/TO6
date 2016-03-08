@@ -19,10 +19,13 @@ public:
 	uart(void);
 	//! Writes the contents of the given vector to the UART.
 	void write(std::vector<std::uint8_t>* request);
-	//! Writes the given two bytes to the UART.
+	//! Writes the given two bytes to the UART, low 8 bits first.
 	void write(std::uint16_t request);
 	//! reads one byte from the UART.
 	std::uint8_t read(void);
+	//! reads two bytes from the UART, with the first received 
+	//! byte in the low 8 bits.
+	std::uint16_t read(void);
 private:
 	LibSerial ls;
 };
