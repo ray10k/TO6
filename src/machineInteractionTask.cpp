@@ -10,19 +10,20 @@ machineInteractionTask::machineInteractionTask():
   listeners()
 {}
 
-void machineInteractionTask::addMachineStateListener(machineStateListener& listener)
+void machineInteractionTask::
+	addMachineStateListener(machineStateListener* listener)
 {
 	this->listeners.push_back(listener);
 }
 
 void machineInteractionTask::notifyListeners()
 {
-	std::vector<machineStateListener>::iterator listen =
+	std::vector<machineStateListener*>::iterator listen =
 	this->listeners.begin();
 
 	for(;listen != this->listeners.end(); ++listen)
 	{
-		(*listen).stateChanged(currentState);
+		(*listen)->stateChanged(currentState);
 	}
 }
 

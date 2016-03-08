@@ -15,8 +15,8 @@ int main(int argc, char* argv[])
     washingCycleTask * WCT = new washingCycleTask(*MIT);
 	userInteractionTask * UIT = new userInteractionTask(WCT);
 
-	MIT->addMachineStateListener(*WCT);
-	MIT->addMachineStateListener(*UIT);
+	MIT->addMachineStateListener(WCT);
+	MIT->addMachineStateListener(UIT);
 
 	WCT->addCycleStateListener(UIT);
 	

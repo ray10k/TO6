@@ -88,7 +88,7 @@ public:
 	machineInteractionTask();
 	//! Register a new listener that wants to get
 	//! the current state of the washing machine when updated.
-	void addMachineStateListener(machineStateListener& listener);
+	void addMachineStateListener(machineStateListener* listener);
 
 	//! Sets the wanted temperature to a given value.
 	//! (wanted temperature = the value in degrees celcius to which
@@ -166,7 +166,7 @@ private:
 	MachineState setState;
 	uart Uart;
 
-	std::vector<machineStateListener> listeners;
+	std::vector<machineStateListener*> listeners;
 };
 
 #endif
