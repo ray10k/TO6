@@ -1,7 +1,8 @@
 #include "WebsocketController.hpp"
-#include "WashInterfaceController.hpp"
+#include "WashInterfaceController.h"
 
-WebsocketController::WebsocketController(unsigned int priority, userInteractionTask* uit) :
+WebsocketController::WebsocketController(unsigned int priority, 
+	userInteractionTask* uit) :
     task{priority, "WebsocketController"},
     send{this, "send"},
     socket_write{"socket write mutex"},

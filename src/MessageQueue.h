@@ -1,14 +1,16 @@
 #pragma once
 
 #include "websocket_start.h"
-#include "Packet.hpp"
+#include "Packet.h"
 #include <queue>
 #include <algorithm>
 
 //! Regelt het ontvangen en verzenden van datapackets naar en van WebSockets.
 /*!
- * De MessageQueue is een class die datapackets ontvangt en verzendt van en naar WebSockets. Hij slaat de received packets op in een queue's
- * en andere klassen kunnen de received packets lezen. Packets die verzonden worden, worden ook in een queue opgeslagen.
+ * De MessageQueue is een class die datapackets ontvangt en verzendt van en naar
+ * WebSockets. Hij slaat de received packets op in een queue's
+ * en andere klassen kunnen de received packets lezen. Packets die verzonden 
+ * worden, worden ook in een queue opgeslagen.
  * Ook kan er worden gebroadcast.
  */
 class MessageQueue : public WebSocketListener {
@@ -17,10 +19,12 @@ public:
 	MessageQueue();
 	~MessageQueue();
 
-	//! Geeft een boolean terug die aangeeft of de messagequeue intern packets heeft die ontvangen zijn
+	//! Geeft een boolean terug die aangeeft of de messagequeue intern packets 
+	//! heeft die ontvangen zijn
 	bool contains_received_packets();
 
-	//! Leest een Packet uit de lijst van ontvangen packets en geeft deze terug. Haalt de eerste Packet uit de lijst.
+	//! Leest een Packet uit de lijst van ontvangen packets en geeft deze terug.
+	//! Haalt de eerste Packet uit de lijst.
 	Packet pop_packet();
 
 	//! Zend een packet.

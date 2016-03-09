@@ -1,21 +1,25 @@
 #pragma once
 #include <string>
 
-//! Een entity class die een datapacket opslaat, waarin de textmessage zit en de id vd socket waar deze vandaan komt
+//! Een entity class die een datapacket opslaat, waarin de textmessage zit en de
+//! id vd socket waar deze vandaan komt
 /*!
- * Packet is een entity class die een datapacket opslaat, waarin de textmessage zit en de id vd socket waar deze vandaan komt.
+ * Packet is een entity class die een datapacket opslaat, waarin de textmessage 
+ * zit en de id vd socket waar deze vandaan komt.
  * Deze wordt gebruikt om deze data door te geven via classes
  */
 class Packet {
 
     public:
 
-        //! Lege constructor van packet. De gemaakte packet is een invalid packet die niet verstuurd kan worden.
+        //! Lege constructor van packet. De gemaakte packet is een invalid 
+        //! packet die niet verstuurd kan worden.
         Packet() : msg(""), id(-2) {}
 
         //! Constructor van packet
         /*!
-         \param id_var De id van de socket waar hij heen moet worden gestuurd of vandaan komt.
+         \param id_var De id van de socket waar hij heen moet worden gestuurd of 
+         vandaan komt.
          \param msg_var Het bericht dat moet worden verstuurd of is ontvangen
          */
         Packet(int id_var, std::string msg_var) :

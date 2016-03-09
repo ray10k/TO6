@@ -7,8 +7,9 @@
 
 //! Accepteert websocket verbindingen
 /*!
- * De WebsocketAccepter accepteert websocket verbindingen en geeft deze door aan een interne MessageQueue. Andere
- * classes kunnen deze opvragen en via deze class toegang krijgen tot de datapackets die worden verstuurd.
+ * De WebsocketAccepter accepteert websocket verbindingen en geeft deze door aan
+ * een interne MessageQueue. Andere classes kunnen deze opvragen en via deze 
+ * class toegang krijgen tot de datapackets die worden verstuurd.
  */
 class WebsocketAccepter {
 

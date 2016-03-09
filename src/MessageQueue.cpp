@@ -1,4 +1,4 @@
-#include "MessageQueue.hpp"
+#include "MessageQueue.h"
 
 MessageQueue::MessageQueue() {
 }
