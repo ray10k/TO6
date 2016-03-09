@@ -13,7 +13,6 @@
 
 {type:"cycle",
  name:string,
- owner:string,
  currentStep:int,
  totalSteps:int,
  stepName:string,

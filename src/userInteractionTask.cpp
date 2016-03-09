@@ -1,4 +1,8 @@
 #include "userInteractionTask.h"
+#include "rapidjson/rapidjson.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
 
 userInteractionTask::userInteractionTask(washingCycleTask* WCT):
   RTOS::task(10,"user interaction"),
@@ -24,17 +28,85 @@ void userInteractionTask::main()
 
 		currentState = machineStatePool.read();
 		//send currentState-> websocket-> website
+		
+		rapidjson::StringBuffer buff;
+		rapidjson::Writer<rapidjson::StringBuffer> mStat(buff);
+		
+		mStat.StartObject();
+		mStat.Key("type");
+		mStat.String("machine");
+		mStat.Key("temperature");
+		mStat.Uint(currentState.temperature);
+		mStat.Key("water");
+		mStat.Uint(currentState.waterLevel);
+		mStat.Key("RPM");
+		mStat.Uint(currentState.drumRPM);
+		mStat.Key("soap");
+		mStat.Bool(currentState.soapDispenser);
+		mStat.Key("clockwise");
+		mStat.Bool(currentState.drumClockwise);
+		mStat.Key("lock");
+		mStat.Bool(currentState.doorLock);
+		mStat.Key("valve");
+		mStat.Bool(currentState.waterValve);
+		mStat.Key("pump");
+		mStat.Bool(currentState.pump);
+		mStat.Key("heater");
+		mStat.Bool(currentState.heatingUnit);	
+		mStat.Key("signal");
+		mStat.Bool(currentState.signalLed);
+		mStat.EndObject();	
+		
+		this->webcon->broadcast(buff.GetString());
+#ifdef DEBUG
+		std::cout << "mstat:" << buff.GetString() << std::endl;
+#endif
+		
+		//since the above looks kinda time consuming, let's yeild and let other
+		//tasks do some work if they need to before we continue.
+		
+		this->release();
+		
+		//rather safe than sorry...
+		
+		rapidjson::StringBuffer buffest;
+		rapidjson::Writer<rapidjson::StringBuffer> cStat(buffest);
+		
+		cStat.StartObject();
+		cStat.Key("type");
+		cStat.String("cycle");
+		cStat.Key("name");
+		cStat.String(currentCycleStep.cycleName);
+		cStat.Key("currentStep");
+		cStat.Uint(currentCycleStep.currentStep);
+		cStat.Key("totalSteps");
+		cStat.Uint(currentCycleStep.totalSteps);
+		cStat.Key("stepName");
+		cStat.String(currentCycleStep.stepName);
+		cStat.Key("state");
+		switch(currentCycleStep.state){
+			case cycleState::RUN:
+				cStat.String("run");
+				break;
+			case cycleState::PAUSE:
+				cStat.String("pause");
+				break;
+			case cycleState::STOP:
+				cStat.String("stop");
+				break;
+		}
+		cStat.EndObject();
+		
+		this->webcon->broadcast(buffest.GetString());
+#ifdef DEBUG
+		std::cout << "cstat:" << buffest.GetString() << std::endl;
+#endif
 	}
 }
 
 void userInteractionTask::stateChanged(MachineState currentState)
 {
 	this->machineStatePool.write(currentState);
-	if (this->webcon != nullptr){
-		//TODO: parse the currentState to JSON, and send it along in a broadcast
-		
-		//this->mySock->updateMachineState(currentState);
-	}
 }
 
 void userInteractionTask::cycleStateChanged(
@@ -43,6 +115,7 @@ void userInteractionTask::cycleStateChanged(
 		const std::string& cycleName,
 		const std::string& stepName)
 {
+	
 	CycleStep sendStep =
 	{
 		(int)totalSteps,
