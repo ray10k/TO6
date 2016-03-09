@@ -1,7 +1,6 @@
 #include "washingCycleTask.h"
 #include "machineInteractionTask.h"
 #include "userInteractionTask.h"
-#include "washingMachineWS.h"
 #include "WebsocketController.h"
 #include <cstdlib>
 
@@ -20,8 +19,8 @@ int main(int argc, char* argv[])
 
 	WCT->addCycleStateListener(UIT);
 	
-	WebsocketController Wsc = WebsocketController();
-	UIT->setWebsocketController(&Wsc);
+	WebsocketController WSC = WebsocketController();
+	UIT->setWebsocketController(&WSC);
 #ifdef DEBUG
 	cout << "setup complete, entering running phase." << std::endl;
 #endif

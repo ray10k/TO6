@@ -19,7 +19,6 @@
 #include "cycleStateListener.h"
 #include "machineStateListener.h"
 #include "washingCycleTask.h"
-#include "washingMachineWS.h"
 #include "Packet.h"
 
 #include <string>

@@ -1,5 +1,5 @@
-#include "WebsocketController.hpp"
-#include "WashInterfaceController.h"
+#include "WebsocketController.h"
+#include "userInteractionTask.h"
 
 WebsocketController::WebsocketController(unsigned int priority, 
 	userInteractionTask* uit) :
@@ -21,7 +21,7 @@ void WebsocketController::main() {
             Packet p = send.read();
             mqueue.send_packet(p);
         }
-        else {
+        else { 
 			while (mqueue.contains_received_packets()) {
 				Packet p = mqueue.pop_packet();
 				uit->packet_received(p);

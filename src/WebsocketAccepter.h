@@ -1,7 +1,7 @@
 #pragma once
-#include "pRTOS.h"
+#include "prtos/pRTOS.h"
 #include <thread>
-#include "MessageQueue.hpp"
+#include "MessageQueue.h"
 #include "websocket_start.h"
 
 
