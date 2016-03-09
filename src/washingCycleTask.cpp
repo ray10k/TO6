@@ -26,6 +26,7 @@ washingCycleTask::washingCycleTask(machineInteractionTask * machine):
 	cycleStep step5 = {"step5",20,0,false,0, 100, true}; cycle.addStep(step5);
 	addWashingCycle(cycle);
 	loadCycle(defaultID);
+	this->run();
 }
 
 void washingCycleTask::stateChanged(MachineState currentState){
@@ -43,6 +44,9 @@ void washingCycleTask::addCycleStateListener(cycleStateListener* listener){
 
 void washingCycleTask::loadCycle(const cycleID& toLoad)
 {
+#ifdef DEBUG
+	std::cout << "loadCycle called..." << std::endl;
+#endif
 	washingCycle cycle = findUserWashingCycle(toLoad);
 	if(cycle == toLoad)
 	{
