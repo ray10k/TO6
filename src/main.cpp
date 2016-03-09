@@ -2,9 +2,9 @@
 #include "machineInteractionTask.h"
 #include "userInteractionTask.h"
 #include "washingMachineWS.h"
+#include "WebsocketController.h"
 #include <cstdlib>
 
-#define PORTNO 25565
 
 int main(int argc, char* argv[])
 {
@@ -20,8 +20,8 @@ int main(int argc, char* argv[])
 
 	WCT->addCycleStateListener(UIT);
 	
-	washingMachineWS * wmws = washingMachineWS::newWebSocket(PORTNO,UIT);
-	UIT->setWebsocket(wmws);
+	WebsocketController Wsc = WebsocketController();
+	UIT->setWebsocketController(&Wsc);
 #ifdef DEBUG
 	cout << "setup complete, entering running phase." << std::endl;
 #endif

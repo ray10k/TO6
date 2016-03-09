@@ -20,6 +20,7 @@
 #include "machineStateListener.h"
 #include "washingCycleTask.h"
 #include "washingMachineWS.h"
+#include "Packet.h"
 
 #include <string>
 #include <vector>
@@ -103,6 +104,8 @@ public:
 	void changeCurrentUserPassword(std::string password);
 	//! Gives the task access to the outside world.
 	void setWebsocket(washingMachineWS* out);
+	//! Receives a packet.
+	void packet_received(Packet p);
 
 protected:
 		//because the Task interface demands it, and because this task needs to do
@@ -124,7 +127,10 @@ private:
 	std::vector<User> users;
 	washingCycleTask WCT;
 	washingMachineWS* mySock;
+	WebsocketController* webcon;
+	
 	bool loggedIn = false;
+	
 };
 
 
