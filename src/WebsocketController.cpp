@@ -3,7 +3,7 @@
 
 WebsocketController::WebsocketController(unsigned int priority, 
 	userInteractionTask* uit) :
-    task{priority, "WebsocketController"},
+    task{100, "WebsocketController"},
     send{this, "send"},
     socket_write{"socket write mutex"},
     poll_clock{ this, 100 MS, "poll"},

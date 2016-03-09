@@ -21,11 +21,9 @@ class WebsocketController : public RTOS::task {
     public:
 		//! Constructor
 		/*!
-		 \param priority is een integer om de prioriteit van de RTOS task te 
-		 zetten
 		 \param wic referentie naar de WashInterfaceController
 		 */
-        WebsocketController( unsigned int priority, userInteractionTask* uit);
+        WebsocketController( userInteractionTask* uit);
 
 		//! Zend een bericht naar de socket met het gegeven id
 		/*!
