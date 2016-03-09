@@ -44,6 +44,9 @@ void washingCycleTask::loadCycle(const cycleID& toLoad)
 	washingCycle cycle = findUserWashingCycle(toLoad);
 	if(cycle == toLoad)
 	{
+#ifdef DEBUG
+		std::cout << "loading cycle " << toLoad.name << std::endl;
+#endif
 		this->CycleFlag.set();
 		this->newCyclePool.write(cycle);
 	}
@@ -193,6 +196,7 @@ void washingCycleTask::main(){
 		state = cycleState::RUN;
 
 		this->wait(CycleFlag);
+		this->machine->setMachineState(true);
 		ongoing = newCyclePool.read();
 		currentStep = ongoing.getCurrent();
 
