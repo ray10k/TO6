@@ -9,7 +9,7 @@ using namespace std;
 
 class WebSocketException : public std::runtime_error {
 public:
-
+ 
   WebSocketException(const std::string &message) throw();
   WebSocketException(const std::string &message, const std::string &detail) throw();
 };
@@ -31,37 +31,28 @@ public:
 	void setListener(WebSocketListener*);
 	void sendTextMessage(const string &message) throw (WebSocketException, SocketException);
 	string getForeignAddress() { return sock->getForeignAddress().getAddress(); }
-    void processFrame() throw(WebSocketException, SocketException);
-    void handlePerform() ;
-    bool getClosed();
 
 private:
 	TCPSocket* sock;
 	thread* thr;
 	WebSocketListener* theListener = NULL;
-	char* data;
+	char* data;	
 	int datalen;
+	bool closed;
 	bool closing;
 	void performHandshake() throw(WebSocketException, SocketException);
-    bool closed;
-
+	void processFrame() throw(WebSocketException, SocketException);
+	void handleConnection() ;
 	void sendClose(const char*, size_t) throw (SocketException);
-	void sendPong(const char*, size_t) throw (SocketException);
-
-/*
-    string getFileName(string regel);
-    bool getConnection(string regel);
-    string getContentType(string &fileName);
-    void readAndWriteResponse(TCPSocket *sock);
-*/
+	void sendPong(const char*, size_t) throw (SocketException);	
+	
 };
 
 class WebSocketListener
 {
 public:
-    string username = "Admin";
 	virtual void onTextMessage(const string& s, WebSocket* ws) = 0;
-	virtual void onClose(WebSocket* ws) = 0;
+	virtual void onClose(WebSocket* ws) = 0;	
 };
 
 
