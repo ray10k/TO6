@@ -191,3 +191,11 @@ void userInteractionTask::changeCurrentUserPassword(std::string password)
 void userInteractionTask::setWebsocket(washingMachineWS * out){
 	this->mySock = out;
 }
+
+void packet_received(Packet p){
+	std::cout <<  p.get_message() << std::endl;
+}
+
+void setWebsocketController(WebsocketController* wsc){
+	webcon = wsc;
+}
