@@ -11,13 +11,19 @@ function onMessage (evt)
 {
 	var innerHtml = document.getElementById('MachineInfo').innerHTML = "<p></p>";
 	var obj = JSON.parse(evt.data);
-	innerHtml += "Temperatuur: " + obj.temperature;
-	innerHtml += "<BR/>Water Level: " + obj.waterLevel;
-	innerHtml += "<BR/>Drum: " + obj.drumSpeed;
+	
+	innerHtml += "Current Cycle Name: " + obj.name;
+	innerHtml += "<BR/>Progress: " + obj.currentStep + "/" + obj.totalStep + " Steps";
+	innerHtml += "<BR/>Current Step Name: " + obj.stepName;
+	innerHtml += "<BR/>Cycle State: " + obj.state;
+	
+	innerHtml += "<BR/><BR/>Temperatuur: " + obj.temperature;
+	innerHtml += "<BR/>Water Level: " + obj.water;
+	innerHtml += "<BR/>Drum: " + obj.RPM;
 	innerHtml += "<BR/>Drum Clockwise: " + obj.clockwise;
 	innerHtml += "<BR/>Soap: " + obj.soap;
 	innerHtml += "<BR/>Door Lock: " + obj.lock;
-	innerHtml += "<BR/>Water Valve: " + obj.water;
+	innerHtml += "<BR/>Water Valve: " + obj.valve;
 	innerHtml += "<BR/>Pump: " + obj.pump;
 	innerHtml += "<BR/>Heater: " + obj.heater;
 	innerHtml += "<BR/>Signal: " + obj.signal;
@@ -412,17 +418,20 @@ function SetWashingCycleState(State)
 	if(State == "run")
 	{
 		if(LastWashingCycleState == "pause")
-		{ 			
-		ws.send("resume");
+		{ 	
+			var message = {type:"command",command:"resume"};
+			ws.send(JSON.stringify(message));
 		}
 		else
 		{
-			ws.send(State + " " + WashingCycleName + " " + "Admin");
+			var message = {type:"command",command:"start",user:"Admin",cycle:WashingCycleName};
+			ws.send(JSON.stringify(message));
 		}
 	}
 	else
 	{
-		ws.send(State);	
+		var message = {type:"command",command:State};
+		ws.send(JSON.stringify(message));
 	}
 	LastWashingCycleState = State;
 }

@@ -16,11 +16,11 @@
  currentStep:int,
  totalSteps:int,
  stepName:string,
- status:string}
+ state:string}
 
 ==to Washing machine==
 {type:"command",
- command:"stop"|"pause"}
+ command:"stop"|"pause"|"resume"}
 
 {type:"command",
  command:"start",
