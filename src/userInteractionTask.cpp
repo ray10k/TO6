@@ -20,16 +20,9 @@ userInteractionTask::userInteractionTask(washingCycleTask* WCT):
 void userInteractionTask::main()
 {
 	for(;;)
-	{
-#ifdef DEBUG
-		std::cout << "UIT running..." << std::endl;
-#endif
-		
+	{	
 		this->wait(this->stateUpdateFlag);
-		
-#ifdef DEBUG
-		std::cout << "UIT wait passed. " << std::endl;
-#endif
+
 
 		currentCycleStep = cycleStatePool.read();
 		//send currentStep-> websocket-> website
@@ -66,9 +59,6 @@ void userInteractionTask::main()
 		mStat.EndObject();	
 		
 		this->webcon->broadcast(buff.GetString());
-#ifdef DEBUG
-		std::cout << "mstat:" << buff.GetString() << std::endl;
-#endif
 		
 		//since the above looks kinda time consuming, let's yeild and let other
 		//tasks do some work if they need to before we continue.
@@ -108,9 +98,6 @@ void userInteractionTask::main()
 		cStat.EndObject();
 		
 		this->webcon->broadcast(buffest.GetString());
-#ifdef DEBUG
-		std::cout << "cstat:" << buffest.GetString() << std::endl;
-#endif
 	}
 }
 
