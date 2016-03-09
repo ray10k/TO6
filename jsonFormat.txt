@@ -17,7 +17,7 @@
  currentStep:int,
  totalSteps:int,
  stepName:string,
- status:string}
+ state:string}
 
 ==to Washing machine==
 {type:"command",
