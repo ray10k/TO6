@@ -18,6 +18,7 @@
 #include "cycleState.h"
 #include "cycleStateListener.h"
 #include "machineStateListener.h"
+#include "WebsocketController.h"
 #include "washingCycleTask.h"
 #include "Packet.h"
 
@@ -46,14 +47,12 @@ struct CycleStep
 								//and wasn't forced to stop.
 };
 
-class washingMachineWS;
-
 class userInteractionTask : public RTOS::task, public machineStateListener,
 						   public cycleStateListener
 {
 public:
 	//! Constructor.
-	userInteractionTask(washingCycleTask* WCT);
+	userInteractionTask();
 	//! An override function from machineStateListener.h.
 	void stateChanged(MachineState currentState) override;
 	//! An override function from cycleStateListener.h.
@@ -102,7 +101,7 @@ public:
 	//! to a new given password
 	void changeCurrentUserPassword(std::string password);
 	//! Gives the task access to the outside world.
-	void setWebsocket(washingMachineWS* out);
+	void setWebsocket(WebsocketController* out);
 	//! Receives a packet.
 	void packet_received(Packet p);
 
@@ -125,7 +124,6 @@ private:
 	User currentUser = {"", ""};
 	std::vector<User> users;
 	washingCycleTask WCT;
-	washingMachineWS* mySock;
 	WebsocketController* webcon;
 	
 	bool loggedIn = false;

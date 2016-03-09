@@ -1,11 +1,11 @@
 #pragma once
-#include "pRTOS.h"
-#include "websocket_start.h"
-#include "Packet.hpp"
-#include "WebsocketAccepter.hpp"
+#include "prtos/pRTOS.h"
+#include "webserver/websocket.h"
+#include "Packet.h"
+#include "WebsocketAccepter.h"
 #include <string>
 
-class WashInterfaceController;
+class userInteractionTask;
 
 //! Regelt de verbinding tussen het programma en de websockets.
 /*!
