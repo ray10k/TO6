@@ -1,0 +1,30 @@
+==to webinterface==
+{type:"machine",
+ temperature:int,
+ water:int,
+ RPM:int,
+ soap:bool,
+ clockwise:bool,
+ lock:bool,
+ valve:bool,
+ pump:bool,
+ heater:bool,
+ signal:bool}
+
+{type:"cycle",
+ name:string,
+ owner:string,
+ currentStep:int,
+ totalSteps:int,
+ stepName:string,
+ status:string}
+
+==to Washing machine==
+{type:"command",
+ command:"stop"|"pause"}
+
+{type:"command",
+ command:"start",
+ user:string,
+ cycle:string}
+
