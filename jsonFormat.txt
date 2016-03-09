@@ -20,7 +20,7 @@
 
 ==to Washing machine==
 {type:"command",
- command:"stop"|"pause"}
+ command:"stop"|"pause"|"resume"}
 
 {type:"command",
  command:"start",

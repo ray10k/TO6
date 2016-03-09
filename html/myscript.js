@@ -13,7 +13,6 @@ function onMessage (evt)
 	var obj = JSON.parse(evt.data);
 	
 	innerHtml += "Current Cycle Name: " + obj.name;
-	innerHtml += "<BR/>Cycle Owner: " + obj.owner;
 	innerHtml += "<BR/>Progress: " + obj.currentStep + "/" + obj.totalStep + " Steps";
 	innerHtml += "<BR/>Current Step Name: " + obj.stepName;
 	innerHtml += "<BR/>Cycle State: " + obj.state;
@@ -419,17 +418,20 @@ function SetWashingCycleState(State)
 	if(State == "run")
 	{
 		if(LastWashingCycleState == "pause")
-		{ 			
-		ws.send("resume");
+		{ 	
+			var message = {type:"command",command:"resume"};
+			ws.send(JSON.stringify(message));
 		}
 		else
 		{
-			ws.send(State + " " + WashingCycleName + " " + "Admin");
+			var message = {type:"command",command:"start",user:"Admin",cycle:WashingCycleName};
+			ws.send(JSON.stringify(message));
 		}
 	}
 	else
 	{
-		ws.send(State);	
+		var message = {type:"command",command:State};
+		ws.send(JSON.stringify(message));
 	}
 	LastWashingCycleState = State;
 }
