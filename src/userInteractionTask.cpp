@@ -99,9 +99,11 @@ void userInteractionTask::main()
 			case cycleState::PAUSE:
 				cStat.String("pause");
 				break;
+			default:
 			case cycleState::STOP:
 				cStat.String("stop");
 				break;
+			
 		}
 		cStat.EndObject();
 		
