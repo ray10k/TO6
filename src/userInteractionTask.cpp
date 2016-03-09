@@ -115,6 +115,7 @@ void userInteractionTask::main()
 void userInteractionTask::stateChanged(MachineState currentState)
 {
 	this->machineStatePool.write(currentState);
+	this->stateUpdateFlag.set();
 }
 
 void userInteractionTask::cycleStateChanged(
