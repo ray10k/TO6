@@ -76,13 +76,13 @@ void userInteractionTask::main()
 		cStat.Key("type");
 		cStat.String("cycle");
 		cStat.Key("name");
-		cStat.String(currentCycleStep.cycleName);
+		cStat.String(currentCycleStep.cycleName.c_str());
 		cStat.Key("currentStep");
 		cStat.Uint(currentCycleStep.currentStep);
 		cStat.Key("totalSteps");
 		cStat.Uint(currentCycleStep.totalSteps);
 		cStat.Key("stepName");
-		cStat.String(currentCycleStep.stepName);
+		cStat.String(currentCycleStep.stepName.c_str());
 		cStat.Key("state");
 		switch(currentCycleStep.state){
 			case cycleState::RUN:
