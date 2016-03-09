@@ -1,4 +1,5 @@
 #include "machineInteractionTask.h"
+#include <iostream>
 
 machineInteractionTask::machineInteractionTask():
   RTOS::task(5,"machine interaction"),
@@ -37,14 +38,15 @@ void machineInteractionTask::main()
 #endif
 		this->wait(this->clock);
 		update();
-		
-#ifdef DEBUG
-		std::cout << "MIT past first wait. " << std::endl;
-#endif
 
 		//Read the pool and execute request through the uart,
 		//returns the response in the ResponseStruct.
 		ResponseStruct rs = readPool();
+		
+#ifdef DEBUG
+		std::cout << "MIT doing stuff with: " << rs.request.command <<std::endl;
+#endif
+
 		//Updates the currentState of the machine with the new read value
 		//from the ResponseStruct.
 		switch(rs.request.request)
@@ -124,7 +126,11 @@ ResponseStruct machineInteractionTask::readPool()
 	this->sleep(10);
 
 	//Read the response byte of the request.
-	std::uint8_t responseByte = Uart.read();
+	std::uint16_t responseByte = Uart.read_16();
+#ifdef DEBUG
+	std::cout << "request:" << std::hex << TranslatedRequest <<
+	std::endl <<"response:" << responseByte << std::dec << std::endl;
+#endif
 	
 	//Translate the response from byte to words and return it.
 	return responseTranslate(responseByte, request);
