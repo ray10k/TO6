@@ -6,8 +6,8 @@ userInteractionTask::userInteractionTask(washingCycleTask* WCT):
   stateUpdateFlag (this,"stateUpdateFlag"),
   cycleStatePool ("cycleStatePool"),
   users(),
-  WCT(*WCT),
-  mySock()
+  WCT(WCT),
+  webcon(nullptr)
 {
 	addUser({"Admin", "0"});
 	currentCycleStep = {-1,-1,cycleState::STOP," ", " ", false};
@@ -30,8 +30,10 @@ void userInteractionTask::main()
 void userInteractionTask::stateChanged(MachineState currentState)
 {
 	this->machineStatePool.write(currentState);
-	if (this->mySock != nullptr){
-		this->mySock->updateMachineState(currentState);
+	if (this->webcon != nullptr){
+		//TODO: parse the currentState to JSON, and send it along in a broadcast
+		
+		//this->mySock->updateMachineState(currentState);
 	}
 }
 
@@ -91,9 +93,9 @@ void userInteractionTask::setCycleState(cycleState state)
 {
 	switch(state)
 	{
-		case cycleState::RUN:	WCT.run(); 		break;
-		case cycleState::PAUSE: WCT.pause(); 	break;
-		case cycleState::STOP:  WCT.stop();		break;
+		case cycleState::RUN:	WCT->run();			break;
+		case cycleState::PAUSE: WCT->pause();		break;
+		case cycleState::STOP:  WCT->stop();		break;
 	}
 }
 
@@ -110,12 +112,12 @@ void userInteractionTask::loadCycle(std::string userName, std::string washingCyc
 
 std::vector<std::string> userInteractionTask::loadWashingCycleNames()
 {
-	return WCT.getWashingCycleNames(currentUser.userName);
+	return WCT->getWashingCycleNames(currentUser.userName);
 }
 
 int userInteractionTask::getTotalCycleSteps(cycleID id)
 {
-	return WCT.getTotalCycleSteps(id);
+	return WCT->getTotalCycleSteps(id);
 }
 
 void userInteractionTask::addUser(User user)
@@ -188,14 +190,10 @@ void userInteractionTask::changeCurrentUserPassword(std::string password)
 	}
 }
 
-void userInteractionTask::setWebsocket(washingMachineWS * out){
-	this->mySock = out;
+void userInteractionTask::setWebsocket(WebsocketController* out){
+	this->webcon = out;
 }
 
 void packet_received(Packet p){
 	std::cout <<  p.get_message() << std::endl;
-}
-
-void setWebsocketController(WebsocketController* wsc){
-	webcon = wsc;
 }

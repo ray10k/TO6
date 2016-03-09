@@ -28,7 +28,7 @@ struct UserWashingCycle
 class washingCycleTask : public RTOS::task, public machineStateListener
 {
 public:
-	washingCycleTask(machineInteractionTask& machine);
+	washingCycleTask(machineInteractionTask * machine);
 	//! As defined by the interface machineStateListener.
 	void stateChanged(MachineState currentState) override;
 	//! Registers a new listener for events describing the progress through the
@@ -86,7 +86,7 @@ private:
 	cycleStep currentStep;
 	cycleState state;
 
-	machineInteractionTask machine;
+	machineInteractionTask * machine;
 
 	RTOS::flag CycleFlag;
 	RTOS::flag runFlag;

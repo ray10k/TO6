@@ -1,6 +1,6 @@
 #include "washingCycleTask.h"
 
-washingCycleTask::washingCycleTask(machineInteractionTask& machine):
+washingCycleTask::washingCycleTask(machineInteractionTask * machine):
 	RTOS::task(15,"washing cycle"),
 	ongoing(),
 	currentStep(),
@@ -153,10 +153,10 @@ void washingCycleTask::notifyListeners(){
 }
 
 void washingCycleTask::toStandBy(){
-	this->machine.setTemperature(20);
-	this->machine.setWaterLevel(0);
-	this->machine.setRPM(false,0);
-	this->machine.setDetergent(false);
+	this->machine->setTemperature(20);
+	this->machine->setWaterLevel(0);
+	this->machine->setRPM(false,0);
+	this->machine->setDetergent(false);
 }
 
 void washingCycleTask::updateMachine(){
@@ -166,23 +166,23 @@ void washingCycleTask::updateMachine(){
 	}
 
 	if (this->currentStep.mustFlush()){
-		this->machine.flush();
+		this->machine->flush();
 	}else{
-		this->machine.setTemperature(
+		this->machine->setTemperature(
 			this->currentStep.getTemperature());
 
-		this->machine.setWaterLevel(
+		this->machine->setWaterLevel(
 			this->currentStep.getWaterLevel());
 	}
 
-	this->machine.setRPM(
+	this->machine->setRPM(
 		this->currentStep.isDrumClockwise(),
 		this->currentStep.getDrumSpeed());
 
-	this->machine.setDetergent(
+	this->machine->setDetergent(
 		this->currentStep.getAddDetergent());
 
-	this->machine.setMachineState(true);
+	this->machine->setMachineState(true);
 }
 
 void washingCycleTask::main(){

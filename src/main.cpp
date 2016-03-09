@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 	cout << "starting program." << std::endl;
 #endif
 	machineInteractionTask * MIT = new machineInteractionTask();
-    washingCycleTask * WCT = new washingCycleTask(*MIT);
+    washingCycleTask * WCT = new washingCycleTask(MIT);
 	userInteractionTask * UIT = new userInteractionTask();
 
 	MIT->addMachineStateListener(WCT);

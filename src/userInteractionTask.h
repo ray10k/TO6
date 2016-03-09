@@ -52,7 +52,7 @@ class userInteractionTask : public RTOS::task, public machineStateListener,
 {
 public:
 	//! Constructor.
-	userInteractionTask();
+	userInteractionTask(washingCycleTask* WCT);
 	//! An override function from machineStateListener.h.
 	void stateChanged(MachineState currentState) override;
 	//! An override function from cycleStateListener.h.
@@ -123,7 +123,7 @@ private:
 	CycleStep currentCycleStep;
 	User currentUser = {"", ""};
 	std::vector<User> users;
-	washingCycleTask WCT;
+	washingCycleTask* WCT;
 	WebsocketController* webcon;
 	
 	bool loggedIn = false;
