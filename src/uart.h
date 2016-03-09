@@ -25,7 +25,7 @@ public:
 	std::uint8_t read(void);
 	//! reads two bytes from the UART, with the first received 
 	//! byte in the low 8 bits.
-	std::uint16_t read(void);
+	std::uint16_t read_16(void);
 private:
 	LibSerial ls;
 };
