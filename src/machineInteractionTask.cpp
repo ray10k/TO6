@@ -294,6 +294,8 @@ std::uint16_t machineInteractionTask::requestTranslate(RequestStruct reqS){
 			retval |= (setState.drumRPM | 0x80) << 8;  break;
 		case commandEnum::RPM_counterClockwise: 	
 			retval |= (setState.drumRPM) << 8; 		break;
+		default:
+			break;
 	}
 
 	return retval;
