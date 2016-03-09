@@ -42,10 +42,6 @@ void machineInteractionTask::main()
 		//Read the pool and execute request through the uart,
 		//returns the response in the ResponseStruct.
 		ResponseStruct rs = readPool();
-		
-#ifdef DEBUG
-		std::cout << "MIT doing stuff with: " << rs.request.command <<std::endl;
-#endif
 
 		//Updates the currentState of the machine with the new read value
 		//from the ResponseStruct.
