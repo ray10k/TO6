@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- CreateUserProfile v1.0 -->
+<html>
+	<head>
+		<title> Create User Profile </title>
+		<script src="myscript.js"> </script>
+		<link rel="stylesheet" type="text/css" href="Layout.css" />
+	</head>
+	
+	<body onload="WebSocketConnect()">	
+		<table class="logobar">
+		<tr>
+			<td >
+				<div id="CreateUserProfileTop">
+					<button onclick = "Load('ManageUserProfile.html')" >Cancel </button> <BR/>
+				</div>
+			</td>
+			<td>
+				<img src="soviet_wascha.png" width="240" height="150" class="right"/>
+				<div class="center">WasMachine</div>
+			</td>
+		</tr>
+		</table>	
+		
+		<div class = "BodyPart" id="CreateUserProfile">
+			<label>Username:</label> <input type = "text" id = "ProfileUsername" /> <BR/>
+			<label>Password:</label> <input type = "password" id = "ProfilePassword"/> <BR/>
+			<label>Repeat Password:</label> <input type = "password" id = "ProfileRepeatPassword"/> <BR/>
+			<button onclick = "CreateUserProfile('Main.html')" >Create Profile </button> <BR/>
+		</div>
+	</body>
+</html>
