@@ -52,9 +52,10 @@ istream & getline(istream & in, string & out) {
 ///////////////////////////////////////////////////////////////////////////////
 
 
-WebSocket::WebSocket(TCPSocket* sock) : data(NULL), datalen(0), closed(false), closing(false)
+WebSocket::WebSocket(int id, TCPSocket* sock) : data(NULL), datalen(0), closed(false), closing(false), id(id)
 {
 	this->sock = sock;
+	performHandshake();
 	thr = new thread(&WebSocket::handleConnection, this);
 	thr->detach();
 }
@@ -88,7 +89,28 @@ void WebSocket::setListener(WebSocketListener* l){
 }
 
 void WebSocket::sendTextMessage(const string &message) throw (WebSocketException, SocketException){
-	throw WebSocketException("de methode sendTextMessage is nog niet geimplementeerd");
+	if (closing || closed) {
+		throw WebSocketException("The socket is already closed");
+	}
+
+	size_t len = message.size();
+	char* frame;
+
+	frame = new char[len + (len > 125 ? 4 : 2)];
+	frame[0] = 0x81;
+	frame[1] = len > 125 ? 126 : len;
+	if (len > 125) {
+		frame[2] = (len >> 8) & 0xFF;
+		frame[3] = len & 0xFF;
+	}
+
+	char offset = len > 125 ? 4 : 2;
+
+	memcpy(frame + offset, message.c_str(), len);
+
+	sock->send(frame, len + offset);
+
+	delete[] frame;
 
 }
 
@@ -125,7 +147,6 @@ void WebSocket::performHandshake() throw (WebSocketException, SocketException ){
 	string websocketkey;
 	bool bad = false;
 	if(getline(stream, regel)){
-		std::cout << regel << endl;
 		if(regel.compare(0,3,"GET") != 0){
 			bad = true;
 		}
@@ -133,7 +154,6 @@ void WebSocket::performHandshake() throw (WebSocketException, SocketException ){
 	else
 		throw WebSocketException("connection closed");
 	while(getline(stream, regel)) {
-		std::cout << regel << endl;
 		if(regel.empty())
 			break;
 		if(regel.compare(0,21,"Sec-WebSocket-Version") == 0)
@@ -238,7 +258,10 @@ void WebSocket::processFrame() throw(WebSocketException, SocketException){
 		case 0x1: {
 			cout << "textframe" << endl;
 			string s (data, datalen);
-			if (theListener != NULL) theListener->onTextMessage(s, this);
+			if (theListener != NULL) {
+				std::cout << "not null" << endl;
+				theListener->onTextMessage(s, this);
+			}
 			break;
 		}
 		case 0x2: {
@@ -279,7 +302,6 @@ void WebSocket::handleConnection() {
 	cout << "connection to " << sock->getForeignAddress().getAddress() << ":" <<
 		sock->getForeignAddress().getPort() << " opened" << endl;
 	try{
-		performHandshake();
 		while(!closed){
 			processFrame();
 		}
@@ -294,4 +316,8 @@ void WebSocket::handleConnection() {
 	cout << "connection to " << sock->getForeignAddress().getAddress() << ":" <<
 		sock->getForeignAddress().getPort() << " closed" << endl;
 	if(theListener != NULL) theListener->onClose(this);
+}
+
+bool WebSocket::operator==(WebSocket &rhs) {
+	return id == rhs.id;
 }

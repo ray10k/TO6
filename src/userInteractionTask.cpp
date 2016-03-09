@@ -194,6 +194,6 @@ void userInteractionTask::setWebsocket(WebsocketController* out){
 	this->webcon = out;
 }
 
-void packet_received(Packet p){
+void userInteractionTask::packet_received(Packet& p){
 	std::cout <<  p.get_message() << std::endl;
 }

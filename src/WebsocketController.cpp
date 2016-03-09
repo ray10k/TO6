@@ -1,8 +1,7 @@
 #include "WebsocketController.h"
 #include "userInteractionTask.h"
 
-WebsocketController::WebsocketController(unsigned int priority, 
-	userInteractionTask* uit) :
+WebsocketController::WebsocketController(userInteractionTask* uit) :
     task{100, "WebsocketController"},
     send{this, "send"},
     socket_write{"socket write mutex"},

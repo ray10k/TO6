@@ -103,7 +103,7 @@ public:
 	//! Gives the task access to the outside world.
 	void setWebsocket(WebsocketController* out);
 	//! Receives a packet.
-	void packet_received(Packet p);
+	void packet_received(Packet &p);
 
 protected:
 		//because the Task interface demands it, and because this task needs to do

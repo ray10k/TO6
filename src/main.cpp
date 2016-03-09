@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 #endif
 	machineInteractionTask * MIT = new machineInteractionTask();
     washingCycleTask * WCT = new washingCycleTask(MIT);
-	userInteractionTask * UIT = new userInteractionTask();
+	userInteractionTask * UIT = new userInteractionTask(WCT);
 
 	MIT->addMachineStateListener(WCT);
 	MIT->addMachineStateListener(UIT);
