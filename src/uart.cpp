@@ -28,3 +28,11 @@ std::uint8_t uart::read(void)
 	ls.flush();
 	return response;
 }
+
+std::uint16_t uart::read(void)
+{
+	std::uint16_t retval = 0;
+	std::uint8_t temp[2];
+	ls.read(&temp,2);
+	retval = temp[0] | (temp[1]<<8);
+}
