@@ -33,7 +33,7 @@ void washingCycleTask::stateChanged(MachineState currentState){
 	toWrite.temperature = currentState.temperature;
 	toWrite.waterLevel = currentState.waterLevel;
 	this->machineStatePool.write(toWrite);
-	this->stateUpdateFlag.set();
+	this->updateFlag.set();
 	
 }
 
