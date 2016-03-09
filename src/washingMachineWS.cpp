@@ -90,8 +90,8 @@ void washingMachineWS::passAlongCommands(){
 		if (this->machineUpdated){
 			this->machineUpdated = false;
 			std::stringstream builder;
-			builder << "{temperature:"<<this->latest.temperature<<",water:"
-				<<this->latest.waterLevel<<",drum:"<<this->latest.drumRPM;
+			builder << "{temperature"<<this->latest.temperature<<",waterLevel"
+				<<this->latest.waterLevel<<",drumSpeed"<<this->latest.drumRPM;
 			builder << ",";
 			appendBool(builder,"soap",this->latest.soapDispenser);
 			appendBool(builder,"clockwise",this->latest.drumClockwise);
@@ -99,7 +99,7 @@ void washingMachineWS::passAlongCommands(){
 			appendBool(builder,"water",this->latest.waterValve);
 			appendBool(builder,"pump",this->latest.pump);
 			appendBool(builder,"heater",this->latest.heatingUnit);
-			builder << "signal:";
+			builder << "signal";
 			this->latest.signalLed ? builder << "true}" : builder << "false}";
 			std::string message = builder.str();
 			

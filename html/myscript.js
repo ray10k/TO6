@@ -10,11 +10,17 @@ function Load(html)
 function onMessage (evt)
 {
 	var innerHtml = document.getElementById('MachineInfo').innerHTML = "<p></p>";
-	//var obj = JSON.parse(evt.data);
-	//innerHtml += "Temperatuur: " + obj[0];
-	//innerHtml += "<BR/>Water Level: " + obj[1];
-	innerHtml += "Temperatuur: " + evt[0];			//remove
-	innerHtml += "<BR/>Water Level: " + evt[1];		//remove
+	var obj = JSON.parse(evt.data);
+	innerHtml += "Temperatuur: " + obj.temperature;
+	innerHtml += "<BR/>Water Level: " + obj.waterLevel;
+	innerHtml += "<BR/>Drum: " + obj.drumSpeed;
+	innerHtml += "<BR/>Drum Clockwise: " + obj.clockwise;
+	innerHtml += "<BR/>Soap: " + obj.soap;
+	innerHtml += "<BR/>Door Lock: " + obj.lock;
+	innerHtml += "<BR/>Water Valve: " + obj.water;
+	innerHtml += "<BR/>Pump: " + obj.pump;
+	innerHtml += "<BR/>Heater: " + obj.heater;
+	innerHtml += "<BR/>Signal: " + obj.signal;
 	document.getElementById('MachineInfo').innerHTML = innerHtml;
 }
 
