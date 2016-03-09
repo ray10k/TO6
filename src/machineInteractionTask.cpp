@@ -32,8 +32,15 @@ void machineInteractionTask::main()
 	for(;;)
 	{
 		//Wait for clock.
+#ifdef DEBUG
+		std::cout << "MIT running..."<< std::endl;
+#endif
 		this->wait(this->clock);
 		update();
+		
+#ifdef DEBUG
+		std::cout << "MIT past first wait. " << std::endl;
+#endif
 
 		//Read the pool and execute request through the uart,
 		//returns the response in the ResponseStruct.

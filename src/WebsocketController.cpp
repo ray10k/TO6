@@ -15,7 +15,14 @@ WebsocketController::WebsocketController(userInteractionTask* uit) :
 
 void WebsocketController::main() {
     for (;;) {
+#ifdef DEBUG
+		std::cout << "WC running... " << std::endl;
+#endif
         auto event = wait(send + poll_clock);
+        
+#ifdef DEBUG
+		std::cout << "WC wait passed. " << std::endl;
+#endif
         if (event == send) {
             Packet p = send.read();
             mqueue.send_packet(p);

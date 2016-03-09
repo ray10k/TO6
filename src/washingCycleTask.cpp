@@ -191,11 +191,22 @@ void washingCycleTask::updateMachine(){
 void washingCycleTask::main(){
 	while (true)
 	{
+#ifdef DEBUG
+		std::cout << "WCT running... " << std::endl;
+#endif
 		//State: Stopped. Wait until instructed to run.
 		this->wait(runFlag);
 		state = cycleState::RUN;
+		
+#ifdef DEBUG
+		std::cout << "WCT Passed first wait. " << std::endl;
+#endif
 
 		this->wait(CycleFlag);
+		
+#ifdef DEBUG
+		std::cout << "WCT entering regular running state. " << std::endl;
+#endif
 		this->machine->setMachineState(true);
 		ongoing = newCyclePool.read();
 		currentStep = ongoing.getCurrent();

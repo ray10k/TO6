@@ -21,7 +21,15 @@ void userInteractionTask::main()
 {
 	for(;;)
 	{
+#ifdef DEBUG
+		std::cout << "UIT running..." << std::endl;
+#endif
+		
 		this->wait(this->stateUpdateFlag);
+		
+#ifdef DEBUG
+		std::cout << "UIT wait passed. " << std::endl;
+#endif
 
 		currentCycleStep = cycleStatePool.read();
 		//send currentStep-> websocket-> website
