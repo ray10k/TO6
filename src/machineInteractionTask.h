@@ -20,19 +20,20 @@
 
 //! A enum containing all possible requests,
 //! this is used for switch statements
-enum class requestEnum
+enum class requestEnum : std::uint8_t
 {
-	MACHINE_REQ,
-	DOOR_LOCK_REQ,
-	WATER_VALVE_REQ,
-	SOAP_DISPENSER_REQ,
-	PUMP_REQ,
-	WATER_LEVEL_REQ,
-	HEATING_UNIT_REQ,
-	TEMPERATURE_REQ,
-	SET_RPM_REQ,
-	GET_RPM_REQ,
-	SIGNAL_LED_REQ
+	MACHINE_REQ=0x01,
+	DOOR_LOCK_REQ=0x02,
+	WATER_VALVE_REQ=0x03,
+	SOAP_DISPENSER_REQ=0x04,
+	PUMP_REQ=0x05,
+	WATER_LEVEL_REQ=0x06,
+	HEATING_UNIT_REQ=0x07,
+	TEMPERATURE_REQ=0x08,
+	SET_RPM_REQ=0x0A,
+	GET_RPM_REQ=0x09,
+	SIGNAL_LED_REQ=0x0B,
+	NONE_REQ=0xFF
 };
 
 //! A enum containing all possible request commands,
@@ -62,6 +63,12 @@ struct MessageStruct
 		this->operand = rhs.operand;
 		return *this;
 	}
+	
+	MessageStruct operator =(std::uint16_t rhs){
+		this->message = (rhs&0xff);
+		this->operand = ((rhs >> 8) &0xff);
+		return *this;
+	}
 };
 
 //! A struct that combines a request and his command. See requestEnum and commandEnum
@@ -73,6 +80,7 @@ struct RequestStruct
 	RequestStruct operator=(const RequestStruct& rhs){
         this->request = rhs.request;
         this->command = rhs.command;
+        this->message = rhs.message;
         return *this;
 	}
 };
@@ -81,12 +89,10 @@ struct RequestStruct
 //! and the read value of this response.
 struct ResponseStruct
 {
-	RequestStruct request;
-	std::string response;
+	requestEnum request = requestEnum::NONE_REQ;
 	int value;
 	ResponseStruct operator= (const ResponseStruct& rhs){
         this->request = rhs.request;
-        this->response = rhs.response;
         this->value = rhs.value;
         return *this;
 	}
@@ -135,7 +141,10 @@ private:
 	void update();
 	//! This function reads the machineInstructionPool and executes the read request
 	//! through the uart, after this the response will be read and returned in a ResponseStruct.
-	ResponseStruct doRequest(const RequestStruct& req);
+	ResponseStruct doRequest(const MessageStruct& req);
+	
+	//! I so dearly wished this wouldn't have been necessary... :(
+	MessageStruct prepareRequest(const RequestStruct& toTranslate);
 
 	//! Used to lock or unlock the washing machine door.
 	void setDoorLock(bool lock);
@@ -168,14 +177,13 @@ private:
 	MessageStruct requestTranslate(RequestStruct reqS);
 	//! Translates one hex value to a understandable string response and returns this.
 	//! (this function uses the request string to know where the response is comming from).
-	ResponseStruct responseTranslate(std::uint16_t response, 
-									const RequestStruct& reqS);
+	ResponseStruct responseTranslate(std::uint16_t response);
 
-	RTOS::channel<MessageStruct,16> machineInstructionChannel;
+	RTOS::flag machineRequestFlag;
 	RTOS::clock clock;
 	
 	MachineState currentState;
-	MachineState setState;
+	MachineState targetState;
 	uart Uart;
 
 	std::vector<machineStateListener*> listeners;

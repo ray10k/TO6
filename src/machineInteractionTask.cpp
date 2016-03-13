@@ -3,10 +3,10 @@
 
 machineInteractionTask::machineInteractionTask():
   RTOS::task(5,"machine interaction"),
-  machineInstructionChannel (this,"machineInstructionChannel"),
+  machineRequestFlag (this,"machineInstructionChannel"),
   clock (this, 500 MS, "MIT_clock"),
   currentState(),
-  setState(),
+  targetState(),
   Uart(),
   listeners()
 {}
@@ -35,7 +35,7 @@ void machineInteractionTask::main()
 	{
 		//Wait for clock.
 		trace;
-		this->wait(this->machineInstructionChannel);
+		this->wait(this->machineRequestFlag+this->clock);
 		update();
 
 		//Read the pool and execute request through the uart,
@@ -44,7 +44,7 @@ void machineInteractionTask::main()
 
 		//Updates the currentState of the machine with the new read value
 		//from the ResponseStruct.
-		switch(rs.request.request)
+		switch(rs.request)
 		{
 			case requestEnum::DOOR_LOCK_REQ:
 				currentState.doorLock	 	= rs.value;
@@ -71,11 +71,11 @@ void machineInteractionTask::update()
 {
 	//Close water valve and stop soap dispenser when
 	//the wanted water level is reached.
-	if(currentState.waterLevel >= setState.waterLevel)
+	if(currentState.waterLevel >= targetState.waterLevel)
 	{
 		if(currentState.waterValve == 1){setWaterValve(0);}
 		if(currentState.soapDispenser == 1){setSoapDispenser(0);}
-		setState.waterValve = 0; setState.soapDispenser = 0;
+		targetState.waterValve = 0; targetState.soapDispenser = 0;
 	}
 	//Stop the pump and unlock the door when there is
 	//no water in the washing machine.
@@ -83,20 +83,20 @@ void machineInteractionTask::update()
 	{
 		if(currentState.pump == 1)	  {setPump(0);}
 		if(currentState.doorLock == 1){setDoorLock(0);}
-		setState.pump = 0; setState.doorLock = 0;
+		targetState.pump = 0; targetState.doorLock = 0;
 	}
 	//Turn on the pump if the wanted water level is 0/empty.
-	else if(setState.waterLevel == 0)
+	else if(targetState.waterLevel == 0)
 	{
 		if(currentState.pump == 0){setPump(1);}
-		setState.pump = 1;
+		targetState.pump = 1;
 	}
 
 	//Turn heater on or off depending on current temperature
 	//compared to wanted temperature
-	if(currentState.temperature > setState.temperature)
+	if(currentState.temperature > targetState.temperature)
 	{if(currentState.heatingUnit == 1)	{setHeater(0);}}
-	if(currentState.temperature < setState.temperature)
+	if(currentState.temperature < targetState.temperature)
 	{if(currentState.heatingUnit == 0)	{setHeater(1);}}
 
 	//Update the current state of the washing machine
@@ -107,32 +107,85 @@ void machineInteractionTask::update()
 	notifyListeners();
 }
 
-ResponseStruct machineInteractionTask::doRequest(const RequestStruct& req)
+MessageStruct machineInteractionTask::prepareRequest(const 
+											RequestStruct& toTranslate)
 {
+	MessageStruct retval;
+	retval.message = toTranslate.request;
+	switch(toTranslate.request)
+	{
+		case requestEnum::MACHINE_REQ:
+		case requestEnum::DOOR_LOCK_REQ:
+		case requestEnum::WATER_VALVE_REQ:
+		case requestEnum::SOAP_DISPENSER_REQ:
+		case requestEnum::PUMP_REQ:
+		case requestEnum::HEATING_UNIT_REQ:
+		case requestEnum::SIGNAL_LED_REQ:
+		//can be either control commands or status requests.
+		{
+			switch(toTranslate.command){
+				case commandEnum::STATUS_CMD:
+					retval.operand = 0x01;
+					break;
+				case commandEnum::START_CMD:
+				case commandEnum::OPEN_CMD:
+				case commandEnum::ON_CMD:
+					retval.operand = 0x10;
+					break;
+				case commandEnum::STOP_CMD:
+				case commandEnum::CLOSE_CMD:
+				case commandEnum::OFF_CMD:
+					retval.operand = 0x20;
+					break;
+				case commandEnum::LOCK_CMD:
+					retval.operand = 0x40;
+					break;
+				case commandEnum::UNLOCK_CMD:
+					retval.operand = 0x80;
+					break;
+				default:
+				//something went horribly wrong...
+					trace;
+					retval.operand = 0xFF;
+					break;
+			}
+			break;
+		}
+		case requestEnum::SET_RPM_REQ:
+			retval.operand = targetState.drumRPM;
+			if (!targetState.drumClockwise)
+			{
+				retval.operand |= 0x80;
+			}
+			break;
+		default:
+			retval.operand = 0;
+			break;
+	}
+}
 
-	//Translate the request to bytes.
-	MessageStruct TranslatedRequest = requestTranslate(req);
-
+ResponseStruct machineInteractionTask::doRequest(const MessageStruct& req)
+{
 	//Write the request in bytes to the uart/washing machine.
-	Uart.write(TranslatedRequest.message);
-	Uart.write(TranslatedRequest.operand);
+	Uart.write(req.message);
+	Uart.write(req.operand);
 	this->sleep(10);
 
 	//Read the response byte of the request.
 	std::uint16_t responseByte = Uart.read_16();
 	//Translate the response from byte to words and return it.
-	return responseTranslate(responseByte, req);
+	return responseTranslate(responseByte);
 }
 
 void machineInteractionTask::setTemperature(unsigned int temperature)
 {
-	setState.temperature = temperature;
+	targetState.temperature = temperature;
 }
 
 void machineInteractionTask::setWaterLevel(unsigned int waterLevel)
 {
-	setState.waterLevel = waterLevel;
-	setState.doorLock = true;
+	targetState.waterLevel = waterLevel;
+	targetState.doorLock = true;
 
 	setDoorLock(1); //Locks the door
 	if(currentState.waterLevel < waterLevel)
@@ -141,8 +194,8 @@ void machineInteractionTask::setWaterLevel(unsigned int waterLevel)
 
 void machineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 {
-	setState.drumRPM = rpm;
-	setState.drumClockwise = clockwise;
+	targetState.drumRPM = rpm;
+	targetState.drumClockwise = clockwise;
 
 	RequestStruct reqS;
 	reqS.request = requestEnum::SET_RPM_REQ;
@@ -154,14 +207,14 @@ void machineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 
 void machineInteractionTask::setDetergent(bool add)
 {
-	setState.soapDispenser = add;
+	targetState.soapDispenser = add;
 	if(currentState.soapDispenser != add){setSoapDispenser(add);}
 }
 
 void machineInteractionTask::flush()
 {
-	setState.temperature = 20; //Reset to standby temperature
-	setState.waterLevel = 0;
+	targetState.temperature = 20; //Reset to standby temperature
+	targetState.waterLevel = 0;
 	if(currentState.waterLevel > 0){
 		if(!currentState.pump){
 			setPump(1);
@@ -294,9 +347,9 @@ MessageStruct machineInteractionTask::requestTranslate(RequestStruct reqS){
 		case commandEnum::CLOSE_CMD:	
 		case commandEnum::OFF_CMD:		retval.operand = 0x20; break;
 		case commandEnum::RPM_Clockwise: 		
-			retval.operand = (setState.drumRPM | 0x80);  break;
+			retval.operand = (targetState.drumRPM | 0x80);  break;
 		case commandEnum::RPM_counterClockwise: 	
-			retval.operand = setState.drumRPM; 		break;
+			retval.operand = targetState.drumRPM; 		break;
 		default:
 			break;
 	}
@@ -304,8 +357,7 @@ MessageStruct machineInteractionTask::requestTranslate(RequestStruct reqS){
 	return retval;
 }
 
-ResponseStruct machineInteractionTask::responseTranslate(
-	std::uint16_t response, const RequestStruct& reqS)
+ResponseStruct machineInteractionTask::responseTranslate(std::uint16_t response)
 {
 	//ResponseStruct that will contain the response that will be returned.
 	ResponseStruct resS;
@@ -313,7 +365,7 @@ ResponseStruct machineInteractionTask::responseTranslate(
 	resS.value = (std::uint8_t) ((response>>8)&0xff);	
 	
 	//Check to which request this response came from and what the returned byte means.
-	switch(reqS.request)
+	switch(response & 0x7f)
 	{
 		case requestEnum::MACHINE_REQ:
 			switch(response)
