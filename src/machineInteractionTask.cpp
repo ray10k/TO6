@@ -152,6 +152,9 @@ MessageStruct machineInteractionTask::prepareRequest(const
 			break;
 		}
 		case requestEnum::SET_RPM_REQ:
+			//ugly hack, no other way around looking outside the scope of this
+			//function to find out what way the drum is supposed to turn, and
+			//how fast.
 			retval.operand = targetState.drumRPM;
 			if (!targetState.drumClockwise)
 			{
@@ -196,13 +199,6 @@ void machineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 {
 	targetState.drumRPM = rpm;
 	targetState.drumClockwise = clockwise;
-
-	RequestStruct reqS;
-	reqS.request = requestEnum::SET_RPM_REQ;
-	if(clockwise){reqS.command = commandEnum::RPM_Clockwise;}
-	else{reqS.command = commandEnum::RPM_counterClockwise;}
-
-	this-> machineInstructionChannel.write(reqS);
 }
 
 void machineInteractionTask::setDetergent(bool add)
