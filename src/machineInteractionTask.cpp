@@ -111,19 +111,15 @@ ResponseStruct machineInteractionTask::doRequest(const RequestStruct& req)
 {
 
 	//Translate the request to bytes.
-	std::uint16_t TranslatedRequest = requestTranslate(req);
+	MessageStruct TranslatedRequest = requestTranslate(req);
 
 	//Write the request in bytes to the uart/washing machine.
-	Uart.write(TranslatedRequest);
+	Uart.write(TranslatedRequest.message);
+	Uart.write(TranslatedRequest.operand);
 	this->sleep(10);
 
 	//Read the response byte of the request.
 	std::uint16_t responseByte = Uart.read_16();
-#ifdef DEBUG
-	std::cout << "request:" << std::hex << TranslatedRequest <<
-	std::endl <<"response:" << responseByte << std::dec << std::endl;
-#endif
-	
 	//Translate the response from byte to words and return it.
 	return responseTranslate(responseByte, req);
 }
@@ -267,38 +263,40 @@ void machineInteractionTask::setSignalLed(bool on)
 }
 
 
-std::uint16_t machineInteractionTask::requestTranslate(RequestStruct reqS){
-	std::uint16_t retval = 0;
+MessageStruct machineInteractionTask::requestTranslate(RequestStruct reqS){
+	MessageStruct retval;
 	//Check which request byte should be send
 	switch(reqS.request){
-		case requestEnum::MACHINE_REQ: 			retval |= 0x01; break;
-		case requestEnum::DOOR_LOCK_REQ: 		retval |= 0x02; break;
-		case requestEnum::WATER_VALVE_REQ:		retval |= 0x03; break;
-		case requestEnum::SOAP_DISPENSER_REQ:	retval |= 0x04; break;
-		case requestEnum::PUMP_REQ:				retval |= 0x05; break;
-		case requestEnum::WATER_LEVEL_REQ:		retval |= 0x06; break;
-		case requestEnum::HEATING_UNIT_REQ:		retval |= 0x07; break;
-		case requestEnum::TEMPERATURE_REQ:		retval |= 0x08; break;
-		case requestEnum::SET_RPM_REQ:			retval |= 0x0A; break;
-		case requestEnum::GET_RPM_REQ:			retval |= 0x09; break;
-		case requestEnum::SIGNAL_LED_REQ:		retval |= 0x0B; break;
-		default:								retval |= 0x00; break;
+		case requestEnum::MACHINE_REQ: 			retval.message = 0x01; break;
+		case requestEnum::DOOR_LOCK_REQ: 		retval.message = 0x02; break;
+		case requestEnum::WATER_VALVE_REQ:		retval.message = 0x03; break;
+		case requestEnum::SOAP_DISPENSER_REQ:	retval.message = 0x04; break;
+		case requestEnum::PUMP_REQ:				retval.message = 0x05; break;
+		case requestEnum::WATER_LEVEL_REQ:		retval.message = 0x06; break;
+		case requestEnum::HEATING_UNIT_REQ:		retval.message = 0x07; break;
+		case requestEnum::TEMPERATURE_REQ:		retval.message = 0x08; break;
+		case requestEnum::SET_RPM_REQ:			retval.message = 0x0A; break;
+		case requestEnum::GET_RPM_REQ:			retval.message = 0x09; break;
+		case requestEnum::SIGNAL_LED_REQ:		retval.message = 0x0B; break;
+		default:								retval.message = 0x00; break;
 	}
 	//Check which command byte should be send.
 	switch(reqS.command){
-		case commandEnum::STATUS_CMD:	retval |= (0x01) << 8; break;
-		case commandEnum::LOCK_CMD:		retval |= (0x40) << 8; break;
-		case commandEnum::UNLOCK_CMD:	retval |= (0x80) << 8; break;
+		case commandEnum::STATUS_CMD:	retval.operand = 0x01; break;
+		case commandEnum::LOCK_CMD:		retval.operand = 0x40; break;
+		case commandEnum::UNLOCK_CMD:	retval.operand = 0x80; break;
+		
 		case commandEnum::START_CMD:	
 		case commandEnum::OPEN_CMD:	
-		case commandEnum::ON_CMD:		retval |= (0x10) << 8; break;
+		case commandEnum::ON_CMD:		retval.operand = 0x10; break;
+		
 		case commandEnum::STOP_CMD:	
 		case commandEnum::CLOSE_CMD:	
-		case commandEnum::OFF_CMD:		retval |= (0x20) << 8; break;
+		case commandEnum::OFF_CMD:		retval.operand = 0x20; break;
 		case commandEnum::RPM_Clockwise: 		
-			retval |= (setState.drumRPM | 0x80) << 8;  break;
+			retval.operand = (setState.drumRPM | 0x80);  break;
 		case commandEnum::RPM_counterClockwise: 	
-			retval |= (setState.drumRPM) << 8; 		break;
+			retval.operand = setState.drumRPM; 		break;
 		default:
 			break;
 	}

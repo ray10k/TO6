@@ -53,6 +53,17 @@ enum class commandEnum
 	RPM_counterClockwise
 };
 
+struct MessageStruct
+{
+	std::uint8_t message = 0;
+	std::uint8_t operand = 0;
+	MessageStruct operator =(const MessageStruct& rhs){
+		this->message = rhs.message;
+		this->operand = rhs.operand;
+		return *this;
+	}
+};
+
 //! A struct that combines a request and his command. See requestEnum and commandEnum
 //! for all possible request and commands. This struct is used for sending requests through the uart.
 struct RequestStruct
@@ -154,13 +165,13 @@ private:
 	void setSignalLed(bool on);
 
 	//! Translates a string request and a string command to one or two hex values and returns this in a vector.
-	std::uint16_t requestTranslate(RequestStruct reqS);
+	MessageStruct requestTranslate(RequestStruct reqS);
 	//! Translates one hex value to a understandable string response and returns this.
 	//! (this function uses the request string to know where the response is comming from).
 	ResponseStruct responseTranslate(std::uint16_t response, 
 									const RequestStruct& reqS);
 
-	RTOS::channel<RequestStruct,16> machineInstructionChannel;
+	RTOS::channel<MessageStruct,16> machineInstructionChannel;
 	RTOS::clock clock;
 	
 	MachineState currentState;
