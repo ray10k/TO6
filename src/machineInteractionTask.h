@@ -124,7 +124,7 @@ private:
 	void update();
 	//! This function reads the machineInstructionPool and executes the read request
 	//! through the uart, after this the response will be read and returned in a ResponseStruct.
-	ResponseStruct readPool();
+	ResponseStruct doRequest(const RequestStruct& req);
 
 	//! Used to lock or unlock the washing machine door.
 	void setDoorLock(bool lock);
@@ -157,9 +157,10 @@ private:
 	std::uint16_t requestTranslate(RequestStruct reqS);
 	//! Translates one hex value to a understandable string response and returns this.
 	//! (this function uses the request string to know where the response is comming from).
-	ResponseStruct responseTranslate(std::uint8_t response, RequestStruct reqS);
+	ResponseStruct responseTranslate(std::uint16_t response, 
+									const RequestStruct& reqS);
 
-	RTOS::pool<RequestStruct> machineInstructionPool;
+	RTOS::channel<RequestStruct,16> machineInstructionChannel;
 	RTOS::clock clock;
 	
 	MachineState currentState;

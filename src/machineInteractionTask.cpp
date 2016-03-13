@@ -3,7 +3,7 @@
 
 machineInteractionTask::machineInteractionTask():
   RTOS::task(5,"machine interaction"),
-  machineInstructionPool ("machineInstructionPool"),
+  machineInstructionChannel (this,"machineInstructionChannel"),
   clock (this, 500 MS, "MIT_clock"),
   currentState(),
   setState(),
@@ -36,12 +36,12 @@ void machineInteractionTask::main()
 #ifdef DEBUG
 		std::cout << "MIT running..."<< std::endl;
 #endif
-		this->wait(this->clock);
+		this->wait(this->machineInstructionChannel);
 		update();
 
 		//Read the pool and execute request through the uart,
 		//returns the response in the ResponseStruct.
-		ResponseStruct rs = readPool();
+		ResponseStruct rs = doRequest(this->machineInstructionChannel.read());
 
 		//Updates the currentState of the machine with the new read value
 		//from the ResponseStruct.
@@ -108,14 +108,11 @@ void machineInteractionTask::update()
 	notifyListeners();
 }
 
-ResponseStruct machineInteractionTask::readPool()
+ResponseStruct machineInteractionTask::doRequest(const RequestStruct& req)
 {
-	//Read the request in words.
-	RequestStruct request = machineInstructionPool.read();
-	//return example: {"HEATING_UNIT_REQ", "ON_CMD"}
 
 	//Translate the request to bytes.
-	std::uint16_t TranslatedRequest = requestTranslate(request);
+	std::uint16_t TranslatedRequest = requestTranslate(req);
 
 	//Write the request in bytes to the uart/washing machine.
 	Uart.write(TranslatedRequest);
@@ -129,7 +126,7 @@ ResponseStruct machineInteractionTask::readPool()
 #endif
 	
 	//Translate the response from byte to words and return it.
-	return responseTranslate(responseByte, request);
+	return responseTranslate(responseByte, req);
 }
 
 void machineInteractionTask::setTemperature(unsigned int temperature)
@@ -157,7 +154,7 @@ void machineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 	if(clockwise){reqS.command = commandEnum::RPM_Clockwise;}
 	else{reqS.command = commandEnum::RPM_counterClockwise;}
 
-	this-> machineInstructionPool.write(reqS);
+	this-> machineInstructionChannel.write(reqS);
 }
 
 void machineInteractionTask::setDetergent(bool add)
@@ -183,7 +180,7 @@ void machineInteractionTask::setMachineState(bool start)
 	reqS.request = requestEnum::MACHINE_REQ;
 	if(start){ reqS.command = commandEnum::START_CMD; }
 	else { reqS.command = commandEnum::STOP_CMD; }
-	this-> machineInstructionPool.write(reqS);
+	this-> machineInstructionChannel.write(reqS);
 }
 
 void machineInteractionTask::setDoorLock(bool lock)
@@ -192,7 +189,7 @@ void machineInteractionTask::setDoorLock(bool lock)
 	reqS.request = requestEnum::DOOR_LOCK_REQ;
 	if(lock){ reqS.command = commandEnum::LOCK_CMD; }
 	else { reqS.command = commandEnum::UNLOCK_CMD; }
-	this-> machineInstructionPool.write(reqS);
+	this-> machineInstructionChannel.write(reqS);
 }
 
 //Function marked private, and doesn't get called at all. Still needed?
@@ -201,14 +198,14 @@ void machineInteractionTask::getState(requestEnum request)
 	RequestStruct reqS;
 	reqS.request = request;
 	reqS.command = commandEnum::STATUS_CMD;
-	this-> machineInstructionPool.write(reqS);
+	this-> machineInstructionChannel.write(reqS);
 }
 
 void machineInteractionTask::getWaterLevel()
 {
 	RequestStruct reqS;
 	reqS.request = requestEnum::WATER_LEVEL_REQ;
-	this-> machineInstructionPool.write(reqS);
+	this-> machineInstructionChannel.write(reqS);
 }
 
 void machineInteractionTask::setWaterValve(bool open)
@@ -217,7 +214,7 @@ void machineInteractionTask::setWaterValve(bool open)
 	reqS.request = requestEnum::WATER_VALVE_REQ;
 	if(open){ reqS.command = commandEnum::OPEN_CMD; }
 	else { reqS.command = commandEnum::CLOSE_CMD; }
-	this-> machineInstructionPool.write(reqS);
+	this-> machineInstructionChannel.write(reqS);
 }
 
 void machineInteractionTask::setSoapDispenser(bool open)
@@ -226,7 +223,7 @@ void machineInteractionTask::setSoapDispenser(bool open)
 	reqS.request = requestEnum::SOAP_DISPENSER_REQ;
 	if(open){ reqS.command = commandEnum::OPEN_CMD; }
 	else { reqS.command = commandEnum::CLOSE_CMD; }
-	this-> machineInstructionPool.write(reqS);
+	this-> machineInstructionChannel.write(reqS);
 }
 
 void machineInteractionTask::setPump(bool on)
@@ -235,14 +232,14 @@ void machineInteractionTask::setPump(bool on)
 	reqS.request = requestEnum::PUMP_REQ;
 	if(on){ reqS.command = commandEnum::ON_CMD; }
 	else { reqS.command = commandEnum::OFF_CMD; }
-	this-> machineInstructionPool.write(reqS);
+	this-> machineInstructionChannel.write(reqS);
 }
 
 void machineInteractionTask::getTemperature()
 {
 	RequestStruct reqS;
 	reqS.request = requestEnum::TEMPERATURE_REQ;
-	this-> machineInstructionPool.write(reqS);
+	this-> machineInstructionChannel.write(reqS);
 }
 
 void machineInteractionTask::setHeater(bool on)
@@ -251,14 +248,14 @@ void machineInteractionTask::setHeater(bool on)
 	reqS.request = requestEnum::HEATING_UNIT_REQ;
 	if(on){ reqS.command = commandEnum::ON_CMD; }
 	else { reqS.command = commandEnum::OFF_CMD; }
-	this-> machineInstructionPool.write(reqS);
+	this-> machineInstructionChannel.write(reqS);
 }
 
 void machineInteractionTask::getRPM()
 {
 	RequestStruct reqS;
 	reqS.request = requestEnum::GET_RPM_REQ;
-	this-> machineInstructionPool.write(reqS);
+	this-> machineInstructionChannel.write(reqS);
 }
 
 void machineInteractionTask::setSignalLed(bool on)
@@ -267,7 +264,7 @@ void machineInteractionTask::setSignalLed(bool on)
 	reqS.request = requestEnum::SIGNAL_LED_REQ;
 	if(on){ reqS.command = commandEnum::ON_CMD; }
 	else { reqS.command = commandEnum::OFF_CMD; }
-	this-> machineInstructionPool.write(reqS);
+	this-> machineInstructionChannel.write(reqS);
 }
 
 
@@ -311,18 +308,18 @@ std::uint16_t machineInteractionTask::requestTranslate(RequestStruct reqS){
 }
 
 ResponseStruct machineInteractionTask::responseTranslate(
-	std::uint8_t responseByte, RequestStruct reqS)
+	std::uint16_t response, const RequestStruct& reqS)
 {
 	//ResponseStruct that will contain the response that will be returned.
 	ResponseStruct resS;
 	resS.request = reqS;		//The request that was send and caused the response.
-	resS.value = responseByte;	//Saves the returned value as an int.
-
+	resS.value = (std::uint8_t) ((response>>8)&0xff);	
+	
 	//Check to which request this response came from and what the returned byte means.
 	switch(reqS.request)
 	{
 		case requestEnum::MACHINE_REQ:
-			switch(responseByte)
+			switch(response)
 			{
 				case 0x01: resS.response = "HALTED"; 	break;
 				case 0x02: resS.response = "IDLE";		break;
@@ -334,7 +331,7 @@ ResponseStruct machineInteractionTask::responseTranslate(
 		case requestEnum::DOOR_LOCK_REQ: 
 		case requestEnum::WATER_VALVE_REQ: 
 		case requestEnum::SOAP_DISPENSER_REQ:
-			switch(responseByte)
+			switch(response)
 			{
 				case 0x01: resS.response = "OPENED"; resS.value = 1; break;
 				case 0x02: resS.response = "CLOSED"; resS.value = 0; break;
@@ -346,7 +343,7 @@ ResponseStruct machineInteractionTask::responseTranslate(
 		case requestEnum::PUMP_REQ: 
 		case requestEnum::HEATING_UNIT_REQ: 
 		case requestEnum::SIGNAL_LED_REQ:
-			switch(responseByte)
+			switch(response)
 			{
 				case 0x08: resS.response = "ON";  resS.value = 1;	break;
 				case 0x10: resS.response = "OFF"; resS.value = 0;	break;
@@ -354,27 +351,27 @@ ResponseStruct machineInteractionTask::responseTranslate(
 			break;
 
 		case requestEnum::WATER_LEVEL_REQ:
-			currentState.waterLevel = responseByte; //Save read waterLevel value
+			currentState.waterLevel = response; //Save read waterLevel value
 			resS.response = "Niveau in %";
 			break;
 
 		case requestEnum::TEMPERATURE_REQ:
-			currentState.temperature = responseByte; //Save read temperature value
+			currentState.temperature = response; //Save read temperature value
 			resS.response = "Temp in Graden Celcius";
 			break;
 
 		case requestEnum::SET_RPM_REQ: 
 		case requestEnum::GET_RPM_REQ:
 		//What do these values mean? (COMMENT_ME)
-			if(responseByte >= (0x00|0x80) && responseByte <= (0x40|0x80))
+			if(response >= (0x00|0x80) && response <= (0x40|0x80))
 			{
-				currentState.drumRPM = responseByte|0x80; 	//Save read RPM value
+				currentState.drumRPM = response|0x80; 	//Save read RPM value
 				currentState.drumClockwise = true;			//Save RPM is going clockwise
 				resS.response = "RPM_Clockwise";
 			}
-			else if(responseByte >= 0x00 && responseByte <= 0x40)
+			else if(response >= 0x00 && response <= 0x40)
 			{
-				currentState.drumRPM = responseByte;	//Save read RPM value
+				currentState.drumRPM = response;	//Save read RPM value
 				currentState.drumClockwise = false;		//Save RPM is going counterclockwise
 				resS.response = "RPM_counterClockwise";
 			}
