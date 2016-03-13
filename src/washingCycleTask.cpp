@@ -195,6 +195,9 @@ void washingCycleTask::updateMachine(){
 }
 
 void washingCycleTask::main(){
+#ifdef DEBUG
+	std::cout << "WCT started."<< std::endl;
+#endif
 	while (true)
 	{
 #ifdef DEBUG

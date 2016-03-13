@@ -19,6 +19,9 @@ userInteractionTask::userInteractionTask(washingCycleTask* WCT):
 
 void userInteractionTask::main()
 {
+#ifdef DEBUG
+	std::cout << "UIT started."<< std::endl;
+#endif
 	for(;;)
 	{	
 		this->wait(this->stateUpdateFlag);

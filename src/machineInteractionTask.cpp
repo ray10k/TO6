@@ -30,6 +30,9 @@ void machineInteractionTask::notifyListeners()
 
 void machineInteractionTask::main()
 {
+#ifdef DEBUG
+		std::cout << "MIT started."<< std::endl;
+#endif
 	for(;;)
 	{
 		//Wait for clock.

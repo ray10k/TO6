@@ -14,6 +14,9 @@ WebsocketController::WebsocketController(userInteractionTask* uit) :
     }
 
 void WebsocketController::main() {
+#ifdef DEBUG
+	std::cout << "WC started."<< std::endl;
+#endif
     for (;;) {
 
         auto event = wait(send + poll_clock);
