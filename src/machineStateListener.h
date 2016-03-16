@@ -30,7 +30,7 @@ class machineStateListener
 {
 public:
 	//! A function called whenever the state of the washing machine is changed.
-	virtual void stateChanged(MachineState currentState){};
+	virtual void stateChanged(const MachineState& currentState){};
 };
 
 #endif
