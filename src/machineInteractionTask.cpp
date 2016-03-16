@@ -252,6 +252,9 @@ void machineInteractionTask::update()
 
 void machineInteractionTask::parseResponse(MessageStruct response)
 {	
+#ifdef DEBUG
+	cout << std::hex << response.message << " " << response.operand << std::endl;
+#endif
 	switch(response.message)
 	{
 		case (std::uint8_t)replyEnum::DOOR_LOCK_REP:
@@ -330,6 +333,5 @@ void machineInteractionTask::main()
 		wait(clock+machineRequestFlag);
 		update();
 		notifyListeners();
-		trace;
 	}
 }
