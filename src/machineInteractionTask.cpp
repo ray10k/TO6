@@ -3,7 +3,7 @@
 const int MAX_DRUM_RPM = 1600;
 
 machineInteractionTask::machineInteractionTask():
-	RTOS::task(5,"Machine Interaction Task")
+	RTOS::task(5,"Machine Interaction Task"),
 	machineRequestFlag(this,"Machine Request Flag"),
 	clock(this,500 MS,"Machine update clock"),
 	currentState(),
