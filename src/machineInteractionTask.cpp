@@ -254,8 +254,11 @@ void machineInteractionTask::update()
 void machineInteractionTask::parseResponse(MessageStruct response)
 {	
 #ifdef DEBUG
-	std::cout << std::hex << response.message 
-	<< " " << response.operand << std::endl;
+	int left,right;
+	left = response.message;
+	right = response.operand;
+	std::cout << std::hex << left 
+	<< " " << right << std::endl;
 #endif
 	switch(response.message)
 	{
