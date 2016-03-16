@@ -36,22 +36,56 @@ enum class requestEnum : std::uint8_t
 	NONE_REQ=0xFF
 };
 
+//! Enum describing the possible replies from the washing machine, following
+//! a request.
+enum class replyEnum : std::uint8_t
+{
+	MACHINE_REP=0x81,
+	DOOR_LOCK_REP=0x82,
+	WATER_VALVE_REP=0x83,
+	SOAP_DISPENSER_REP=0x84,
+	PUMP_REP=0x85,
+	WATER_LEVEL_REP=0x86,
+	HEATING_UNIT_REP=0x87,
+	TEMPERATURE_REP=0x88,
+	SET_RPM_REP=0x8A,
+	GET_RPM_REP=0x89,
+	SIGNAL_LED_REP=0x8B,
+	ERROR_REP=0xFF
+};
+
+//! Enum for the fixed-value responses from the washing machine.
+enum class stateEnum : std::uint8_t
+{
+	IMPOSSIBLE = 0x00,
+	HALTED = 0x01,
+	IDLE = 0x02,
+	RUNNING = 0x04,
+	STOPPED = 0x08,
+	OPENED = 0x01,
+	CLOSED = 0x02,
+	LOCKED = 0x04,
+	ON = 0x08,
+	OFF = 0x10,
+	ERROR = 0xFF
+};
+
 //! A enum containing all possible request commands,
 //! this is used for switch statements
-enum class commandEnum
+enum class commandEnum : std::uint8_t
 {
-	NONE_CMD,
-	STATUS_CMD,
-	LOCK_CMD,
-	UNLOCK_CMD,
-	START_CMD,
-	STOP_CMD,
-	OPEN_CMD,
-	CLOSE_CMD,
-	ON_CMD,
-	OFF_CMD,
-	RPM_Clockwise,
-	RPM_counterClockwise
+	NONE_CMD=0xFF,
+	STATUS_CMD=0x01,
+	LOCK_CMD=0x40,
+	UNLOCK_CMD=0x80,
+	START_CMD=0x10,
+	STOP_CMD=0x20,
+	OPEN_CMD=0x10,
+	CLOSE_CMD=0x20,
+	ON_CMD=0x10,
+	OFF_CMD=0x20,
+	RPM_Clockwise=0x00,
+	RPM_counterClockwise=0x80
 };
 
 struct MessageStruct
@@ -68,6 +102,12 @@ struct MessageStruct
 		this->message = (rhs&0xff);
 		this->operand = ((rhs >> 8) &0xff);
 		return *this;
+	}
+	
+	operator std::uint16_t() const {
+		std::uint16_t retval = this->operand;
+		retval = (retval << 8)|this->message;
+		return retval;
 	}
 };
 
@@ -96,8 +136,6 @@ public:
 	//! Makes the washing machine flush by activating the pump,
 	//! this also sets the temperature to a low stand by temperature.
 	void flush();
-	//! Starts or stops the entire washing machine.
-	void setMachineState(bool start);
 
 protected:
 	//because the Task interface demands it, and because this task needs to do
@@ -108,40 +146,18 @@ private:
 	//! Updates all the registered machineStateListeners,
 	//! sending the current state of the washing machine.
 	void notifyListeners();
-	//! This function is used to check if the current state of the washing machine
-	//! needs to be changed according to the setState.
-	//! This also updates the current temperature and waterLevel.
+	//! This function is used to check if the current state of the washing
+	//! machine needs to be changed according to the setState.
+	//! This also updates the current state in accordance to the replies 
+	//! received.
 	void update();
-	//! This function reads the machineInstructionPool and executes the read request
-	//! through the uart, after this the response will be read and returned in a ResponseStruct.
-
-	//! Used to lock or unlock the washing machine door.
-	void setDoorLock(bool lock);
-	//! Adds to the machineInstructionPool a request to get the state of a given
-	//! request/part of the washing machine, when the pool is read this requested state
-	//! will be returned and saved as the current state of the washing machine.
-	void getState(requestEnum request);
-	//! Adds to the machineInstructionPool a request to get the waterLevel, when the
-	//! pool is read this value will be returned and saved as the current waterLevel.
-	void getWaterLevel();
-	//! Used to open or close the water valve.
-	void setWaterValve(bool open);
-	//! Used to open or close the soap dispenser.
-	void setSoapDispenser(bool open);
-	//! Used to turn the pump on or off.
-	void setPump(bool on);
-	//! Adds to the machineInstructionPool a request to get the temperature, when the
-	//! pool is read this value will be returned and saved as the current temperature.
-	void getTemperature();
-	//! Used to turn the heater on or off.
-	void setHeater(bool on);
-	//! Adds to the machineInstructionPool a request to get the RPM speed, when the
-	//! pool is read this value will be returned and saved as the current RPM.
-	//! This also returns and saves if the rotation is clockwise or counterclockwise.
-	void getRPM();
-	//! Used to turn the signal led on or off.
-	void setSignalLed(bool on);
-
+	//! Apply the state information in the given response to the internally kept
+	//! current state.
+	void parseResponse(MessageStruct response);
+	
+	//! Prepare a message to request the given status.
+	MessageStruct getState(requestEnum request);
+	
 	RTOS::flag machineRequestFlag;
 	RTOS::clock clock;
 	
@@ -150,6 +166,7 @@ private:
 	uart Uart;
 
 	std::vector<machineStateListener*> listeners;
+	bool running;
 };
 
 #endif
