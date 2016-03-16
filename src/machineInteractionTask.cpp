@@ -1,4 +1,5 @@
 #include "machineInteractionTask.h"
+#include <stdio>
 
 const int MAX_DRUM_RPM = 1600;
 
