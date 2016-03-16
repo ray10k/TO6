@@ -71,33 +71,6 @@ struct MessageStruct
 	}
 };
 
-//! A struct that combines a request and his command. See requestEnum and commandEnum
-//! for all possible request and commands. This struct is used for sending requests through the uart.
-struct RequestStruct
-{
-	requestEnum request;
-	commandEnum command = commandEnum::NONE_CMD;
-	RequestStruct operator=(const RequestStruct& rhs){
-        this->request = rhs.request;
-        this->command = rhs.command;
-        this->message = rhs.message;
-        return *this;
-	}
-};
-
-//! A struct that combines a request with its response
-//! and the read value of this response.
-struct ResponseStruct
-{
-	requestEnum request = requestEnum::NONE_REQ;
-	int value;
-	ResponseStruct operator= (const ResponseStruct& rhs){
-        this->request = rhs.request;
-        this->value = rhs.value;
-        return *this;
-	}
-};
-
 class machineInteractionTask : public RTOS::task
 {
 public:
@@ -141,10 +114,6 @@ private:
 	void update();
 	//! This function reads the machineInstructionPool and executes the read request
 	//! through the uart, after this the response will be read and returned in a ResponseStruct.
-	ResponseStruct doRequest(const MessageStruct& req);
-	
-	//! I so dearly wished this wouldn't have been necessary... :(
-	MessageStruct prepareRequest(const RequestStruct& toTranslate);
 
 	//! Used to lock or unlock the washing machine door.
 	void setDoorLock(bool lock);
@@ -172,12 +141,6 @@ private:
 	void getRPM();
 	//! Used to turn the signal led on or off.
 	void setSignalLed(bool on);
-
-	//! Translates a string request and a string command to one or two hex values and returns this in a vector.
-	MessageStruct requestTranslate(RequestStruct reqS);
-	//! Translates one hex value to a understandable string response and returns this.
-	//! (this function uses the request string to know where the response is comming from).
-	ResponseStruct responseTranslate(std::uint16_t response);
 
 	RTOS::flag machineRequestFlag;
 	RTOS::clock clock;
