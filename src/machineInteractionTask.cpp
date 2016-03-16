@@ -310,7 +310,6 @@ void machineInteractionTask::parseResponse(MessageStruct response)
 			
 		default:
 		//nothing happens here, should only be reached when errors occur.
-			trace;
 			break;
 	}
 	return;
