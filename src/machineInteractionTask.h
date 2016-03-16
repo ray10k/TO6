@@ -66,7 +66,8 @@ enum class stateEnum : std::uint8_t
 	CLOSED = 0x02,
 	LOCKED = 0x04,
 	ON = 0x08,
-	OFF = 0x10
+	OFF = 0x10,
+	ERROR = 0xFF
 };
 
 //! A enum containing all possible request commands,
@@ -154,8 +155,8 @@ private:
 	//! current state.
 	void parseResponse(MessageStruct response);
 	
-	//! Used to lock or unlock the washing machine door.
-	void getState(requestEnum request);
+	//! Prepare a message to request the given status.
+	MessageStruct getState(requestEnum request);
 	
 	RTOS::flag machineRequestFlag;
 	RTOS::clock clock;

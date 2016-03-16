@@ -106,7 +106,9 @@ void machineInteractionTask::update()
 			open.operand = (std::uint8_t)commandEnum::UNLOCK_CMD;
 			this->Uart.write(open);
 			this->sleep(10 MS);
-			this->Uart.read_16();
+			MessageStruct reply;
+			reply = this->Uart.read_16();
+			this->parseResponse(reply);
 		}
 		else if (this->currentState.waterLevel > 0)
 		{
@@ -121,8 +123,11 @@ void machineInteractionTask::update()
 			this->Uart.write(drain);
 			this->Uart.write(stop);
 			this->sleep(10 MS);
-			this->Uart.read_16();
-			this->Uart.read_16();
+			MessageStruct reply;
+			reply = this->Uart.read_16();
+			this->parseResponse(reply);
+			reply = this->Uart.read_16();
+			this->parseResponse(reply);
 		}
 	}
 	
@@ -181,8 +186,8 @@ void machineInteractionTask::update()
 			valve.operand = (std::uint8_t)commandEnum::OPEN_CMD;
 		}
 	}
-	toSend.pushBack(pump);
-	toSend.pushBack(valve);
+	toSend.push_back(pump);
+	toSend.push_back(valve);
 	
 	if (this->currentState.soapDispenser != this->targetState.soapDispenser)
 	{
@@ -219,34 +224,105 @@ void machineInteractionTask::update()
 	drum.operand = (std::uint8_t)this->targetState.drumRPM;
 	if (! this->targetState.drumClockwise)
 	{
-		drum.operand |= (std::uint8_t)commandEnum::RPM_Clockwise
+		drum.operand |= (std::uint8_t)commandEnum::RPM_Clockwise;
 	}
 	toSend.push_back(drum);
 	
+	//all messages prepared, time to write them to the washing machine.
 	std::vector<MessageStruct>::iterator msg;
 	for (msg = toSend.begin(); msg != toSend.end();++msg)
 	{
 		this->Uart.write(*msg);
-
 	}
-	this->wait(10 MS);
+	sleep(10 MS);
 	for (msg = toSend.begin(); msg != toSend.end();++msg)
 	{
-		MessageStruct reply = this->Uart.read_16();
-		
+		MessageStruct reply;
+		reply = this->Uart.read_16();
+		this->parseResponse(reply);
+	}
 }
 
-
+void machineInteractionTask::parseResponse(MessageStruct response)
+{	
+	switch(response.message)
+	{
+		case (std::uint8_t)replyEnum::DOOR_LOCK_REP:
+			this->currentState.doorLock = 
+				(response.operand == ((uint8_t)stateEnum::LOCKED);
+			break;
+			
+		case (std::uint8_t)replyEnum::WATER_VALVE_REP:
+			this->currentState.waterValve =
+				(response.operand == ((uint8_t)stateEnum::OPENED);
+			break;
+			
+		case (std::uint8_t)replyEnum::SOAP_DISPENSER_REP:
+			this->currentState.soapDispenser =
+				(response.operand == ((uint8_t)stateEnum::OPENED);
+			break;
+			
+		case (std::uint8_t)replyEnum::PUMP_REP:
+			this->currentState.pump =
+				(response.operand == ((uint8_t)stateEnum::ON);
+			break;
+			
+		case (std::uint8_t)replyEnum::WATER_LEVEL_REP:
+			this->currentState.waterLevel = response.operand;
+			break;
+			
+		case (std::uint8_t)replyEnum::HEATING_UNIT_REP:
+			this->currentState.heatingUnit =
+				(response.operand == ((uint8_t)stateEnum::ON);
+			break;
+			
+		case (std::uint8_t)replyEnum::TEMPERATURE_REP:
+			this->currentState.temperature = response.operand;
+			break;
+			
+		case (std::uint8_t)replyEnum::GET_RPM_REP:
+		case (std::uint8_t)replyEnum::SET_RPM_REP:
+			this->currentState.drumRPM = (response.operand & 0x7F;)
+			this->currentState.drumClockwise = 
+				(response.operand & 0x80 == 0);
+			break;
+			
+		case (std::uint8_t)replyEnum::SIGNAL_LED_REP:
+			this->currentState.signalLed =
+				(response.operand == ((uint8_t)stateEnum::ON);
+			break;
+			
+		default:
+		//nothing happens here, should only be reached when errors occur.
+			trace;
+			break;
+	}
+	return;
+}
 
 MessageStruct machineInteractionTask::getState(requestEnum request)
 {
 	if (request == requestEnum::SET_RPM_REQ)
 	{
-		return;
+		MessageStruct reply;
+		reply.message = 0xff;
+		reply.operand = 0xff;
+		return reply;
 	}
 	MessageStruct message;
 	message.message = (std::uint8_t)request;
 	message.operand = (std::uint8_t)commandEnum::STATUS_CMD; 
 	
 	return message;
+}
+
+void machineInteractionTask::main()
+{
+	while (1==1)
+	{
+		rtos::event e = wait(clock+machineRequestFlag);
+		update();
+		notifyListeners();
+		trace;
+	}
 }
