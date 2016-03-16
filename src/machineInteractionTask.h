@@ -136,6 +136,8 @@ public:
 	//! Makes the washing machine flush by activating the pump,
 	//! this also sets the temperature to a low stand by temperature.
 	void flush();
+	//! starts the washing machine, or shuts it down.
+	void setMachineState(bool run);
 
 protected:
 	//because the Task interface demands it, and because this task needs to do

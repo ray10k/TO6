@@ -30,7 +30,7 @@ class washingCycleTask : public RTOS::task, public machineStateListener
 public:
 	washingCycleTask(machineInteractionTask * machine);
 	//! As defined by the interface machineStateListener.
-	void stateChanged(MachineState currentState) override;
+	void stateChanged(const MachineState& currentState) override;
 	//! Registers a new listener for events describing the progress through the
 	//! currently ongoing cycle.
 	void addCycleStateListener(cycleStateListener* listener);

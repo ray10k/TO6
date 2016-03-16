@@ -80,6 +80,12 @@ void machineInteractionTask::flush()
 	this->machineRequestFlag.set();
 }
 
+void machineInteractionTask::setMachineState(bool run)
+{
+	this->running = run;
+	this->machineRequestFlag.set();
+}
+
 void machineInteractionTask::notifyListeners()
 {
 	MachineState toSend(this->currentState);

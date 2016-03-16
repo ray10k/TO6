@@ -104,9 +104,10 @@ void userInteractionTask::main()
 	}
 }
 
-void userInteractionTask::stateChanged(MachineState currentState)
+void userInteractionTask::stateChanged(const MachineState& currentState)
 {
-	this->machineStatePool.write(currentState);
+	MachineState copy(currentState);
+	this->machineStatePool.write(copy);
 	this->stateUpdateFlag.set();
 }
 
