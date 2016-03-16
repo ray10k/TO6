@@ -249,22 +249,22 @@ void machineInteractionTask::parseResponse(MessageStruct response)
 	{
 		case (std::uint8_t)replyEnum::DOOR_LOCK_REP:
 			this->currentState.doorLock = 
-				(response.operand == ((uint8_t)stateEnum::LOCKED);
+				(response.operand == ((uint8_t)stateEnum::LOCKED));
 			break;
 			
 		case (std::uint8_t)replyEnum::WATER_VALVE_REP:
 			this->currentState.waterValve =
-				(response.operand == ((uint8_t)stateEnum::OPENED);
+				(response.operand == ((uint8_t)stateEnum::OPENED));
 			break;
 			
 		case (std::uint8_t)replyEnum::SOAP_DISPENSER_REP:
 			this->currentState.soapDispenser =
-				(response.operand == ((uint8_t)stateEnum::OPENED);
+				(response.operand == ((uint8_t)stateEnum::OPENED));
 			break;
 			
 		case (std::uint8_t)replyEnum::PUMP_REP:
 			this->currentState.pump =
-				(response.operand == ((uint8_t)stateEnum::ON);
+				(response.operand == ((uint8_t)stateEnum::ON));
 			break;
 			
 		case (std::uint8_t)replyEnum::WATER_LEVEL_REP:
@@ -273,7 +273,7 @@ void machineInteractionTask::parseResponse(MessageStruct response)
 			
 		case (std::uint8_t)replyEnum::HEATING_UNIT_REP:
 			this->currentState.heatingUnit =
-				(response.operand == ((uint8_t)stateEnum::ON);
+				(response.operand == ((uint8_t)stateEnum::ON));
 			break;
 			
 		case (std::uint8_t)replyEnum::TEMPERATURE_REP:
@@ -282,14 +282,14 @@ void machineInteractionTask::parseResponse(MessageStruct response)
 			
 		case (std::uint8_t)replyEnum::GET_RPM_REP:
 		case (std::uint8_t)replyEnum::SET_RPM_REP:
-			this->currentState.drumRPM = (response.operand & 0x7F;)
+			this->currentState.drumRPM = (response.operand & 0x7F);
 			this->currentState.drumClockwise = 
-				(response.operand & 0x80 == 0);
+				((response.operand & 0x80) == 0);
 			break;
 			
 		case (std::uint8_t)replyEnum::SIGNAL_LED_REP:
 			this->currentState.signalLed =
-				(response.operand == ((uint8_t)stateEnum::ON);
+				(response.operand == ((uint8_t)stateEnum::ON));
 			break;
 			
 		default:
@@ -320,7 +320,7 @@ void machineInteractionTask::main()
 {
 	while (1==1)
 	{
-		rtos::event e = wait(clock+machineRequestFlag);
+		wait(clock+machineRequestFlag);
 		update();
 		notifyListeners();
 		trace;
