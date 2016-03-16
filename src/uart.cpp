@@ -2,7 +2,7 @@
 
 uart::uart(void): ls()
 {
-	ls.open("/dev/ttySO", 9600);
+	ls.open("/dev/ttyAMA0", 9600);
 }
 
 void uart::write(std::vector<std::uint8_t>* request)
