@@ -1,5 +1,5 @@
 #include "machineInteractionTask.h"
-#include <stdio>
+#include <iostream>
 
 const int MAX_DRUM_RPM = 1600;
 
@@ -254,7 +254,8 @@ void machineInteractionTask::update()
 void machineInteractionTask::parseResponse(MessageStruct response)
 {	
 #ifdef DEBUG
-	cout << std::hex << response.message << " " << response.operand << std::endl;
+	std::cout << std::hex << response.message 
+	<< " " << response.operand << std::endl;
 #endif
 	switch(response.message)
 	{
