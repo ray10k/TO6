@@ -19,6 +19,7 @@ machineInteractionTask::machineInteractionTask():
 	startup.message = (std::uint8_t)requestEnum::MACHINE_REQ;
 	startup.operand = (std::uint8_t)commandEnum::START_CMD;
 	Uart.write(startup);
+	Uart.read_16();
 }
 
 void machineInteractionTask::addMachineStateListener
