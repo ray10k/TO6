@@ -54,7 +54,7 @@ public:
 	//! Constructor.
 	userInteractionTask(washingCycleTask* WCT);
 	//! An override function from machineStateListener.h.
-	void stateChanged(MachineState currentState) override;
+	void stateChanged(const MachineState& currentState) override;
 	//! An override function from cycleStateListener.h.
 	void cycleStateChanged(unsigned int totalSteps,
 		unsigned int currentStep,

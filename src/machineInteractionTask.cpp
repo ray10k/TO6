@@ -3,6 +3,7 @@
 const int MAX_DRUM_RPM = 1600;
 
 machineInteractionTask::machineInteractionTask():
+	RTOS::task(5,"Machine Interaction Task"),
 	machineRequestFlag(this,"Machine Request Flag"),
 	clock(this,500 MS,"Machine update clock"),
 	currentState(),
@@ -77,6 +78,12 @@ void machineInteractionTask::flush()
 {
 	this->targetState.waterLevel = 200; //Out-of-bounds to indicate the actual
 	//level should be ignored during status update.
+	this->machineRequestFlag.set();
+}
+
+void machineInteractionTask::setMachineState(bool run)
+{
+	this->running = run;
 	this->machineRequestFlag.set();
 }
 

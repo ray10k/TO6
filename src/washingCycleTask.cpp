@@ -29,7 +29,7 @@ washingCycleTask::washingCycleTask(machineInteractionTask * machine):
 	this->run();
 }
 
-void washingCycleTask::stateChanged(MachineState currentState){
+void washingCycleTask::stateChanged(const MachineState& currentState){
 	internalMachineState toWrite;
 	toWrite.temperature = currentState.temperature;
 	toWrite.waterLevel = currentState.waterLevel;
@@ -190,8 +190,6 @@ void washingCycleTask::updateMachine(){
 
 	this->machine->setDetergent(
 		this->currentStep.getAddDetergent());
-
-	this->machine->setMachineState(true);
 }
 
 void washingCycleTask::main(){
