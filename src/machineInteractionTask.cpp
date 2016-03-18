@@ -303,7 +303,13 @@ void machineInteractionTask::update()
 		MessageStruct reply;
 		reply = this->Uart.read_16();
 		this->parseResponse(reply);
+#ifdef DEBUG
+		std::cout << 'I';
+#endif
 	}
+#ifdef DEBUG	
+	std::cout << std::endl;
+#endif
 }
 
 void machineInteractionTask::parseResponse(MessageStruct response)
@@ -386,8 +392,11 @@ void machineInteractionTask::main()
 {
 	while (1==1)
 	{
-		wait(clock+machineRequestFlag);
+		RTOS::event e = wait(clock+machineRequestFlag);
 		update();
-		notifyListeners();
+		if (e == this->clock)
+		{
+			notifyListeners();
+		}
 	}
 }
