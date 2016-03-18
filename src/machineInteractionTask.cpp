@@ -17,8 +17,8 @@ machineInteractionTask::machineInteractionTask():
 	//during startup, send the washing machine the instruction to get into
 	//its running state. Prevents trouble later down the line.
 	MessageStruct startup;
-	startup.message = (std::uint8_t)requestEnum::MACHINE_REQ;
-	startup.operand = (std::uint8_t)commandEnum::START_CMD;
+	startup = requestEnum::MACHINE_REQ;
+	startup = commandEnum::START_CMD;
 	Uart.write(startup);
 	MessageStruct reply; //living on a prayer, hoping the WM doesnt need long.
 	reply = Uart.read_16();
@@ -154,11 +154,7 @@ void machineInteractionTask::update()
 			MessageStruct open;
 			open = requestEnum::DOOR_LOCK_REQ;
 			open = commandEnum::UNLOCK_CMD;
-			this->Uart.write(open);
-			this->sleep(10 MS);
-			MessageStruct reply;
-			reply = this->Uart.read_16();
-			this->parseResponse(reply);
+			this->send(open);
 		}
 		else if (this->currentState.waterLevel > 0)
 		{
@@ -170,17 +166,8 @@ void machineInteractionTask::update()
 			stop = requestEnum::WATER_VALVE_REQ;
 			stop = commandEnum::CLOSE_CMD;
 			
-			MessageStruct reply;
-			
-			this->Uart.write(drain);
-			this->sleep(10 MS);
-			reply = this->Uart.read_16();
-			this->parseResponse(reply);
-			
-			this->Uart.write(stop);
-			this->sleep(10 MS);
-			reply = this->Uart.read_16();
-			this->parseResponse(reply);
+			this->send(drain);
+			this->send(stop);
 		}
 		return;
 	}
@@ -316,11 +303,7 @@ void machineInteractionTask::update()
 	std::vector<MessageStruct>::iterator msg;
 	for (msg = toSend.begin(); msg != toSend.end();++msg)
 	{
-		this->Uart.write(*msg);
-		sleep(10 MS);
-		MessageStruct reply;
-		reply = this->Uart.read_16();
-		this->parseResponse(reply);
+		this->send(*msg);
 #ifdef DEBUG
 		std::cout << 'I';
 #endif
@@ -337,16 +320,10 @@ void machineInteractionTask::poll()
 	for (std::uint8_t i = 0x02; i <= 0x09; ++i)
 	{
 		mess.message = i;
-		this->Uart.write(mess);
-		sleep(10 MS);
-		repl = this->Uart.read_16();
-		this->parseResponse(repl);
+		this->send(mess);
 	}
 	mess = requestEnum::SIGNAL_LED_REQ;
-	this->Uart.write(mess);
-	sleep(10 MS);
-	repl = this->Uart.read_16();
-	this->parseResponse(repl);
+	this->send(mess);
 }
 
 void machineInteractionTask::parseResponse(MessageStruct response)
@@ -423,6 +400,16 @@ MessageStruct machineInteractionTask::getState(requestEnum request)
 	message.operand = (std::uint8_t)commandEnum::STATUS_CMD; 
 	
 	return message;
+}
+
+MessageStruct machineInteractionTask::send(MessageStruct message)
+{
+	this->Uart.write(message);
+	sleep(10 MS);
+	MessageStruct retval;
+	retval = this->Uart.read_16();
+	this->parseResponse(retval);
+	return retval;
 }
 
 void machineInteractionTask::main()

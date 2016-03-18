@@ -170,6 +170,10 @@ private:
 	//! current state.
 	void parseResponse(MessageStruct response);
 	
+	//! Sends the given message, accepts the reply given and adjusts the current
+	//! state accordingly. Does call sleep(), so RTOS must be running!
+	MessageStruct send(MessageStruct message);
+	
 	//! Prepare a message to request the given status.
 	MessageStruct getState(requestEnum request);
 	
