@@ -334,7 +334,7 @@ void machineInteractionTask::poll()
 {
 	MessageStruct mess,repl;
 	mess = commandEnum::STATUS_CMD;
-	for (std::uint8_t i = 0x02; i <= 0x09)
+	for (std::uint8_t i = 0x02; i <= 0x09; ++i)
 	{
 		mess.message = i;
 		this->Uart.write(mess);
