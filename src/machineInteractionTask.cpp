@@ -32,6 +32,9 @@ void machineInteractionTask::addMachineStateListener
 
 void machineInteractionTask::setTemperature(unsigned int temperature)
 {
+#ifdef DEBUG
+	std::cout << "temperature set to " << std::dec << temperature << std::endl;
+#endif
 	if (temperature <= 100)
 	{
 		this->targetState.temperature = temperature;
@@ -45,6 +48,9 @@ void machineInteractionTask::setTemperature(unsigned int temperature)
 
 void machineInteractionTask::setWaterLevel(unsigned int waterLevel)
 {
+#ifdef DEBUG
+	std::cout << "water level set to " << std::dec << waterLevel << std::endl;
+#endif
 	if (waterLevel <= 100)
 	{
 		this->targetState.waterLevel = waterLevel;
@@ -58,6 +64,9 @@ void machineInteractionTask::setWaterLevel(unsigned int waterLevel)
 
 void machineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 {
+#ifdef DEBUG
+	std::cout << "RPM set to " << std::dec << rpm << std::endl;
+#endif
 	if (rpm <= MAX_DRUM_RPM)
 	{
 		//the machine handles rpm in steps of 25.
@@ -74,12 +83,18 @@ void machineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 
 void machineInteractionTask::setDetergent(bool add)
 {
+#ifdef DEBUG
+	std::cout << "Detergent turned " << add?"on":"off" << std::endl;
+#endif
 	this->targetState.soapDispenser = add;
 	this->machineRequestFlag.set();
 }
 
 void machineInteractionTask::flush()
 {
+#ifdef DEBUG
+	std::cout << "instructed to flush" << std::endl;
+#endif
 	this->targetState.waterLevel = 200; //Out-of-bounds to indicate the actual
 	//level should be ignored during status update.
 	this->machineRequestFlag.set();
@@ -87,6 +102,9 @@ void machineInteractionTask::flush()
 
 void machineInteractionTask::setMachineState(bool run)
 {
+#ifdef DEBUG
+	std::cout << "running state set to " <<run?"running":"stopped"<< std::endl;
+#endif
 	this->running = run;
 	this->machineRequestFlag.set();
 }
