@@ -52,7 +52,7 @@ std::uint16_t uart::read_16(void)
 	ls.read(&temp,2);
 	retval = temp[0] | (temp[1]<<8);
 #ifdef DEBUG
-	std::cout << std::hex << "read (16): "<<(int)response << std::endl;
+	std::cout << std::hex << "read (16): "<<(int)retval << std::endl;
 #endif
 	return retval;
 }
