@@ -146,7 +146,7 @@ void machineInteractionTask::update()
 #endif
 	//don't send instructions when the machine isn't running, or the door isn't
 	//locked. Receipe for disaster...
-	if (!this->running || !this->currentState.doorLock)
+	if (!this->running )
 	{
 		trace;
 		if (this->currentState.waterLevel==0 && this->currentState.doorLock)
