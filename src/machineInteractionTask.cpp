@@ -142,7 +142,7 @@ void machineInteractionTask::update()
 	<< this->currentState.drumRPM << std::endl
 	<< "target state (summarized:)" << std::endl<<"water: " <<
 	this->targetState.waterLevel << " temperature: " << targetState.temperature
-	<< " drum speed: " <<targetState.drumRPM << sdt::endl;
+	<< " drum speed: " <<targetState.drumRPM << std::endl;
 #endif
 	//don't send instructions when the machine isn't running, or the door isn't
 	//locked. Receipe for disaster...
