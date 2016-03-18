@@ -22,8 +22,8 @@ washingCycleTask::washingCycleTask(machineInteractionTask * machine):
 	cycleStep step1 = {"step1",20,60,false,0}; cycle.addStep(step1);
 	cycleStep step2 = {"step2",40,60,false,0}; cycle.addStep(step2);
 	cycleStep step3 = {"step3",40,60,true,0}; cycle.addStep(step3);
-	cycleStep step4 = {"step4",40,60,false,1000, 500, false}; cycle.addStep(step4);
-	cycleStep step5 = {"step5",20,0,false,0, 100, true}; cycle.addStep(step5);
+	cycleStep step4 = {"step4",40,60,false,1000, 30, false}; cycle.addStep(step4);
+	cycleStep step5 = {"step5",20,0,false,0, 60, true}; cycle.addStep(step5);
 	addWashingCycle(cycle);
 	loadCycle(defaultID);
 	this->run();
