@@ -330,6 +330,25 @@ void machineInteractionTask::update()
 #endif
 }
 
+void machineInteractionTask::poll()
+{
+	MessageStruct mess,repl;
+	mess = commandEnum::STATUS_CMD;
+	for (std::uint8_t i = 0x02; i <= 0x09)
+	{
+		mess.message = i;
+		this->Uart.write(mess);
+		sleep(10 MS);
+		repl = this->Uart.read_16();
+		this->parseResponse(repl);
+	}
+	mess = requestEnum::SIGNAL_LED_REQ;
+	this->Uart.write(mess);
+	sleep(10 MS);
+	repl = this->Uart.read_16();
+	this->parseResponse(repl);
+}
+
 void machineInteractionTask::parseResponse(MessageStruct response)
 {	
 	switch(response.message)
@@ -411,11 +430,15 @@ void machineInteractionTask::main()
 	while (1==1)
 	{
 		RTOS::event e = wait(clock+machineRequestFlag);
-		update();
-		trace;
+
 		if (e == this->clock)
 		{
+			poll();
 			notifyListeners();
+		}
+		else if (e == this->machineRequestFlag)
+		{
+			update();
 		}
 	}
 }

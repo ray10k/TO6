@@ -163,6 +163,9 @@ private:
 	//! This also updates the current state in accordance to the replies 
 	//! received.
 	void update();
+	//! Request the current state of the washing machine, part by part. Does not
+	//! send any instructions that change the washing machine's state.
+	void poll();
 	//! Apply the state information in the given response to the internally kept
 	//! current state.
 	void parseResponse(MessageStruct response);
