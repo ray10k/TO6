@@ -104,6 +104,16 @@ struct MessageStruct
 		return *this;
 	}
 	
+	MessageStruct operator =(const requestEnum r){
+		this->message = (std::uint8_t) r;
+		return *this;
+	}
+	
+	MessageStruct operator =(const commandEnum c){
+		this->operand = (std::uint8_t) c;
+		return *this;
+	}
+	
 	operator std::uint16_t() const {
 		std::uint16_t retval = this->operand;
 		retval = (retval << 8)|this->message;

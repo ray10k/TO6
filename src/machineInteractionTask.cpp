@@ -111,8 +111,8 @@ void machineInteractionTask::update()
 		if (this->currentState.waterLevel==0 && this->currentState.doorLock)
 		{
 			MessageStruct open;
-			open.message = (std::uint8_t)requestEnum::DOOR_LOCK_REQ;
-			open.operand = (std::uint8_t)commandEnum::UNLOCK_CMD;
+			open = requestEnum::DOOR_LOCK_REQ;
+			open = commandEnum::UNLOCK_CMD;
 			this->Uart.write(open);
 			this->sleep(10 MS);
 			MessageStruct reply;
@@ -122,81 +122,111 @@ void machineInteractionTask::update()
 		else if (this->currentState.waterLevel > 0)
 		{
 			MessageStruct drain;
-			drain.message = (std::uint8_t)requestEnum::PUMP_REQ;
-			drain.operand = (std::uint8_t)commandEnum::ON_CMD;
+			drain = requestEnum::PUMP_REQ;
+			drain = commandEnum::ON_CMD;
 			
 			MessageStruct stop;
-			stop.message = (std::uint8_t)requestEnum::WATER_VALVE_REQ;
-			stop.operand = (std::uint8_t)commandEnum::CLOSE_CMD;
+			stop = requestEnum::WATER_VALVE_REQ;
+			stop = commandEnum::CLOSE_CMD;
+			
+			MessageStruct reply;
 			
 			this->Uart.write(drain);
-			this->Uart.write(stop);
 			this->sleep(10 MS);
-			MessageStruct reply;
 			reply = this->Uart.read_16();
 			this->parseResponse(reply);
+			
+			this->Uart.write(stop);
+			this->sleep(10 MS);
 			reply = this->Uart.read_16();
 			this->parseResponse(reply);
 		}
+		return;
 	}
 	
 	std::vector<MessageStruct> toSend;
 
-	MessageStruct door;
-	door.message = (std::uint8_t)requestEnum::DOOR_LOCK_REQ;
-	if (this->targetState.doorLock)
+	if (this->targetState.doorLock != this->currentState.doorLock)
 	{
-		door.operand = (std::uint8_t)commandEnum::LOCK_CMD;
+		MessageStruct door;
+		door = requestEnum::DOOR_LOCK_REQ;
+		if (this->targetState.doorLock)
+		{
+			door = commandEnum::LOCK_CMD;
+		}
+		else
+		{
+			door = commandEnum::UNLOCK_CMD;
+		}
+		toSend.push_back(door);
 	}
-	else
-	{
-		door.operand = (std::uint8_t)commandEnum::UNLOCK_CMD;
-	}
-	toSend.push_back(door);
-	
+
 	MessageStruct heater;
-	heater.message = (std::uint8_t)requestEnum::HEATING_UNIT_REQ;
-	
-	if (this->currentState.temperature > this->targetState.temperature)
+	heater = requestEnum::HEATING_UNIT_REQ;
+	if (this->currentState.temperature < this->targetState.temperature &&
+		! this->currentState.heatingUnit)
 	{
-		heater.operand = (std::uint8_t)commandEnum::ON_CMD;
+		heater = commandEnum::ON_CMD;
+		toSend.push_back(heater);
 	}
-	else
+	else if (this->currentState.temperature >= this->targetState.temperature &&
+		this->currentState.heatingUnit)
 	{
-		heater.operand = (std::uint8_t)commandEnum::OFF_CMD;
+		heater = commandEnum::OFF_CMD;
+		toSend.push_back(heater);
 	}
 	
-	toSend.push_back(heater);
+	
 	
 	MessageStruct pump,valve;
-	pump.message = (std::uint8_t)requestEnum::PUMP_REQ;
-	valve.message = (std::uint8_t)requestEnum::WATER_VALVE_REQ;
+	pump = requestEnum::PUMP_REQ;
+	valve= requestEnum::WATER_VALVE_REQ;
 	
-	if (this->targetState.waterLevel > 100)
+	if (this->targetState.waterLevel > 100 && 
+		! (this->currentState.pump && this->currentState.waterValve) )
 	{
 		//flush by running the water *and* opening the valve.
-		pump.operand = (std::uint8_t)commandEnum::OPEN_CMD;
-		valve.operand = (std::uint8_t)commandEnum::OPEN_CMD;
+		pump = commandEnum::OPEN_CMD;
+		valve= commandEnum::OPEN_CMD;
+		toSend.push_back(pump);
+		toSend.push_back(valve);
 	}
 	else
 	{
-		pump.operand = (std::uint8_t)commandEnum::CLOSE_CMD;
-		valve.operand = (std::uint8_t)commandEnum::CLOSE_CMD;
+		
+		pump = commandEnum::CLOSE_CMD;
+		valve = commandEnum::CLOSE_CMD;
 		//close both by default, asses whether they should be opened with some
 		//tolerances.
-		if (this->targetState.waterLevel-3 < this->currentState.waterLevel)
+		if (this->currentState.waterLevel < this->targetState.waterLevel + 2)
 		{
-			//intended water level below actual, need more water.
-			pump.operand = (std::uint8_t)commandEnum::OPEN_CMD;
+			if (!this->currentState.waterValve)
+			{
+				valve = commandEnum::OPEN_CMD;
+				toSend.push_back(valve);
+			}
+			
+			if (this->currentState.pump)
+			{
+				pump = commandEnum::OFF_CMD;
+				toSend.push_back(pump);
+			}
 		}
-		else if 
-		(this-> targetState.waterLevel+3 > this->currentState.waterLevel)
+		else if (this->currentState.waterLevel > this->targetState.waterLevel-2)
 		{
-			valve.operand = (std::uint8_t)commandEnum::OPEN_CMD;
+			if (this->currentState.waterValve)
+			{
+				valve= commandEnum::CLOSE_CMD;
+				toSend.push_back(valve);
+			}
+			
+			if (!this->currentState.pump)
+			{
+				pump = commandEnum::ON_CMD;
+				toSend.push_back(pump);
+			}
 		}
 	}
-	toSend.push_back(pump);
-	toSend.push_back(valve);
 	
 	if (this->currentState.soapDispenser != this->targetState.soapDispenser)
 	{
@@ -228,24 +258,25 @@ void machineInteractionTask::update()
 		toSend.push_back(led);
 	}
 	
-	MessageStruct drum;
-	drum.message = (std::uint8_t)requestEnum::SET_RPM_REQ;
-	drum.operand = (std::uint8_t)this->targetState.drumRPM;
-	if (! this->targetState.drumClockwise)
+	if (this->currentState.drumRPM != this->targetState.drumRPM ||
+		this->currentState.drumClockwise != this->currentState.drumClockwise)
 	{
-		drum.operand |= (std::uint8_t)commandEnum::RPM_Clockwise;
+		MessageStruct drum;
+		drum = requestEnum::SET_RPM_REQ;
+		drum.operand = (std::uint8_t)this->targetState.drumRPM;
+		if (! this->targetState.drumClockwise)
+		{
+			drum.operand |= (std::uint8_t)commandEnum::RPM_Clockwise;
+		}
+		toSend.push_back(drum);
 	}
-	toSend.push_back(drum);
 	
 	//all messages prepared, time to write them to the washing machine.
 	std::vector<MessageStruct>::iterator msg;
 	for (msg = toSend.begin(); msg != toSend.end();++msg)
 	{
 		this->Uart.write(*msg);
-	}
-	sleep(10 MS);
-	for (msg = toSend.begin(); msg != toSend.end();++msg)
-	{
+		sleep(10 MS);
 		MessageStruct reply;
 		reply = this->Uart.read_16();
 		this->parseResponse(reply);
