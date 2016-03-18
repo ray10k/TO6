@@ -44,7 +44,7 @@ function Print(message, id, type)
 
 function WebSocketConnect() {
   if ("WebSocket" in window) {
-     ws = new WebSocket("ws://127.0.0.1:8080");
+     ws = new WebSocket("ws://127.0.0.1:2000");
      //ws = new WebSocket("ws://"+location.hostname+":8008");
      ws.onopen = function(evt) { onOpen(evt) };
      ws.onclose = function(evt) { onClose(evt) };
