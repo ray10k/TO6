@@ -401,6 +401,7 @@ void machineInteractionTask::main()
 	{
 		RTOS::event e = wait(clock+machineRequestFlag);
 		update();
+		trace;
 		if (e == this->clock)
 		{
 			notifyListeners();
