@@ -135,7 +135,12 @@ void machineInteractionTask::notifyListeners()
 
 void machineInteractionTask::update()
 {
-	trace;
+#ifdef DEBUG
+	std::cout << "machine state prior to update:" << std::endl
+	<< "water: " << this->currentState.waterLevel << " temperature: "
+	<< this->currentState.temperature << " drum speed: " 
+	<< this->currentState.drumRPM << std::endl;
+#endif
 	//don't send instructions when the machine isn't running, or the door isn't
 	//locked. Receipe for disaster...
 	if (!this->running || !this->currentState.doorLock)
