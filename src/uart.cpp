@@ -3,9 +3,11 @@
 
 uart::uart(void): ls()
 {
-	int i = ls.open("/dev/ttyAMA0", 9600);
 #ifdef DEBUG
+	int i = ls.open("/dev/ttyAMA0", 9600);
 	std::cout << "connection startup result: "<< std::dec << i <<std::endl;
+#else
+	ls.open("/dev/ttyAMA0",9600);
 #endif
 }
 
