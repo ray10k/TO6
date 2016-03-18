@@ -19,7 +19,9 @@ machineInteractionTask::machineInteractionTask():
 	startup.message = (std::uint8_t)requestEnum::MACHINE_REQ;
 	startup.operand = (std::uint8_t)commandEnum::START_CMD;
 	Uart.write(startup);
-	Uart.read_16();
+	MessageStruct reply; //living on a prayer, hoping the WM doesnt need long.
+	reply = Uart.read_16();
+	this->parseResponse(reply);
 }
 
 void machineInteractionTask::addMachineStateListener
@@ -332,6 +334,9 @@ void machineInteractionTask::parseResponse(MessageStruct response)
 				(response.operand == ((uint8_t)stateEnum::ON));
 			break;
 			
+		case (std::uint8_t)replyEnum::MACHINE_REP:
+			this->running = 
+				(response.operand == ((uint8_t)stateEnum::RUNNING));
 		default:
 		//nothing happens here, should only be reached when errors occur.
 			std::cout << "Something went wrong..." << std::endl;
