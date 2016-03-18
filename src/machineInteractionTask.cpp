@@ -224,7 +224,7 @@ void machineInteractionTask::update()
 		//there is a target water level. Assess diff. between current and target
 		//, apply tolerances.
 		
-		int diff = this->targetState.waterLevel - this->currentState.waterLevel;
+		int diff = this->currentState.waterLevel - this->targetState.waterLevel;
 		
 		
 		if (diff-2 < 0) //water is too low, need more. (maybe.)
