@@ -3,7 +3,10 @@
 
 uart::uart(void): ls()
 {
-	ls.open("/dev/ttyAMA0", 9600);
+	int i = ls.open("/dev/ttyAMA0", 9600);
+#ifdef DEBUG
+	std::cout << "connection startup result: "<< std::dec << i <<std::endl;
+#endif
 }
 
 void uart::write(std::vector<std::uint8_t>* request)
