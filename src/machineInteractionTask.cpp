@@ -65,7 +65,8 @@ void machineInteractionTask::setWaterLevel(unsigned int waterLevel)
 void machineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 {
 #ifdef DEBUG
-	std::cout << "RPM set to " << std::dec << rpm << std::endl;
+	std::cout << "RPM set to " << std::dec << rpm << 
+	' ' << (clockwise?"clockwise":"counterclockwise") << std::endl;
 #endif
 	if (rpm <= MAX_DRUM_RPM)
 	{
@@ -84,7 +85,8 @@ void machineInteractionTask::setRPM(bool clockwise, unsigned int rpm)
 void machineInteractionTask::setDetergent(bool add)
 {
 #ifdef DEBUG
-	std::cout << "Detergent turned " << add?"on":"off" << std::endl;
+	std::cout << "Detergent turned " << 
+	(add?"on":"off") << std::endl;
 #endif
 	this->targetState.soapDispenser = add;
 	this->machineRequestFlag.set();
@@ -103,7 +105,8 @@ void machineInteractionTask::flush()
 void machineInteractionTask::setMachineState(bool run)
 {
 #ifdef DEBUG
-	std::cout << "running state set to " <<run?"running":"stopped"<< std::endl;
+	std::cout << "running state set to " <<
+	(run?"running":"stopped") << std::endl;
 #endif
 	this->running = run;
 	this->machineRequestFlag.set();
