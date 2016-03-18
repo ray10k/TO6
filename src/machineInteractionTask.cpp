@@ -254,13 +254,6 @@ void machineInteractionTask::update()
 
 void machineInteractionTask::parseResponse(MessageStruct response)
 {	
-#ifdef DEBUG
-	int left,right;
-	left = response.message;
-	right = response.operand;
-	std::cout << std::hex << left 
-	<< " " << right << std::endl;
-#endif
 	switch(response.message)
 	{
 		case (std::uint8_t)replyEnum::DOOR_LOCK_REP:
@@ -310,6 +303,7 @@ void machineInteractionTask::parseResponse(MessageStruct response)
 			
 		default:
 		//nothing happens here, should only be reached when errors occur.
+			std::cout << "Something went wrong..." << std::endl;
 			break;
 	}
 	return;
