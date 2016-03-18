@@ -221,12 +221,13 @@ void machineInteractionTask::update()
 	}
 	else
 	{
+		//there is a target water level. Assess diff. between current and target
+		//, apply tolerances.
 		
-		pump = commandEnum::CLOSE_CMD;
-		valve = commandEnum::CLOSE_CMD;
-		//close both by default, asses whether they should be opened with some
-		//tolerances.
-		if (this->currentState.waterLevel < this->targetState.waterLevel + 2)
+		int diff = this->targetState.waterLevel - this->currentState.waterLevel;
+		
+		
+		if (diff-2 < 0) //water is too low, need more. (maybe.)
 		{
 			if (!this->currentState.waterValve)
 			{
@@ -240,7 +241,7 @@ void machineInteractionTask::update()
 				toSend.push_back(pump);
 			}
 		}
-		else if (this->currentState.waterLevel > this->targetState.waterLevel-2)
+		else if (diff+2 > 0) //water is too high, need less (maybe)
 		{
 			if (this->currentState.waterValve)
 			{
