@@ -151,7 +151,7 @@ unsigned short int cycleStep::getDrumSpeed() const {
 	//this function must only return the speed as rpm/25, to match the format
 	//expected by the device.
 	unsigned int retval = this->drumSpeed;
-	return retval / 25;
+	return retval;
 }
 
 bool cycleStep::isDrumClockwise() const {
