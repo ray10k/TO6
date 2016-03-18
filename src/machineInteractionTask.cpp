@@ -405,7 +405,7 @@ MessageStruct machineInteractionTask::getState(requestEnum request)
 MessageStruct machineInteractionTask::send(MessageStruct message)
 {
 	this->Uart.write(message);
-	sleep(10 MS);
+	sleep(20 MS);
 	MessageStruct retval;
 	retval = this->Uart.read_16();
 	this->parseResponse(retval);
