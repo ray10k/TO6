@@ -148,6 +148,7 @@ void machineInteractionTask::update()
 	//locked. Receipe for disaster...
 	if (!this->running || !this->currentState.doorLock)
 	{
+		trace;
 		if (this->currentState.waterLevel==0 && this->currentState.doorLock)
 		{
 			MessageStruct open;
