@@ -115,6 +115,7 @@ void machineInteractionTask::setMachineState(bool run)
 
 void machineInteractionTask::notifyListeners()
 {
+	trace;
 	MachineState toSend(this->currentState);
 	
 	if (toSend != this->previousState)
@@ -134,6 +135,7 @@ void machineInteractionTask::notifyListeners()
 
 void machineInteractionTask::update()
 {
+	trace;
 	//don't send instructions when the machine isn't running, or the door isn't
 	//locked. Receipe for disaster...
 	if (!this->running || !this->currentState.doorLock)
