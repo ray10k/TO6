@@ -175,6 +175,7 @@ private:
 	
 	MachineState currentState;
 	MachineState targetState;
+	MachineState previousState;
 	uart Uart;
 
 	std::vector<machineStateListener*> listeners;

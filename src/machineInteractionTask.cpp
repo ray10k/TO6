@@ -9,6 +9,7 @@ machineInteractionTask::machineInteractionTask():
 	clock(this,500 MS,"Machine update clock"),
 	currentState(),
 	targetState(),
+	previousState(),
 	Uart(),
 	listeners(),
 	running(false)
@@ -115,14 +116,20 @@ void machineInteractionTask::setMachineState(bool run)
 void machineInteractionTask::notifyListeners()
 {
 	MachineState toSend(this->currentState);
-	std::vector<machineStateListener*>::iterator listen;
 	
-	for (listen = this->listeners.begin();
+	if (toSend != this->previousState)
+	{
+		std::vector<machineStateListener*>::iterator listen;
+	
+		for (listen = this->listeners.begin();
 			listen != this->listeners.end();
 			++listen)
-	{
-		(*listen)->stateChanged(toSend);
+		{
+			(*listen)->stateChanged(toSend);
+		}
 	}
+	
+	this->previousState = this->currentState;
 }
 
 void machineInteractionTask::update()

@@ -24,6 +24,20 @@ struct MachineState
 	bool pump;
 	bool heatingUnit;
 	bool signalLed;
+	
+	bool operator != (const MachineState& other) const
+	{
+		return !(this->temperature==other.temperature
+			&& this->waterLevel == other.waterLevel
+			&& this->drumRPM == other.drumRPM
+			&& this->soapDispenser == other.soapDispenser
+			&& this->drumClockwise == other.drumClockwise
+			&& this->doorLock == other.doorLock
+			&& this->waterValve == other.waterValve
+			&& this->pump == other.pump
+			&& this->heatingUnit == other.heatingUnit
+			&& this->signalLed == other.signalLed);
+	}
 };
 
 class machineStateListener
