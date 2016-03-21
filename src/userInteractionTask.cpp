@@ -1,8 +1,5 @@
 #include "userInteractionTask.h"
-#include "rapidjson/rapidjson.h"
-#include "rapidjson/document.h"
-#include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
+#include "rapidjson/allocators.h"
 
 userInteractionTask::userInteractionTask(washingCycleTask* WCT):
   RTOS::task(10,"user interaction"),
@@ -15,6 +12,40 @@ userInteractionTask::userInteractionTask(washingCycleTask* WCT):
 {
 	addUser({"Admin", "0"});
 	currentCycleStep = {-1,-1,cycleState::STOP," ", " ", false};
+	{
+		machineUpdateFormat.SetObject();
+		
+		rapidjson::Value type; type = "machine";
+		rapidjson::Value temp; temp = 0;
+		rapidjson::Value wate; wate = 0;
+		rapidjson::Value drum; drum = 0;
+		rapidjson::Value soap; soap = false;
+		rapidjson::Value clck; clck = false;
+		rapidjson::Value lock; lock = false;
+		rapidjson::Value vlve; vlve = false;
+		rapidjson::Value pump; pump = false;
+		rapidjson::Value heat; heat = false;
+		rapidjson::Value LED;  LED  = false;
+		
+		rapidjson::Document::AllocatorType& allocator = 
+			machineUpdateFormat.GetAllocator();
+		
+		machineUpdateFormat.AddMember("type",type,allocator);
+		machineUpdateFormat.AddMember("temperature",temp,allocator);
+		machineUpdateFormat.AddMember("water",wate,allocator);
+		machineUpdateFormat.AddMember("RPM",drum,allocator);
+		machineUpdateFormat.AddMember("soap",soap,allocator);
+		machineUpdateFormat.AddMember("clockwise",clck,allocator);
+		machineUpdateFormat.AddMember("lock",lock,allocator);
+		machineUpdateFormat.AddMember("valve",vlve,allocator);
+		machineUpdateFormat.AddMember("pump",pump,allocator);
+		machineUpdateFormat.AddMember("heater",heat,allocator);
+		machineUpdateFormat.AddMember("signal",LED,allocator);		
+	}
+	
+	{
+		
+	}
 }
 
 void userInteractionTask::main()
@@ -36,30 +67,21 @@ void userInteractionTask::main()
 		rapidjson::StringBuffer buff;
 		rapidjson::Writer<rapidjson::StringBuffer> mStat(buff);
 		
-		mStat.StartObject();
-		mStat.Key("type");
-		mStat.String("machine");
-		mStat.Key("temperature");
-		mStat.Uint(currentState.temperature);
-		mStat.Key("water");
-		mStat.Uint(currentState.waterLevel);
-		mStat.Key("RPM");
-		mStat.Uint(currentState.drumRPM);
-		mStat.Key("soap");
-		mStat.Bool(currentState.soapDispenser);
-		mStat.Key("clockwise");
-		mStat.Bool(currentState.drumClockwise);
-		mStat.Key("lock");
-		mStat.Bool(currentState.doorLock);
-		mStat.Key("valve");
-		mStat.Bool(currentState.waterValve);
-		mStat.Key("pump");
-		mStat.Bool(currentState.pump);
-		mStat.Key("heater");
-		mStat.Bool(currentState.heatingUnit);	
-		mStat.Key("signal");
-		mStat.Bool(currentState.signalLed);
-		mStat.EndObject();	
+		machineUpdateFormat["temperature"] = currentState.temperature;
+		machineUpdateFormat["water"] = currentState.waterLevel;
+		machineUpdateFormat["RPM"] = currentState.drumRPM;
+		machineUpdateFormat["soap"] = currentState.soapDispenser;
+		machineUpdateFormat["clockwise"] = currentState.drumClockwise;
+		machineUpdateFormat["lock"] = currentState.doorLock;
+		machineUpdateFormat["valve"] = currentState.waterValve;
+		machineUpdateFormat["pump"] = currentState.pump;
+		machineUpdateFormat["heater"] = currentState.heatingUnit;
+		machineUpdateFormat["signal"] = currentState.signalLed;
+		
+		machineUpdateFormat.Accept(mStat);
+#ifdef DEBUG
+		std::cout << buff.GetString()<<std::endl;
+#endif
 		
 		this->webcon->broadcast(buff.GetString());
 		
@@ -69,7 +91,7 @@ void userInteractionTask::main()
 		this->release();
 		
 		//rather safe than sorry...
-		
+/*		
 		rapidjson::StringBuffer buffest;
 		rapidjson::Writer<rapidjson::StringBuffer> cStat(buffest);
 		
@@ -100,7 +122,7 @@ void userInteractionTask::main()
 		}
 		cStat.EndObject();
 		
-		this->webcon->broadcast(buffest.GetString());
+		this->webcon->broadcast(buffest.GetString());*/
 	}
 }
 

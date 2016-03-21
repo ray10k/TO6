@@ -171,8 +171,6 @@ void machineInteractionTask::update()
 		}
 		return;
 	}
-	
-	std::vector<MessageStruct> toSend;
 
 	if (this->targetState.doorLock != this->currentState.doorLock)
 	{
@@ -186,7 +184,7 @@ void machineInteractionTask::update()
 		{
 			door = commandEnum::UNLOCK_CMD;
 		}
-		toSend.push_back(door);
+		this->send(door);
 	}
 
 	MessageStruct heater;
@@ -195,13 +193,13 @@ void machineInteractionTask::update()
 		! this->currentState.heatingUnit)
 	{
 		heater = commandEnum::ON_CMD;
-		toSend.push_back(heater);
+		this->send(heater);
 	}
 	else if (this->currentState.temperature >= this->targetState.temperature &&
 		this->currentState.heatingUnit)
 	{
 		heater = commandEnum::OFF_CMD;
-		toSend.push_back(heater);
+		this->send(heater);
 	}
 	
 	
@@ -216,8 +214,8 @@ void machineInteractionTask::update()
 		//flush by running the water *and* opening the valve.
 		pump = commandEnum::OPEN_CMD;
 		valve= commandEnum::OPEN_CMD;
-		toSend.push_back(pump);
-		toSend.push_back(valve);
+		this->send(pump);
+		this->send(valve);
 	}
 	else
 	{
@@ -232,13 +230,13 @@ void machineInteractionTask::update()
 			if (!this->currentState.waterValve)
 			{
 				valve = commandEnum::OPEN_CMD;
-				toSend.push_back(valve);
+				this->send(valve);
 			}
 			
 			if (this->currentState.pump)
 			{
 				pump = commandEnum::OFF_CMD;
-				toSend.push_back(pump);
+				this->send(pump);
 			}
 		}
 		else if (diff+2 > 0) //water is too high, need less (maybe)
@@ -246,13 +244,13 @@ void machineInteractionTask::update()
 			if (this->currentState.waterValve)
 			{
 				valve= commandEnum::CLOSE_CMD;
-				toSend.push_back(valve);
+				this->send(valve);
 			}
 			
 			if (!this->currentState.pump)
 			{
 				pump = commandEnum::ON_CMD;
-				toSend.push_back(pump);
+				this->send(pump);
 			}
 		}
 	}
@@ -269,7 +267,7 @@ void machineInteractionTask::update()
 		{
 			soap.operand = (std::uint8_t)commandEnum::CLOSE_CMD;
 		}
-		toSend.push_back(soap);
+		this->send(soap);
 	}
 	
 	if (this->currentState.signalLed != this->targetState.signalLed)
@@ -284,7 +282,7 @@ void machineInteractionTask::update()
 		{
 			led.operand = (std::uint8_t)commandEnum::OFF_CMD;
 		}
-		toSend.push_back(led);
+		this->send(led);
 	}
 	
 	if (this->currentState.drumRPM != this->targetState.drumRPM ||
@@ -297,18 +295,11 @@ void machineInteractionTask::update()
 		{
 			drum.operand |= (std::uint8_t)commandEnum::RPM_Clockwise;
 		}
-		toSend.push_back(drum);
+		this->send(drum);
 	}
 	
 	//all messages prepared, time to write them to the washing machine.
-	std::vector<MessageStruct>::iterator msg;
-	for (msg = toSend.begin(); msg != toSend.end();++msg)
-	{
-		this->send(*msg);
-#ifdef DEBUG
-		std::cout << 'I';
-#endif
-	}
+
 #ifdef DEBUG	
 	std::cout << std::endl;
 #endif

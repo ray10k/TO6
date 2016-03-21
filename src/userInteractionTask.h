@@ -14,6 +14,11 @@
 
 #include "prtos/pRTOS.h"
 
+#include "rapidjson/rapidjson.h"
+#include "rapidjson/document.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/writer.h"
+
 #include "cycleID.h"
 #include "cycleState.h"
 #include "cycleStateListener.h"
@@ -118,13 +123,16 @@ private:
 	RTOS::pool<MachineState> machineStatePool;
 	RTOS::flag stateUpdateFlag;
 	RTOS::pool<CycleStep> cycleStatePool;
-
+	
 	MachineState currentState;
 	CycleStep currentCycleStep;
 	User currentUser = {"", ""};
 	std::vector<User> users;
 	washingCycleTask* WCT;
 	WebsocketController* webcon;
+	
+	rapidjson::Document machineUpdateFormat;
+	rapidjson::Document cycleUpdateFormat;
 	
 	bool loggedIn = false;
 	
