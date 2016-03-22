@@ -176,13 +176,10 @@ void machineInteractionTask::update()
 		trace;
 		//only in running state is it possible to update the state of the 
 		//machine, in any other state most control statements are ignored.
-		if (this->targetState.runState == MachineRunState::RUNNING)
-		{
-			MessageStruct start;
-			start = requestEnum::MACHINE_REQ;
-			start = commandEnum::START_CMD;
-			this->send(start);
-		}
+		MessageStruct start;
+		start = requestEnum::MACHINE_REQ;
+		start = commandEnum::START_CMD;
+		this->send(start);
 		return;
 	}
 	
