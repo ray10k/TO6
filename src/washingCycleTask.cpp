@@ -186,8 +186,9 @@ void washingCycleTask::updateMachine(){
 	}
 		
 	if(currentStep.isTimed()){
+		trace;
 		this->currentStepTimer.set(
-			this->currentStep.getDuration() S);
+			(this->currentStep.getDuration()) S);
 	}
 
 	if (this->currentStep.mustFlush()){

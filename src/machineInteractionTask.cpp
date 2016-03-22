@@ -310,8 +310,20 @@ void machineInteractionTask::update()
 		
 		int diff = this->currentState.waterLevel - this->targetState.waterLevel;
 		
-		
-		if (diff-2 < 0) //water is too low, need more. (maybe.)
+		if (diff == 0)
+		{
+			if (this->currentState.waterValve)
+			{
+				valve = commandEnum::CLOSE_CMD;
+				this->send(valve);
+			}
+			if (this->currentState.pump)
+			{
+				pump = commandEnum::OFF_CMD;
+				this->send(pump);
+			}
+		}
+		else if (diff-2 < 0) //water is too low, need more. (maybe.)
 		{
 			if (!this->currentState.waterValve)
 			{
@@ -328,6 +340,7 @@ void machineInteractionTask::update()
 		else if (diff+2 > 0) //water is too high, need less (maybe)
 		{
 			if (this->currentState.waterValve)
+			{
 			{
 				valve= commandEnum::CLOSE_CMD;
 				this->send(valve);
