@@ -111,10 +111,15 @@ void userInteractionTask::main()
 		
 		buff.Clear();
 		
-		cycleUpdateFormat["name"] = currentCycleStep.cycleName.c_str();
+		
+		
+		cycleUpdateFormat["name"].SetString(currentCycleStep.cycleName.c_str(),
+						currentCycleStep.cycleName.length());
 		cycleUpdateFormat["currentStep"] = currentCycleStep.currentStep;
 		cycleUpdateFormat["totalSteps"] = currentCycleStep.totalSteps;
-		cycleUpdateFormat["stepName"] = currentCycleStep.stepName.c_str();
+		cycleUpdateFormat["stepName"].SetString(
+			currentCycleStep.stepName.c_str(),
+			currentCycleStep.stepName.length());
 		switch(currentCycleStep.state){
 			case cycleState::RUN:
 				cycleUpdateFormat["state"] = "run";
