@@ -44,7 +44,24 @@ userInteractionTask::userInteractionTask(washingCycleTask* WCT):
 	}
 	
 	{
+		cycleUpdateFormat.SetObject();
 		
+		rapidjson::Value type; type = "cycle";
+		rapidjson::Value name; name = "no cycle";
+		rapidjson::Value curr; curr = 0;
+		rapidjson::Value totl; totl = 0;
+		rapidjson::Value snam; snam = "no step";
+		rapidjson::Value stat; stat = "stop";
+		
+		rapidjson::Document::AllocatorType& allocator = 
+			cycleUpdateFormat.GetAllocator();
+			
+		cycleUpdateFormat.AddMember("type",type,allocator);
+		cycleUpdateFormat.AddMember("name",name,allocator);
+		cycleUpdateFormat.AddMember("currentStep",curr,allocator);
+		cycleUpdateFormat.AddMember("totalSteps",totl,allocator);
+		cycleUpdateFormat.AddMember("stepName",snam,allocator);
+		cycleUpdateFormat.AddMember("state",stat,allocator);
 	}
 }
 
@@ -65,7 +82,7 @@ void userInteractionTask::main()
 		//send currentState-> websocket-> website
 		
 		rapidjson::StringBuffer buff;
-		rapidjson::Writer<rapidjson::StringBuffer> mStat(buff);
+		rapidjson::Writer<rapidjson::StringBuffer> writer(buff);
 		
 		machineUpdateFormat["temperature"] = currentState.temperature;
 		machineUpdateFormat["water"] = currentState.waterLevel;
@@ -78,7 +95,7 @@ void userInteractionTask::main()
 		machineUpdateFormat["heater"] = currentState.heatingUnit;
 		machineUpdateFormat["signal"] = currentState.signalLed;
 		
-		machineUpdateFormat.Accept(mStat);
+		machineUpdateFormat.Accept(writer);
 #ifdef DEBUG
 		std::cout << buff.GetString()<<std::endl;
 #endif
@@ -91,38 +108,32 @@ void userInteractionTask::main()
 		this->release();
 		
 		//rather safe than sorry...
-/*		
-		rapidjson::StringBuffer buffest;
-		rapidjson::Writer<rapidjson::StringBuffer> cStat(buffest);
 		
-		cStat.StartObject();
-		cStat.Key("type");
-		cStat.String("cycle");
-		cStat.Key("name");
-		cStat.String(currentCycleStep.cycleName.c_str());
-		cStat.Key("currentStep");
-		cStat.Uint(currentCycleStep.currentStep);
-		cStat.Key("totalSteps");
-		cStat.Uint(currentCycleStep.totalSteps);
-		cStat.Key("stepName");
-		cStat.String(currentCycleStep.stepName.c_str());
-		cStat.Key("state");
+		buff.Clear();
+		
+		cycleUpdateFormat["name"] = currentCycleStep.cycleName.c_str();
+		cycleUpdateFormat["currentStep"] = currentCycleStep.currentStep;
+		cycleUpdateFormat["totalSteps"] = currentCycleStep.totalSteps;
+		cycleUpdateFormat["stepName"] = currentCycleStep.stepName.c_str();
 		switch(currentCycleStep.state){
 			case cycleState::RUN:
-				cStat.String("run");
+				cycleUpdateFormat["state"] = "run";
 				break;
 			case cycleState::PAUSE:
-				cStat.String("pause");
+				cycleUpdateFormat["state"] = "pause";
 				break;
 			default:
 			case cycleState::STOP:
-				cStat.String("stop");
+				cycleUpdateFormat["state"] = "stop";
 				break;
-			
 		}
-		cStat.EndObject();
 		
-		this->webcon->broadcast(buffest.GetString());*/
+		cycleUpdateFormat.Accept(writer);
+#ifdef DEBUG
+		std::cout << buff.GetString()<<std::endl;
+#endif
+		
+		this->webcon->broadcast(buff.GetString());
 	}
 }
 
