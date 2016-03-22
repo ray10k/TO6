@@ -225,7 +225,10 @@ void washingCycleTask::main(){
 
 		while(this->ongoing.hasNext())
 		{
-			updateMachine();
+			if (!this->current.isTimed())
+			{
+				updateMachine();
+			}
 			RTOS::event progress = this->wait(runFlag + pauseFlag + stopFlag +
 											  updateFlag + currentStepTimer);
 			bool brake = false;
