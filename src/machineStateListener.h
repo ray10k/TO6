@@ -11,9 +11,17 @@
 #ifndef __MACHINE_STATE_LISTENER
 #define __MACHINE_STATE_LISTENER
 
+enum class MachineRunState{
+	IDLE,
+	RUNNING,
+	HALTED,
+	STOPPED,
+	FAILED
+};
 //! A struct that can contain all possible information of the washing machine.
 struct MachineState
 {
+	MachineRunState runState;
 	short unsigned int temperature;
 	short unsigned int waterLevel;
 	short unsigned int drumRPM;
@@ -27,7 +35,8 @@ struct MachineState
 	
 	bool operator != (const MachineState& other) const
 	{
-		return !(this->temperature==other.temperature
+		return !(this->runState == other.runState
+			&& this->temperature==other.temperature
 			&& this->waterLevel == other.waterLevel
 			&& this->drumRPM == other.drumRPM
 			&& this->soapDispenser == other.soapDispenser
