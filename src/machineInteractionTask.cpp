@@ -341,7 +341,7 @@ void machineInteractionTask::update()
 		{
 			if (this->currentState.waterValve)
 			{
-			{
+			
 				valve= commandEnum::CLOSE_CMD;
 				this->send(valve);
 			}
