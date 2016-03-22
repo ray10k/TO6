@@ -255,6 +255,9 @@ void machineInteractionTask::update()
 		return;
 	}
 
+#ifdef DEBUG
+	std::cout << "proceeding with regular update."<<std::endl;
+#endif
 	if (this->targetState.doorLock != this->currentState.doorLock)
 	{
 		MessageStruct door;
@@ -384,6 +387,9 @@ void machineInteractionTask::update()
 
 void machineInteractionTask::poll()
 {
+#ifdef DEBUG
+	std::cout << "polling hardware." << std::endl;
+#endif
 	MessageStruct mess,repl;
 	mess = commandEnum::STATUS_CMD;
 	//checking MACHINE_REQ (0x01) through GET_RPM_REQ (0x09)
@@ -468,7 +474,6 @@ void machineInteractionTask::parseResponse(MessageStruct response)
 			break;
 		default:
 		//nothing happens here, should only be reached when errors occur.
-			std::cout << "Something went wrong..." << std::endl;
 			break;
 	}
 	return;
@@ -509,14 +514,21 @@ MessageStruct machineInteractionTask::send(MessageStruct message)
 
 void machineInteractionTask::main()
 {
+	int cycleCount = 0;
 	while (1==1)
 	{
+		++cycleCount;
 		RTOS::event e = wait(clock+machineRequestFlag);
 
 		if (e == this->clock)
 		{
 			poll();
 			notifyListeners();
+			if (cycleCount > 8)
+			{
+				cycleCount = 0;
+				update();
+			}
 		}
 		else if (e == this->machineRequestFlag)
 		{
