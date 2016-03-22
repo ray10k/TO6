@@ -225,7 +225,7 @@ void washingCycleTask::main(){
 
 		while(this->ongoing.hasNext())
 		{
-			if (!this->current.isTimed())
+			if (!this->currentStep.isTimed())
 			{
 				updateMachine();
 			}
