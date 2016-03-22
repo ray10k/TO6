@@ -140,10 +140,10 @@ void userInteractionTask::main()
 		cycleUpdateFormat.Accept(writer2);
 		trace;
 #ifdef DEBUG
-		std::cout << buff.GetString()<<std::endl;
+		std::cout << buff2.GetString()<<std::endl;
 #endif
 		
-		this->webcon->broadcast(buff.GetString());
+		this->webcon->broadcast(buff2.GetString());
 	}
 }
 
