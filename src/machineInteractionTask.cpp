@@ -236,6 +236,14 @@ void machineInteractionTask::update()
 			}
 		}
 	}
+	else if (!this->currentState.doorLock)
+	{
+		MessageStruct door;
+		door = requestEnum::DOOR_LOCK_REQ;
+		door = commandEnum::LOCK_CMD;
+		this->send(door);
+		return;
+	}
 
 	if (this->targetState.doorLock != this->currentState.doorLock)
 	{
