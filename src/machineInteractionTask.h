@@ -149,6 +149,9 @@ public:
 	void flush();
 	//! starts the washing machine, or shuts it down.
 	void setMachineState(bool run);
+	
+	//! true if the machine is trying to run
+	bool isRunning();
 
 protected:
 	//because the Task interface demands it, and because this task needs to do

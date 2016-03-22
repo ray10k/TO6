@@ -115,6 +115,11 @@ void machineInteractionTask::setMachineState(bool run)
 	this->machineRequestFlag.set();
 }
 
+bool machineInteractionTask::isRunning()
+{
+	return this->running;
+}
+
 void machineInteractionTask::notifyListeners()
 {
 	MachineState toSend(this->currentState);
@@ -171,7 +176,13 @@ void machineInteractionTask::update()
 		trace;
 		//only in running state is it possible to update the state of the 
 		//machine, in any other state most control statements are ignored.
-		//no point in wasting time here.
+		if (this->targetState.runState == MachineRunState::RUNNING)
+		{
+			MessageStruct start;
+			start = requestEnum::MACHINE_REQ;
+			start = commandEnum::START_CMD;
+			this->send(start);
+		}
 		return;
 	}
 	
@@ -369,12 +380,6 @@ void machineInteractionTask::update()
 		}
 		this->send(drum);
 	}
-	
-	//all messages prepared, time to write them to the washing machine.
-
-#ifdef DEBUG	
-	std::cout << std::endl;
-#endif
 }
 
 void machineInteractionTask::poll()

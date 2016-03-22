@@ -169,6 +169,22 @@ void washingCycleTask::toStandBy(){
 }
 
 void washingCycleTask::updateMachine(){
+	if(this->state != cycleState::RUN)
+	{
+		if (this->machine->isRunning())
+		{
+			this->machine->setMachineState(false);
+		}
+		return;
+	}
+	else
+	{
+		if (! this->machine->isRunning())
+		{
+			this->machine->setMachineState(true);
+		}
+	}
+		
 	if(currentStep.isTimed()){
 		this->currentStepTimer.set(
 			this->currentStep.getDuration() S);
