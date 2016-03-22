@@ -109,7 +109,9 @@ void userInteractionTask::main()
 		
 		//rather safe than sorry...
 
-		buff.Clear();
+		rapidjson::StringBuffer buff2;
+		rapidjson::Writer<rapidjson::StringBuffer> writer2(buff2);
+		
 		trace;
 		cycleUpdateFormat["name"].SetString(currentCycleStep.cycleName.c_str(),
 						currentCycleStep.cycleName.length());
@@ -135,7 +137,7 @@ void userInteractionTask::main()
 				break;
 		}
 		trace;
-		cycleUpdateFormat.Accept(writer);
+		cycleUpdateFormat.Accept(writer2);
 		trace;
 #ifdef DEBUG
 		std::cout << buff.GetString()<<std::endl;
