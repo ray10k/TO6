@@ -23,6 +23,8 @@ machineInteractionTask::machineInteractionTask():
 	MessageStruct reply; //living on a prayer, hoping the WM doesnt need long.
 	reply = Uart.read_16();
 	this->parseResponse(reply);
+	
+	this->currentState.runState = MachineRunState::IDLE;
 }
 
 void machineInteractionTask::addMachineStateListener
@@ -143,33 +145,96 @@ void machineInteractionTask::update()
 	<< "target state (summarized:)" << std::endl<<"water: " <<
 	this->targetState.waterLevel << " temperature: " << targetState.temperature
 	<< " drum speed: " <<targetState.drumRPM*25 << std::endl;
+	
+	std::cout << "current runState: ";
+	switch (this->currentState.runState)
+	{
+		case MachineRunState::IDLE:
+			std::cout << "IDLE";
+			break;
+		case MachineRunState::RUNNING:
+			std::cout << "RUNNING";
+			break;
+		case MachineRunState::HALTED:
+			std::cout << "HALTED";
+			break;
+		case MachineRunState::STOPPED:
+			std::cout << "STOPPED";
+			break;
+		case MachineRunState::FAILED:
+			std::cout << "FAILED";
+			break;
+	}
+	std::cout << std::endl;
 #endif
-	//don't send instructions when the machine isn't running, or the door isn't
-	//locked. Receipe for disaster...
-	if (!this->running )
+	if (this->currentState.runState != MachineRunState::RUNNING)
 	{
 		trace;
-		if (this->currentState.waterLevel==0 && this->currentState.doorLock)
-		{
-			MessageStruct open;
-			open = requestEnum::DOOR_LOCK_REQ;
-			open = commandEnum::UNLOCK_CMD;
-			this->send(open);
-		}
-		else if (this->currentState.waterLevel > 0)
-		{
-			MessageStruct drain;
-			drain = requestEnum::PUMP_REQ;
-			drain = commandEnum::ON_CMD;
-			
-			MessageStruct stop;
-			stop = requestEnum::WATER_VALVE_REQ;
-			stop = commandEnum::CLOSE_CMD;
-			
-			this->send(drain);
-			this->send(stop);
-		}
+		//only in running state is it possible to update the state of the 
+		//machine, in any other state most control statements are ignored.
+		//no point in wasting time here.
 		return;
+	}
+	
+	if (!this->running)
+	{
+		//No program ongoing at this point in time.
+		if (!this->inSafeState())
+		{
+			//move to safe state: no water, no movement, no heat, etc.
+			if (!this->currentState.doorLock)
+			{
+				MessageStruct door;
+				door = requestEnum::DOOR_LOCK_REQ;
+				door = commandEnum::LOCK_CMD;
+				this->send(door);
+			}
+			if (!this->currentState.pump)
+			{
+				MessageStruct pump;
+				pump = requestEnum::PUMP_REQ;
+				pump = commandEnum::ON_CMD;
+				this->send(pump);
+			}
+			if (this->currentState.heatingUnit)
+			{
+				MessageStruct heat;
+				heat = requestEnum::HEATING_UNIT_REQ;
+				heat = commandEnum::OFF_CMD;
+				this->send(heat);
+			}
+			if (this->currentState.waterValve)
+			{
+				MessageStruct valve;
+				valve = requestEnum::WATER_VALVE_REQ;
+				valve = commandEnum::CLOSE_CMD;
+				this->send(valve);
+			}
+			if (this->currentState.drumRPM != 0)
+			{
+				MessageStruct drum;
+				drum = requestEnum::SET_RPM_REQ;
+				drum.operand = 0;
+				this->send(drum);
+			}
+		}
+		else
+		{
+			if (this->currentState.pump)
+			{
+				MessageStruct pump;
+				pump = requestEnum::PUMP_REQ;
+				pump = commandEnum::OFF_CMD;
+				this->send(pump);
+			}
+			if (this->currentState.doorLock)
+			{
+				MessageStruct door;
+				door = requestEnum::DOOR_LOCK_REQ;
+				door = commandEnum::UNLOCK_CMD;
+				this->send(door);
+			}
+		}
 	}
 
 	if (this->targetState.doorLock != this->currentState.doorLock)
@@ -309,7 +374,8 @@ void machineInteractionTask::poll()
 {
 	MessageStruct mess,repl;
 	mess = commandEnum::STATUS_CMD;
-	for (std::uint8_t i = 0x02; i <= 0x09; ++i)
+	//checking MACHINE_REQ (0x01) through GET_RPM_REQ (0x09)
+	for (std::uint8_t i = 0x01; i <= 0x09; ++i)
 	{
 		mess.message = i;
 		this->send(mess);
@@ -368,8 +434,26 @@ void machineInteractionTask::parseResponse(MessageStruct response)
 			break;
 			
 		case (std::uint8_t)replyEnum::MACHINE_REP:
-			this->running = 
-				(response.operand == ((uint8_t)stateEnum::RUNNING));
+			//Sorry for the nested switch... :(
+			switch (response.operand){
+				case 0x01:
+					this->currentState.runState = MachineRunState::HALTED;
+					break;
+				default:
+				case 0x02:
+					this->currentState.runState = MachineRunState::IDLE;
+					break;
+				case 0x04:
+					this->currentState.runState = MachineRunState::RUNNING;
+					break;
+				case 0x08:
+					this->currentState.runState = MachineRunState::STOPPED;
+					break;
+			}
+			break;
+		case (std::uint8_t)replyEnum::HALTED_REP:
+			this->currentState.runState = MachineRunState::HALTED;
+			break;
 		default:
 		//nothing happens here, should only be reached when errors occur.
 			std::cout << "Something went wrong..." << std::endl;

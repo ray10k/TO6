@@ -1,5 +1,6 @@
 #include "userInteractionTask.h"
 #include "rapidjson/allocators.h"
+#include <cstring>
 
 userInteractionTask::userInteractionTask(washingCycleTask* WCT):
   RTOS::task(10,"user interaction"),
@@ -12,6 +13,8 @@ userInteractionTask::userInteractionTask(washingCycleTask* WCT):
 {
 	addUser({"Admin", "0"});
 	currentCycleStep = {-1,-1,cycleState::STOP," ", " ", false};
+	
+	//initialize JSON for updates of the machine status.
 	{
 		machineUpdateFormat.SetObject();
 		
@@ -43,6 +46,7 @@ userInteractionTask::userInteractionTask(washingCycleTask* WCT):
 		machineUpdateFormat.AddMember("signal",LED,allocator);		
 	}
 	
+	//initialize JSON for updates of cycle status.
 	{
 		cycleUpdateFormat.SetObject();
 		
@@ -313,5 +317,47 @@ void userInteractionTask::setWebsocket(WebsocketController* out){
 }
 
 void userInteractionTask::packet_received(Packet& p){
+#ifdef DEBUG
 	std::cout <<  p.get_message() << std::endl;
+#endif
+	char * temp = new char [p.get_message().length()+1];
+	std::strcpy (temp,p.get_message().c_str());
+	
+	rapidjson::Document doc;
+	if (doc.ParseInsitu(temp).HasParseError())
+	{
+		doc.Clear();
+		if (doc.Parse(p.get_message().c_str())
+		{
+			return; //let's hope it wasn't important.
+		}
+	}
+	
+	if (!doc.HasMember("command") || !doc["command"].IsString())
+	{
+		return; //malformed command.
+	}
+	std::string command(doc["command"].GetString());
+	
+	if (command.compare("start") ==0)
+	{
+		cycleID cycle(doc["user"].GetString(),doc["cycle"].GetString());
+		this->WCT->loadCycle(cycle);
+		this->WCT->run();
+	}
+	
+	if (command.compare("stop") == 0)
+	{
+		this->WCT->stop();
+	}
+	else if(command.compare("pause") == 0)
+	{
+		this->WCT->pause();
+	}
+	else if (command.compare("resume") == 0)
+	{
+		this->WCT->run();
+	}
+	
+	delete[] temp;
 }

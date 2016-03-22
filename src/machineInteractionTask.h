@@ -51,7 +51,8 @@ enum class replyEnum : std::uint8_t
 	SET_RPM_REP=0x8A,
 	GET_RPM_REP=0x89,
 	SIGNAL_LED_REP=0x8B,
-	ERROR_REP=0xFF
+	HALTED_REP = 0xFF,
+	ERROR_REP=0xEE
 };
 
 //! Enum for the fixed-value responses from the washing machine.
@@ -176,6 +177,9 @@ private:
 	
 	//! Prepare a message to request the given status.
 	MessageStruct getState(requestEnum request);
+	
+	//! True if the machine is in a state where it is safe to open the door.
+	bool inSafeState();
 	
 	RTOS::flag machineRequestFlag;
 	RTOS::clock clock;
