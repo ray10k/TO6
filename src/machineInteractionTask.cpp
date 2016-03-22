@@ -188,9 +188,11 @@ void machineInteractionTask::update()
 	
 	if (!this->running)
 	{
+		trace;
 		//No program ongoing at this point in time.
 		if (!this->inSafeState())
 		{
+			
 			//move to safe state: no water, no movement, no heat, etc.
 			if (!this->currentState.doorLock)
 			{
@@ -248,6 +250,7 @@ void machineInteractionTask::update()
 	}
 	else if (!this->currentState.doorLock)
 	{
+		trace;
 		MessageStruct door;
 		door = requestEnum::DOOR_LOCK_REQ;
 		door = commandEnum::LOCK_CMD;
