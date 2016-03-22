@@ -111,8 +111,6 @@ void userInteractionTask::main()
 		
 		buff.Clear();
 		
-		
-		
 		cycleUpdateFormat["name"].SetString(currentCycleStep.cycleName.c_str(),
 						currentCycleStep.cycleName.length());
 		cycleUpdateFormat["currentStep"] = currentCycleStep.currentStep;
@@ -132,8 +130,9 @@ void userInteractionTask::main()
 				cycleUpdateFormat["state"] = "stop";
 				break;
 		}
-		
+		trace;
 		cycleUpdateFormat.Accept(writer);
+		trace;
 #ifdef DEBUG
 		std::cout << buff.GetString()<<std::endl;
 #endif
