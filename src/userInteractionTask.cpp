@@ -327,7 +327,7 @@ void userInteractionTask::packet_received(Packet& p){
 	if (doc.ParseInsitu(temp).HasParseError())
 	{
 		doc.Clear();
-		if (doc.Parse(p.get_message().c_str())
+		if (doc.Parse(p.get_message().c_str()).HasParseError())
 		{
 			return; //let's hope it wasn't important.
 		}
