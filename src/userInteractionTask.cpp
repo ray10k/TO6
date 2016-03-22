@@ -108,17 +108,20 @@ void userInteractionTask::main()
 		this->release();
 		
 		//rather safe than sorry...
-		trace;
+
 		buff.Clear();
-		
 		trace;
 		cycleUpdateFormat["name"].SetString(currentCycleStep.cycleName.c_str(),
 						currentCycleStep.cycleName.length());
+		trace;
 		cycleUpdateFormat["currentStep"] = currentCycleStep.currentStep;
+		trace;
 		cycleUpdateFormat["totalSteps"] = currentCycleStep.totalSteps;
+		trace;
 		cycleUpdateFormat["stepName"].SetString(
 			currentCycleStep.stepName.c_str(),
 			currentCycleStep.stepName.length());
+		trace;
 		switch(currentCycleStep.state){
 			case cycleState::RUN:
 				cycleUpdateFormat["state"] = "run";
