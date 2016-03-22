@@ -117,7 +117,6 @@ void machineInteractionTask::setMachineState(bool run)
 
 void machineInteractionTask::notifyListeners()
 {
-	trace;
 	MachineState toSend(this->currentState);
 	
 	if (toSend != this->previousState)

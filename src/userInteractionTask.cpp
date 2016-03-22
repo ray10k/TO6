@@ -116,18 +116,13 @@ void userInteractionTask::main()
 		rapidjson::StringBuffer buff2;
 		rapidjson::Writer<rapidjson::StringBuffer> writer2(buff2);
 		
-		trace;
 		cycleUpdateFormat["name"].SetString(currentCycleStep.cycleName.c_str(),
 						currentCycleStep.cycleName.length());
-		trace;
 		cycleUpdateFormat["currentStep"] = currentCycleStep.currentStep;
-		trace;
 		cycleUpdateFormat["totalSteps"] = currentCycleStep.totalSteps;
-		trace;
 		cycleUpdateFormat["stepName"].SetString(
 			currentCycleStep.stepName.c_str(),
 			currentCycleStep.stepName.length());
-		trace;
 		switch(currentCycleStep.state){
 			case cycleState::RUN:
 				cycleUpdateFormat["state"] = "run";
@@ -140,9 +135,7 @@ void userInteractionTask::main()
 				cycleUpdateFormat["state"] = "stop";
 				break;
 		}
-		trace;
 		cycleUpdateFormat.Accept(writer2);
-		trace;
 #ifdef DEBUG
 		std::cout << buff2.GetString()<<std::endl;
 #endif
