@@ -486,6 +486,13 @@ MessageStruct machineInteractionTask::getState(requestEnum request)
 	return message;
 }
 
+bool machineInteractionTask::inSafeState()
+{
+	return (!currentState.heatingUnit
+		&& currentState.drumRPM == 0
+		&& currentState.waterLevel ==0)
+}
+
 MessageStruct machineInteractionTask::send(MessageStruct message)
 {
 	this->Uart.write(message);
