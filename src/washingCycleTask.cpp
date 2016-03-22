@@ -19,7 +19,7 @@ washingCycleTask::washingCycleTask(machineInteractionTask * machine):
 {
     cycleID defaultID("cycle1", "Admin");
 	washingCycle cycle(defaultID);
-	cycleStep step1 = {"step1",20,60,false,0}; cycle.addStep(step1);
+	cycleStep step1 = {"step1",40,60,false,0}; cycle.addStep(step1);
 	cycleStep step2 = {"step2",40,60,false,0}; cycle.addStep(step2);
 	cycleStep step3 = {"step3",40,60,true,0}; cycle.addStep(step3);
 	cycleStep step4 = {"step4",40,60,false,1600, 30, false}; cycle.addStep(step4);
