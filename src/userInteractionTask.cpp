@@ -108,9 +108,10 @@ void userInteractionTask::main()
 		this->release();
 		
 		//rather safe than sorry...
-		
+		trace;
 		buff.Clear();
 		
+		trace;
 		cycleUpdateFormat["name"].SetString(currentCycleStep.cycleName.c_str(),
 						currentCycleStep.cycleName.length());
 		cycleUpdateFormat["currentStep"] = currentCycleStep.currentStep;
