@@ -17,7 +17,7 @@ function onMessage (evt)
 	{
 		var innerHtml = document.getElementById('CycleInfo').innerHTML = "<p></p>";
 		innerHtml += "Current Cycle Name: " + obj.name;
-		innerHtml += "<BR/>Progress: " + obj.currentStep + "/" + obj.totalSteps + " Steps";
+		innerHtml += "<BR/>Progress: " + (obj.currentStep+ 1) + "/" + obj.totalSteps + " Steps";
 		innerHtml += "<BR/>Current Step Name: " + obj.stepName;
 		innerHtml += "<BR/>Cycle State: " + obj.state;
 		document.getElementById('CycleInfo').innerHTML = innerHtml;
