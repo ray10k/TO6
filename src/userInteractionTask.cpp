@@ -334,8 +334,8 @@ void userInteractionTask::packet_received(Packet& p){
 	
 	if (command.compare("start") ==0)
 	{
-		cycleID cycle(doc["user"].GetString(),doc["cycle"].GetString());
-		this->WCT->loadCycle(cycle);
+		//cycleID cycle(doc["user"].GetString(),doc["cycle"].GetString());
+		//this->WCT->loadCycle(cycle);
 		this->WCT->run();
 	}
 	
