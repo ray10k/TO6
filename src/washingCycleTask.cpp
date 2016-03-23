@@ -252,13 +252,12 @@ void washingCycleTask::main(){
 					brake = true;
 				}
 			}else if(progress == currentStepTimer || assessProgress()){
-				currentStep = ongoing.next(); updateMachine(); notifyListeners();
+				currentStep = ongoing.next(); updateMachine();
 			}
 			else if(progress == updateFlag){knownState = machineStatePool.read();}
-
+			notifyListeners();
 			if (brake)
 			{
-				notifyListeners();
 				break;
 			}
 		}
