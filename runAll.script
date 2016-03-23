@@ -2,4 +2,12 @@
 
 git pull
 make all
-./runnable
+if [$? -eq 0] then
+	rm -R /var/www/washing
+	cp -R /home/pi/TO6/html /var/www
+	mv /var/www/html /var/www/washing
+	chown www-data:www-data -R /var/www/washing
+	if [$? -eq 0] then
+		./runnable
+	fi
+fi
