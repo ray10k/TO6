@@ -48,10 +48,15 @@ unsigned int washingCycle::totalSteps() const {
 }
 
 void washingCycle::addStep(cycleStep toAdd){
-	if (this->steps.empty() || !(this->steps.back().isFinal()))
+	if (this->steps.empty())
 	{
-		this->steps.push_back(toAdd);
+		this->steps.push_back(last);
 	}
+	
+	std::vector<cycleStep>::iterator position = this->steps.rend();
+	++position;
+	this->steps.insert(position,toAdd);
+	
 }
 
 const std::string& washingCycle::getName() const {
