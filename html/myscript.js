@@ -48,6 +48,7 @@ function WebSocketConnect() {
      ws = new WebSocket("ws://192.168.137.111:2000");
      //ws = new WebSocket("ws://"+location.hostname+":8008");
      ws.onopen = function(evt) { onOpen(evt) };
+	 ws.onmessage = function(evt) { onMessage(evt) };
      ws.onclose = function(evt) { onClose(evt) };
      ws.onerror = function(evt) { onError(evt) };
   }
