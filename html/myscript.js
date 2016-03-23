@@ -9,6 +9,7 @@ function Load(html)
 
 function onMessage (evt)
 {
+	Print("onMessage functie werkt", "Main");
 	var innerHtml = document.getElementById('MachineInfo').innerHTML = "<p></p>";
 	var obj = JSON.parse(evt.data);
 	
