@@ -26,7 +26,7 @@ washingCycleTask::washingCycleTask(machineInteractionTask * machine):
 	cycleStep step5 = {"step5",20,0,false,0, 60, true}; cycle.addStep(step5);
 	addWashingCycle(cycle);
 	loadCycle(defaultID);
-	this->run();
+	//this->run();
 }
 
 void washingCycleTask::stateChanged(const MachineState& currentState){

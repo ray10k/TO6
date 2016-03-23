@@ -112,6 +112,14 @@ void machineInteractionTask::setMachineState(bool run)
 	(run?"running":"stopped") << std::endl;
 #endif
 	this->running = run;
+	if ( run )
+	{
+		this->targetState.runState = MachineRunState::RUNNING;
+	}
+	else
+	{
+		this->targetState.runState = MachineRunState::STOPPED;
+	}
 	this->machineRequestFlag.set();
 }
 
@@ -176,10 +184,13 @@ void machineInteractionTask::update()
 		trace;
 		//only in running state is it possible to update the state of the 
 		//machine, in any other state most control statements are ignored.
-		MessageStruct start;
-		start = requestEnum::MACHINE_REQ;
-		start = commandEnum::START_CMD;
-		this->send(start);
+		if(this->targetState.runState == MachineRunState::RUNNING)
+		{
+			MessageStruct start;
+			start = requestEnum::MACHINE_REQ;
+			start = commandEnum::START_CMD;
+			this->send(start);
+		}
 		return;
 	}
 	
