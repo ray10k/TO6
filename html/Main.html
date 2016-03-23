@@ -34,6 +34,9 @@
 				<button id="PauseButton" onclick = "SetWashingCycleState('pause')" >Pause </button>
 				<button id="StopButton" onclick = "SetWashingCycleState('stop')" >Stop </button>
 			</div>
+			<div id="CycleInfo">
+				
+			</div>
 			<div id="MachineInfo">
 				
 			</div>
@@ -42,9 +45,6 @@
 		<script type="text/javascript">
 			Login_Message();
 			LoadWashingCycleNames();
-			
-			var evt = [95,20]; 	//remove
-			onMessage(evt);		//remove
 			
 			LoadWashingCycleState();			
 		</script>
