@@ -53,8 +53,8 @@ void washingCycle::addStep(cycleStep toAdd){
 		this->steps.push_back(last);
 	}
 	
-	std::vector<cycleStep>::iterator position = this->steps.rend();
-	++position;
+	std::vector<cycleStep>::iterator position = this->steps.end();
+	--position;
 	this->steps.insert(position,toAdd);
 	
 }
