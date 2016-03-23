@@ -10,25 +10,36 @@ function Load(html)
 function onMessage (evt)
 {
 	console.log(evt.data);
-	var innerHtml = document.getElementById('MachineInfo').innerHTML = "<p></p>";
+	
 	var obj = JSON.parse(evt.data);
 	
-	innerHtml += "Current Cycle Name: " + obj.name;
-	innerHtml += "<BR/>Progress: " + obj.currentStep + "/" + obj.totalStep + " Steps";
-	innerHtml += "<BR/>Current Step Name: " + obj.stepName;
-	innerHtml += "<BR/>Cycle State: " + obj.state;
+	if (obj.type == "cycle")
+	{
+		var innerHtml = document.getElementById('CycleInfo').innerHTML = "<p></p>";
+		innerHtml += "Current Cycle Name: " + obj.name;
+		innerHtml += "<BR/>Progress: " + obj.currentStep + "/" + obj.totalStep + " Steps";
+		innerHtml += "<BR/>Current Step Name: " + obj.stepName;
+		innerHtml += "<BR/>Cycle State: " + obj.state;
+		document.getElementById('CycleInfo').innerHTML = innerHtml;
+	}
 	
-	innerHtml += "<BR/><BR/>Temperatuur: " + obj.temperature;
-	innerHtml += "<BR/>Water Level: " + obj.water;
-	innerHtml += "<BR/>Drum: " + obj.RPM;
-	innerHtml += "<BR/>Drum Clockwise: " + obj.clockwise;
-	innerHtml += "<BR/>Soap: " + obj.soap;
-	innerHtml += "<BR/>Door Lock: " + obj.lock;
-	innerHtml += "<BR/>Water Valve: " + obj.valve;
-	innerHtml += "<BR/>Pump: " + obj.pump;
-	innerHtml += "<BR/>Heater: " + obj.heater;
-	innerHtml += "<BR/>Signal: " + obj.signal;
-	document.getElementById('MachineInfo').innerHTML = innerHtml;
+	if (obj.type == "machine")
+	{
+		var innerHtml = document.getElementById('MachineInfo').innerHTML = "<p></p>";
+		innerHtml += "<BR/><BR/>Temperatuur: " + obj.temperature;
+		innerHtml += "<BR/>Water Level: " + obj.water;
+		innerHtml += "<BR/>Drum: " + obj.RPM;
+		innerHtml += "<BR/>Drum Clockwise: " + obj.clockwise;
+		innerHtml += "<BR/>Soap: " + obj.soap;
+		innerHtml += "<BR/>Door Lock: " + obj.lock;
+		innerHtml += "<BR/>Water Valve: " + obj.valve;
+		innerHtml += "<BR/>Pump: " + obj.pump;
+		innerHtml += "<BR/>Heater: " + obj.heater;
+		innerHtml += "<BR/>Signal: " + obj.signal;
+		document.getElementById('MachineInfo').innerHTML = innerHtml;
+	}
+	
+	
 }
 
 function Print(message, id, type) 
