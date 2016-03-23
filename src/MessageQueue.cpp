@@ -10,17 +10,17 @@ MessageQueue::~MessageQueue() {
 	}
 }
 
-bool MessageQueue::contains_received_packets() {
+bool MessageQueue::contains_received_WebsocketPackages() {
 	return !receive.empty();
 }
 
-Packet MessageQueue::pop_packet() {
+WebsocketPackage MessageQueue::pop_WebsocketPackage() {
 	auto front = receive.front();
 	receive.pop();
-	return (Packet) front;
+	return (WebsocketPackage) front;
 }
 
-void MessageQueue::send_packet(Packet p) {
+void MessageQueue::send_WebsocketPackage(WebsocketPackage p) {
 	if (p.get_socket() != -1) {
 		int index = 0;
 		for (auto i = sockets.begin(); i != sockets.end(); i++, index++) {
@@ -64,7 +64,7 @@ void MessageQueue::onTextMessage(const string& message, WebSocket* ws) {
 		return;
 	}
 	WebSocket * s_at_index = sockets.at(pos);
-	receive.push(Packet(s_at_index->getId(), message));
+	receive.push(WebsocketPackage(s_at_index->getId(), message));
 	std::cout << receive.size() << endl;
 }
 

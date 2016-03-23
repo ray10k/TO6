@@ -8,7 +8,7 @@ WebsocketAccepter::WebsocketAccepter(int port) :
 	}
 
 MessageQueue & WebsocketAccepter::get_message_queue() {
-	return mqueue;
+	return MQ;
 }
 
 void WebsocketAccepter::run() {
@@ -18,8 +18,8 @@ void WebsocketAccepter::run() {
 		for (; ;) {
 			TCPSocket *sock = servSock.accept();
 			WebSocket *ws = new WebSocket(i, sock);
-			mqueue.add_socket(ws);
-			ws->setListener(&mqueue);
+			MQ.add_socket(ws);
+			ws->setListener(&MQ);
 			ws->sendTextMessage("Welcome to the awesome washing machine");
 			i++;
 		}

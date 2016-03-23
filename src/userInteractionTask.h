@@ -23,9 +23,9 @@
 #include "cycleState.h"
 #include "cycleStateListener.h"
 #include "machineStateListener.h"
-#include "WebsocketController.h"
+#include "WebsocketTask.h"
 #include "washingCycleTask.h"
-#include "Packet.h"
+#include "WebsocketPackage.h"
 
 #include <string>
 #include <vector>
@@ -106,9 +106,9 @@ public:
 	//! to a new given password
 	void changeCurrentUserPassword(std::string password);
 	//! Gives the task access to the outside world.
-	void setWebsocket(WebsocketController* out);
-	//! Receives a packet.
-	void packet_received(Packet &p);
+	void setWebsocket(WebsocketTask* out);
+	//! Receives a WebsocketPackage.
+	void WebsocketPackage_received(WebsocketPackage &p);
 
 protected:
 		//because the Task interface demands it, and because this task needs to do
@@ -129,7 +129,7 @@ private:
 	User currentUser = {"", ""};
 	std::vector<User> users;
 	washingCycleTask* WCT;
-	WebsocketController* webcon;
+	WebsocketTask* webcon;
 	
 	rapidjson::Document machineUpdateFormat;
 	rapidjson::Document cycleUpdateFormat;

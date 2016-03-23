@@ -1,15 +1,25 @@
+//******************************************************************************
+//! Regelt het ontvangen en verzenden van dataWebsocketPackages naar en van WebSockets.
+//! 
+//! \authors
+//! 	- Daniel Klomp
+//!		- Wilco Louwerse
+//!
+//! \context
+//!		- part of TO6 assignment 2015-2016
+//******************************************************************************
+
 #pragma once
 
 #include "webserver/websocket.h"
-#include "Packet.h"
+#include "WebsocketPackage.h"
 #include <queue>
 #include <algorithm>
 
-//! Regelt het ontvangen en verzenden van datapackets naar en van WebSockets.
 /*!
- * De MessageQueue is een class die datapackets ontvangt en verzendt van en naar
- * WebSockets. Hij slaat de received packets op in een queue's
- * en andere klassen kunnen de received packets lezen. Packets die verzonden 
+ * De MessageQueue is een class die dataWebsocketPackages ontvangt en verzendt van en naar
+ * WebSockets. Hij slaat de received WebsocketPackages op in een queue's
+ * en andere klassen kunnen de received WebsocketPackages lezen. WebsocketPackages die verzonden 
  * worden, worden ook in een queue opgeslagen.
  * Ook kan er worden gebroadcast.
  */
@@ -19,19 +29,19 @@ public:
 	MessageQueue();
 	~MessageQueue();
 
-	//! Geeft een boolean terug die aangeeft of de messagequeue intern packets 
+	//! Geeft een boolean terug die aangeeft of de messagequeue intern WebsocketPackages 
 	//! heeft die ontvangen zijn
-	bool contains_received_packets();
+	bool contains_received_WebsocketPackages();
 
-	//! Leest een Packet uit de lijst van ontvangen packets en geeft deze terug.
-	//! Haalt de eerste Packet uit de lijst.
-	Packet pop_packet();
+	//! Leest een WebsocketPackage uit de lijst van ontvangen WebsocketPackages en geeft deze terug.
+	//! Haalt de eerste WebsocketPackage uit de lijst.
+	WebsocketPackage pop_WebsocketPackage();
 
-	//! Zend een packet.
+	//! Zend een WebsocketPackage.
 	/*!
-	 \param p De packet die verzonden moet worden.
+	 \param p De WebsocketPackage die verzonden moet worden.
 	 */
-	void send_packet(Packet p);
+	void send_WebsocketPackage(WebsocketPackage p);
 
 	//! Voegt een socket toe aan de interne lijst
 	/*!
@@ -54,7 +64,7 @@ public:
 
 
 private:
-	std::queue<Packet> send, receive;
+	std::queue<WebsocketPackage> send, receive;
 	std::vector<WebSocket *> sockets;
 };
 

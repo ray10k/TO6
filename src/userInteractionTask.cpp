@@ -305,11 +305,11 @@ void userInteractionTask::changeCurrentUserPassword(std::string password)
 	}
 }
 
-void userInteractionTask::setWebsocket(WebsocketController* out){
+void userInteractionTask::setWebsocket(WebsocketTask* out){
 	this->webcon = out;
 }
 
-void userInteractionTask::packet_received(Packet& p){
+void userInteractionTask::WebsocketPackage_received(WebsocketPackage& p){
 #ifdef DEBUG
 	std::cout <<  p.get_message() << std::endl;
 #endif

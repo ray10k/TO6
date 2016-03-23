@@ -1,15 +1,24 @@
+//******************************************************************************
+//! Accepteert websocket verbindingen
+//! 
+//! \authors
+//! 	- Daniel Klomp
+//!		- Wilco Louwerse
+//!
+//! \context
+//!		- part of TO6 assignment 2015-2016
+//******************************************************************************
+
 #pragma once
 #include "prtos/pRTOS.h"
 #include <thread>
 #include "MessageQueue.h"
 #include "webserver/websocket.h"
 
-
-//! Accepteert websocket verbindingen
 /*!
  * De WebsocketAccepter accepteert websocket verbindingen en geeft deze door aan
  * een interne MessageQueue. Andere classes kunnen deze opvragen en via deze 
- * class toegang krijgen tot de datapackets die worden verstuurd.
+ * class toegang krijgen tot de dataWebsocketPackages die worden verstuurd.
  */
 class WebsocketAccepter {
 
@@ -25,7 +34,7 @@ public:
 
 private:
 	int port;
-	MessageQueue mqueue;
+	MessageQueue MQ;
 
 	void run();
 };
