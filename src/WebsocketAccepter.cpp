@@ -20,7 +20,10 @@ void WebsocketAccepter::run() {
 			WebSocket *ws = new WebSocket(i, sock);
 			MQ.add_socket(ws);
 			ws->setListener(&MQ);
-			ws->sendTextMessage("Welcome to the awesome washing machine");
+			//ws->sendTextMessage("Welcome to the awesome washing machine");
+#ifdef DEBUG
+			std::cout << "new websocket" << std::endl;
+#endif
 			i++;
 		}
 	}
