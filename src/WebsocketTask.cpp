@@ -4,7 +4,6 @@
 WebsocketTask::WebsocketTask(userInteractionTask* uit) :
     task{100, "WebsocketTask"},
     sendPackageChannel{this, "sendPackageChannel"},
-    socket_write{"socket write mutex"},
     poll_clock{ this, 100 MS, "poll"},
     uit(uit),
     wsa{2000},

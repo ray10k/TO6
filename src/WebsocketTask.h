@@ -52,7 +52,6 @@ class WebsocketTask : public RTOS::task {
 
 		void main();
         RTOS::channel<WebsocketPackage, 10> sendPackageChannel;
-		RTOS::mutex socket_write;
 		RTOS::clock poll_clock;
 
         userInteractionTask* uit;
