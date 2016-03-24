@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<sim-project version="9.05" multi-file="no">
+<sim-project version="9.2" multi-file="no">
   <meta>
     <name>Gesloten Klassendiagram</name>
     <authors> </authors>
@@ -11,12 +11,16 @@
         <item-type stereotype="" type="UmlClass" />
         <value>1</value>
       </counter>
+      <counter>
+        <item-type type="UmlClass" />
+        <value>3</value>
+      </counter>
+      <counter>
+        <item-type stereotype="enumeration" type="UmlEnumeration" />
+        <value>2</value>
+      </counter>
     </entity-names>
     <entity-ids>
-      <counter>
-        <item-type stereotype="" type="AbstractElementGroup" />
-        <value>460</value>
-      </counter>
       <counter>
         <item-type stereotype="" type="UmlClass" />
         <value>17</value>
@@ -25,6 +29,26 @@
         <item-type stereotype="" type="UmlAssociation" />
         <value>19</value>
       </counter>
+      <counter>
+        <item-type type="AbstractElementGroup" />
+        <value>52</value>
+      </counter>
+      <counter>
+        <item-type type="UmlClass" />
+        <value>20</value>
+      </counter>
+      <counter>
+        <item-type type="UmlAssociation" />
+        <value>23</value>
+      </counter>
+      <counter>
+        <item-type type="UmlEnumeration" />
+        <value>3</value>
+      </counter>
+      <counter>
+        <item-type type="UmlDependency" />
+        <value>5</value>
+      </counter>
     </entity-ids>
     <diagrams>
       <counter>
@@ -32,7 +56,16 @@
         <value>1</value>
       </counter>
     </diagrams>
-    <fields />
+    <fields>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.DiagramItems.Fields.OperationField</type>
+        <value>4</value>
+      </counter>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.DiagramItems.Fields.EnumerationItemField</type>
+        <value>23</value>
+      </counter>
+    </fields>
   </counters>
   <alias-groups />
   <management>
@@ -57,7 +90,29 @@
     <type-sets>
       <type-set file="UmlTypes.xml" />
     </type-sets>
-    <custom-types />
+    <custom-types>
+      <type id="machineInteractionTask&amp;" tid="" name="machineInteractionTask&amp;" description="" nullable="false" />
+      <type id="cycleStateListener &amp;" tid="" name="cycleStateListener &amp;" description="" nullable="false" />
+      <type id="washingCycle &amp;" tid="" name="washingCycle &amp;" description="" nullable="false" />
+      <type id="machineState" tid="Class:di264688195772523218" name="machineState" description="" nullable="false" class-ref="di264688195772523218" />
+      <type id="short unsigned int" tid="" name="short unsigned int" description="" nullable="false" />
+      <type id="cycleStep" tid="" name="cycleStep" description="" nullable="false" />
+      <type id="unsigned int" tid="" name="unsigned int" description="" nullable="false" />
+      <type id="washingCycle" tid="Class:di869009006566266169" name="washingCycle" description="" nullable="false" class-ref="di869009006566266169" />
+      <type id="signed int" tid="" name="signed int" description="" nullable="false" />
+      <type id="vector&lt;std::uint8_t&gt;" tid="" name="vector&lt;std::uint8_t&gt;" description="" nullable="false" />
+      <type id="std::uint8_t" tid="" name="std::uint8_t" description="" nullable="false" />
+      <type id="RequestStruct" tid="Class:di321176499869442156" name="RequestStruct" description="" nullable="false" class-ref="di321176499869442156" />
+      <type id="machineStateListener" tid="Class:di376977973105231180" name="machineStateListener" description="" nullable="false" class-ref="di376977973105231180" />
+      <type id="washingCycleTask" tid="Class:di978081499132209840" name="washingCycleTask" description="" nullable="false" class-ref="di978081499132209840" />
+      <type id="vector&lt;String&gt;" tid="" name="vector&lt;String&gt;" description="" nullable="false" />
+      <type id="int" tid="" name="int" description="" nullable="false" />
+      <type id="WashingCycleTask" tid="" name="WashingCycleTask" description="" nullable="false" />
+      <type id="loadCycleTask" tid="Class:di110648205600823248" name="loadCycleTask" description="" nullable="false" class-ref="di110648205600823248" />
+      <type id="User" tid="Class:di656368168201844671" name="User" description="" nullable="false" class-ref="di656368168201844671" />
+      <type id="boolean" tid="" name="boolean" description="" nullable="false" />
+      <type id="(Integer id" tid="" name="(Integer id" description="" nullable="false" />
+    </custom-types>
   </types>
   <filters />
   <items />
@@ -75,7 +130,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-class" id="p68d380c92688487f8562077a571ac22d_168645626" name="ClassDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="-283,-250" zoom="0.8">
+      <diagram type="uml-class" id="p68d380c92688487f8562077a571ac22d_168645626" name="ClassDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="-285,-250" zoom="0.8">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -87,12 +142,12 @@
           </authors>
           <description />
           <creation-date>01/25/2016 13:41:21</creation-date>
-          <change-date>01/25/2016 22:11:11</change-date>
+          <change-date>03/24/2016 10:08:36</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
         <abstract-items>
-          <item id="di978081499132209840" cid="C001" type="class" name="washingCycleTask" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 10:35:43">
+          <item id="di978081499132209840" cid="C001" type="class" name="washingCycleTask" style-class="" visibility="package" creation-date="01/25/2016 10:35:43">
             <style class="default" />
             <operations>
               <operation id="o5886ebfc58f344869127fc575f60bcc8255" cid="ELEM001" name="washingCycleTask" type="" type-id="" visibility="public">
@@ -125,12 +180,12 @@
               <operation id="o2a250b3e38cd4d40b8d1ec3e576e8f47189" cid="ELEM018" name="stateChanged" type="" type-id="" visibility="public">
                 <style class="default" />
                 <parameters>
-                  <parameter id="p7724d38981374b388d35da7267609f61" name="currentState" type="machineState" type-id="Class:di264688195772523218" />
+                  <parameter id="p7724d38981374b388d35da7267609f61" name="currentState" type="machineState" type-id="machineState" />
                 </parameters>
               </operation>
             </operations>
           </item>
-          <item id="di376977973105231180" cid="C002" type="class" name="machineStateListener" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 10:39:44">
+          <item id="di376977973105231180" cid="C002" type="class" name="machineStateListener" style-class="" visibility="package" creation-date="01/25/2016 10:39:44">
             <stereotypes>
               <stereotype name="interface" />
             </stereotypes>
@@ -139,12 +194,12 @@
               <operation id="o59b48af9a3ca4d499df09ab77bb06447898" cid="ELEM007" name="stateChanged" type="" type-id="" visibility="public">
                 <style class="default" />
                 <parameters>
-                  <parameter id="p3bdba642cbdf4a50b7e3040ca38e2dc5" name="currentState" type="machineState" type-id="Class:di264688195772523218" />
+                  <parameter id="p3bdba642cbdf4a50b7e3040ca38e2dc5" name="currentState" type="machineState" type-id="machineState" />
                 </parameters>
               </operation>
             </operations>
           </item>
-          <item id="di264688195772523218" cid="C003" type="class" name="machineState" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 10:42:14">
+          <item id="di264688195772523218" cid="C003" type="class" name="machineState" style-class="" visibility="package" creation-date="01/25/2016 10:42:14">
             <stereotypes>
               <stereotype name="struct" />
             </stereotypes>
@@ -182,16 +237,16 @@
               </attribute>
             </attributes>
           </item>
-          <item id="di661571085769197762" cid="DEP001" type="dependency" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 10:43:07">
+          <item id="di661571085769197762" cid="DEP001" type="dependency" name="" style-class="" visibility="package" creation-date="01/25/2016 10:43:07" from="di376977973105231180" to="di264688195772523218">
             <stereotypes>
               <stereotype name="use" />
             </stereotypes>
             <style class="default" />
           </item>
-          <item id="di176087663619138210" cid="REA001" type="realization" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 10:52:46">
+          <item id="di176087663619138210" cid="REA001" type="realization" name="" style-class="" visibility="package" creation-date="01/25/2016 10:52:46" from="di978081499132209840" to="di376977973105231180">
             <style class="default" />
           </item>
-          <item id="di305288471246742679" cid="ELEM001" type="enumeration" name="cycleState" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 11:04:27">
+          <item id="di305288471246742679" cid="ELEM001" type="enumeration" name="cycleState" style-class="" visibility="package" creation-date="01/25/2016 11:04:27">
             <stereotypes>
               <stereotype name="enumeration" />
             </stereotypes>
@@ -208,14 +263,14 @@
               </enumeration-item>
             </enumeration-items>
           </item>
-          <item id="di303621919153124239" cid="REL001" type="relationship" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 11:05:53">
+          <item id="di303621919153124239" cid="REL001" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 11:05:53" from="di978081499132209840" to="di305288471246742679">
             <style class="default" />
             <relation from="di978081499132209840" to="di305288471246742679">
               <start-role id="" name="" multiplicity="1" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" multiplicity="1" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di869009006566266169" cid="C004" type="class" name="washingCycle" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 11:06:49">
+          <item id="di869009006566266169" cid="C004" type="class" name="washingCycle" style-class="" visibility="package" creation-date="01/25/2016 11:06:49">
             <style class="default" />
             <operations>
               <operation id="o6898b66cec734470a4baf4fd86ac65e3221" cid="ELEM022" name="washingCycle" type="" type-id="" visibility="public">
@@ -254,12 +309,12 @@
               <operation id="od0cc26825fb14d1da75b41d7cf5b34b3953" cid="ELEM032" name="operator=" type="" type-id="" visibility="public">
                 <style class="default" />
                 <parameters>
-                  <parameter id="p2079c856aa76402581e7306a8e3896f3" name="rhs" type="washingCycle" type-id="Class:di869009006566266169" />
+                  <parameter id="p2079c856aa76402581e7306a8e3896f3" name="rhs" type="washingCycle" type-id="washingCycle" />
                 </parameters>
               </operation>
             </operations>
           </item>
-          <item id="di275403575239057621" cid="C005" type="class" name="cycleStep" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 11:09:47">
+          <item id="di275403575239057621" cid="C005" type="class" name="cycleStep" style-class="" visibility="package" creation-date="01/25/2016 11:09:47">
             <style class="default" />
             <operations>
               <operation id="o431e611f022c4a789bc0dc142d63129b638" cid="ELEM041" name="cycleStep" type="" type-id="" visibility="public">
@@ -319,21 +374,21 @@
               </operation>
             </operations>
           </item>
-          <item id="di133393261782802120" cid="REL002" type="relationship" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 11:23:12">
+          <item id="di133393261782802120" cid="REL002" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 11:23:12" from="di869009006566266169" to="di275403575239057621">
             <style class="default" />
             <relation from="di869009006566266169" to="di275403575239057621">
               <start-role id="" name="" multiplicity="1" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" multiplicity="1..*" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di378827600978768137" cid="REL003" type="relationship" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 11:24:07">
+          <item id="di378827600978768137" cid="REL003" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 11:24:07" from="di978081499132209840" to="di869009006566266169">
             <style class="default" />
             <relation from="di978081499132209840" to="di869009006566266169">
               <start-role id="" name="" multiplicity="1" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" multiplicity="1" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di761351998649177363" cid="C006" type="class" name="cycleStateListener" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 11:29:36">
+          <item id="di761351998649177363" cid="C006" type="class" name="cycleStateListener" style-class="" visibility="package" creation-date="01/25/2016 11:29:36">
             <stereotypes>
               <stereotype name="interface" />
             </stereotypes>
@@ -365,14 +420,14 @@
               </operation>
             </operations>
           </item>
-          <item id="di424848517348795475" cid="REL004" type="relationship" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 11:32:45">
+          <item id="di424848517348795475" cid="REL004" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 11:32:45" from="di978081499132209840" to="di761351998649177363">
             <style class="default" />
             <relation from="di978081499132209840" to="di761351998649177363">
               <start-role id="" name="" multiplicity="1" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" multiplicity="0..*" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di213628426457185267" cid="C007" type="class" name="uart" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 11:33:55">
+          <item id="di213628426457185267" cid="C007" type="class" name="uart" style-class="" visibility="package" creation-date="01/25/2016 11:33:55">
             <style class="default" />
             <operations>
               <operation id="o363606f6bd914376a7a357efed125353899" cid="ELEM057" name="uart" type="" type-id="" visibility="public">
@@ -389,7 +444,7 @@
               </operation>
             </operations>
           </item>
-          <item id="di757433549962850407" cid="ELEM002" type="enumeration" name="requestEnum" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 11:36:09">
+          <item id="di757433549962850407" cid="ELEM002" type="enumeration" name="requestEnum" style-class="" visibility="package" creation-date="01/25/2016 11:36:09">
             <stereotypes>
               <stereotype name="enumeration" />
             </stereotypes>
@@ -430,7 +485,7 @@
               </enumeration-item>
             </enumeration-items>
           </item>
-          <item id="di738768229446215237" cid="ELEM003" type="enumeration" name="commandEnum" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 11:42:20">
+          <item id="di738768229446215237" cid="ELEM003" type="enumeration" name="commandEnum" style-class="" visibility="package" creation-date="01/25/2016 11:42:20">
             <stereotypes>
               <stereotype name="enumeration" />
             </stereotypes>
@@ -474,38 +529,13 @@
               </enumeration-item>
             </enumeration-items>
           </item>
-          <item id="di321176499869442156" cid="C008" type="class" name="RequestStruct" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 12:36:41">
+          <item id="di860044655240363311" cid="DEP004" type="dependency" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="03/24/2016 10:08:36" from="di401165123717619026" to="di850111378494994985">
             <stereotypes>
-              <stereotype name="struct" />
+              <stereotype name="use" />
             </stereotypes>
             <style class="default" />
-            <attributes>
-              <attribute id="a343ae679bbc942e791e783ccca08f2f3217" cid="ELEM083" name="request" type="Integer" type-id="Uml.Integer" visibility="public">
-                <style class="default" />
-              </attribute>
-              <attribute id="a5dc4a2501b9f40bb87936bd61cf1f9af218" cid="ELEM084" name="command" type="Integer" type-id="Uml.Integer" visibility="public">
-                <style class="default" />
-              </attribute>
-            </attributes>
           </item>
-          <item id="di151984000981046601" cid="C009" type="class" name="ResponseStruct" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 12:37:54">
-            <stereotypes>
-              <stereotype name="struct" />
-            </stereotypes>
-            <style class="default" />
-            <attributes>
-              <attribute id="ac999dea1da2242c789299f90c25471b8571" cid="ELEM085" name="request" type="RequestStruct" type-id="Class:di321176499869442156" visibility="public">
-                <style class="default" />
-              </attribute>
-              <attribute id="a6862ec3fe80448b58af49f25877ae19e571" cid="ELEM086" name="response" type="String" type-id="Uml.String" visibility="public">
-                <style class="default" />
-              </attribute>
-              <attribute id="a8b7a9ff1312a483182b31ae2acc7168a572" cid="ELEM087" name="value" type="Integer" type-id="Uml.Integer" visibility="public">
-                <style class="default" />
-              </attribute>
-            </attributes>
-          </item>
-          <item id="di401165123717619026" cid="C010" type="class" name="machineInteractionTask" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 12:39:02">
+          <item id="di401165123717619026" cid="C010" type="class" name="machineInteractionTask" style-class="" visibility="package" creation-date="01/25/2016 12:39:02">
             <style class="default" />
             <operations>
               <operation id="o834be3fbc44846ce83824a187094c65682" cid="ELEM088" name="machineInteractionTask" type="" type-id="" visibility="public">
@@ -514,7 +544,7 @@
               <operation id="oe294b4aca5644ca6a4c7a67ae4ddbcf482" cid="ELEM089" name="addMachineStateListener" type="" type-id="" visibility="public">
                 <style class="default" />
                 <parameters>
-                  <parameter id="p72fe3a1796f94403b07ae12232bd9212" name="listener" type="machineStateListener" type-id="Class:di376977973105231180" />
+                  <parameter id="p72fe3a1796f94403b07ae12232bd9212" name="listener" type="machineStateListener" type-id="machineStateListener" />
                 </parameters>
               </operation>
               <operation id="oae68d14a458b4fa8bbc0d60c6be1d16782" cid="ELEM090" name="setTemperature" type="" type-id="" visibility="public">
@@ -553,88 +583,156 @@
               </operation>
             </operations>
           </item>
-          <item id="di531312605523498269" cid="REL005" type="relationship" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 12:44:10">
+          <item id="di531312605523498269" cid="REL005" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 12:44:10" from="di401165123717619026" to="di264688195772523218">
             <style class="default" />
             <relation from="di401165123717619026" to="di264688195772523218">
               <start-role id="" name="" multiplicity="1" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" multiplicity="2" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di662733736200395758" cid="REL006" type="relationship" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 12:44:33">
+          <item id="di662733736200395758" cid="REL006" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 12:44:33" from="di401165123717619026" to="di376977973105231180">
             <style class="default" />
             <relation from="di401165123717619026" to="di376977973105231180">
               <start-role id="" name="" multiplicity="1" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" multiplicity="0..*" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di976932596134931459" cid="DEP002" type="dependency" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 12:48:27">
+          <item id="di976932596134931459" cid="DEP002" type="dependency" name="" style-class="" visibility="package" creation-date="01/25/2016 12:48:27" from="di401165123717619026" to="di757433549962850407">
             <stereotypes>
               <stereotype name="use" />
             </stereotypes>
             <style class="default" />
           </item>
-          <item id="di237296475259796529" cid="REL007" type="relationship" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 12:48:34">
+          <item id="di237296475259796529" cid="REL007" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 12:48:34" from="di401165123717619026" to="di213628426457185267">
             <style class="default" />
             <relation from="di401165123717619026" to="di213628426457185267">
               <start-role id="" name="" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di995960991506282893" cid="REL008" type="relationship" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 12:48:46">
+          <item id="di637589663726499755" cid="E002" type="enumeration" name="stateEnum" style-class="" visibility="package" change-tracking-state="added" creation-date="03/24/2016 10:04:00">
+            <stereotypes>
+              <stereotype name="enumeration" />
+            </stereotypes>
             <style class="default" />
-            <relation from="di151984000981046601" to="di321176499869442156">
-              <start-role id="" name="" navigability="" association-type="aggregation" visibility="private" />
-              <end-role id="" name="" navigability="" association-type="association" visibility="private" />
-            </relation>
+            <enumeration-items>
+              <enumeration-item id="a6ab8e34449fb45719c8800b71fd6f4fe161" cid="ENI012" name="IMPOSSIBLE">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="a9bbd509101c64fb6afdebb00a77132db381" cid="ENI013" name="HALTED">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="ac7b7e57988954325a739edefc6b70850120" cid="ENI014" name="IDLE">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="aa17404c1e7754aed8d298eb83ab1fe70338" cid="ENI015" name="RUNNING">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="ad3c4271000154e79ae9bb23feb8368c781" cid="ENI016" name="STOPPED">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="a56f72e442108441a9273b5216fdf054f474" cid="ENI017" name="OPENED">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="a08408b58dc84493a83f0be609ca577382" cid="ENI018" name="CLOSED">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="a9fbec7b412e74beebee37414de729aa1561" cid="ENI019" name="LOCKED">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="ab06a209068074e659d7f64dc195d9a02531" cid="ENI020" name="ON">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="a416f4f3f78444a2a94fb4bd6c0b2c565714" cid="ENI021" name="OFF">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="aacc22c7ec93144cf84c576c6f27ad944681" cid="ENI022" name="ERROR">
+                <style class="default" />
+              </enumeration-item>
+            </enumeration-items>
           </item>
-          <item id="di206248192615514348" cid="REL009" type="relationship" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 12:48:53">
+          <item id="di850111378494994985" cid="E001" type="enumeration" name="replyEnum" style-class="" visibility="package" change-tracking-state="added" creation-date="03/24/2016 10:02:09">
+            <stereotypes>
+              <stereotype name="enumeration" />
+            </stereotypes>
             <style class="default" />
-            <relation from="di401165123717619026" to="di151984000981046601">
-              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
-              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
-            </relation>
+            <enumeration-items>
+              <enumeration-item id="ad9d9d28a096149fda1f883093b001bf9988" cid="ENI001" name="MACHINE_REP">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="a87418706982e4173ba15118ec3483c8c122" cid="ENI002" name="DOOR_LOCK_REP">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="a1961fb8e6a1c4becbbf8d8bb1bb3d2c1955" cid="ENI003" name="WATER_VALVE_REP">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="ac9c6df7ad4ae48f68957ee758cb22955235" cid="ENI004" name="SOAP_DISPENSER_REP">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="a0019c69ecc4643828b3670feba485b5d267" cid="ENI005" name="PUMP_REP">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="a92811fdd1a0f4a30bc0776c9506121ad982" cid="ENI006" name="WATER_LEVEL_REP">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="a41efbcbaa01d4f5ab8c64c8e6973708650" cid="ENI007" name="HEATING_UNIT_REP">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="a58be99eb9f214fada63cda1774f9e9a8621" cid="ENI008" name="TEMPERATURE_REP">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="a105655dae5c04db88909c68aeea25c5766" cid="ENI009" name="SET_RPM_REP">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="ac786fe7fca2f4a98b2cda3b9155344db138" cid="ENI010" name="GET_RPM_REP">
+                <style class="default" />
+              </enumeration-item>
+              <enumeration-item id="aac133fb4edd34a96a9ba06417cd0e220853" cid="ENI011" name="SIGNAL_LED_REP">
+                <style class="default" />
+              </enumeration-item>
+            </enumeration-items>
           </item>
-          <item id="di413716973347960852" cid="DEP003" type="dependency" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 12:49:00">
+          <item id="di413716973347960852" cid="DEP003" type="dependency" name="" style-class="" visibility="package" creation-date="01/25/2016 12:49:00" from="di976932596134931459" to="di738768229446215237">
             <stereotypes>
               <stereotype name="use" />
             </stereotypes>
             <style class="default" />
           </item>
-          <item id="di433263753121051473" cid="REL010" type="relationship" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 13:04:21">
+          <item id="di433263753121051473" cid="REL010" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 13:04:21" from="di110648205600823248" to="di442846606786366850">
             <style class="default" />
             <relation from="di110648205600823248" to="di442846606786366850">
               <start-role id="" name="" multiplicity="1" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" multiplicity="0..*" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di167333182330694327" cid="REL011" type="relationship" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 13:05:28">
+          <item id="di167333182330694327" cid="REL011" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 13:05:28" from="di442846606786366850" to="di869009006566266169">
             <style class="default" />
             <relation from="di442846606786366850" to="di869009006566266169">
               <start-role id="" name="" navigability="" association-type="aggregation" visibility="private" />
               <end-role id="" name="" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di282233408292269771" cid="REL012" type="relationship" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 13:05:50">
+          <item id="di282233408292269771" cid="REL012" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 13:05:50" from="di110648205600823248" to="di978081499132209840">
             <style class="default" />
             <relation from="di110648205600823248" to="di978081499132209840">
               <start-role id="" name="" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di699027184384245367" cid="REL013" type="relationship" name="" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 13:08:31">
+          <item id="di699027184384245367" cid="REL013" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 13:08:31" from="di978081499132209840" to="di401165123717619026">
             <style class="default" />
             <relation from="di978081499132209840" to="di401165123717619026">
               <start-role id="" name="" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di110648205600823248" cid="C011" type="class" name="loadCycleTask" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 12:55:30">
+          <item id="di110648205600823248" cid="C011" type="class" name="loadCycleTask" style-class="" visibility="package" creation-date="01/25/2016 12:55:30">
             <style class="default" />
             <operations>
               <operation id="o5ce571fbb81e4deaab4ba1fdd3bc1511806" cid="ELEM096" name="loadCycleTask" type="" type-id="" visibility="public">
                 <style class="default" />
                 <parameters>
-                  <parameter id="p8c65500feb3c433caaa6d28af0d0df6d" name="WCT" type="washingCycleTask" type-id="Class:di978081499132209840" />
+                  <parameter id="p8c65500feb3c433caaa6d28af0d0df6d" name="WCT" type="washingCycleTask" type-id="washingCycleTask" />
                 </parameters>
               </operation>
               <operation id="o3ac078a87bc74bbcb69dfe68ecba5e7e806" cid="ELEM097" name="loadWashingCycle" type="" type-id="" visibility="public">
@@ -648,7 +746,7 @@
                 <style class="default" />
                 <parameters>
                   <parameter id="p118085c9714146ea9007b14adb7604cc" name="userName" type="String" type-id="Uml.String" />
-                  <parameter id="p57a58828aa0640e389dc8540075efab2" name="cycle" type="washingCycle" type-id="Class:di869009006566266169" />
+                  <parameter id="p57a58828aa0640e389dc8540075efab2" name="cycle" type="washingCycle" type-id="washingCycle" />
                 </parameters>
               </operation>
               <operation id="o81e475a122804dabb4fb14ed154794bf808" cid="ELEM099" name="getWashingCycleNames" type="vector&lt;String&gt;" type-id="vector&lt;String&gt;" visibility="public">
@@ -665,7 +763,7 @@
               </operation>
             </operations>
           </item>
-          <item id="di442846606786366850" cid="C012" type="class" name="UserWashingCycle" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 13:03:28">
+          <item id="di442846606786366850" cid="C012" type="class" name="UserWashingCycle" style-class="" visibility="package" creation-date="01/25/2016 13:03:28">
             <stereotypes>
               <stereotype name="struct" />
             </stereotypes>
@@ -674,7 +772,7 @@
               <attribute id="a2e89016af0644f2cadc4a0cf589285c9363" cid="ELEM101" name="userName" type="String" type-id="Uml.String" visibility="public">
                 <style class="default" />
               </attribute>
-              <attribute id="ad6ef58a9f3d34a9bbf6b448950599460363" cid="ELEM102" name="cycle" type="washingCycle" type-id="Class:di869009006566266169" visibility="public">
+              <attribute id="ad6ef58a9f3d34a9bbf6b448950599460363" cid="ELEM102" name="cycle" type="washingCycle" type-id="washingCycle" visibility="public">
                 <style class="default" />
               </attribute>
             </attributes>
@@ -709,14 +807,14 @@
               <operation id="o255c92ab51b34a7eabde8246de2a594b417" cid="ELEM153" name="stateChanged" type="" type-id="" visibility="public">
                 <style class="default" />
                 <parameters>
-                  <parameter id="pf2b6d677bc7547a5ab6fbe6679edd15b" name="currentState" type="machineState" type-id="Class:di264688195772523218" />
+                  <parameter id="pf2b6d677bc7547a5ab6fbe6679edd15b" name="currentState" type="machineState" type-id="machineState" />
                 </parameters>
               </operation>
               <operation id="odd2df815fbda4d37abd58eb4b4870020145" cid="ELEM154" name="userInteractionTask" type="" type-id="" visibility="public">
                 <style class="default" />
                 <parameters>
                   <parameter id="p1e73456fea184818be7982d62890b825" name="WCT" type="WashingCycleTask" type-id="WashingCycleTask" />
-                  <parameter id="p9d75d80d2e1142a19b119ed3e85dd467" name="LCT" type="loadCycleTask" type-id="Class:di110648205600823248" />
+                  <parameter id="p9d75d80d2e1142a19b119ed3e85dd467" name="LCT" type="loadCycleTask" type-id="loadCycleTask" />
                 </parameters>
               </operation>
               <operation id="ob7714fe8a301490bbe5b6c517f8373e6807" cid="ELEM155" name="setCycleState" type="" type-id="" visibility="public">
@@ -744,7 +842,7 @@
               <operation id="o1edece562bc04f46963ccc53e06939d3808" cid="ELEM159" name="addUser" type="" type-id="" visibility="public">
                 <style class="default" />
                 <parameters>
-                  <parameter id="p86599ab329374cb9bbd3351d90f6aa23" name="user" type="User" type-id="Class:di656368168201844671" />
+                  <parameter id="p86599ab329374cb9bbd3351d90f6aa23" name="user" type="User" type-id="User" />
                 </parameters>
               </operation>
               <operation id="oae5e107fcf134c739b477adc86787d6c718" cid="ELEM160" name="checkUserName" type="Boolean" type-id="Uml.Boolean" visibility="public">
@@ -783,10 +881,10 @@
               </operation>
             </operations>
           </item>
-          <item id="di119557975738928325" cid="REA002" type="realization" name="" style-class="" visibility="package" creation-date="01/25/2016 13:17:12">
+          <item id="di119557975738928325" cid="REA002" type="realization" name="" style-class="" visibility="package" creation-date="01/25/2016 13:17:12" from="di178993489799971940" to="di376977973105231180">
             <style class="default" />
           </item>
-          <item id="di912574049449049820" cid="REA003" type="realization" name="" style-class="" visibility="package" creation-date="01/25/2016 13:17:23">
+          <item id="di912574049449049820" cid="REA003" type="realization" name="" style-class="" visibility="package" creation-date="01/25/2016 13:17:23" from="di178993489799971940" to="di761351998649177363">
             <style class="default" />
           </item>
           <item id="di656368168201844671" cid="C013" type="class" name="User" style-class="" visibility="package" creation-date="01/25/2016 13:14:02">
@@ -803,7 +901,7 @@
               </attribute>
             </attributes>
           </item>
-          <item id="di829306421963352465" cid="REL014" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 13:33:16">
+          <item id="di829306421963352465" cid="REL014" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 13:33:16" from="di178993489799971940" to="di978081499132209840">
             <style class="default" />
             <relation from="di178993489799971940" to="di978081499132209840">
               <start-role id="" name="" multiplicity="1" navigability="" association-type="association" visibility="private" />
@@ -836,33 +934,70 @@
               </attribute>
             </attributes>
           </item>
-          <item id="di813117016659331189" cid="REL015" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 13:33:33">
+          <item id="di813117016659331189" cid="REL015" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 13:33:33" from="di178993489799971940" to="di401165123717619026">
             <style class="default" />
             <relation from="di178993489799971940" to="di401165123717619026">
               <start-role id="" name="" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di667387999154821646" cid="REL016" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 13:34:12">
+          <item id="di667387999154821646" cid="REL016" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 13:34:12" from="di178993489799971940" to="di861528173148840532">
             <style class="default" />
             <relation from="di178993489799971940" to="di861528173148840532">
               <start-role id="" name="" navigability="" association-type="aggregation" visibility="private" />
               <end-role id="" name="" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di733098564443270390" cid="REL017" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 13:34:24">
+          <item id="di733098564443270390" cid="REL017" type="relationship" name="" style-class="" visibility="package" creation-date="01/25/2016 13:34:24" from="di178993489799971940" to="di656368168201844671">
             <style class="default" />
             <relation from="di178993489799971940" to="di656368168201844671">
               <start-role id="" name="" navigability="" association-type="aggregation" visibility="private" />
               <end-role id="" name="" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di870380567158168102" cid="C016" type="class" name="WebSocket" style-class="" visibility="package" change-tracking-state="added" creator="Pcfcd6e884c774535888b26bfecff0b11" creation-date="01/25/2016 22:10:23">
+          <item id="di870380567158168102" cid="C016" type="class" name="WebsocketTask" style-class="" visibility="package" change-tracking-state="added" creator="Pcfcd6e884c774535888b26bfecff0b11" creation-date="01/25/2016 22:10:23">
             <style class="default" />
           </item>
-          <item id="di776742531386423417" cid="REL018" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creator="Pcfcd6e884c774535888b26bfecff0b11" creation-date="01/25/2016 22:11:11">
+          <item id="di776742531386423417" cid="REL018" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creator="Pcfcd6e884c774535888b26bfecff0b11" creation-date="01/25/2016 22:11:11" from="di178993489799971940" to="di870380567158168102">
             <style class="default" />
             <relation from="di178993489799971940" to="di870380567158168102">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di571189048890591276" cid="C017" type="class" name="WebsocketAccepter" style-class="" visibility="package" change-tracking-state="added" creation-date="03/24/2016 09:55:31">
+            <style class="default" />
+          </item>
+          <item id="di489939427146059477" cid="REL019" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="03/24/2016 09:57:04" from="di870380567158168102" to="di571189048890591276">
+            <style class="default" />
+            <relation from="di870380567158168102" to="di571189048890591276">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di539771311411018380" cid="C018" type="class" name="WebsocketPackage" style-class="" visibility="package" change-tracking-state="added" creation-date="03/24/2016 09:58:04">
+            <style class="default" />
+          </item>
+          <item id="di208524005735821261" cid="REL020" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="03/24/2016 09:58:41" from="di870380567158168102" to="di539771311411018380">
+            <style class="default" />
+            <relation from="di870380567158168102" to="di539771311411018380">
+              <start-role id="" name="" navigability="" association-type="aggregation" visibility="private" />
+              <end-role id="" name="" navigability="" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di144060859388055553" cid="C019" type="class" name="MessageQueue" style-class="" visibility="package" change-tracking-state="added" creation-date="03/24/2016 09:59:03">
+            <style class="default" />
+          </item>
+          <item id="di735990687284531066" cid="REL021" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="03/24/2016 10:00:31" from="di571189048890591276" to="di144060859388055553">
+            <style class="default" />
+            <relation from="di571189048890591276" to="di144060859388055553">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di244350600297593525" cid="REL022" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="03/24/2016 10:00:35" from="di870380567158168102" to="di144060859388055553">
+            <style class="default" />
+            <relation from="di870380567158168102" to="di144060859388055553">
               <start-role id="" name="" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
             </relation>
@@ -870,24 +1005,24 @@
         </abstract-items>
         <layer name="Default" visible="true" enabled="true" locked="false">
           <item id="di870380567158168102" iid="b464aaa6a46041c18165d87a9629af87" creation-date="01/25/2016 22:10:23" order-index="41" type="entity">
-            <layout ax="-250" ay="-30" awidth="130" aheight="80" x="-250" y="-30" width="130" height="80" angle="0" />
+            <layout ax="-260" ay="-20" awidth="130" aheight="60" x="-260" y="-20" width="130" height="60" />
             <class />
           </item>
           <item id="di776742531386423417" iid="62692961a4c84ef88fb7987f5957e846" creation-date="01/25/2016 22:11:11" order-index="42" type="relation">
-            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="-60" y1="10" x2="-120" y2="10" start-border-pos="0.875" end-border-pos="0.375" name-position="10,-10">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="-60" y1="10" x2="-130" y2="10" start-border-pos="0.875" end-border-pos="0.375" name-position="10,-10">
               <points>
                 <point x="-60" y="10" />
-                <point x="-120" y="10" />
+                <point x="-130" y="10" />
               </points>
             </layout>
             <relation from="di178993489799971940" from-iid="8fbe8397e8bb4b4b9dce65ba4cd17f8b" to="di870380567158168102" to-iid="b464aaa6a46041c18165d87a9629af87" />
           </item>
           <item id="di978081499132209840" iid="a3c8c2ce75ac4dc1897a0854d8ae71b9" creation-date="01/25/2016 10:35:43" order-index="0" type="entity">
-            <layout ax="360" ay="-170" awidth="280" aheight="70" x="360" y="-170" width="280" height="70" angle="0" />
+            <layout ax="360" ay="-170" awidth="280" aheight="70" x="360" y="-170" width="280" height="70" />
             <class show-operations="false" />
           </item>
           <item id="di376977973105231180" iid="19ba4d969e9d4686b762a099e2955fb5" creation-date="01/25/2016 10:39:44" order-index="1" type="entity">
-            <layout ax="210" ay="-20" awidth="250" aheight="80" x="210" y="-20" width="250" height="80" angle="0" />
+            <layout ax="210" ay="-20" awidth="250" aheight="80" x="210" y="-20" width="250" height="80" />
             <class show-operations="false" />
           </item>
           <item id="di661571085769197762" iid="00e2fc01e54a41558dfa40c11f7d0d49" creation-date="01/25/2016 10:43:07" order-index="3" type="relation">
@@ -919,7 +1054,7 @@
             <relation from="di978081499132209840" from-iid="a3c8c2ce75ac4dc1897a0854d8ae71b9" to="di305288471246742679" to-iid="a9796f61df21473cbe91ef7819137ab9" to-field="a738cba058a0b4bc088ca620e4302752a762" />
           </item>
           <item id="di869009006566266169" iid="dabdf81795154201acd04628d23256aa" creation-date="01/25/2016 11:06:49" order-index="7" type="entity">
-            <layout ax="800" ay="-140" awidth="180" aheight="50" x="800" y="-140" width="180" height="50" angle="0" />
+            <layout ax="800" ay="-140" awidth="180" aheight="50" x="800" y="-140" width="180" height="50" />
             <class show-operations="false" />
           </item>
           <item id="di275403575239057621" iid="410266bd08d940b68ed68fac9303dbd0" creation-date="01/25/2016 11:09:47" order-index="8" type="entity">
@@ -945,7 +1080,7 @@
             <relation from="di978081499132209840" from-iid="a3c8c2ce75ac4dc1897a0854d8ae71b9" to="di869009006566266169" to-iid="dabdf81795154201acd04628d23256aa" />
           </item>
           <item id="di761351998649177363" iid="563f8e91a6114d5599b3f1a91c3c6fdc" creation-date="01/25/2016 11:29:36" order-index="11" type="entity">
-            <layout ax="280" ay="-280" awidth="190" aheight="60" x="280" y="-280" width="190" height="60" angle="0" />
+            <layout ax="280" ay="-280" awidth="190" aheight="60" x="280" y="-280" width="190" height="60" />
             <class show-operations="false" />
           </item>
           <item id="di424848517348795475" iid="6fc10536981b4542b4bbff358055a2fe" creation-date="01/25/2016 11:32:45" order-index="12" type="relation">
@@ -958,31 +1093,23 @@
             <relation from="di978081499132209840" from-iid="a3c8c2ce75ac4dc1897a0854d8ae71b9" to="di761351998649177363" to-iid="563f8e91a6114d5599b3f1a91c3c6fdc" />
           </item>
           <item id="di213628426457185267" iid="4952a574bcda414cb4ed19bd203e5922" creation-date="01/25/2016 11:33:55" order-index="13" type="entity">
-            <layout ax="790" ay="-70" awidth="160" aheight="114" x="790" y="-70" width="160" height="114" angle="0" />
+            <layout ax="790" ay="-70" awidth="160" aheight="114" x="790" y="-70" width="160" height="114" />
             <class show-operations="false" />
           </item>
           <item id="di757433549962850407" iid="be8a3287bf3d4074909c475d99f5361f" creation-date="01/25/2016 11:36:09" order-index="14" type="entity">
-            <layout ax="840" ay="90" awidth="168" aheight="238" x="840" y="90" width="168" height="238" angle="0" />
+            <layout ax="840" ay="90" awidth="168" aheight="238" x="840" y="90" width="168" height="238" />
             <enumeration />
           </item>
           <item id="di738768229446215237" iid="5004e11485f242a3a1914871f8e63288" creation-date="01/25/2016 11:42:20" order-index="15" type="entity">
-            <layout ax="660" ay="90" awidth="170" aheight="240" x="660" y="90" width="170" height="240" angle="0" />
+            <layout ax="660" ay="90" awidth="170" aheight="240" x="660" y="90" width="170" height="240" />
             <enumeration />
           </item>
-          <item id="di321176499869442156" iid="888716117e8749058cfbbfa9638dcd57" creation-date="01/25/2016 12:36:41" order-index="16" type="entity">
-            <layout ax="290" ay="190" awidth="140" aheight="99" x="290" y="190" width="140" height="99" angle="0" />
-            <class show-operations="false" />
-          </item>
-          <item id="di151984000981046601" iid="e9c7cab1ed4549aa9cfac640f82a0424" creation-date="01/25/2016 12:37:54" order-index="17" type="entity">
-            <layout ax="470" ay="180" awidth="166" aheight="116" x="470" y="180" width="166" height="116" angle="0" />
-            <class show-operations="false" />
-          </item>
           <item id="di401165123717619026" iid="8b3ab095c4c24e8cb27a121a2558b95d" creation-date="01/25/2016 12:39:02" order-index="18" type="entity">
-            <layout ax="440" ay="100" awidth="200" aheight="60" x="440" y="100" width="200" height="60" angle="0" />
+            <layout ax="440" ay="100" awidth="200" aheight="60" x="440" y="100" width="200" height="60" />
             <class show-operations="false" />
           </item>
           <item id="di264688195772523218" iid="e1f43b8576704996b59064f138baf47b" show-fields="true" creation-date="01/25/2016 10:42:14" order-index="2" type="entity">
-            <layout ax="40" ay="100" awidth="221" aheight="235" x="40" y="100" width="221" height="235" angle="0" />
+            <layout ax="40" ay="100" awidth="221" aheight="235" x="40" y="100" width="221" height="235" />
             <class show-operations="false" />
           </item>
           <item id="di531312605523498269" iid="961333664bad46ecb5814825af5a956b" creation-date="01/25/2016 12:44:10" order-index="19" type="relation">
@@ -995,7 +1122,7 @@
             <relation from="di401165123717619026" from-iid="8b3ab095c4c24e8cb27a121a2558b95d" to="di264688195772523218" to-iid="e1f43b8576704996b59064f138baf47b" />
           </item>
           <item id="di305288471246742679" iid="a9796f61df21473cbe91ef7819137ab9" show-fields="true" creation-date="01/25/2016 11:04:27" order-index="5" type="entity">
-            <layout ax="650" ay="-100" awidth="101" aheight="110" x="650" y="-100" width="101" height="110" angle="0" />
+            <layout ax="650" ay="-100" awidth="101" aheight="110" x="650" y="-100" width="101" height="110" />
             <enumeration />
           </item>
           <item id="di662733736200395758" iid="473b0a8f0a94464c909608fdb6a6a70e" creation-date="01/25/2016 12:44:33" order-index="20" type="relation">
@@ -1030,30 +1157,12 @@
             </layout>
             <relation from="di401165123717619026" from-iid="8b3ab095c4c24e8cb27a121a2558b95d" to="di213628426457185267" to-iid="4952a574bcda414cb4ed19bd203e5922" />
           </item>
-          <item id="di995960991506282893" iid="638d1a645fd44a65af4b879258e5fb07" creation-date="01/25/2016 12:48:46" order-index="23" type="relation">
-            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="470" y1="239" x2="430" y2="239" start-border-pos="0.873146320211476" end-border-pos="0.37443083946151" name-position="10,-10">
-              <points>
-                <point x="470" y="239" />
-                <point x="430" y="239" />
-              </points>
-            </layout>
-            <relation from="di151984000981046601" from-iid="e9c7cab1ed4549aa9cfac640f82a0424" to="di321176499869442156" to-iid="888716117e8749058cfbbfa9638dcd57" />
-          </item>
           <item id="di861528173148840532" iid="ae36ec7f728f4087bbcfc7c2c5328a9c" show-fields="true" creation-date="01/25/2016 13:14:46" order-index="33" type="entity">
-            <layout ax="-50" ay="-280" awidth="150" aheight="167" x="-50" y="-280" width="150" height="167" angle="0" />
+            <layout ax="-50" ay="-280" awidth="150" aheight="167" x="-50" y="-280" width="150" height="167" />
             <class show-operations="false" />
           </item>
-          <item id="di206248192615514348" iid="bc4ac60e17064e21b248c18c134c0bd7" creation-date="01/25/2016 12:48:53" order-index="24" type="relation">
-            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="544" y1="160" x2="546" y2="180" start-border-pos="0.620486145019531" end-border-pos="0.114485683211361" name-position="10,-10">
-              <points>
-                <point x="544" y="160" />
-                <point x="546" y="180" />
-              </points>
-            </layout>
-            <relation from="di401165123717619026" from-iid="8b3ab095c4c24e8cb27a121a2558b95d" to="di151984000981046601" to-iid="e9c7cab1ed4549aa9cfac640f82a0424" />
-          </item>
           <item id="di656368168201844671" iid="bf8302305da743128082317129a5c7d3" show-fields="true" creation-date="01/25/2016 13:14:02" order-index="32" type="entity">
-            <layout ax="120" ay="-280" awidth="140" aheight="99" x="120" y="-280" width="140" height="99" angle="0" />
+            <layout ax="120" ay="-280" awidth="140" aheight="99" x="120" y="-280" width="140" height="99" />
             <class show-operations="false" />
           </item>
           <item id="di413716973347960852" iid="19e361d238854215be3acee28176ccf5" creation-date="01/25/2016 12:49:00" order-index="25" type="relation">
@@ -1102,15 +1211,15 @@
             <relation from="di978081499132209840" from-iid="a3c8c2ce75ac4dc1897a0854d8ae71b9" to="di401165123717619026" to-iid="8b3ab095c4c24e8cb27a121a2558b95d" />
           </item>
           <item id="di110648205600823248" iid="76db0156d17148cab1b6c6480e076f6e" creation-date="01/25/2016 12:55:30" order-index="26" type="entity">
-            <layout ax="490" ay="-280" awidth="240" aheight="50" x="490" y="-280" width="240" height="50" angle="0" />
+            <layout ax="490" ay="-280" awidth="240" aheight="50" x="490" y="-280" width="240" height="50" />
             <class show-operations="false" />
           </item>
           <item id="di442846606786366850" iid="0a1c62edbd8143d2aaec35a74aa95bd3" creation-date="01/25/2016 13:03:28" order-index="27" type="entity">
-            <layout ax="810" ay="-280" awidth="150" aheight="99" x="810" y="-280" width="150" height="99" angle="0" />
+            <layout ax="810" ay="-280" awidth="150" aheight="99" x="810" y="-280" width="150" height="99" />
             <class show-operations="false" />
           </item>
           <item id="di178993489799971940" iid="8fbe8397e8bb4b4b9dce65ba4cd17f8b" creation-date="01/25/2016 13:17:06" order-index="34" type="entity">
-            <layout ax="-60" ay="-40" awidth="210" aheight="100" x="-60" y="-40" width="210" height="100" angle="0" />
+            <layout ax="-60" ay="-40" awidth="210" aheight="100" x="-60" y="-40" width="210" height="100" />
             <class show-operations="false" />
           </item>
           <item id="di119557975738928325" iid="eeaaba115e7945cbbf72f73b2b1417f6" creation-date="01/25/2016 13:17:12" order-index="35" type="relation">
@@ -1177,6 +1286,73 @@
               </points>
             </layout>
             <relation from="di178993489799971940" from-iid="8fbe8397e8bb4b4b9dce65ba4cd17f8b" to="di656368168201844671" to-iid="bf8302305da743128082317129a5c7d3" />
+          </item>
+          <item id="di571189048890591276" iid="ce31d81ab9dc4f418b14791aabaf925b" creation-date="03/24/2016 09:55:31" order-index="43" type="entity">
+            <layout ax="-280" ay="120" awidth="170" aheight="50" x="-280" y="120" width="170" height="50" />
+            <class />
+          </item>
+          <item id="di489939427146059477" iid="87a2648e50d248f0b79f1f15ec0334b3" creation-date="03/24/2016 09:57:04" order-index="44" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="-195" y1="40" x2="-195" y2="120" start-border-pos="0.625" end-border-pos="0.125" name-position="0,0">
+              <points>
+                <point x="-195" y="40" />
+                <point x="-195" y="120" />
+              </points>
+            </layout>
+            <relation from="di870380567158168102" from-iid="b464aaa6a46041c18165d87a9629af87" to="di571189048890591276" to-iid="ce31d81ab9dc4f418b14791aabaf925b" />
+          </item>
+          <item id="di539771311411018380" iid="6bc8f9aa48124670ac9174bb5ca0104c" creation-date="03/24/2016 09:58:04" order-index="45" type="entity">
+            <layout ax="-280" ay="-160" awidth="170" aheight="50" x="-280" y="-160" width="170" height="50" />
+            <class />
+          </item>
+          <item id="di208524005735821261" iid="d40ea316f0b84f21abb77bbe96a7e3d4" creation-date="03/24/2016 09:58:41" order-index="46" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="-195" y1="-20" x2="-195" y2="-110" start-border-pos="0.125" end-border-pos="0.625" name-position="0,0">
+              <points>
+                <point x="-195" y="-20" />
+                <point x="-195" y="-110" />
+              </points>
+            </layout>
+            <relation from="di870380567158168102" from-iid="b464aaa6a46041c18165d87a9629af87" to="di539771311411018380" to-iid="6bc8f9aa48124670ac9174bb5ca0104c" />
+          </item>
+          <item id="di144060859388055553" iid="b52a750976854595aabf89d9c7d5925f" creation-date="03/24/2016 09:59:03" order-index="47" type="entity">
+            <layout ax="-270" ay="250" awidth="150" aheight="50" x="-270" y="250" width="150" height="50" />
+            <class />
+          </item>
+          <item id="di735990687284531066" iid="c0118b0d7f2c45cbb2205760a590157c" creation-date="03/24/2016 10:00:31" order-index="48" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="-195" y1="170" x2="-195" y2="250" start-border-pos="0.625" end-border-pos="0.125" name-position="0,0">
+              <points>
+                <point x="-195" y="170" />
+                <point x="-195" y="250" />
+              </points>
+            </layout>
+            <relation from="di571189048890591276" from-iid="ce31d81ab9dc4f418b14791aabaf925b" to="di144060859388055553" to-iid="b52a750976854595aabf89d9c7d5925f" />
+          </item>
+          <item id="di244350600297593525" iid="4317e474385f410ba7c5d18f8fd6d903" creation-date="03/24/2016 10:00:35" order-index="49" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="perpendicular" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="-160" y1="40" x2="-160" y2="250" start-border-pos="0.557692307692308" end-border-pos="0.183333333333333" name-position="0,0">
+              <points>
+                <point x="-160" y="40" />
+                <point x="-100" y="110" />
+                <point x="-160" y="250" />
+              </points>
+            </layout>
+            <relation from="di870380567158168102" from-iid="b464aaa6a46041c18165d87a9629af87" to="di144060859388055553" to-iid="b52a750976854595aabf89d9c7d5925f" />
+          </item>
+          <item id="di850111378494994985" iid="6beebba4b13d45a9bcc17e971e1af60c" creation-date="03/24/2016 10:02:09" order-index="50" type="entity">
+            <layout ax="1020" ay="90" awidth="160" aheight="240" x="1020" y="90" width="160" height="240" />
+            <enumeration />
+          </item>
+          <item id="di637589663726499755" iid="4d14d4f4f67e403ca288d8ba7c18eaed" creation-date="03/24/2016 10:04:00" order-index="51" type="entity">
+            <layout ax="1190" ay="90" awidth="168" aheight="238" x="1190" y="90" width="168" height="238" />
+            <enumeration />
+          </item>
+          <item id="di860044655240363311" iid="f66205fcb60e4e27b256f5a301b99992" creation-date="03/24/2016 10:08:36" order-index="52" type="relation">
+            <layout line-style="perpendicular" lock-start-point="true" lock-end-point="false" lock-to-fields="false" auto-path="" x1="630" y1="100" x2="1100" y2="90" start-border-pos="0.2375" end-border-pos="0.125" name-position="260,20">
+              <points>
+                <point x="630" y="100" />
+                <point x="790" y="60" />
+                <point x="1100" y="90" />
+              </points>
+            </layout>
+            <relation from="di401165123717619026" from-iid="8b3ab095c4c24e8cb27a121a2558b95d" to="di850111378494994985" to-iid="6beebba4b13d45a9bcc17e971e1af60c" />
           </item>
         </layer>
       </diagram>
