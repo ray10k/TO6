@@ -38,12 +38,12 @@
         <value>10</value>
       </counter>
       <counter>
-        <item-type stereotype="" type="AbstractElementGroup" />
-        <value>715</value>
-      </counter>
-      <counter>
         <item-type stereotype="" type="UmlPackage" />
         <value>8</value>
+      </counter>
+      <counter>
+        <item-type stereotype="" type="AbstractElementGroup" />
+        <value>7</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -108,6 +108,12 @@
       <type id="User" tid="Class:di656368168201844671" name="User" description="" nullable="false" class-ref="di656368168201844671" />
       <type id="boolean" tid="" name="boolean" description="" nullable="false" />
       <type id="(Integer id" tid="" name="(Integer id" description="" nullable="false" />
+      <type id="uint8_t" tid="" name="uint8_t" description="" nullable="false" />
+      <type id="MessageStruct" tid="Class:di151984000981046601" name="MessageStruct" description="" nullable="false" class-ref="di151984000981046601" />
+      <type id="const MessageStruct&amp;" tid="" name="const MessageStruct&amp;" description="" nullable="false" />
+      <type id="uint16_t" tid="" name="uint16_t" description="" nullable="false" />
+      <type id="requestEnum" tid="Class:di757433549962850407" name="requestEnum" description="" nullable="false" class-ref="di757433549962850407" />
+      <type id="commandEnum" tid="Class:di738768229446215237" name="commandEnum" description="" nullable="false" class-ref="di738768229446215237" />
     </custom-types>
   </types>
   <filters />
@@ -187,7 +193,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-class" id="p68d380c92688487f8562077a571ac22d_168645626" name="ClassDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="-103,-247" zoom="0.6">
+      <diagram type="uml-class" id="p68d380c92688487f8562077a571ac22d_168645626" name="ClosedClassDiagram" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="-103,-247" zoom="0.6">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -346,7 +352,7 @@
               <end-role id="" name="" multiplicity="1..*" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di151984000981046601" cid="C009" type="class" name="MessageStruct" style-class="" visibility="package" creator="Pb1548c7509f14957a7720dcb1eb58d51" creation-date="01/25/2016 12:37:54">
+          <item id="di151984000981046601" cid="C009" type="class" name="MessageStruct" style-class="" visibility="package" creation-date="01/25/2016 12:37:54">
             <stereotypes>
               <stereotype name="struct" />
             </stereotypes>
@@ -360,13 +366,13 @@
               </attribute>
             </attributes>
             <operations>
-              <operation id="o96994314146f4bc9821a275b901ea455986" cid="OP197" name="operator=" type="MessageStruct" type-id="Class:di151984000981046601" visibility="public">
+              <operation id="o96994314146f4bc9821a275b901ea455986" cid="OP197" name="operator=" type="MessageStruct" type-id="MessageStruct" visibility="public">
                 <style class="default" />
                 <parameters>
                   <parameter id="p9e5c9390d17640f19ad8edca6e49a7de" name="rhs" type="const MessageStruct&amp;" type-id="const MessageStruct&amp;" />
                 </parameters>
               </operation>
-              <operation id="oece2d99c1a944eb7a427e44f8d6eb53127" cid="OP198" name="operator=" type="MessageStruct" type-id="Class:di151984000981046601" visibility="public">
+              <operation id="oece2d99c1a944eb7a427e44f8d6eb53127" cid="OP198" name="operator=" type="MessageStruct" type-id="MessageStruct" visibility="public">
                 <style class="default" />
                 <parameters>
                   <parameter id="pa8d229e371f345f98784c32d4c7c2a49" name="rhs" type="uint16_t" type-id="uint16_t" />
@@ -375,16 +381,16 @@
               <operation id="od90659242d2d4d7fb7cb563b2722ffb7801" cid="OP199" name="operator uint16_t" type="uint16_t" type-id="uint16_t" visibility="public">
                 <style class="default" />
               </operation>
-              <operation id="ob33b2f54948048eb8a77a10d7ac64144802" cid="OP200" name="operator=" type="MessageStruct" type-id="Class:di151984000981046601" visibility="public">
+              <operation id="ob33b2f54948048eb8a77a10d7ac64144802" cid="OP200" name="operator=" type="MessageStruct" type-id="MessageStruct" visibility="public">
                 <style class="default" />
                 <parameters>
-                  <parameter id="p55efb2d2bc924a768449ede07d021795" name="r" type="requestEnum" type-id="Class:di757433549962850407" />
+                  <parameter id="p55efb2d2bc924a768449ede07d021795" name="r" type="requestEnum" type-id="requestEnum" />
                 </parameters>
               </operation>
-              <operation id="o143c292857ff4bec89c352997e0dd51e802" cid="OP201" name="operator=" type="MessageStruct" type-id="Class:di151984000981046601" visibility="public">
+              <operation id="o143c292857ff4bec89c352997e0dd51e802" cid="OP201" name="operator=" type="MessageStruct" type-id="MessageStruct" visibility="public">
                 <style class="default" />
                 <parameters>
-                  <parameter id="pd96a5494967b439fab74b700ad64813e" name="c" type="commandEnum" type-id="Class:di738768229446215237" />
+                  <parameter id="pd96a5494967b439fab74b700ad64813e" name="c" type="commandEnum" type-id="commandEnum" />
                 </parameters>
               </operation>
             </operations>
