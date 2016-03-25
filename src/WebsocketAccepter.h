@@ -1,5 +1,5 @@
 //******************************************************************************
-//! Accepteert websocket verbindingen
+//! Accepts websocket connections
 //! 
 //! \authors
 //! 	- Daniel Klomp

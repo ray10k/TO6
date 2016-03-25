@@ -1,6 +1,5 @@
 //******************************************************************************
-//! Een entity class die een dataWebsocketPackage opslaat, waarin de textmessage zit en de
-//! id vd socket waar deze vandaan komt
+//! WebsocketPackage saves the dataWebsocketPackage, which holds the textmessage and the socket id.
 //! 
 //! \authors
 //! 	- Daniel Klomp
@@ -13,12 +12,7 @@
 #pragma once
 #include <string>
 
-/*!
- * WebsocketPackage is een entity class die een dataWebsocketPackage opslaat, waarin de textmessage 
- * zit en de id vd socket waar deze vandaan komt.
- * Deze wordt gebruikt om deze data door te geven via classes
- */
- 
+
  /*!
  * WebsocketPackage saves the dataWebsocketPackage, which holds the textmessage and the socket id.
  */
