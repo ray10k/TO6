@@ -14,7 +14,7 @@ WebsocketTask::WebsocketTask(userInteractionTask* uit) :
 
 void WebsocketTask::main() {
 #ifdef DEBUG
-	std::cout << "WC started."<< std::endl;
+	std::cout << "WT started."<< std::endl;
 #endif
     for (;;) {
 
