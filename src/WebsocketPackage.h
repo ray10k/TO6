@@ -18,30 +18,32 @@
  * zit en de id vd socket waar deze vandaan komt.
  * Deze wordt gebruikt om deze data door te geven via classes
  */
+ 
+ /*!
+ * WebsocketPackage saves the dataWebsocketPackage, which holds the textmessage and the socket id.
+ */
 class WebsocketPackage {
 
     public:
 
-        //! Lege constructor van WebsocketPackage. De gemaakte WebsocketPackage is een invalid 
-        //! WebsocketPackage die niet verstuurd kan worden.
+        //! Empty constructor for WebsocketPackage.
         WebsocketPackage() : message(""), id(-2) {}
 
-        //! Constructor van WebsocketPackage
-        /*!
-         \param id_var De id van de socket waar hij heen moet worden gestuurd of 
-         vandaan komt.
-         \param message_var Het bericht dat moet worden verstuurd of is ontvangen
+        //! Constructor for WebsocketPackage
+		 /*!
+		 \param id_var The id of the socket to where it will be send or received form.
+         \param message_var The recieved message.
          */
         WebsocketPackage(int id_var, std::string message_var) :
         message(message_var),
         id(id_var)
         {}
 
-        //! Getter voor de ID vd socket als integer.
+        //! Gets the id of the socket.
         int get_socket() {
             return id;
         }
-        //! Getter voor het bericht als std::string.
+        //! Gets the message.
         std::string get_message() {
             return message;
         }

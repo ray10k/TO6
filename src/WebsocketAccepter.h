@@ -15,21 +15,20 @@
 #include "MessageQueue.h"
 #include "webserver/websocket.h"
 
-/*!
- * De WebsocketAccepter accepteert websocket verbindingen en geeft deze door aan
- * een interne MessageQueue. Andere classes kunnen deze opvragen en via deze 
- * class toegang krijgen tot de dataWebsocketPackages die worden verstuurd.
+ 
+ /*!
+ * The WebsocketAccepter accepts websocket connections and gifs them to the MessageQueue. 
  */
 class WebsocketAccepter {
 
 public:
 	//! Constructor, also starts the server
 	/*!
-	 \param port De poort waarop de websocket server draait
+	 \param port The port of the websocket
 	 */
 	WebsocketAccepter(int port);
 
-	//! Getter voor de interne MessageQueue
+	//! Gets the MessageQueue
 	MessageQueue & get_message_queue();
 
 private:
