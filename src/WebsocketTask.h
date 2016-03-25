@@ -1,5 +1,5 @@
 //******************************************************************************
-//! Regelt de verbinding tussen het programma en de websockets.
+//! The WebsocketTask controls the connection between the UserintectionTask and websockets
 //! 
 //! \authors
 //! 	- Daniel Klomp
@@ -19,32 +19,29 @@
 class userInteractionTask;
 
 /*!
- * De WebsocketTask regelt de verbinding tussen het programma en de 
- * websockets. Op dit moment is dat alleen het doorgeven van berichten tussen de
- * MessageQueue en de WashInterfaceController. De class is echter nuttig in de 
- * toekomst. De security kan hier makkelijk worden geimplementeerd en ook
- * dingen als latency hoeven niet perse in de controller die de echte interface 
- * bestuurt.
+ * The WebsocketTask controls the connection between the UserintectionTask and websockets.
+ * This is done by sending messages between the MessageQueue and the UserintectionTask
  */
+ 
 class WebsocketTask : public RTOS::task {
 
     public:
 		//! Constructor
 		/*!
-		 \param wic referentie naar de WashInterfaceController
+		 \param uit Reference to the UserintectionTask
 		 */
         WebsocketTask( userInteractionTask* uit);
 
-		//! Zend een bericht naar de socket met het gegeven id
+		//! Sends a message to the socket with the given id
 		/*!
-		 \param id De id van de socket
-		 \param message Het bericht om te verzenden als std::string
+		 \param id The id of the Socket
+		 \param message The message that will be send
 		 */
         void sendPackageChannel_message(int id, std::string message);
 
-		//! Stuurt een bericht naar alle sockets.
+		//! Sends a message to all the sockets
 		/*!
-		 \param message Het bericht om te verzenden
+		 \param message The message that will be send
 		 */
         void broadcast(std::string message);
 

@@ -1,5 +1,5 @@
 //******************************************************************************
-//! Regelt het ontvangen en verzenden van dataWebsocketPackages naar en van WebSockets.
+//! MessageQueue is a class which receives and sends dataWebsocketPackages from and to WebSockets. 
 //! 
 //! \authors
 //! 	- Daniel Klomp
@@ -17,48 +17,44 @@
 #include <algorithm>
 
 /*!
- * De MessageQueue is een class die dataWebsocketPackages ontvangt en verzendt van en naar
- * WebSockets. Hij slaat de received WebsocketPackages op in een queue's
- * en andere klassen kunnen de received WebsocketPackages lezen. WebsocketPackages die verzonden 
- * worden, worden ook in een queue opgeslagen.
- * Ook kan er worden gebroadcast.
+ * MessageQueue is a class which receives and sends dataWebsocketPackages from and to WebSockets. 
+ * these WebsocketPackages are saved in a queue and other classes can read those
  */
+ 
 class MessageQueue : public WebSocketListener {
 public:
 
 	MessageQueue();
 	~MessageQueue();
 
-	//! Geeft een boolean terug die aangeeft of de messagequeue intern WebsocketPackages 
-	//! heeft die ontvangen zijn
+	//! Returns a boolean which is True if the messagequeue contains received WebsocketPackages
 	bool contains_received_WebsocketPackages();
 
-	//! Leest een WebsocketPackage uit de lijst van ontvangen WebsocketPackages en geeft deze terug.
-	//! Haalt de eerste WebsocketPackage uit de lijst.
+	//! Reads and returns the first WebsocketPackage out of all the received WebsocketPackages
 	WebsocketPackage pop_WebsocketPackage();
 
-	//! Zend een WebsocketPackage.
+	//! Sends a WebsocketPackage.
 	/*!
-	 \param p De WebsocketPackage die verzonden moet worden.
+	 \param p The WebsocketPackage that will be send
 	 */
 	void send_WebsocketPackage(WebsocketPackage p);
 
-	//! Voegt een socket toe aan de interne lijst
+	//! Adds a socket to the internal list
 	/*!
-	 \param socket De socket die toegevoegd moet worden.
+	 \param The socket that will be added
 	 */
 	void add_socket(WebSocket * socket);
 
-	//! Een callback die aangeroepen kan worden als een websocket iets ontvangt.
+	//! A callback that can be called when a websocket receives something
 	/*!
-	 \param message Een const string die de message representeert
-	 \param ws De websocket die het ontving
+	 \param message A const string which represents the message
+	 \param ws The WebSocket that received the message
 	 */
 	void onTextMessage(const string& message, WebSocket* ws);
 
-	//! Een callback die kan worden aangeroepen als een websocket sluit
+	//! A callback that can be called when a websocket closes
 	/*!
-	 \param ws De websocket die sluit.
+	 \param ws The websocket that closes.
 	 */
 	void onClose(WebSocket * ws);
 
