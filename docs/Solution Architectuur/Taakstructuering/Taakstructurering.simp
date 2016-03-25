@@ -55,7 +55,7 @@
       </counter>
       <counter>
         <item-type stereotype="" type="AbstractElementGroup" />
-        <value>13</value>
+        <value>79</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -115,7 +115,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-composite-structure" id="p856190422188009166" name="CompositeStructureDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="70,73" zoom="1.2">
+      <diagram type="uml-composite-structure" id="p856190422188009166" name="CompositeStructureDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="220,-30" zoom="1.2">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -127,17 +127,11 @@
           </authors>
           <description />
           <creation-date>09/25/2015 14:00:12</creation-date>
-          <change-date>02/08/2016 15:21:05</change-date>
+          <change-date>03/25/2016 12:20:15</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
         <abstract-items>
-          <item id="di388814805995928189" cid="PAR001" type="part" name="WebSocket" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="private" creator="Pc7258a33b28f45929b0c215661bc37b9" creation-date="09/25/2015 14:00:17">
-            <stereotypes />
-            <associated-diagrams />
-            <owned-items />
-            <style class="default" />
-          </item>
           <item id="di542882855862618794" cid="C001" type="class" name="UserInteractionTask" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="private" creator="Pc7258a33b28f45929b0c215661bc37b9" creation-date="09/25/2015 14:00:19">
             <stereotypes />
             <associated-diagrams />
@@ -271,43 +265,80 @@
             <owned-items />
             <style class="default" />
           </item>
+          <item id="di853678618902169411" cid="C001" type="class" name="WebsocketTask" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="private" creator="Pc7258a33b28f45929b0c215661bc37b9" creation-date="09/25/2015 14:00:19">
+            <stereotypes />
+            <associated-diagrams />
+            <owned-items>
+              <owned-item ref="di258766732134298928" />
+              <owned-item ref="di419009461404881653" />
+              <owned-item ref="di579006445626891760" />
+            </owned-items>
+            <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#3C000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9" name-use-defaults="false" name-color="#FF000000" name-font="Verdana;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-use-defaults="false" part-header-color="#FF1E1E1E" part-header-font="Verdana;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-use-defaults="false" text-color="#FF000000" text-font="Verdana;9;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-use-defaults="false" tagged-value-color="#FF1E1E1E" tagged-value-font="Verdana;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-use-defaults="false" stereotype-color="#FF1E1E1E" stereotype-font="Verdana;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center">
+              <background type="vertical-linear" color="#FFAAAAFF" color2="#FF0000FF" />
+              <border color="#FF000000" width="1" dash-style="Solid" />
+              <label-connector color="#80000000" width="1" dash-style="Dash" />
+              <alternate-styles>
+                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#3C000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9" name-use-defaults="false" name-color="#FF000000" name-font="Verdana;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-use-defaults="false" part-header-color="#FF1E1E1E" part-header-font="Verdana;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-use-defaults="false" text-color="#FF000000" text-font="Verdana;9;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-use-defaults="false" tagged-value-color="#FF1E1E1E" tagged-value-font="Verdana;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-use-defaults="false" stereotype-color="#FF1E1E1E" stereotype-font="Verdana;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center">
+                  <background type="vertical-linear" color="#FF1E90FF" color2="#FF87CEFA" />
+                  <border color="#FF00008B" width="1" dash-style="Solid" />
+                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
+                </alternate-style>
+              </alternate-styles>
+            </style>
+            <allow-composite-structure />
+            <attributes />
+            <operations />
+            <template-parameters>
+              <source-codes />
+            </template-parameters>
+          </item>
+          <item id="di258766732134298928" cid="PAR001" type="part" name="WebSocket" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" visibility="private" creator="Pc7258a33b28f45929b0c215661bc37b9" creation-date="09/25/2015 14:00:17">
+            <stereotypes />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+          </item>
         </abstract-items>
         <layer name="Default" visible="true" enabled="true" locked="false">
           <item id="di542882855862618794" iid="211c3604fabe4e54a8d5bae3032e02ee" creation-date="09/25/2015 14:00:19" order-index="1" type="entity">
-            <layout ax="210" ay="180" awidth="220" aheight="220" x="210" y="180" width="220" height="220" angle="0" />
+            <layout ax="210" ay="180" awidth="220" aheight="140" x="210" y="180" width="220" height="140" angle="0" />
             <class />
           </item>
-          <item id="di388814805995928189" iid="144a5a247bb142d3bd08160aafd12cf7" container="di542882855862618794" container-iid="211c3604fabe4e54a8d5bae3032e02ee" creation-date="09/25/2015 14:00:17" order-index="0" type="entity">
-            <layout ax="220" ay="220" awidth="120" aheight="50" x="220" y="220" width="120" height="50" angle="0" />
-          </item>
           <item id="di738476258456511313" iid="bc39cd7401e4478b8db98ccfaf7830fa" container="di542882855862618794" container-iid="211c3604fabe4e54a8d5bae3032e02ee" creation-date="09/25/2015 14:03:13" order-index="5" type="entity">
-            <layout ax="220" ay="280" awidth="146" aheight="50" x="220" y="280" width="146" height="50" angle="0" />
+            <layout ax="230" ay="220" awidth="180" aheight="40" x="230" y="220" width="180" height="40" angle="0" />
           </item>
           <item id="di800484266622432461" iid="22cc326d7b544a328b178343afdac436" creation-date="09/25/2015 14:08:32" order-index="12" type="entity">
             <layout ax="440" ay="180" awidth="220" aheight="220" x="440" y="180" width="220" height="220" angle="0" />
             <class />
           </item>
           <item id="di141777991874183300" iid="e3dd5df794c445e38a99001f94616421" container="di800484266622432461" container-iid="22cc326d7b544a328b178343afdac436" creation-date="09/25/2015 14:09:33" order-index="13" type="entity">
-            <layout ax="450" ay="220" awidth="160" aheight="40" x="450" y="220" width="160" height="40" angle="0" />
+            <layout ax="461" ay="234" awidth="186" aheight="40" x="461" y="234" width="186" height="40" angle="0" />
           </item>
           <item id="di867973392414452335" iid="6a72db10490548d491f8d6c512c7a516" container="di800484266622432461" container-iid="22cc326d7b544a328b178343afdac436" creation-date="09/25/2015 14:06:53" order-index="10" type="entity">
-            <layout ax="450" ay="340" awidth="200" aheight="40" x="450" y="340" width="200" height="40" angle="0" />
+            <layout ax="461" ay="345" awidth="187" aheight="40" x="461" y="345" width="187" height="40" angle="0" />
           </item>
           <item id="di420063550686320680" iid="730c3dc1fa25453d9e7dcf0463631a84" container="di800484266622432461" container-iid="22cc326d7b544a328b178343afdac436" creation-date="09/25/2015 14:10:15" order-index="14" type="entity">
-            <layout ax="450" ay="280" awidth="160" aheight="40" x="450" y="280" width="160" height="40" angle="0" />
+            <layout ax="460" ay="290" awidth="187" aheight="40" x="460" y="290" width="187" height="40" angle="0" />
           </item>
           <item id="di965604459490806979" iid="082708174c23469c9f76533fe42dc03f" container="di542882855862618794" container-iid="211c3604fabe4e54a8d5bae3032e02ee" creation-date="09/25/2015 14:03:09" order-index="3" type="entity">
-            <layout ax="220" ay="340" awidth="180" aheight="50" x="220" y="340" width="180" height="50" angle="0" />
+            <layout ax="230" ay="270" awidth="180" aheight="40" x="230" y="270" width="180" height="40" angle="0" />
           </item>
           <item id="di426467388568210799" iid="2c339a4ea04244f49bfbb45195a9a232" creation-date="09/25/2015 14:08:32" order-index="12" type="entity">
             <layout ax="210" ay="80" awidth="450" aheight="90" x="210" y="80" width="450" height="90" angle="0" />
             <class />
           </item>
           <item id="di425723840920434998" iid="a4d857c1ed0c459d98c4e4500ce59188" container="di426467388568210799" container-iid="2c339a4ea04244f49bfbb45195a9a232" creation-date="09/25/2015 14:09:33" order-index="13" type="entity">
-            <layout ax="220" ay="120" awidth="196" aheight="40" x="220" y="120" width="196" height="40" angle="0" />
+            <layout ax="230" ay="120" awidth="200" aheight="40" x="230" y="120" width="200" height="40" angle="0" />
           </item>
           <item id="di310526056860316819" iid="c7446c76bd134dc7b4ed4e6f8200e271" container="di426467388568210799" container-iid="2c339a4ea04244f49bfbb45195a9a232" creation-date="09/25/2015 14:12:03" order-index="16" type="entity">
-            <layout ax="450" ay="120" awidth="180" aheight="40" x="450" y="120" width="180" height="40" angle="0" />
+            <layout ax="440" ay="120" awidth="206" aheight="40" x="440" y="120" width="206" height="40" angle="0" />
+          </item>
+          <item id="di853678618902169411" iid="afe5096a96e545af8a2a5a1ea4750727" creation-date="09/25/2015 14:00:19" order-index="1" type="entity">
+            <layout ax="210" ay="325" awidth="220" aheight="75" x="210" y="325" width="220" height="75" angle="0" />
+            <class />
+          </item>
+          <item id="di258766732134298928" iid="edc3ec6c4568457e91fd6d045179f19c" container="di853678618902169411" container-iid="afe5096a96e545af8a2a5a1ea4750727" creation-date="09/25/2015 14:00:17" order-index="0" type="entity">
+            <layout ax="228" ay="365" awidth="180" aheight="28" x="228" y="365" width="180" height="28" angle="0" />
           </item>
         </layer>
       </diagram>
